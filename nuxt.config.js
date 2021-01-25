@@ -33,7 +33,15 @@ module.exports = {
       { property: 'description',  content: pkg.description, hid: 'description' },
       // https://cdn.bitwave.tv/static/img/BitWave2.sm.jpg // old image
     ],
-    script: [],
+    script: [
+      { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js" },
+      { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js" },
+      { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js" },
+      {
+        type:"application/javascript",
+        src:"https://theta-web-widgets.thetatoken.org/js/ThetaWebWidgets.js"
+      }
+    ],
     link: [
       {
         rel: 'icon',

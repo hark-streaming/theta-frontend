@@ -62,6 +62,7 @@
   import videojs from 'video.js';
   import 'videojs-contrib-quality-levels';
   import '@/assets/js/VideoPlayer/TriSpinner';
+
   // import 'videojs-contrib-dash';
 
   import { mapState, mapMutations } from 'vuex';
@@ -194,6 +195,15 @@
     },
 
     mounted () {
+
+      /*
+      let umdScript = document.createElement('script');
+      umdScript.setAttribute('src', "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js");
+      let hlsScript = document.createElement('script');
+      hlsScript.setAttribute('src', "https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js")
+      let
+      */
+
       this.playerInitialize();
     },
 
