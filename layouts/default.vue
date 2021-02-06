@@ -33,8 +33,7 @@
       <v-toolbar-title
         class="pl-0"
       >
-
-        <v-btn
+        <!-- <v-btn
           :ripple="false"
           depressed
           icon
@@ -51,7 +50,7 @@
               title="bitwave.tv homepage"
             />
           </v-avatar>
-        </v-btn>
+        </v-btn> -->
 
         <v-btn
           :v-if="!mobile"
@@ -68,7 +67,7 @@
 
       <v-spacer />
 
-      <stream-here-btn />
+      <!-- <stream-here-btn /> -->
 
       <notifications v-if="isAuth" />
 
@@ -77,7 +76,8 @@
     </v-app-bar>
 
     <!-- L-Nav Drawer -->
-    <sidebar v-model="drawer" />
+    <!-- removed for now-->
+    <!--<sidebar v-model="drawer" />-->
 
     <!-- Content -->
     <v-content>
@@ -85,10 +85,11 @@
     </v-content>
 
     <!-- Fireworks overlay -->
-    <fireworks
+    <!-- removed for now-->
+    <!--<fireworks
       :fixed="true"
       ref="fireworks"
-    />
+    />-->
 
   </v-app>
 </template>
@@ -119,7 +120,7 @@
     data () {
       return {
         bwLogo: '/images/icon-2.png',
-        title: '[bitwave.tv]',
+        title: 'HARK',
         drawer: null,
         ssr: true,
         systemAlertHidden: null,

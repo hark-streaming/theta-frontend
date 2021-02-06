@@ -29,15 +29,15 @@
         <!-- Live Now Header -->
         <div class="mb-4">
           <div class="d-flex justify-space-between align-end">
-            <div class="headline font-weight-light white--text">Live Now</div>
-            <v-switch
+            <div class="headline font-weight-light white--text">Top Politicians</div>
+            <!-- v-switch
               v-model="blurNSFW"
               label="Blur NSFW thumbnails"
               color="primary"
               hide-details
               dense
               inset
-            />
+            />-->
           </div>
 
           <!-- Livestream Grid -->
