@@ -26,6 +26,10 @@ $c6: #113a5a;*/
   animation: gradient 30s ease infinite;
 }
 
+.v-application .solid-background {
+    background: whitesmoke;
+}
+
 @keyframes gradient {
   0% {
     background-position: 0 50%;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="gradient-background">
+    <div class="solid-background">
       <!-- Goal Progress -->
       <goal-progress v-if="false" />
 
