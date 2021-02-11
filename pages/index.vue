@@ -29,7 +29,9 @@
         <!-- Live Now Header -->
         <div class="mb-4">
           <div class="d-flex justify-space-between align-end">
-            <div class="headline font-weight-light white--text">Top Politicians</div>
+            <div class="headline font-weight-light white--text">
+              Top Politicians
+            </div>
             <!-- v-switch
               v-model="blurNSFW"
               label="Blur NSFW thumbnails"
@@ -139,6 +141,30 @@ export default {
     // Timeout to prevent SSR from locking up
     const timeout = process.server ? process.env.SSR_TIMEOUT : 0;
 
+    // This is where the stream data is retrieved
+    // MODIFY THIS API CALL FOR HARK
+    // FORMAT
+    /*
+    {
+    "success": true,
+        "live": [
+            {
+            "viewCount": 209,
+            "src": "https://cdn.stream.bitwave.tv/hls/britbong/index.m3u8",
+            "name": "britbong",
+            "type": "application/x-mpegURL",
+            "nsfw": false
+            },
+            {
+            "viewCount": 65,
+            "src": "https://cdn.stream.bitwave.tv/hls/owo/index.m3u8",
+            "name": "owo",
+            "type": "application/x-mpegURL",
+            "nsfw": false
+            },
+        }
+    }
+    */
     const getStreams = async () => {
       try {
         const { data } = await $axios.getSSR(
