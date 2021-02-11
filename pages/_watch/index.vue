@@ -293,7 +293,7 @@ export default {
       this.scheduled = data.scheduled ? data.scheduled.toDate() : null;
 
       // Stream media
-      const url = "https://cdn.stream.bitrave.tv/hls/doomtube/index.m3u8"; //data.url;
+      const url = "http://127.0.0.1:8080/hls/test1.m3u8"; //"https://cdn.stream.bitrave.tv/hls/doomtube/index.m3u8"; //data.url;
       const type = data.type || `application/x-mpegURL`; // DASH -> application/dash+xml
 
       // Cover image
