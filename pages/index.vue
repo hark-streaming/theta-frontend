@@ -143,8 +143,7 @@ export default {
 
     // This is where the stream data is retrieved
     // MODIFY THIS API CALL FOR HARK
-    // FORMAT
-    /*
+    /* FORMAT
     {
     "success": true,
         "live": [
@@ -197,16 +196,55 @@ export default {
     */
     const getStreams = async () => {
       try {
-        const { data } = await $axios.getSSR(
+        /*const { data } = await $axios.getSSR(
           "https://api.bitwave.tv/v1/channels/live",
           {
             timeout,
           }
+        );*/
+
+        const { data } = await $axios.getSSR(
+          "http://localhost:3000/v1/channels/live",
+          {
+            timeout,
+          }
         );
+        
+
         if (data && data.success) {
+          console.log("help");
           return {
             live: data.live,
             streamers: data.streamers,
+
+            // just make it display britbong only as a test
+            /*live: [
+              {
+                viewCount: 209,
+                src: "https://cdn.stream.bitwave.tv/hls/britbong/index.m3u8",
+                name: "britbong",
+                type: "application/x-mpegURL",
+                nsfw: false,
+              },
+            ],
+            streamers: [
+              {
+                viewCount: 215,
+                title: " 🔴Britbong.com: Britbong never dies",
+                name: "britbong",
+                avatar:
+                  "https://cdn.bitwave.tv/uploads/v2/avatar/8c663568-f407-4f13-b427-3e035cfb3484-128.jpg",
+                poster:
+                  "https://bitwave.s3.us-west.stackpathstorage.com/img/cover/b71bc591-2f6f-4638-8638-757cbe22d71b-1280x720.png",
+                thumbnail: "https://cdn.stream.bitwave.tv/preview/britbong.jpg",
+                to: "/britbong",
+                live: true,
+                nsfw: false,
+                url: "https://cdn.stream.bitwave.tv/hls/britbong/index.m3u8",
+                owner: "ARbj6Q32wMVsbulZq2N1Mbe6j8A3",
+                banned: false,
+              },
+            ],*/
           };
         } else {
           console.log(`API Error:`, data);
