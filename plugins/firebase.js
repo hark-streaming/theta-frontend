@@ -13,14 +13,21 @@ import {VStore} from '@/store';
 import {logger} from "~/plugins/store-utils";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCgIwubBz-nTd0mof6l7eklzJk1evuwzhg",
+  /*apiKey: "AIzaSyCgIwubBz-nTd0mof6l7eklzJk1evuwzhg",
   authDomain: "bitwave-7f415.firebaseapp.com",
   databaseURL: "https://bitwave-7f415.firebaseio.com",
   projectId: "bitwave-7f415",
   storageBucket: "bitwave-7f415.appspot.com",
   messagingSenderId: "246532190856",
   appId: "1:246532190856:web:314a8853ea0f20717ee53d",
-  measurementId: "G-W05DKSF957",
+  measurementId: "G-W05DKSF957",*/
+  apiKey: "AIzaSyCQYdyR8yEFNIcVRPJEFo-78_HvEdcEn5Y",
+  authDomain: "hark-e2efe.firebaseapp.com",
+  projectId: "hark-e2efe",
+  storageBucket: "hark-e2efe.appspot.com",
+  messagingSenderId: "486205444714",
+  appId: "1:486205444714:web:096e48dd64a4867c453013",
+  measurementId: "G-77KW3MDC4R"
 };
 
 if ( !firebase.apps.length ) {
