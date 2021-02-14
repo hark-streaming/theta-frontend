@@ -276,6 +276,7 @@
       },
 
       // Create hCaptcha User
+      // CALLED ON REGISTER BUTTON
       async createHcaptchaUser () {
 
         // Put form in loading state
@@ -294,7 +295,7 @@
           eventCategory : 'login',
           eventAction   : 'register',
         });
-
+        
         // Send off our data!
         try {
           const endpoint = 'https://api.bitwave.tv/v1/user/register';
