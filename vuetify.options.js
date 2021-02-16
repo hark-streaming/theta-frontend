@@ -8,7 +8,7 @@ export default {
   lang: {},
   rtl: false,
   theme: {
-    dark: true,
+    dark: false,
     themes: {
       dark: { // swap primary to #13a9fe
         primary:   '#13a9fe',             // colors.yellow.base  // #ffeb3b

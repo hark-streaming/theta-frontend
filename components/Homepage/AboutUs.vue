@@ -183,7 +183,7 @@
     components: { WarrantCanary },
     data() {
       return {
-        copyrightText: `Bitwave Media ©  ${new Date().getFullYear()}`,
+        copyrightText: `Hark ©  ${new Date().getFullYear()}`,
       };
     },
 

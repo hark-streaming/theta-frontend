@@ -6,7 +6,7 @@
     tile
   >
     <div class="overline">
-      Powered by Bitwave Media
+      Hark: Democracy Speaks
       <span class="grey--text">{{ props.version }}</span>
     </div>
     <div class="d-flex overline">

@@ -66,7 +66,7 @@
       </v-responsive>
 
       <!-- Theta Web Widget -->
-      <div id="MY_THETA_WEB_WIDGET_ID"></div>
+      <!-- <div id="MY_THETA_WEB_WIDGET_ID"></div> -->
     </div>
 
     <!-- Chat -->
@@ -685,9 +685,9 @@ export default {
     this.getStreamData(); // Get stream data
 
     // theta web widget
-    var widget = new ThetaWebWidgets.OverviewWithTrafficChartWidget(null);
-    widget.setTheme(ThetaWebWidgets.Themes.Light);
-    widget.render("MY_THETA_WEB_WIDGET_ID");
+    //var widget = new ThetaWebWidgets.OverviewWithTrafficChartWidget(null);
+    //widget.setTheme(ThetaWebWidgets.Themes.Light);
+    //widget.render("MY_THETA_WEB_WIDGET_ID");
 
     const orientation = (screen.orientation || {}).type;
     if (orientation) {

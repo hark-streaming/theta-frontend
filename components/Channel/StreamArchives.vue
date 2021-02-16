@@ -4,8 +4,8 @@
       <!-- Banner Message -->
       <div class="d-flex flex-shrink-0 align-center flex-wrap mt-0 ml-5">
         <div class="d-inline-block subtitle">
-          <div>Replays will be available for up to <strong class="title">28</strong> days (4 weeks).</div>
-          <div class="overline grey--text">additional storage duration available upon request for a fee.</div>
+          <!-- <div>Replays will be available for up to <strong class="title">28</strong> days (4 weeks).</div> -->
+          <!-- <div class="overline grey--text">additional storage duration available upon request for a fee.</div> -->
         </div>
         <v-spacer/>
       </div>
@@ -47,7 +47,7 @@
 
       <!-- Stream Replays Data Table -->
       <div class="mt-5">
-        <div class="title ml-5 mb-3">Replay List</div>
+        <!-- <div class="title ml-5 mb-3">Replay List</div> -->
         <v-card>
           <v-data-table
             light
