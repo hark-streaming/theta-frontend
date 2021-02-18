@@ -278,6 +278,7 @@
       // Create hCaptcha User
       // CALLED ON REGISTER BUTTON
       // WE NEED AN HCAPTCHA SITE KEY FOR CAPTCHA TO WORK
+      // FOR LOCALHOST TESTING, use 127.0.0.1 instead of localhost
       async createHcaptchaUser () {
 
         // Put form in loading state
