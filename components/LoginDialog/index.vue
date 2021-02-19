@@ -207,7 +207,7 @@
 </template>
 
 <script>
-  import { auth } from '@/plugins/firebase.js'
+  import { auth } from '@/plugins/firebase.js' 
 
   export default {
     name: 'LoginDialog',
@@ -303,7 +303,8 @@
         // Send off our data!
         try {
           //const endpoint = 'https://api.bitwave.tv/v1/user/register';
-          const endpoint = 'http://localhost:5001/hark-e2efe/us-central1/api/users/register';
+          //const endpoint = 'http://localhost:5001/hark-e2efe/us-central1/api/users/register';
+          const endpoint = 'https://us-central1-hark-e2efe.cloudfunctions.net/api/users/register';
           const payload = {
             username: this.user.username,
             email: this.user.email,
