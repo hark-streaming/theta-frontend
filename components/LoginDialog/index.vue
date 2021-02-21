@@ -207,7 +207,7 @@
 </template>
 
 <script>
-  import { auth } from '@/plugins/firebase.js'
+  import { auth } from '@/plugins/firebase.js' 
 
   export default {
     name: 'LoginDialog',
@@ -277,13 +277,17 @@
 
       // Create hCaptcha User
       // CALLED ON REGISTER BUTTON
+      // WE NEED AN HCAPTCHA SITE KEY FOR CAPTCHA TO WORK
+      // FOR LOCALHOST TESTING, use 127.0.0.1 instead of localhost
       async createHcaptchaUser () {
 
         // Put form in loading state
         this.loading = true;
 
         // Validate inputs and captcha solution
-        const valid = await this.validate();
+        // TODO: make captcha work
+        // Dont validate right now because testing
+        const valid = true; //await this.validate();
         console.log( valid );
         if ( !valid ) {
           this.loading = false;
@@ -298,7 +302,9 @@
         
         // Send off our data!
         try {
-          const endpoint = 'https://api.bitwave.tv/v1/user/register';
+          //const endpoint = 'https://api.bitwave.tv/v1/user/register';
+          //const endpoint = 'http://localhost:5001/hark-e2efe/us-central1/api/users/register';
+          const endpoint = 'https://us-central1-hark-e2efe.cloudfunctions.net/api/users/register';
           const payload = {
             username: this.user.username,
             email: this.user.email,
