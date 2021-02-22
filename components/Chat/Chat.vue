@@ -1085,7 +1085,7 @@
 
 <style lang='scss'>
   #sidechat {
-    border-top: 3px $bw-blue;
+    border-top: 3px $hk-blue;
     //background-color: #000;
     max-width: 100%;
 

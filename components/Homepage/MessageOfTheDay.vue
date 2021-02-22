@@ -2,16 +2,8 @@
   <v-row class="justify-center">
     <div class="d-flex align-center">
       <div class="title text-center mx-3 d-flex flex-column">
-        <span class="font-weight-light white--text"
-          >The Future of Campaigning</span
-        >
-        <div>
-          <span
-            class="overline font-weight-black rgb-text"
-          >
-            {{ bottomText }}
-          </span>
-        </div>
+        <v-img src="/images/hark-logo.png" height="79px" width="289" class="my-4" />
+        <span class="font-weight-light"> DEMOCRACY SPEAKS </span>
       </div>
     </div>
   </v-row>
@@ -22,15 +14,6 @@ export default {
   name: "MessageOfTheDay",
 
   serverCacheKey: () => "MOTD",
-
-  data() {
-    return {
-      bottomText:
-        process.env.BITWAVE_ENV === "development"
-          ? "development build"
-          : "viewer discretion is advised",
-    };
-  },
 
   methods: {
     markComplete() {
