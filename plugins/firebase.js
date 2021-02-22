@@ -64,7 +64,8 @@ const listenToAuthState = (callback) => {
 // Forces grabbing a refreshed token
 const getFreshIdToken = async () => await auth.currentUser.getIdToken(true);
 
-
+// Not sure what these snapshot listeners are doing so im going to comment them- kevin
+/*
 export const listenToConfiguationUpdates = callbacks => {
     return db
         .collection('configurations')
@@ -99,7 +100,7 @@ export const listenToFeatureFlags = callbacks => {
             this.$sentry.captureException(error);
         });
 };
-
+*/
 
 export default async ({ app, store, $axios, $sentry }, inject) => {
     // only run client side
@@ -115,12 +116,13 @@ export default async ({ app, store, $axios, $sentry }, inject) => {
             else await store.dispatch(VStore.$actions.logout);
         });
 
+        // again, not sure what these conf and flags updates are supposed to do - kevin
         // Listen to the configuration, and dispatch updates
-        console.log(`Listening to configuration updates.`);
+        /*console.log(`Listening to configuration updates.`);
         listenToConfiguationUpdates([
             async ({ version }) => await store.dispatch(VStore.$actions.newVersionAvailable, version),
             async ({ alerts }) => await store.dispatch(VStore.$actions.updateAlerts, alerts),
-        ]);
+        ]);*/
 
         // Listen to the feature flags, and dispatch updates
         /*console.log( `Listening to feature flags...` );
