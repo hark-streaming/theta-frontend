@@ -6,7 +6,7 @@ html {
 
 .v-application {
   .bw-channel-topbar {
-    border-right: solid 1px $bw-blue !important;
+    border-right: solid 1px $hk-blue !important;
     overflow: auto;
   }
 }
@@ -41,15 +41,6 @@ $c6: #113a5a;*/
     background-position: 0 50%;
   }
 }
-
-
-/* Dora Gradient Background */
-/*body {
-  .v-application.theme--dark {
-    background: rgb(10,10,25);
-    background: linear-gradient(0deg, rgba(10,10,25,1) 0%, rgba(21,21,34,1) 100%);
-  }
-}*/
 
 
 
