@@ -212,10 +212,17 @@
   export default {
     name: 'LoginDialog',
 
+    props: {
+        initialSignUp: {
+            default: false,
+            type: Boolean
+        }
+    },
+
     data() {
       return {
         unsubAuthChanged: null,
-        signUp: false,
+        signUp: this.initialSignUp,
         loading: false,
         alert: false,
         alertMessage: '',
@@ -423,6 +430,7 @@
 
         try {
           // Verify Username is valid & not taken
+          // TODO: update to hark endpoint
           const endpoint = 'https://api.bitwave.tv/api/check-username';
           const payload = { username: username };
           const config = { progress: false };
