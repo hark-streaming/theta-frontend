@@ -13,9 +13,6 @@
                         <v-timeline-item small>Info Section 1</v-timeline-item>
                         <v-timeline-item small>Info Section 2</v-timeline-item>
                         <v-timeline-item small>Info Section 3</v-timeline-item>
-                        <v-timeline-item small>Info Section 4</v-timeline-item>
-                        <v-timeline-item small>Info Section 5</v-timeline-item>
-                        <v-timeline-item small>Info Section 6</v-timeline-item>
                     </v-timeline>
                 </v-card>
             </v-col>
@@ -75,81 +72,6 @@
                         </v-card>
                         <v-card elevation="2" class="px-8 mt-6">
                             <v-card-title> Info Section 3 </v-card-title>
-                            <v-text-field
-                                v-model="name"
-                                :counter="10"
-                                :rules="nameRules"
-                                label="Name"
-                                required
-                            ></v-text-field>
-
-                            <v-text-field
-                                v-model="email"
-                                :rules="emailRules"
-                                label="E-mail"
-                                required
-                            ></v-text-field>
-
-                            <v-select
-                                v-model="select"
-                                :items="items"
-                                :rules="[(v) => !!v || 'Item is required']"
-                                label="Item"
-                                required
-                            ></v-select>
-                        </v-card>
-                        <v-card elevation="2" class="px-8 mt-6">
-                            <v-card-title> Info Section 4 </v-card-title>
-                            <v-text-field
-                                v-model="name"
-                                :counter="10"
-                                :rules="nameRules"
-                                label="Name"
-                                required
-                            ></v-text-field>
-
-                            <v-text-field
-                                v-model="email"
-                                :rules="emailRules"
-                                label="E-mail"
-                                required
-                            ></v-text-field>
-
-                            <v-select
-                                v-model="select"
-                                :items="items"
-                                :rules="[(v) => !!v || 'Item is required']"
-                                label="Item"
-                                required
-                            ></v-select>
-                        </v-card>
-                        <v-card elevation="2" class="px-8 mt-6">
-                            <v-card-title> Info Section 5 </v-card-title>
-                            <v-text-field
-                                v-model="name"
-                                :counter="10"
-                                :rules="nameRules"
-                                label="Name"
-                                required
-                            ></v-text-field>
-
-                            <v-text-field
-                                v-model="email"
-                                :rules="emailRules"
-                                label="E-mail"
-                                required
-                            ></v-text-field>
-
-                            <v-select
-                                v-model="select"
-                                :items="items"
-                                :rules="[(v) => !!v || 'Item is required']"
-                                label="Item"
-                                required
-                            ></v-select>
-                        </v-card>
-                        <v-card elevation="2" class="px-8 mt-6">
-                            <v-card-title> Info Section 6 </v-card-title>
                             <v-text-field
                                 v-model="name"
                                 :counter="10"
