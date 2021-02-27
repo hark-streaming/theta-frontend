@@ -3,7 +3,6 @@
         <div class="mb-4 d-flex justify-space-around">REGISTER PAGE</div>
 
         <!-- 3 card layout -->
-
         <v-row no-gutters>
             <v-col>
                 <v-card elevation="2" @click="showLogin = true">
