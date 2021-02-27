@@ -423,7 +423,7 @@ export default {
             const nsfw = this.streamData.nsfw;
             const description = this.description;
             const stream = this.username.toLowerCase();
-            const streamRef = db.collection("streams").doc(stream);
+            const streamRef = db.collection("streams").doc(stream); // MAKE SURE THE FIRESTORE HAS THE CORRECT SECURITY RULES HERE
             await streamRef.update({
                 archive,
                 nsfw,

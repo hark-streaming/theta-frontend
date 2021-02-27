@@ -240,6 +240,8 @@ export default {
       });
     },
 
+    // This guy is the 15-30sec meme video bitwave slaps on before a stream loads
+    // Could probably replace this with an ad feature
     async getRandomBump() {
       const { data } = await this.$axios.get(`https://api.bitwave.tv/api/bump`);
       // limit to checking 15 most recent bumps
@@ -293,7 +295,8 @@ export default {
       this.scheduled = data.scheduled ? data.scheduled.toDate() : null;
 
       // Stream media
-      const url = "http://127.0.0.1:8080/hls/test1.m3u8"; //"https://cdn.stream.bitrave.tv/hls/doomtube/index.m3u8"; //data.url;
+      //const url = "http://127.0.0.1:8080/hls/test1.m3u8"; //"https://cdn.stream.bitrave.tv/hls/doomtube/index.m3u8"; //data.url;
+      const url = data.url;
       const type = data.type || `application/x-mpegURL`; // DASH -> application/dash+xml
 
       // Cover image
@@ -421,10 +424,12 @@ export default {
 
       // Attempt to load via API server
       try {
+          // TODO: add our own endpoint to get a channel
         const {
           data,
         } = await $axios.getSSR(
-          `https://api.bitwave.tv/api/channel/${channel}`,
+          //`https://api.bitwave.tv/api/channel/${channel}`,
+          `https://us-central1-hark-e2efe.cloudfunctions.net/api/channel/${channel}`,
           { timeout }
         );
         // Simple response validation
@@ -442,7 +447,7 @@ export default {
             success: false,
             error: {
               statusCode: 404,
-              message: `Could not find channel '${channel}'.`,
+              message: `API SERVER FAIL Could not find channel '${channel}'.`,
             },
           };
         }
@@ -465,7 +470,7 @@ export default {
               success: false,
               error: {
                 statusCode: 404,
-                message: `Could not find channel '${channel}'.`,
+                message: `DATABASE CALL FAIL Could not find channel '${channel}'.`,
               },
             };
           }
