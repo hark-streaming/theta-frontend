@@ -1,8 +1,5 @@
 <template>
-  <div>
-    sup
   <div>country</div>
-  </div>
 </template>
 
 <script>
