@@ -233,7 +233,7 @@
 
   #app.ssr {
     .v-menu,
-    .v-tooltip, {
+    .v-tooltip {
       display: block !important;
     }
   }
