@@ -63,7 +63,10 @@
           exact-active-class="app-title-active"
           class="text-none title px-2"
         >{{ title }}</v-btn>
+        
       </v-toolbar-title>
+
+      <v-btn to="../pages/_countries/index.vue">Countries</v-btn>
 
       <v-spacer />
 
