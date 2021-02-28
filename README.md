@@ -1,16 +1,10 @@
-# [bitwave.tv]
-
-![bitwave.tv banner image](/static/images/bitwave-banner.jpg)
-
-[[bitwave.tv]](https://bitwave.tv) - *an open platform live streaming service for creators to freely express themselves.*
-
 ## Dev Setup
 
 ``` bash
 # install dependencies
 $ npm ci
 
-# serve with hot reload at localhost:3000
+# serve with hot reload at localhost:3001
 $ npm run dev
 ```
 
@@ -26,8 +20,6 @@ $ npm start
 ```
 
 ---
-
-[![jetbrains logo](/static/images/jetbrains-128.png)](https://www.jetbrains.com/?from=bitwave)
 
 For additional explanation on how things work, checkout: 
 - [Vue.js](https://vuejs.org/v2/guide/)

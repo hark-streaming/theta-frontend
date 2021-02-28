@@ -33,7 +33,49 @@
 export default {
   name: "channel",
 
-  async mounted() {},
+  data() {
+    return {
+      mounted: false,
+
+      // Hydrated data defaults
+      name: "",
+      abbreviation: "NA",
+      image: "/images/minnalouisfornia.png",
+      articles: []
+    }
+  },
+
+  async mounted() {
+    // Attempt to load state data via API server
+      try {
+          // TODO: add our own endpoint to get a channel
+        const {
+          data,
+        } = await $axios.getSSR(
+          `https://us-central1-hark-e2efe.cloudfunctions.net/api/channel/${channel}`,
+          { 10 : float }
+        );
+        // Simple response validation
+        if (data && data.hasOwnProperty("name")) {
+          stateData = data;
+        }
+      } catch (error) {
+        // API server failed
+        console.error(error.message);
+
+        // API failed with 404, but server did not fail with 5xx
+        if (error.response && error.response.status === 404) {
+          console.error(`API server reponded with 404`);
+          return {
+            success: false,
+            error: {
+              statusCode: 404,
+              message: `API SERVER FAIL Could not find channel '${channel}'.`,
+            },
+          };
+        }
+      }
+  },
 };
 </script>
 
