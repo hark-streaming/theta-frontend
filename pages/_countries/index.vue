@@ -1,16 +1,14 @@
 <template>
   <div>
-    country
+    sup
+  <div>country</div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: "channel",
 
-  async mounted() {
-    
-  },
+  async mounted() {},
 };
 </script>
