@@ -242,6 +242,7 @@ export default {
 
     // This guy is the 15-30sec meme video bitwave slaps on before a stream loads
     // Could probably replace this with an ad feature
+    // also plays when a streamer is offline
     async getRandomBump() {
       const { data } = await this.$axios.get(`https://api.bitwave.tv/api/bump`);
       // limit to checking 15 most recent bumps
@@ -328,7 +329,7 @@ export default {
 
         // Experimental feature to prevent constant retries when player empties
         // This should reduce erroneous 404's on the ingestion servers
-
+        
         const CHECK_INTERVAL = 5;
         const MAX_TIME = 90;
 
@@ -429,6 +430,7 @@ export default {
           data,
         } = await $axios.getSSR(
           //`https://api.bitwave.tv/api/channel/${channel}`,
+          //`http://localhost:5001/hark-e2efe/us-central1/api/channel/${channel}`,
           `https://us-central1-hark-e2efe.cloudfunctions.net/api/channel/${channel}`,
           { timeout }
         );
