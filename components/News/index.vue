@@ -1,18 +1,21 @@
 <template>
-
-<div class="my-4">
-    <v-img src="https://cdn.cnn.com/cnnnext/dam/assets/210226144237-03-cpac-day-1-cruz-2021-medium-tease.jpg" />
-    <div>IMAGE TITLE</div>
-</div>
-
+  <div v-if="article != null" class="my-4">
+    <v-img :src="article.image" />
+    <div class="mt-3">
+      <a :href="article.url">
+        {{ article.name }}
+      </a>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'News Article'
-}
+  name: "NewsArticle",
+
+  props: ["article"],
+};
 </script>
 
 <style lang='scss'>
-
 </style>
