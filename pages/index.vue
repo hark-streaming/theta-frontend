@@ -72,27 +72,28 @@ export default {
 
   head() {
     return {
-      title: `Homepage - [bitwave.tv]`,
-      link: [{ rel: "canonical", href: `https://bitwave.tv` }],
+      title: `Homepage - hark.tv`,
+      link: [{ rel: "canonical", href: `https://hark.tv` }],
       meta: [
         {
           property: "og:title",
           hid: "og:title",
-          content: `Livestream Homepage - [bitwave.tv]`,
+          content: `Homepage - hark.tv`,
         },
-        { property: "og:url", hid: "og:url", content: `https://bitwave.tv` },
+        { property: "og:url", hid: "og:url", content: `https://hark.tv` },
         {
           property: "og:description",
           hid: "og:description",
-          content: `An open platform live streaming service for creators to freely express themselves.`,
+          content: `A video streaming platform for activists, commentators, & civil servants.`,
         },
         { property: "og:image", hid: "og:image", content: this.poster },
         {
           property: "description",
           hid: "description",
           content:
-            "An open platform live streaming service for creators to freely express themselves.",
+            "A video streaming platform for activists, commentators, & civil servants.",
         },
+        /*
         { property: "twitter:card", content: "summary_large_image" },
         { property: "twitter:site", content: "@BitwaveTV" },
         {
@@ -105,6 +106,7 @@ export default {
             "An open platform live streaming service for creators to freely express themselves.",
         },
         { property: "twitter:image", content: this.poster },
+        */
       ],
     };
   },

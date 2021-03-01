@@ -28,7 +28,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { property: 'viewport',     content: 'width=device-width, initial-scale=1' },
-      { property: 'og:site_name', content: '[bitwave.tv]' },
+      { property: 'og:site_name', content: 'Hark' },
       { property: 'og:image',     content: 'https://cdn.bitwave.tv/static/img/Bitwave_Banner.jpg', hid: 'og:image' },
       { property: 'description',  content: pkg.description, hid: 'description' },
       // https://cdn.bitwave.tv/static/img/BitWave2.sm.jpg // old image

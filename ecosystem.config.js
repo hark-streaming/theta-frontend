@@ -1,6 +1,6 @@
 module.exports = {
   apps : [{
-    name: 'bitwave.tv',
+    name: 'hark.tv',
     cwd: './',
     script: 'server/index.js', // Start server
 

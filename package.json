@@ -1,8 +1,8 @@
 {
-  "name": "bitwave.tv",
-  "version": "1.25.4",
-  "description": "An open platform live streaming service for creators to freely express themselves.",
-  "author": "Dispatch",
+  "name": "hark.tv",
+  "version": "1.0.0",
+  "description": "A video streaming platform for activists, commentators, & civil servants.",
+  "author": "Hark Streaming Inc.",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nuxt",
     "dev:express": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
