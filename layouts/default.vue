@@ -67,7 +67,7 @@
       </v-toolbar-title>
 
       <!-- temporary -->
-      <PagesDropDown></PagesDropDown>
+      <div><PagesDropDown></PagesDropDown></div>
 
       <v-spacer />
 
