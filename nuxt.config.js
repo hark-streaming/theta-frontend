@@ -255,6 +255,7 @@ module.exports = {
     { src: '@/plugins/pwa.client.js', mode: 'client' },
     { src: '@/plugins/sw-hook', mode: 'client' },
     { src: '@/plugins/VueCountdown', mode: 'client' },
+    { src: '@/plugins/VueTags', mode: 'client' },
   ],
 
   /*
