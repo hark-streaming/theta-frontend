@@ -27,7 +27,7 @@
         :xl="xl"
       >
         <stream-card
-          :to="stream.name"
+          :to="stream.to"
           :image="stream.thumbnail"
           :nsfw="stream.nsfw"
           :title="stream.title"
@@ -94,6 +94,7 @@ export default {
     async dataChanged(docs) {
       console.log("in streamgrid data changed");
       //docs = await $axios.get("http://localhost:3000/v1/channels/live");
+      //docs = await $axios.get("http://us-central1-hark-e2efe.cloudfunctions.net/api/channels/functions/live");
       this.streams = docs.map( doc => {
           const stream = doc.data();
           const thumbnail = ( stream.live ? stream.thumbnail : stream.cover ) || stream.cover;
