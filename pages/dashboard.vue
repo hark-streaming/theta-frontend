@@ -75,8 +75,24 @@
                                     @input="showSave = true"
                                 />
                             </v-flex>
+                            <v-flex class="mt-2">
+                                <vue-tags
+                                    :active="activeTags"
+                                    :all="allTags"
+                                    :element-count-for-start-arrow-scrolling="3"
+                                    :tab-index="1"
+                                    :tag-creation-enabled="true"
+                                    :colors-enabled="false"
+                                    :tag-color-default="'green'"
+                                    :tag-list-label="'Stream Topics'"
+                                    :placeholder="'Select a stream topic....'"
+                                    @on-tag-added="onTagAdded"
+                                    @on-tag-removed="onTagRemoved"
+                                    @on-tag-created="onTagCreated"
+                                />
+                            </v-flex>
+                            <!-- TODO: Remove NSFW because Hark won't have any -->
                             <v-flex shrink>
-                                <!-- TODO: Remove NSFW because Hark won't have any -->
                                 <v-switch
                                     v-model="streamData.nsfw"
                                     label="NSFW"
@@ -98,19 +114,6 @@
                                     @change="showSave = true"
                                 />
                             </v-flex>
-                            <vue-tags
-                                :active="activeTags"
-                                :all="allTags"
-                                :element-count-for-start-arrow-scrolling="3"
-                                :tab-index="1"
-                                :tag-creation-enabled="true"
-                                :colors-enabled="false"
-                                :colors="colors"
-                                :tag-color-default="'green'"
-                                :tag-list-label="'Select an option'"
-                                :placeholder="'Select an option'"
-                            />
-                            <div>pog time</div>
                             <v-layout>
                                 <v-spacer />
                                 <v-btn
@@ -131,22 +134,6 @@
 </template>
 
 <script>
-/*
-                                :element-count-for-start-arrow-scrolling="3"
-                                :tab-index="1"
-                                :tag-creation-enabled="true"
-                                :colors-enabled="false"
-                                :colors="colors"
-                                :tag-color-default="'green'"
-                                :tag-list-label="'Select an option'"
-                                :placeholder="'Select an option'"
-                                @on-tag-added="onTagAdded"
-                                @on-tag-removed="onTagRemoved"
-                                @on-tag-list-opened="onTagListOpened"
-                                @on-tag-list-closed="onTagListClosed"
-                                @on-tag-created="onTagCreated"
-*/
-
 
 import { auth, db } from "@/plugins/firebase.js";
 import { mapGetters, mapState } from "vuex";
@@ -198,25 +185,24 @@ export default {
             description: "",
 
 
-            // tags
+            // topic tags
             activeTags: [],
             allTags: [
                 {
                     "id": 1,
                     "name": "Bro",
                     "slug": "bro",
-                    "color": "#963dff"
                 },
                 {
                     "id": 2,
                     "name": "Brugh",
                     "slug": "brugh",
-                    "color": "#963dff"
                 }
             ],
             tagColors: [
                 'green',
-                'red'
+                'red',
+                'blue'
             ]
         };
     },
@@ -313,6 +299,18 @@ export default {
                 this.$refs["streamkeyinput"].blur();
             }, 3000);
         },
+
+        onTagAdded() {
+            console.log("hoogily boogily");
+        },
+
+        onTagRemoved() {
+
+        },
+
+        onTagCreated() {
+
+        }
     },
 
     computed: {
@@ -354,3 +352,11 @@ export default {
     },
 };
 </script>
+
+<style>
+
+.tags__shadow--tag-list-active{
+    z-index: 5 !important;
+}
+
+</style>
