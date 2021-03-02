@@ -66,7 +66,8 @@
         
       </v-toolbar-title>
 
-      <v-btn to="../pages/_countries/index.vue">Countries</v-btn>
+      <!-- temporary -->
+      <PagesDropDown></PagesDropDown>
 
       <v-spacer />
 
@@ -103,6 +104,7 @@
   import Notifications from '@/components/Notifications'
   import StreamHereBtn from '@/components/SubLayout/StreamHereBtn';
   import SystemAlert from '@/components/Alerts/SystemAlert';
+  import PagesDropDown from "../components/PagesDropDown";
 
   const Fireworks = async () => await import( '@/components/effects/fireworks' );
 
@@ -118,9 +120,11 @@
       Notifications,
       StreamHereBtn,
       Fireworks,
+      PagesDropDown
     },
 
     data () {
+        PagesDropDown
       return {
         bwLogo: '/images/icon-2.png',
         title: 'HARK',
