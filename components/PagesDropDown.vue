@@ -21,9 +21,18 @@ export default {
             // pages to be listed in drop down menu
             // links not working?? "Unknown API Error! Cannot read property 'abbreviation' of null"
             pages: [
-                { name: "Countries",    path: "/pages/_countries/index.vue" }, 
-                { name: "Admin",        path: "/pages/admin.vue" }, 
-                { name: "Test",      path: "/pages/test.vue" }
+                { 
+                    name: "Countries", 
+                    path: "/pages/_countries/index.vue" 
+                }, 
+                { 
+                    name: "Admin", 
+                    path: "/pages/admin.vue" 
+                }, 
+                { 
+                    name: "Test", 
+                    path: "/pages/test.vue" 
+                }
             ]
         }
     }
