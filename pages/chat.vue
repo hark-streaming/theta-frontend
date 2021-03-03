@@ -6,7 +6,7 @@
   export default {
     name: 'chat.vue',
 
-    layout: 'barebones',
+    layout: 'default',
 
     data() {
       return {}
