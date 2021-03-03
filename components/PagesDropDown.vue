@@ -5,7 +5,7 @@
 
         <button class="dropbtn">Pages</button>
         <div class="dropdown-content">
-            <nuxt-link v-for="page in pages" :key="page.name" :to="page.path">{{ page.name }}</nuxt-link>
+            <nuxt-link v-for="(page, index) in pages" :key="index" :to="page.path">{{ page.name }}</nuxt-link>
         </div>
         
     </div>
@@ -19,17 +19,25 @@ export default {
             // links not working?? "Unknown API Error! Cannot read property 'abbreviation' of null"
             pages: [
                 { 
-                    name: "Admin", 
-                    path: "/admin" 
-                }, 
-                { 
                     name: "Test", 
                     path: "/test" 
                 }, 
                 {
                     name: "Dashboard", 
                     path: "/dashboard"
-                }
+                },
+                { 
+                    name: "Admin", 
+                    path: "/admin" 
+                }, 
+                {
+                    name: "Chat", 
+                    path: "/chat"
+                }, 
+                {
+                    name: "Login", 
+                    path: "/login"
+                }                
             ]
         }
     }
