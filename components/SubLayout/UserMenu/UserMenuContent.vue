@@ -46,7 +46,7 @@
     <v-divider/>
 
     <v-sheet
-      color="grey darken-4"
+      
     >
       <v-list
         dense
