@@ -37,7 +37,19 @@ export default {
                 {
                     name: "Login", 
                     path: "/login"
-                }                
+                },
+                {
+                    name: "Index", 
+                    path: "/index"
+                },
+                {
+                    name: "Privacy", 
+                    path: "/privacy"
+                },
+                {
+                    name: "Profile", 
+                    path: "/profile"
+                },
             ]
         }
     }
