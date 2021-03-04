@@ -8,7 +8,8 @@
     <div id="general-chat-settings">
 
       <!-- Global Chat -->
-      <v-switch
+      <!-- i disabled the global chat switch -kevin -->
+      <!-- <v-switch
         v-model="globalChat"
         class="mt-3"
         color="primary"
@@ -30,7 +31,7 @@
             </v-tooltip>
           </div>
         </template>
-      </v-switch>
+      </v-switch> -->
 
       <!-- Receive @'s in Local -->
       <v-switch
