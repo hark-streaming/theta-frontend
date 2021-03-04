@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1 class="mb-4 d-flex justify-space-around">{{ nameCapitalized }}</h1>
+    <h1 class="mb-8 d-flex justify-space-around">{{ nameCapitalized }}</h1>
 
     <v-row>
       <!-- News & Stats -->
@@ -13,18 +13,25 @@
           </div>
         </v-card>
       </v-col>
+      <v-row no-gutters>
+        <v-col cols="8">
+          <test-theta />
+        </v-col>
 
-      <!-- Streams & Videos -->
-      <v-col cols="9">
-        <v-card elevation="2" class="pa-4">
-          <!--
+        <v-col cols="4"> </v-col>
+
+        <!-- Streams & Videos -->
+        <v-col cols="12" right>
+          <v-card elevation="2" class="pa-4">
+            <!--
             <stream-grid >
 
             </stream-grid>
           -->
-          <div class="brogermy">AHHH</div>
-        </v-card>
-      </v-col>
+            <div class="brogermy">AHHH</div>
+          </v-card>
+        </v-col>
+      </v-row>
     </v-row>
   </v-container>
 </template>
@@ -108,7 +115,7 @@ export default {
             articles,
             abbreviation,
             image,
-            nameCapitalized
+            nameCapitalized,
           },
         };
       } catch (error) {

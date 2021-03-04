@@ -179,9 +179,9 @@ export default {
       */
 
     // theta web widget
-    var widget = new ThetaWebWidgets.OverviewWithTrafficChartWidget(null);
-    widget.setTheme(ThetaWebWidgets.Themes.Light);
-    widget.render("SAMPLE_THETA_WEB_WIDGET_PLACEHOLDER");
+    //var widget = new ThetaWebWidgets.OverviewWithTrafficChartWidget(null);
+    //widget.setTheme(ThetaWebWidgets.Themes.Light);
+    //widget.render("SAMPLE_THETA_WEB_WIDGET_PLACEHOLDER");
 
     this.playerInitialize();
   },
