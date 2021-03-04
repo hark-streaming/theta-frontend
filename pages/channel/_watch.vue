@@ -233,6 +233,7 @@ export default {
             timestamp: null,
             scheduled: null,
             banned: false,
+            tags: [],
 
             banMessage:
                 "This channel has been banned for breaching our Terms of Service.",
@@ -313,6 +314,8 @@ export default {
             // Stream properties
             this.nsfw = data.nsfw;
             const live = data.live;
+
+            this.tags = data.tags;
 
             // Process timestamp
             this.timestamp = data.timestamp ? data.timestamp.toDate() : null;
@@ -525,6 +528,7 @@ export default {
                         owner: data.owner,
                         scheduled: data.scheduled,
                         banned: data.banned || false,
+                        tags: data.tags,
                     };
 
                     console.log(`Bypass should be successfull...`);
