@@ -94,9 +94,22 @@ export default {
 
             // Create video.js player
             this.player = videojs("streamplayer", {
-
                 //#region Theta stuff
                 techOrder: ["theta_hlsjs", "html5"],
+                theta_hlsjs: {
+                    videoId: "YOUR_INTERNAL_VIDEO_ID",
+                    userId: "YOUR_AUTHED_USER_ID",
+                    walletUrl:
+                        "wss://api-wallet-service.thetatoken.org/theta/ws",
+                    onWalletAccessToken: console.log("testssss"),
+                    hlsOpts: {
+                        overrideNative: !videojs.browser.IS_SAFARI,
+                        allowSeeksWithinUnsafeLiveWindow: true,
+                        enableLowInitialPlaylist: false,
+                        handlePartialData: true,
+                        smoothQualityChange: true,
+                    },
+                },
                 /*sources: [
                     {
                         src: "YOUR_VIDEO_URL",
@@ -104,14 +117,6 @@ export default {
                         label: "1080p",
                     },
                 ],*/
-                theta_hlsjs: {
-                    videoId: "YOUR_INTERNAL_VIDEO_ID",
-                    userId: "YOUR_AUTHED_USER_ID",
-                    walletUrl:
-                        "wss://api-wallet-service.thetatoken.org/theta/ws",
-                    //onWalletAccessToken: getWalletAccessToken,
-                    //hlsOpts: optionalHlsOpts,
-                },
                 //#endregion theta stuff
 
                 poster: this.poster,
