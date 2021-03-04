@@ -22,14 +22,6 @@
         :class="{ 'odysee-skin': isOdysee }"
         :odysee="isOdysee"
       />
-      <!-- Footer -->
-      <v-sheet
-        class="pa-2"
-        color="grey darken-4"
-        tile
-      >
-        <div class="overline">Powered by Bitwave Media</div>
-      </v-sheet>
     </div>
 </template>
 

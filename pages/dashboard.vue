@@ -11,6 +11,7 @@
             <v-row>
                 <!-- Stream Preview? -->
                 <v-col>
+                    <h1>Stream Preview</h1>
                     <v-responsive height="calc( 100% + 32px )">
                         <iframe
                             :src="`/embed/${username}`"
@@ -22,19 +23,18 @@
                     </v-responsive>
                 </v-col>
 
-                <!-- Chat Alerts? -->
-                <v-col>
-                    <dashboard-superchats />
-                </v-col>
-
                 <!-- Chat -->
-                <v-col>
+                <v-col :style="{width: mobile ? '100%' : '50px'}"> 
+                    <div :style="{display:block}">
+                        <!-- Chat Alerts? -->
+                        <dashboard-superchats />
+                    </div>
                     <div
                         v-if="displayChat"
                         class="d-flex flex-shrink-1"
                         :style="{
-                            width: mobile ? '100%' : '450px',
                             height: mobile ? '500px' : '555px',
+                            display:block
                         }" 
                     >
                         <chat :chat-channel="username" />

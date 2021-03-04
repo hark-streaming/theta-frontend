@@ -21,7 +21,7 @@
       </v-btn>
     </v-sheet>
 
-    <div class="elevation-3 pa-3 grey darken-4">
+    <div class="elevation-3 pa-3">
       <!-- Filter viewers -->
       <v-text-field
         label="Filter..."

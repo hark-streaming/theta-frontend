@@ -12,6 +12,7 @@
         :class="{ dense: highDensity }"
       >
         <!-- Skeleton placeholders (for SSR) -->
+        <!-- Errors on v-ifs: don't move to wrapper (messages don't show) -->
         <v-sheet
           v-if="!messages"
           v-for="i in 5"

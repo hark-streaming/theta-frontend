@@ -2,7 +2,7 @@
   <div>
     <v-card
       class="d-flex flex-column"
-      style="max-height: 80vh;"
+      style="max-height: 80vh; display: inline"
     >
       <!-- Title Bar -->
       <v-sheet
@@ -81,7 +81,7 @@
 
           <!-- Skeleton loader -->
           <component
-            is="v-slide-x-transition"
+            :is="v-slide-x-transition"
             hide-on-leave
           >
             <div
