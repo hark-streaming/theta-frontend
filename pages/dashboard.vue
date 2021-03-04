@@ -35,7 +35,7 @@
                         :style="{
                             width: mobile ? '100%' : '450px',
                             height: mobile ? '500px' : '555px',
-                        }"
+                        }" 
                     >
                         <chat :chat-channel="username" />
                     </div>
