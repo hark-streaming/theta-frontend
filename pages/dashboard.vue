@@ -187,18 +187,7 @@ export default {
 
             // topic tags
             activeTags: [],
-            allTags: [
-                {
-                    "id": 1,
-                    "name": "Bro",
-                    "slug": "bro",
-                },
-                {
-                    "id": 2,
-                    "name": "Brugh",
-                    "slug": "brugh",
-                }
-            ],
+            allTags: [],
             tagColors: [
                 'green',
                 'red',
@@ -223,8 +212,9 @@ export default {
             const streamRef = db.collection("streams").doc(stream);
             return streamRef.onSnapshot(
                 async (doc) => {
+                    await this.getAllTags();
                     this.showStreamInfo = doc.exists;
-                    if (this.showStreamInfo)
+                    if (this.showStreamInfo) 
                         await this.streamDataChanged(doc.data());
                 },
                 () => (this.showStreamInfo = false)
@@ -236,6 +226,7 @@ export default {
             this.streamData.title = data.title;
             this.streamData.nsfw = data.nsfw;
             this.description = data.description;
+            this.activeTags = this.parseTags(data.tags);
             this.streamDataLoading = false;
         },
 
@@ -251,12 +242,16 @@ export default {
             const nsfw = this.streamData.nsfw;
             const description = this.description;
             const stream = this.username.toLowerCase();
+            const tags = [];
+            this.activeTags.forEach(x => tags.push(x.name));
+
             const streamRef = db.collection("streams").doc(stream); // MAKE SURE THE FIRESTORE HAS THE CORRECT SECURITY RULES HERE
             await streamRef.update({
                 archive,
                 nsfw,
                 title,
                 description,
+                tags
             });
             this.saveLoading = false;
             this.showSave = false;
@@ -300,16 +295,60 @@ export default {
             }, 3000);
         },
 
-        onTagAdded() {
-            console.log("hoogily boogily");
+        // tags
+        async getAllTags() {
+
+            // get snapshot of all the tags
+            const tgsSnapshot = await db.collection("tags").get();
+            console.log("brogermy begins");
+            console.log(tgsSnapshot);
+
+            // shit dude now we're getting all their data
+            let tagRef = tgsSnapshot.docs
+                .map((doc => doc.data()));
+            
+            console.log("brogermy rises");
+            console.log(tagRef);
+            this.allTags = tagRef;
+            return;
         },
 
-        onTagRemoved() {
+        parseTags(tags) {
+            try {
+                let parsedTags = [];
+                tags.forEach(x => {
+                    for(let i = 0; i < this.allTags.length; i++) {
+                        if(this.allTags[i].name === x) {
+                            parsedTags.push(this.allTags[i]);
+                            break;
+                        }
+                    }
+                });
+                return parsedTags;
+            } catch {
+                return [];
+            }
 
+            return [];
         },
 
-        onTagCreated() {
+        onTagAdded(tag) {
+            this.activeTags.push(tag);
+            this.showSave = true;
+        },
 
+        onTagRemoved(tag) {
+            console.log(tag);
+            this.activeTags = this.activeTags.filter(x => x != tag);
+            this.showSave = true;
+        },
+
+        onTagCreated(tag) {
+            tag.slug = tag.slug.toLowerCase().Replace(' ', '_');
+            console.log(tag);
+            this.allTags.push(tag);
+            this.activeTags.push(tag);
+            this.showSave = true;
         }
     },
 
