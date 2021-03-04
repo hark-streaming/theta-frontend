@@ -35,9 +35,9 @@ module.exports = {
         ],
         script: [
             // { src: "https://cdn.jsdelivr.net/npm/hls.js@latest" },
-            { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js" },
-            { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js" },
-            { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js" },
+            // { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js" },
+            // { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js" },
+            // { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js" },
             {
                 type: "application/javascript",
                 src: "https://theta-web-widgets.thetatoken.org/js/ThetaWebWidgets.js"

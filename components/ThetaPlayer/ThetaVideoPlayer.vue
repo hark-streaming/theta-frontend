@@ -60,6 +60,14 @@ import { Player } from "@/store/player";
 export default {
     name: "theta-video-player",
 
+    head: {
+        script: [
+            { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js" },
+            { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js" },
+            { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js" },
+        ],
+    },
+
     props: {
         live: { type: Boolean },
         autoplay: { type: Boolean },
@@ -93,7 +101,7 @@ export default {
             this.initialized = false;
 
             // Create video.js player
-            this.player = videojs("streamplayer", {
+            this.player = window.player = videojs("streamplayer", {
                 //#region Theta stuff
                 techOrder: ["theta_hlsjs", "html5"],
                 theta_hlsjs: {
