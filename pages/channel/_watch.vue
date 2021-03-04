@@ -298,13 +298,20 @@ export default {
         },
 
         async streamDataChanged(data) {
+            console.log("stream data changed data", data);
             // Ban flag
             const banned = data.banned || false;
             this.banned = banned;
 
             // Streamer user properties
-            this.name = data.user.name;
-            this.avatar = data.user.avatar;
+
+            // Our data is structured differently rn so these fields were null
+            // TODO: copy bitwave better
+            //this.name = data.user.name;
+            this.name = data.name;
+            //this.avatar = data.user.avatar;
+            this.avatar = data.avatar;
+
             this.owner = data.owner;
 
             // Grab Stream Data
@@ -546,7 +553,7 @@ export default {
                 }
             }
 
-            try {
+            try { // THIS IS WHERE THE API DATA IS MAPPED TO THE VUE
                 const data = channelData;
 
                 // Ban flag
@@ -564,6 +571,9 @@ export default {
                 // Stream properties
                 const nsfw = data.nsfw;
                 const live = data.live;
+
+                // Stream tags
+                const tags = data.tags;
 
                 // Stream media
                 let type = data.type || `application/x-mpegURL`; // DASH -> application/dash+xml
@@ -616,6 +626,7 @@ export default {
                         timestamp,
                         scheduled,
                         banned,
+                        tags,
                     },
                 };
             } catch (error) {

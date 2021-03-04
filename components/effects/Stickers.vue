@@ -75,7 +75,7 @@
 
       getStickers () {
         const timestamp = new Date(Date.now() - 1000 * 60 * 60 * 3); // Last 3 hours
-        return db
+        /*return db
           .collection( 'stickers' )
           .where('channel', '==', this.channel.toLowerCase() )
           .where('display', '==', true )
@@ -83,7 +83,9 @@
           .endBefore( timestamp )
           .onSnapshot( query => {
             this.onStickersUpdated( query );
-          });
+          });*/
+          // temporarily removed - kevin
+          return null;
       },
 
       async getStickerData ( id ) {
