@@ -48,6 +48,10 @@
 
 <script>
 import videojs from "video.js";
+
+// I dont know if this import is needed for theta
+import hls from "hls.js";
+
 import "@videojs/http-streaming";
 import "videojs-contrib-quality-levels";
 import "videojs-hls-quality-selector";
@@ -57,13 +61,31 @@ import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
 import { Player } from "@/store/player";
 
+// But what the heck is a theta video player?
+// Through some big digging I have unearthed it
+// It is an advanced video js plugin 
+    // (https://docs.videojs.com/tutorial-plugins.html) 
+    // (https://blog.videojs.com/feature-spotlight-advanced-plugins/)
+    // (https://docs.videojs.com/docs/guides/plugins.html)
+// that uses hls.js and 20,000 lines of theta tech code
+// After that, it just registers itself as a videojs plugin that we can just use
+//
+// The problem is that it doesn't seem to be registerign as a videojs plugin
+
 export default {
     name: "theta-video-player",
 
+    
     head: {
+        // i have no idea if these scripts work
         script: [
+            // 20,000 lines of theta code
             { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js" },
+
+            // an HLS.js plugin made with the theta code (that is also used within the videojs plugin?)
             { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js" },
+
+            // the videojs plugin that gets registered that we actually use
             { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js" },
         ],
     },

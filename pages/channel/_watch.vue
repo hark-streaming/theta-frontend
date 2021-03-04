@@ -199,6 +199,11 @@ export default {
                 },
                 { property: "twitter:image", content: this.poster },
             ],
+            // script: [
+            //     { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js" },
+            //     { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js" },
+            //     { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js" },
+            // ],
         };
     },
 
