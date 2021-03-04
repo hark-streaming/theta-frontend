@@ -2,7 +2,7 @@
   <div
     id="sidechat"
     class="d-flex flex-grow-1 flex-column"
-    style="position: relative"
+    style="position: relative; display: inline"
     v-resize.quiet="onResize"
   >
 

@@ -3,7 +3,6 @@
   <v-sheet
     id="chat-input"
     class="pa-2 mt-1"
-    color="grey darken-4"
   >
 
     <!-- Text Input Field -->

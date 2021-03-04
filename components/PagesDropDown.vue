@@ -22,10 +22,6 @@ export default {
                     name: "Test", 
                     path: "/test" 
                 }, 
-                {
-                    name: "Dashboard", 
-                    path: "/dashboard"
-                },
                 { 
                     name: "Admin", 
                     path: "/admin" 
@@ -45,10 +41,6 @@ export default {
                 {
                     name: "Privacy", 
                     path: "/privacy"
-                },
-                {
-                    name: "Profile", 
-                    path: "/profile"
                 },
             ]
         }
