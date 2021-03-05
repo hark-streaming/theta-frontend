@@ -71,9 +71,8 @@
 
       <v-spacer />
 
-      <!-- <stream-here-btn /> -->
-
-      <notifications v-if="isAuth" />
+      <!-- Notifications Button -->
+      <!-- <notifications v-if="isAuth" /> -->
 
       <user-menu class="ml-2" />
 
