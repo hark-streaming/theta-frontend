@@ -34,10 +34,19 @@ module.exports = {
             // https://cdn.bitwave.tv/static/img/BitWave2.sm.jpg // old image
         ],
         script: [
-            // { src: "https://cdn.jsdelivr.net/npm/hls.js@latest" },
-            // { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js" },
-            // { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js" },
-            // { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js" },
+            // hls.js
+            { src: "https://cdn.jsdelivr.net/npm/hls.js@latest", async: true},
+
+            // 20,000 lines of theta code
+            { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js", async: true},
+
+            // an HLS.js plugin made with the theta code (that is also used within the videojs plugin?)
+            { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js", async: true},
+
+            // the videojs plugin that gets registered that we actually use
+            { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js", async: true, 
+                callback: () => {console.log("theta video script loaded")}     
+            },
             {
                 type: "application/javascript",
                 src: "https://theta-web-widgets.thetatoken.org/js/ThetaWebWidgets.js"
@@ -252,6 +261,7 @@ module.exports = {
         '@/plugins/firebase',
         '@/plugins/VueClipboard',
         '@/plugins/utils.js',
+        //'@/plugins/thetaplayer',
         { src: '@/plugins/commandParser.js', mode: 'client' },
         { src: '@/plugins/pwa.client.js', mode: 'client' },
         { src: '@/plugins/sw-hook', mode: 'client' },
