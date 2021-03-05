@@ -10,7 +10,7 @@
             <!-- Main dashboard -->
             <v-row>
                 <!-- Stream Preview? -->
-                <v-col>
+                <v-col :cols="12">
                     <h1>Stream Preview</h1>
                     <v-responsive height="calc( 100% + 32px )">
                         <iframe
@@ -24,7 +24,7 @@
                 </v-col>
 
                 <!-- Chat -->
-                <v-col :style="{width: mobile ? '100%' : '50px'}"> 
+                <v-col :cols="4"> 
                     <div :style="{display:block}">
                         <!-- Chat Alerts? -->
                         <dashboard-superchats />
@@ -139,6 +139,7 @@ import { auth, db } from "@/plugins/firebase.js";
 import { mapGetters, mapState } from "vuex";
 import { Chat as ChatStore } from "@/store/chat";
 import { VStore } from "@/store";
+import DashboardSuperchats from '../components/Dashboard/DashboardSuperchats.vue';
 
 export default {
     name: "dashboard",
@@ -146,6 +147,7 @@ export default {
     middleware: "auth",
 
     components: {
+        DashboardSuperchats
         
     },
 

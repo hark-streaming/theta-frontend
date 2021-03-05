@@ -130,8 +130,10 @@
             :title="title"
             :nsfw="nsfw"
             :description="description"
-            :timestamp="timestamp"
+            :timestamp="timestamp" 
+            :tags="tags"
         />
+
     </div>
 </template>
 

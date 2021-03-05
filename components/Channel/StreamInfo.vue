@@ -3,31 +3,53 @@
     <!-- Stream Title, Status -->
     <v-toolbar
       class="elevation-2"
-      color="accentwave"
-      dense
+      color="accentwave" 
+      dense 
+      prominent
     >
-      <!-- Live / Replay / Offline Indicator -->
-      <v-chip
-        class="flex-shrink-0"
-        :class="{ blink: live }"
-        :color="live ? 'red' : replay ? 'blue' : 'grey'"
-        label
-        outlined
-        small
-      >
-        <v-icon
-          v-show="live"
-          left
-          size="10"
-          class="mr-2"
-        >lens</v-icon>
-        {{ live ? 'LIVE' : replay ? 'REPLAY' : 'offline' }}
-      </v-chip>
 
-      <!-- Stream Title -->
-      <h3 class="mx-2 flex-grow-1 subtitle-1 font-weight-medium text-truncate" :title="title">
-        {{ title }}
-      </h3>
+      <v-container :style="{height:'100%'}" :class="mt-10" :align="stretch">
+        <v-row :class="ma-0">
+          <!-- Live / Replay / Offline Indicator -->
+          <v-chip
+            class="flex-shrink-0"
+            :class="{ blink: live }"
+            :color="live ? 'red' : replay ? 'blue' : 'grey'"
+            label
+            outlined
+            small
+          >
+            <v-icon
+              v-show="live"
+              left
+              size="10"
+              class="mr-2"
+            >lens</v-icon>
+            {{ live ? 'LIVE' : replay ? 'REPLAY' : 'offline' }}
+          </v-chip>
+
+          <!-- Stream Title -->
+          <h3 class="mx-2 flex-grow-1 subtitle-1 font-weight-medium text-truncate" :title="title">
+            {{ title }}
+          </h3>
+
+        </v-row>
+    
+        <v-row :class="ma-0">
+          <vue-tags
+            :active="tags"
+            :all="tags"
+            :element-count-for-start-arrow-scrolling="3"
+            :tab-index="1"
+            :tag-creation-enabled="false"
+            :colors-enabled="false"
+            :tag-color-default="'green'"
+            :tag-list-label="'Stream Topics'"
+            :placeholder="'Select a stream topic....'"
+          />
+        </v-row>
+
+      </v-container>
 
       <!-- Bottom Tabs -->
       <template #extension>
@@ -45,6 +67,7 @@
           <!-- <v-tab v-if="!replay">Stream Stats</v-tab> -->
         </v-tabs>
       </template>
+
     </v-toolbar>
 
     <!-- Stream Actions -->
@@ -207,6 +230,7 @@
       description: { type: String },
       timestamp: { type: Date },
       replay: { type: Boolean },
+      tags: { type: [] }
     },
 
     data () {
@@ -214,6 +238,7 @@
         tabData: 0,
         lastStreamed: '• • •',
         updateInterval: null,
+        tags: []
       };
     },
 
