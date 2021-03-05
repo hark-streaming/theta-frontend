@@ -63,31 +63,37 @@ import { Player } from "@/store/player";
 
 // But what the heck is a theta video player?
 // Through some big digging I have unearthed it
-// It is an advanced video js plugin 
-    // (https://docs.videojs.com/tutorial-plugins.html) 
-    // (https://blog.videojs.com/feature-spotlight-advanced-plugins/)
-    // (https://docs.videojs.com/docs/guides/plugins.html)
+// It is an advanced video js plugin
+// (https://docs.videojs.com/tutorial-plugins.html)
+// (https://blog.videojs.com/feature-spotlight-advanced-plugins/)
+// (https://docs.videojs.com/docs/guides/plugins.html)
 // that uses hls.js and 20,000 lines of theta tech code
 // After that, it just registers itself as a videojs plugin that we can just use
 //
-// The problem is that it doesn't seem to be registerign as a videojs plugin
+// The problem is that it doesn't seem to be registerign as a videojs plugin or tech
 
 export default {
     name: "theta-video-player",
 
-    
-    head: {
-        // i have no idea if these scripts work
-        script: [
-            // 20,000 lines of theta code
-            { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js" },
+    head() {
+        return {
+            // script: [
+            // // hls.js
+            // { src: "https://cdn.jsdelivr.net/npm/hls.js@latest", /*async: true*/},
 
-            // an HLS.js plugin made with the theta code (that is also used within the videojs plugin?)
-            { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js" },
+            // // 20,000 lines of theta code
+            // { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js", /*async: true*/},
 
-            // the videojs plugin that gets registered that we actually use
-            { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js" },
-        ],
+            // // an HLS.js plugin made with the theta code (that is also used within the videojs plugin?)
+            // { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js", /*async: true*/},
+
+            // // the videojs plugin that gets registered that we actually use
+            // { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js", 
+            //     /*async: true,*/
+            //     callback: () => {this.scriptsLoaded = true; console.log("final async script loaded");}     
+            // },
+            // ],    
+        };
     },
 
     props: {
@@ -100,6 +106,7 @@ export default {
 
     data() {
         return {
+            scriptsLoaded: false,
             initialized: false,
 
             player: null,
@@ -116,6 +123,7 @@ export default {
 
     methods: {
         playerInitialize() {
+            console.log("HELLO I AM IN PLAYER INIT");
             console.log(
                 `URL: ${this.source.url}, TYPE: ${this.source.type}, POSTER: ${this.poster}, AUTOPLAY: ${this.autoplay}, POSTER: ${this.poster}`
             );
@@ -126,19 +134,14 @@ export default {
             this.player = window.player = videojs("streamplayer", {
                 //#region Theta stuff
                 techOrder: ["theta_hlsjs", "html5"],
+                sources: [{ src: this.source.url, type: this.source.type }],
                 theta_hlsjs: {
                     videoId: "YOUR_INTERNAL_VIDEO_ID",
                     userId: "YOUR_AUTHED_USER_ID",
                     walletUrl:
                         "wss://api-wallet-service.thetatoken.org/theta/ws",
-                    onWalletAccessToken: console.log("testssss"),
-                    hlsOpts: {
-                        overrideNative: !videojs.browser.IS_SAFARI,
-                        allowSeeksWithinUnsafeLiveWindow: true,
-                        enableLowInitialPlaylist: false,
-                        handlePartialData: true,
-                        smoothQualityChange: true,
-                    },
+                    onWalletAccessToken: "test",
+                    hlsOpts: null,
                 },
                 /*sources: [
                     {
@@ -150,7 +153,7 @@ export default {
                 //#endregion theta stuff
 
                 poster: this.poster,
-                sources: [{ src: this.source.url, type: this.source.type }],
+                //sources: [{ src: this.source.url, type: this.source.type }],
                 autoplay: this.autoplay,
 
                 // UI Options
@@ -163,9 +166,9 @@ export default {
                 playbackRates: [0.25, 0.5, 1, 1.25, 1.5, 2],
                 plugins: {
                     qualityLevels: {},
-                    bitwaveTriSpinner: {
+                    /*bitwaveTriSpinner: {
                         size: 58,
-                    },
+                    },*/
                 },
                 inactivityTimeout: 2000,
                 controlBar: {
@@ -578,6 +581,9 @@ export default {
     },
 
     async mounted() {
+
+        this.scriptsLoaded ? console.log("SCRIPTS LOADED"): console.log("SCRIPTS NOT LOADED");
+        
         await this.loadPlayerSettings();
 
         this.playerInitialize();
@@ -588,6 +594,7 @@ export default {
         );
 
         this.mounted = true;
+        
     },
 
     beforeDestroy() {
