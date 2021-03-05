@@ -1,9 +1,13 @@
 $hk-blue: #50527D;
 $hk-dark: #000052;
 $hk-purple: #ac4efe;
-$hk-orange: #ff7b4b;
+$hk-orange: #cc6464;
 $hk-red: #A36167;
 
+$hkprimary: #cc6464;
+$hksecondary: #54547c;
+
 :export {
-    hk-blue: $hk-blue
+    hkprimary: $hkprimary,;
+    hksecondary: $hksecondary;
 }

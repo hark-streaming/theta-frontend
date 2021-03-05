@@ -18,7 +18,6 @@
     <v-app-bar
       app
       :clipped-left="true"
-      dark
       dense
       fixed
       color="accentwave"
@@ -66,7 +65,6 @@
         
       </v-toolbar-title>
 
-      <!-- temporary -->
       <div><PagesDropDown></PagesDropDown></div>
 
       <v-spacer />
@@ -83,7 +81,7 @@
     <!--<sidebar v-model="drawer" />-->
 
     <!-- Content -->
-    <v-main>
+    <v-main id="mainWindow">
       <nuxt />
     </v-main>
 
@@ -104,6 +102,7 @@
   import StreamHereBtn from '@/components/SubLayout/StreamHereBtn';
   import SystemAlert from '@/components/Alerts/SystemAlert';
   import PagesDropDown from "../components/PagesDropDown";
+  import colors from "assets/vars/colors.scss";
 
   const Fireworks = async () => await import( '@/components/effects/fireworks' );
 
@@ -242,6 +241,11 @@
     .v-tooltip {
       display: block !important;
     }
+  }
+
+  #mainWindow {
+    height: 100vh;
+    background-image: linear-gradient(to top right, hksecondary, hkprimary);
   }
 
 </style>

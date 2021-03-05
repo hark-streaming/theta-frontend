@@ -72,7 +72,7 @@
 
           <v-alert
             v-if="chatAlerts && chatAlerts.length === 0"
-            color="purple"
+            color="grey"
             dense
             class="my-3"
           >

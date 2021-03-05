@@ -27,7 +27,7 @@
                 <v-col :style="{width: mobile ? '100%' : '50px'}"> 
                     <div :style="{display:block}">
                         <!-- Chat Alerts? -->
-                        <dashboard-superchats />
+                        <!-- <dashboard-superchats /> -->
                     </div>
                     <div
                         v-if="displayChat"

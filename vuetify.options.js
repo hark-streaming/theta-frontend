@@ -1,5 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
-import colors from 'assets/vars/colors'
+import * as colorVars from 'assets/vars/colors.scss'
 
 // vuetify.options.js
 export default {
@@ -13,7 +13,8 @@ export default {
     dark: false,
     themes: {
       light: {
-        primary: $hk-blue
+        primary: colorVars.hkprimary, 
+        secondary: colorVars.hksecondary, 
       }, 
       dark: { // swap primary to #13a9fe
         primary:   '#A36167',             // colors.yellow.base  // #ffeb3b
