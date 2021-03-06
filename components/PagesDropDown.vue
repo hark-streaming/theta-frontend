@@ -3,7 +3,7 @@
 <template>
     <div class="dropdown">
 
-        <button class="dropbtn">Pages</button>
+        <button class="dropbtn">Pages<img id="drop-arrow" src="/images/dropdown-arrow.png" /></button>
         <div class="dropdown-content">
             <nuxt-link v-for="(page, index) in pages" :key="index" :to="page.path">{{ page.name }}</nuxt-link>
         </div>
@@ -50,7 +50,7 @@ export default {
 
 <style scoped>
     .dropbtn {
-        color: white;
+        color: #2f2f2f;
         padding: 16px;
         font-size: 16px;
         border: none;
@@ -80,6 +80,13 @@ export default {
     .dropdown-content a:hover {background-color: #ddd;}
 
     .dropdown:hover .dropdown-content {display: block;}
+
+    #drop-arrow {
+        width: 8px;
+        height: 6px;
+        margin-left: 4px;
+        margin-bottom: 3px;
+    }
 
     /* .dropdown:hover .dropbtn {background-color: #3e8e41;} */
 </style>

@@ -25,7 +25,7 @@
             :boilerplate="false"
             :type="`list-item-avatar, ${ i % 2 ? 'paragraph' : 'sentences' }`"
             class="d-flex"
-            dark
+            light
           ></v-skeleton-loader>
         </v-sheet>
 

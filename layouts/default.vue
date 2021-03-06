@@ -1,5 +1,5 @@
 <template>
-  <v-app :class="{ ssr: ssr, systemAlert: !!showSystemAlert }">
+  <v-app :class="{ ssr: ssr, systemAlert: !!showSystemAlert }" light>
     <!-- System Bar -->
     <v-slide-y-transition>
       <system-alert
@@ -81,7 +81,7 @@
     <!--<sidebar v-model="drawer" />-->
 
     <!-- Content -->
-    <v-main id="mainWindow">
+    <v-main >
       <nuxt />
     </v-main>
 
@@ -243,9 +243,9 @@
     }
   }
 
-  #mainWindow {
-    height: 100vh;
-    background-image: linear-gradient(to top right, hksecondary, hkprimary);
+  #app {
+    background-image: linear-gradient(to top right, #54547c, #ebe8e8, #cc6464);
   }
+  
 
 </style>

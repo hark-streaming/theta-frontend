@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="solid-background">
+    <div >
       <!-- Goal Progress -->
       <goal-progress v-if="false" />
 
