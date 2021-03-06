@@ -12,11 +12,11 @@ export default {
   theme: {
     dark: false,
     themes: {
+      // MAIN COLOR THEME
       light: {
-        primary: colorVars.hkprimary, 
-        secondary: colorVars.hksecondary, 
-        background: colors.red
-      }, 
+        primary: colorVars.hkprimary,
+        secondary: colorVars.hksecondary,
+      },
       dark: { // swap primary to #13a9fe
         primary:   '#A36167',             // colors.yellow.base  // #ffeb3b
         anchor:    '#13a9fe',
