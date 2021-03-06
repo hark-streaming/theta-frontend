@@ -41,7 +41,7 @@ module.exports = {
             {
                 rel: 'icon',
                 type: 'image/x-icon',
-                href: '/favicon.ico?3',
+                href: '/favicon.ico',
                 crossorigin: 'anonymouse',
             },
             {
