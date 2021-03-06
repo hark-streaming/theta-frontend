@@ -24,28 +24,29 @@
                 </v-col>
 
                 <!-- Chat -->
-                <v-col :style="{width: mobile ? '100%' : '50px'}"> 
-                    <div :style="{display:block}">
-                        <!-- Chat Alerts? -->
+                <v-col cols=4> 
+                    <!-- <div :style="{display:block}">
+                        <!- Chat Alerts? -->
                         <!-- <dashboard-superchats /> -->
-                    </div>
-                    <div
+                    <!-- </div> -->
+                    <v-sheet
                         v-if="displayChat"
                         class="d-flex flex-shrink-1"
                         :style="{
                             height: mobile ? '500px' : '555px',
                             display:block
-                        }" 
+                        }"
+                        color="accentwave"
                     >
                         <chat :chat-channel="username" />
-                    </div>
+                    </v-sheet>
                 </v-col>
             </v-row>
 
             <!-- Configuration -->
 
             <!-- Stream Info -->
-            <v-layout justify-center>
+            <v-layout justify-center class="pt-4">
                 <v-flex v-if="showStreamInfo" xs12 sm10 md8 lg6>
                     <v-card class="mb-4 pa-3">
                         <v-layout column>
