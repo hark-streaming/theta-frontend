@@ -20,7 +20,7 @@
                             width="100%"
                             height="100%"
                         ></iframe>
-                    </v-responsive>
+                    </v-responsive> 
                 </v-col>
 
                 <!-- Chat -->
