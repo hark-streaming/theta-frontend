@@ -6,10 +6,14 @@ $hk-red: #A36167;
 
 $hkprimary: #cc6464;
 $hksecondary: #54547c;
+$hksecondaryneutral: #bfbfcc;
 $hkaccentwave: #ecebeb;
+$hkneutral: #f9f9f9;
 
 :export {
     hkprimary: $hkprimary,;
     hksecondary: $hksecondary;
+    hksecondaryneutral: $hksecondaryneutral;
     hkaccentwave: $hkaccentwave;
+    hkneutral: $hkneutral;
 }

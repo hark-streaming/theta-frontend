@@ -20,7 +20,7 @@
       :clipped-left="true"
       dense
       fixed
-      color="accentwave"
+      color="secondary"
     >
       <!--<v-btn
         icon
@@ -61,6 +61,7 @@
           id="logo_text"
           exact-active-class="app-title-active"
           class="text-none title px-2"
+          color="white"
         >{{ title }}</v-btn>
         
       </v-toolbar-title>

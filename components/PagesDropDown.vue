@@ -42,7 +42,8 @@ export default {
                     name: "Privacy", 
                     path: "/privacy"
                 },
-            ]
+            ], 
+            text_color: "primary"
         }
     }
 }
@@ -50,7 +51,7 @@ export default {
 
 <style scoped>
     .dropbtn {
-        color: #2f2f2f;
+        color: white;
         padding: 16px;
         font-size: 16px;
         border: none;
