@@ -74,7 +74,7 @@ export default {
 
         const optionalHlsOpts = null;
         this.player = videojs("theta-test-player", {
-          techOrder: ["theta_hlsjs", "html5"],
+          techOrder: [/*"theta_hlsjs", */"html5"],
           sources: [
             {
               src:

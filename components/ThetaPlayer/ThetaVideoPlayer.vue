@@ -47,15 +47,18 @@
 </template>
 
 <script>
-import videojs from "video.js";
+// temporarily removed
+//import videojs from "video.js";
 
-// I dont know if this import is needed for theta
+// we're using the cdn version bc this doesnt work  
 //import hls from "hls.js";
 
-import "@videojs/http-streaming";
-import "videojs-contrib-quality-levels";
-import "videojs-hls-quality-selector";
-import "@/assets/js/VideoPlayer/TriSpinner";
+//import "@videojs/http-streaming";
+//import "videojs-contrib-quality-levels";
+//import "videojs-hls-quality-selector";
+//import "@/assets/js/VideoPlayer/TriSpinner";
+
+import "@/assets/js/VideoPlayer/ThetaHls";
 
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
@@ -68,28 +71,92 @@ import { Player } from "@/store/player";
 // (https://blog.videojs.com/feature-spotlight-advanced-plugins/)
 // (https://docs.videojs.com/docs/guides/plugins.html)
 // that uses hls.js and 20,000 lines of theta tech code
-// After that, it just registers itself as a videojs plugin that we can just use
+// the purpose of the plugin is to register the "theta_hlsjs" tech that we use
 //
 // The problem is that it doesn't seem to be registerign as a videojs plugin or tech
+// Ok here's why it wasn't: the theta script that registers the plugin must be called after all other scripts
+// and also it doesn't like the libraries for some reason
 
 export default {
     name: "theta-video-player",
 
     head() {
         return {
-            // script: [
-            // // hls.js
-            // { src: "https://cdn.jsdelivr.net/npm/hls.js@latest", /*async: true*/},
-            // // 20,000 lines of theta code
-            // { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js", /*async: true*/},
-            // // an HLS.js plugin made with the theta code (that is also used within the videojs plugin?)
-            // { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js", /*async: true*/},
-            // // the videojs plugin that gets registered that we actually use
-            // { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js",
-            //     /*async: true,*/
-            //     callback: () => {this.scriptsLoaded = true; console.log("final theta script loaded");}
-            // },
-            // ],
+            script: [
+                {
+                    hid: "sequenceload",
+                    src: "/js/seqLoadTheta.js",
+                    defer: true,
+                    callback: () => {
+                        console.log("sequential scripts loaded");
+
+                        // doesnt actually load all the scripts past a certain point? still works
+                        this.playerInitialize();
+                    },
+                },
+                // #region old script loading
+                // video js
+                // doesn't work with imported videojs???
+                // {
+                //     hid: "cdnvideojs",
+                //     src: "https://vjs.zencdn.net/7.10.2/video.min.js",
+                //     //async: true,
+                //     callback: () => {
+                //         console.log("vjs loaded");
+                //     },
+                // },
+
+                // // hls.js
+                // // also doesn't work with imported version??
+                // {
+                //     hid: "hls",
+                //     src: "https://cdn.jsdelivr.net/npm/hls.js@latest",
+                //     //async: true,
+                //     callback: () => {
+                //         console.log("hls loaded");
+                //     },
+                // },
+
+                // // 20,000 lines of theta code
+                // {
+                //     hid: "theta",
+                //     src:
+                //         //"https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js",
+                //         "/js/theta.js",
+                //     //async: true,
+                //     callback: () => {
+                //         console.log("theta loaded");
+                //     },
+                // },
+
+                // // an HLS.js plugin made with the theta code (that is also used within the videojs plugin?)
+                // {
+                //     hid: "hls-plugin",
+                //     src:
+                //         //"https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js",
+                //         "/js/theta-hls-plugin.js",
+                //     //async: true,
+                //     callback: () => {
+                //         console.log("hls plugin loaded");
+                //     },
+                // },
+
+                // // the videojs plugin that gets registered that we actually use
+                // // this has to load last or it doesnt work?
+                // {
+                //     hid: "videohlsjs",
+                //     src:
+                //         //"https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js",
+                //         "/js/videojs-theta-plugin.js",
+                //     //defer: true,
+                //     callback: () => {
+                //         this.scriptsLoaded = true;
+                //         console.log("theta videojs loaded");
+                //         this.playerInitialize();
+                //     },
+                // },
+                //#endregion old script loading
+            ],
         };
     },
 
@@ -120,7 +187,6 @@ export default {
 
     methods: {
         playerInitialize() {
-            //require("");
             console.log("HELLO I AM IN PLAYER INIT");
             console.log(
                 `URL: ${this.source.url}, TYPE: ${this.source.type}, POSTER: ${this.poster}, AUTOPLAY: ${this.autoplay}, POSTER: ${this.poster}`
@@ -131,7 +197,7 @@ export default {
             // Create video.js player
             this.player = window.player = videojs("streamplayer", {
                 //#region Theta stuff
-                techOrder: ["theta_hlsjs", "html5"],
+                techOrder: ["theta_hlsjs"/*, "html5"*/], // disable html5 fallback so we know when theta broken
                 sources: [{ src: this.source.url, type: this.source.type }],
                 theta_hlsjs: {
                     videoId: "YOUR_INTERNAL_VIDEO_ID",
@@ -163,10 +229,11 @@ export default {
 
                 playbackRates: [0.25, 0.5, 1, 1.25, 1.5, 2],
                 plugins: {
-                    qualityLevels: {},
+                    //qualityLevels: {},
                     /*bitwaveTriSpinner: {
                         size: 58,
                     },*/
+                    //examplePlugin: {},
                 },
                 inactivityTimeout: 2000,
                 controlBar: {
@@ -203,13 +270,13 @@ export default {
             // --- Video.js plugin functions
 
             // Add reloadSourceOnError plugin
-            this.player.reloadSourceOnError({ errorInterval: 10 });
+            //this.player.reloadSourceOnError({ errorInterval: 10 });
 
             // Load all qualities
-            this.qualityLevels = this.player.qualityLevels();
-            this.player.hlsQualitySelector({
-                displayCurrentQuality: true,
-            });
+            // this.qualityLevels = this.player.qualityLevels();
+            // this.player.hlsQualitySelector({
+            //     displayCurrentQuality: true,
+            // });
 
             // Autoplay detection magic
             /*const autoPlayEvents = [ 'loadedmetadata', 'durationchange' ];
@@ -530,10 +597,11 @@ export default {
             setDetach: Player.$mutations.setDetach,
         }),
 
-        ...mapActions(Player.namespace, {
-            loadPlayerSettings: Player.$actions.loadSettings,
-        }),
-    },
+        // We dont want it to load from local cause it fricks up
+        // ...mapActions(Player.namespace, {
+        //     loadPlayerSettings: Player.$actions.loadSettings,
+        // }),
+    },  
 
     computed: {
         ...mapState(Player.namespace, {
@@ -578,46 +646,25 @@ export default {
         },
     },
 
-    beforeCreate() {
-        // if (process.browser) {
-        //     const script1 = document.createElement("script");
-        //     script1.src = "https://cdn.jsdelivr.net/npm/hls.js@latest";
-        //     document.body.appendChild(script1);
-
-        //     const script2 = document.createElement("script");
-        //     script2.src =
-        //         "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js";
-        //     document.body.appendChild(script2);
-
-        //     const script3 = document.createElement("script");
-        //     script3.src =
-        //         "https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js";
-        //     document.body.appendChild(script3);
-
-        //     const script4 = document.createElement("script");
-        //     script4.src =
-        //         "https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js";
-        //     document.body.appendChild(script4);
-
-        //     console.log("HELLO THIS IS BEFORE CREATE");
-        // }
-    },
-
     async mounted() {
-        //this.scriptsLoaded ? console.log("SCRIPTS LOADED"): console.log("SCRIPTS NOT LOADED");
 
-        setTimeout(async () => {
-            await this.loadPlayerSettings();
+        // Temporarily removed
+        //await this.loadPlayerSettings();
 
-            this.playerInitialize();
+        //this.playerInitialize();
+        console.log("MOUNTED CALLED");
+        // from https://stackoverflow.com/questions/43652265/how-to-run-vuejs-code-only-after-vue-is-fully-loaded-and-initialized/43656809
+        // window.addEventListener('load', () => {
+        //   console.log("LOAD EVENT FIRED, INITIALIZING PLAYER");
+        //   this.playerInitialize();
+        // });
 
-            this.watchTimer = setInterval(
-                () => this.trackWatchTime(),
-                1000 * this.watchInterval
-            );
+        this.watchTimer = setInterval(
+            () => this.trackWatchTime(),
+            1000 * this.watchInterval
+        );
 
-            this.mounted = true;
-        }, 5000);
+        this.mounted = true;
     },
 
     beforeDestroy() {

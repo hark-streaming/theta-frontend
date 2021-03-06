@@ -1,5 +1,6 @@
 // i copied this from https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.js
-
+// the function runs as soon as this file is loaded
+// https://stackoverflow.com/questions/60365052/why-is-functionglobal-factory-used-in-so-many-js-libraries
 
 /*! @name @theta/videojs-theta-plugin @version 0.0.0 @license UNLICENSED */
 (function (global, factory) {
@@ -432,6 +433,8 @@
   
       Tech.registerTech('theta_hlsjs', ThetaHlsJsPlugin);
       videojs.options.techOrder.push('theta_hlsjs');
+      // i added this log -kevin
+        console.log("registering the theta plugin, techorder", videojs.options.techOrder);
     }
   
     if (window && window.Theta && window.Hls && window.videojs) {
