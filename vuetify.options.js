@@ -16,6 +16,7 @@ export default {
       light: {
         primary: colorVars.hkprimary,
         secondary: colorVars.hksecondary,
+        accentwave: colorVars.hkaccentwave
       },
       dark: { // swap primary to #13a9fe
         primary:   '#A36167',             // colors.yellow.base  // #ffeb3b

@@ -7,9 +7,10 @@
     >
       <img
         style="max-width: 90%"
-        src="https://cdn.bitwave.tv/static/img/bitwavetv.png"
+        src="/images/hark-logo.png"
         alt="bitwave live streaming platform"
         crossorigin
+        class="my-8"
       />
     </div>
 

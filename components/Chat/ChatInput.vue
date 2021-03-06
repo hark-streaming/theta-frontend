@@ -3,6 +3,7 @@
   <v-sheet
     id="chat-input"
     class="pa-2 mt-1"
+    color="accentwave"
   >
 
     <!-- Text Input Field -->
@@ -15,7 +16,6 @@
       :loading="loading"
       :disabled="loading"
       class="mb-0"
-      color="primary"
       autocomplete="new-chat-message"
       autocorrect="off"
       autocapitalize="off"

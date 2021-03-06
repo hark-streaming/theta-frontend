@@ -12,7 +12,7 @@
                 <!-- Stream Preview? -->
                 <v-col>
                     <h1>Stream Preview</h1>
-                    <v-responsive height="calc( 100% + 32px )">
+                    <v-responsive height="calc( 100% )">
                         <iframe
                             :src="`/embed/${username}`"
                             frameborder="none"
@@ -21,6 +21,7 @@
                             height="100%"
                         ></iframe>
                     </v-responsive> 
+                    
                 </v-col>
 
                 <!-- Chat -->
@@ -36,6 +37,7 @@
                             height: mobile ? '500px' : '555px',
                             display:block
                         }"
+                        light
                         color="accentwave"
                     >
                         <chat :chat-channel="username" />
