@@ -207,8 +207,7 @@ export default {
                 techOrder: ["theta_hlsjs" /*, "html5"*/], // disable html5 fallback so we know when theta broken
                 theta_hlsjs: {
                     videoId: this.streamer,
-                    //im just going to put the id token here, don't know if thats what it wants
-                    userId: this.getAuthUserIdToken, 
+                    userId: auth.currentUser.uid, //im just going to put the firebase uid here
                     walletUrl:
                         "wss://api-wallet-service.thetatoken.org/theta/ws",
                     onWalletAccessToken: this.getWalletAccessToken,
@@ -606,11 +605,13 @@ export default {
             }
 
             //This API should check the user's auth
-            //let body = await yourAPIRequestToGenerateThetaWalletAccessTokenForAuthedUser();
+            let body = await this.$axios.post(
+                `https://us-central1-hark-e2efe.cloudfunctions.net/api/jwtauth`,
+                {idToken: idToken}
+            );
 
             //Return the access token from the request body
-            //return body.access_token;
-            return null;
+            return body.access_token;
         },
 
         // returns the user's id auth token if they are logged in, otherwise, null
@@ -624,7 +625,7 @@ export default {
             // logged in, return auth token
             else {
                 const token = await auth.currentUser.getIdToken(true);
-                //console.log("USER LOGGED IN, TOKEN: ", token);
+                console.log("USER LOGGED IN, TOKEN: ", token);
                 return token;
             }
         },
