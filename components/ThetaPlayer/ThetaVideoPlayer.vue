@@ -50,7 +50,7 @@
 // temporarily removed
 //import videojs from "video.js";
 
-// we're using the cdn version bc this doesnt work  
+// we're using the cdn version bc this doesnt work
 //import hls from "hls.js";
 
 //import "@videojs/http-streaming";
@@ -59,6 +59,7 @@
 //import "@/assets/js/VideoPlayer/TriSpinner";
 
 import "@/assets/js/VideoPlayer/ThetaHls";
+import { auth } from "@/plugins/firebase.js";
 
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
@@ -90,11 +91,16 @@ export default {
                     callback: () => {
                         console.log("sequential scripts loaded");
 
-                        // doesnt actually load all the scripts past a certain point? still works
-                        this.playerInitialize();
+                        // The sequence script being loaded doesnt ensure it has been executed
+                        // As a temporary workaround, wait 1 second so the scripts load
+                        // Yes this is very dumb but i want to move on
+                        setTimeout(() => {
+                            console.log("initializing the videojs player");
+                            this.playerInitialize();
+                        }, 1000);
                     },
                 },
-                // #region old script loading
+                // #region old script loading, probably remove
                 // video js
                 // doesn't work with imported videojs???
                 // {
@@ -164,6 +170,7 @@ export default {
         live: { type: Boolean },
         autoplay: { type: Boolean },
         docked: { type: Boolean },
+        streamer: { type: String },
     },
 
     components: {},
@@ -197,25 +204,25 @@ export default {
             // Create video.js player
             this.player = window.player = videojs("streamplayer", {
                 //#region Theta stuff
-                techOrder: ["theta_hlsjs"/*, "html5"*/], // disable html5 fallback so we know when theta broken
-                sources: [{ src: this.source.url, type: this.source.type }],
+                techOrder: ["theta_hlsjs" /*, "html5"*/], // disable html5 fallback so we know when theta broken
                 theta_hlsjs: {
-                    videoId: "YOUR_INTERNAL_VIDEO_ID",
-                    userId: "YOUR_AUTHED_USER_ID",
+                    videoId: this.streamer,
+                    //im just going to put the id token here, don't know if thats what it wants
+                    userId: this.getAuthUserIdToken, 
                     walletUrl:
                         "wss://api-wallet-service.thetatoken.org/theta/ws",
-                    onWalletAccessToken: null,
-                    hlsOpts: null,
-                },
-                /*sources: [
-                    {
-                        src: "YOUR_VIDEO_URL",
-                        type: "application/vnd.apple.mpegurl",
-                        label: "1080p",
+                    onWalletAccessToken: this.getWalletAccessToken,
+                    hlsOpts: {
+                        overrideNative: !videojs.browser.IS_SAFARI,
+                        allowSeeksWithinUnsafeLiveWindow: true,
+                        enableLowInitialPlaylist: false,
+                        handlePartialData: true,
+                        smoothQualityChange: true,
                     },
-                ],*/
+                },
                 //#endregion theta stuff
 
+                sources: [{ src: this.source.url, type: this.source.type }],
                 poster: this.poster,
                 //sources: [{ src: this.source.url, type: this.source.type }],
                 autoplay: this.autoplay,
@@ -322,18 +329,18 @@ export default {
                     );
                 }
 
-                const playerTech = this.player.tech({
-                    IWillNotUseThisInPlugins: true,
-                });
+                // const playerTech = this.player.tech({
+                //     IWillNotUseThisInPlugins: true,
+                // });
 
-                playerTech.on("retryplaylist", (event) => {
-                    console.log(`retryplaylist:`, event);
-                    if (!this.live) console.log(`livestream is offline.`);
-                });
+                // playerTech.on("retryplaylist", (event) => {
+                //     console.log(`retryplaylist:`, event);
+                //     if (!this.live) console.log(`livestream is offline.`);
+                // });
 
-                playerTech.on("usage", (event) => {
-                    console.log(`${event.name}:`, event);
-                });
+                // playerTech.on("usage", (event) => {
+                //     console.log(`${event.name}:`, event);
+                // });
 
                 // "Keep Live" Feature
                 this.player.liveTracker.on("liveedgechange", async () => {
@@ -586,10 +593,40 @@ export default {
             this.lastVPQ = { ...$bw.vhs.stats.videoPlaybackQuality };
         },
 
-        belle() {
-            this.url = "https://www.youtube.com/watch?v=TL470fJMi7w";
-            this.type = "video/youtube";
-            this.reloadPlayer();
+        // From https://docs.thetatoken.org/docs/theta-p2p-javascript-sdk
+        async getWalletAccessToken() {
+            
+            // Get the user id token, if it exits
+            const idToken = await this.getAuthUserIdToken();
+
+            //Check if a user is logged in...
+            if (idToken == null) {
+                //No user is logged in, no wallet will be used
+                return null;
+            }
+
+            //This API should check the user's auth
+            //let body = await yourAPIRequestToGenerateThetaWalletAccessTokenForAuthedUser();
+
+            //Return the access token from the request body
+            //return body.access_token;
+            return null;
+        },
+
+        // returns the user's id auth token if they are logged in, otherwise, null
+        async getAuthUserIdToken() {
+            // not logged in, return null
+            if (auth.currentUser == null) {
+                //console.log("USER NOT LOGGED IN");
+                return null;
+            } 
+            
+            // logged in, return auth token
+            else {
+                const token = await auth.currentUser.getIdToken(true);
+                //console.log("USER LOGGED IN, TOKEN: ", token);
+                return token;
+            }
         },
 
         ...mapMutations(Player.namespace, {
@@ -601,7 +638,7 @@ export default {
         // ...mapActions(Player.namespace, {
         //     loadPlayerSettings: Player.$actions.loadSettings,
         // }),
-    },  
+    },
 
     computed: {
         ...mapState(Player.namespace, {
@@ -647,7 +684,6 @@ export default {
     },
 
     async mounted() {
-
         // Temporarily removed
         //await this.loadPlayerSettings();
 

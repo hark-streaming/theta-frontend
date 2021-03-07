@@ -61,6 +61,7 @@
                         :live="live"
                         :autoplay="live || !disableBumps"
                         :docked="smartDetach"
+                        :streamer="name"
                         @ended="onEnded"
                         @stats="trackWatchTime"
                     >
