@@ -349,8 +349,8 @@ export const actions = {
         const token = await user.getIdToken();
         const uid = user.uid;
 
-        console.log("token", token);
-        console.log("uid", uid);
+        //console.log("token", token);
+        //console.log("uid", uid);
 
         this.$axios.setToken(token, 'Bearer');
 
