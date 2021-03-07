@@ -8,8 +8,8 @@
       prominent
     >
 
-      <v-container :style="{height:'100%'}" :class="mt-10" :align="stretch">
-        <v-row :class="ma-0">
+      <v-container style="{height:'100%'}" class="mt-10" align="stretch">
+        <v-row class="ma-0">
           <!-- Live / Replay / Offline Indicator -->
           <v-chip
             class="flex-shrink-0"
@@ -35,8 +35,8 @@
 
         </v-row>
     
-        <v-row :class="ma-0">
-          <vue-tags
+        <v-row class="ma-0">
+          <!-- <vue-tags
             :active="tags"
             :all="tags"
             :element-count-for-start-arrow-scrolling="3"
@@ -46,7 +46,7 @@
             :tag-color-default="'green'"
             :tag-list-label="'Stream Topics'"
             :placeholder="'Select a stream topic....'"
-          />
+          /> -->
         </v-row>
 
       </v-container>
@@ -230,7 +230,7 @@
       description: { type: String },
       timestamp: { type: Date },
       replay: { type: Boolean },
-      tags: { type: [] }
+      tags: { type: Array }
     },
 
     data () {
@@ -238,7 +238,7 @@
         tabData: 0,
         lastStreamed: '• • •',
         updateInterval: null,
-        tags: []
+        // tags: []
       };
     },
 
