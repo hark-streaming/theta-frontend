@@ -1,9 +1,10 @@
 <template>
-  <div
+  <v-sheet
     id="sidechat"
     class="d-flex flex-grow-1 flex-column"
     style="position: relative; display: inline"
     v-resize.quiet="onResize"
+    color="neutral"
   >
 
     <!-- Chat Header -->
@@ -87,7 +88,7 @@
       ref="fireworks"
     />
 
-  </div>
+  </v-sheet>
 </template>
 
 <script>

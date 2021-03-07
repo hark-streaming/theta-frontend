@@ -1,8 +1,8 @@
 <template>
     <div>
         <!-- Chat Header -->
-        <div class="mx-5">
-            <h1 class="font-weight-light rgb-text">Streamer Dashboard</h1>
+        <div class="ma-6" align="center">
+            <h1 >Streamer Dashboard</h1>
         </div>
 
         <!-- Main Container -->
@@ -11,8 +11,8 @@
             <v-row>
                 <!-- Stream Preview? -->
                 <v-col >
-                    <v-sheet color="primary" class="pl-3">
-                        <h1>Stream Preview</h1>
+                    <v-sheet color="secondary" class="pl-3">
+                        <h1 :style="{color: 'white'}">Stream Preview</h1>
                     </v-sheet>
                     <v-responsive height="calc( 100% )">
                         <iframe
@@ -40,7 +40,6 @@
                             display:block
                         }"
                         light
-                        color="neutral"
                     >
                         <chat :chat-channel="username" />
                     </v-sheet>
