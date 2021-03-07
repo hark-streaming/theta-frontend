@@ -22,7 +22,9 @@
               :offline="offline"
             /> 
             -->
-            <test-theta />
+
+            <!-- <test-theta /> -->
+            <homepage-video />
           </v-col>
         </v-row>
 
@@ -66,49 +68,19 @@
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 import { VStore } from "@/store";
+// import HomepageVideo from "@/components/Homepage/HomepageVideo.vue";
+import HomepageVideo from '../components/Homepage/HomepageVideo.vue';
 
 export default {
   scrollToTop: true,
 
+  components: {
+    HomepageVideo
+  },
+
   head() {
-    return {
-      title: `Homepage - hark.tv`,
-      link: [{ rel: "canonical", href: `https://hark.tv` }],
-      meta: [
-        {
-          property: "og:title",
-          hid: "og:title",
-          content: `Homepage - hark.tv`,
-        },
-        { property: "og:url", hid: "og:url", content: `https://hark.tv` },
-        {
-          property: "og:description",
-          hid: "og:description",
-          content: `A video streaming platform for activists, commentators, & civil servants.`,
-        },
-        { property: "og:image", hid: "og:image", content: this.poster },
-        {
-          property: "description",
-          hid: "description",
-          content:
-            "A video streaming platform for activists, commentators, & civil servants.",
-        },
-        /*
-        { property: "twitter:card", content: "summary_large_image" },
-        { property: "twitter:site", content: "@BitwaveTV" },
-        {
-          property: "twitter:title",
-          content: "Livestream Homepage - [bitwave.tv]",
-        },
-        {
-          property: "twitter:description",
-          content:
-            "An open platform live streaming service for creators to freely express themselves.",
-        },
-        { property: "twitter:image", content: this.poster },
-        */
-      ],
-    };
+   
+    
   },
 
   data() {
@@ -118,6 +90,7 @@ export default {
       poster: "https://cdn.bitwave.tv/static/img/Bitwave_Banner.jpg",
       chatMessages: null,
       offline: true,
+
     };
   },
 
