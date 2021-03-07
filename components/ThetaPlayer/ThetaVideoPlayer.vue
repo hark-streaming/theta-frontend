@@ -47,11 +47,8 @@
 </template>
 
 <script>
-// temporarily removed
-//import videojs from "video.js";
-
-// we're using the cdn version bc this doesnt work
-//import hls from "hls.js";
+import videojs from "video.js";
+import hls from "hls.js";
 
 //import "@videojs/http-streaming";
 //import "videojs-contrib-quality-levels";
@@ -78,6 +75,9 @@ import { Player } from "@/store/player";
 // Ok here's why it wasn't: the theta script that registers the plugin must be called after all other scripts
 // and also it doesn't like the libraries for some reason
 
+// UPDATE: I made a plugin to handle the tech registering, and now you only need
+// to load the one theta script. Thank god.
+
 export default {
     name: "theta-video-player",
 
@@ -85,83 +85,14 @@ export default {
         return {
             script: [
                 {
-                    hid: "sequenceload",
-                    src: "/js/seqLoadTheta.js",
-                    defer: true,
+                    hid: "Thetacode",
+                    src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js",
                     callback: () => {
-                        console.log("sequential scripts loaded");
+                        console.log("theta cdn script loaded");
 
-                        // The sequence script being loaded doesnt ensure it has been executed
-                        // As a temporary workaround, wait 1 second so the scripts load
-                        // Yes this is very dumb but i want to move on
-                        setTimeout(() => {
-                            console.log("initializing the videojs player");
-                            this.playerInitialize();
-                        }, 1000);
+                        this.playerInitialize();
                     },
                 },
-                // #region old script loading, probably remove
-                // video js
-                // doesn't work with imported videojs???
-                // {
-                //     hid: "cdnvideojs",
-                //     src: "https://vjs.zencdn.net/7.10.2/video.min.js",
-                //     //async: true,
-                //     callback: () => {
-                //         console.log("vjs loaded");
-                //     },
-                // },
-
-                // // hls.js
-                // // also doesn't work with imported version??
-                // {
-                //     hid: "hls",
-                //     src: "https://cdn.jsdelivr.net/npm/hls.js@latest",
-                //     //async: true,
-                //     callback: () => {
-                //         console.log("hls loaded");
-                //     },
-                // },
-
-                // // 20,000 lines of theta code
-                // {
-                //     hid: "theta",
-                //     src:
-                //         //"https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js",
-                //         "/js/theta.js",
-                //     //async: true,
-                //     callback: () => {
-                //         console.log("theta loaded");
-                //     },
-                // },
-
-                // // an HLS.js plugin made with the theta code (that is also used within the videojs plugin?)
-                // {
-                //     hid: "hls-plugin",
-                //     src:
-                //         //"https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js",
-                //         "/js/theta-hls-plugin.js",
-                //     //async: true,
-                //     callback: () => {
-                //         console.log("hls plugin loaded");
-                //     },
-                // },
-
-                // // the videojs plugin that gets registered that we actually use
-                // // this has to load last or it doesnt work?
-                // {
-                //     hid: "videohlsjs",
-                //     src:
-                //         //"https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js",
-                //         "/js/videojs-theta-plugin.js",
-                //     //defer: true,
-                //     callback: () => {
-                //         this.scriptsLoaded = true;
-                //         console.log("theta videojs loaded");
-                //         this.playerInitialize();
-                //     },
-                // },
-                //#endregion old script loading
             ],
         };
     },
@@ -194,7 +125,11 @@ export default {
 
     methods: {
         playerInitialize() {
-            console.log("HELLO I AM IN PLAYER INIT");
+            // This plugin call registers the stuff needed for the Theta videojs player
+            console.log("CALLING ThetaPlayerSetup function");
+            this.$ThetaPlayerSetup(window.Theta, hls, videojs);
+
+            console.log("INITIALIZING PLAYER");
             console.log(
                 `URL: ${this.source.url}, TYPE: ${this.source.type}, POSTER: ${this.poster}, AUTOPLAY: ${this.autoplay}, POSTER: ${this.poster}`
             );
@@ -202,12 +137,14 @@ export default {
             this.initialized = false;
 
             // Create video.js player
-            this.player = window.player = videojs("streamplayer", {
+            this.player = videojs("streamplayer", {
                 //#region Theta stuff
                 techOrder: ["theta_hlsjs" /*, "html5"*/], // disable html5 fallback so we know when theta broken
                 theta_hlsjs: {
                     videoId: this.streamer,
-                    userId: auth.currentUser.uid, //im just going to put the firebase uid here
+                    // TODO: make sure firebase auth is loaded by this point 
+                    //       so there is no accidental userId/guestId mismatch
+                    userId: this.getUserId, 
                     walletUrl:
                         "wss://api-wallet-service.thetatoken.org/theta/ws",
                     onWalletAccessToken: this.getWalletAccessToken,
@@ -594,7 +531,6 @@ export default {
 
         // From https://docs.thetatoken.org/docs/theta-p2p-javascript-sdk
         async getWalletAccessToken() {
-            
             // Get the user id token, if it exits
             const idToken = await this.getAuthUserIdToken();
 
@@ -607,7 +543,7 @@ export default {
             //This API should check the user's auth
             let body = await this.$axios.post(
                 `https://us-central1-hark-e2efe.cloudfunctions.net/api/jwtauth`,
-                {idToken: idToken}
+                { idToken: idToken }
             );
 
             //Return the access token from the request body
@@ -620,13 +556,22 @@ export default {
             if (auth.currentUser == null) {
                 //console.log("USER NOT LOGGED IN");
                 return null;
-            } 
-            
+            }
+
             // logged in, return auth token
             else {
                 const token = await auth.currentUser.getIdToken(true);
                 console.log("USER LOGGED IN, TOKEN: ", token);
                 return token;
+            }
+        },
+
+        getUserId(){
+            if(auth.currentUser.uid == null){
+                return "" + (new Date().getTime())
+            }
+            else {
+                return auth.currentUser.uid;
             }
         },
 
@@ -685,11 +630,13 @@ export default {
     },
 
     async mounted() {
+        console.log("MOUNTED CALLED");
         // Temporarily removed
         //await this.loadPlayerSettings();
+        //this.$hello('mounted');
 
         //this.playerInitialize();
-        console.log("MOUNTED CALLED");
+        
         // from https://stackoverflow.com/questions/43652265/how-to-run-vuejs-code-only-after-vue-is-fully-loaded-and-initialized/43656809
         // window.addEventListener('load', () => {
         //   console.log("LOAD EVENT FIRED, INITIALIZING PLAYER");

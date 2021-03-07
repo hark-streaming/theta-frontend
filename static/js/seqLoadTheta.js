@@ -1,14 +1,18 @@
+// ----
+// THIS SCRIPT IS NO LONGER USED, USE thetaplayer.js PLUGIN INSTEAD
+// ----
+
 // taken from https://medium.com/@asimmittal/sequential-script-loading-in-javascript-a0b77ca9467c
     
 (function(){
   
     //three JS files that need to be loaded one after the other
     var libs = [
-        "https://vjs.zencdn.net/7.10.2/video.min.js",
-        "https://cdn.jsdelivr.net/npm/hls.js@latest",
+        //"https://vjs.zencdn.net/7.10.2/video.min.js",
+        //"https://cdn.jsdelivr.net/npm/hls.js@latest",
         "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js",
-        "https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js",
-        "https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js",
+        //"https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js",
+        //"https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js",
     ];
     
     var injectLibFromStack = function(){

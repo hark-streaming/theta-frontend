@@ -34,9 +34,21 @@ module.exports = {
             { property: 'description', content: pkg.description, hid: 'description' },
             // https://cdn.bitwave.tv/static/img/BitWave2.sm.jpg // old image
         ],
-        // script: [
-             
-        // ],
+        script: [
+            {
+                hid: "ThetaWebWidget",
+                type: "application/javascript",
+                src: "https://theta-web-widgets.thetatoken.org/js/ThetaWebWidgets.js"
+            },
+            // {
+            //     hid: "Thetacode",
+            //     src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js",
+            //     callback: () => {
+            //         console.log("theta script loaded");
+            //     },
+            // }
+
+        ],
         link: [
             {
                 rel: 'icon',
@@ -246,8 +258,8 @@ module.exports = {
         '@/plugins/firebase',
         '@/plugins/VueClipboard',
         '@/plugins/utils.js',
-        //'@/plugins/thetaplayer',
-        //{ src: '@/plugins/thetaplayer', mode: 'client'},
+        //'@/plugins/thetaplayer.js',
+        { src: '@/plugins/thetaplayer', mode: 'client' },
         { src: '@/plugins/commandParser.js', mode: 'client' },
         { src: '@/plugins/pwa.client.js', mode: 'client' },
         { src: '@/plugins/sw-hook', mode: 'client' },
