@@ -27,9 +27,9 @@
         </v-row>
 
         <!-- Live Now Header -->
-        <div class="mb-4">
-          <div class="d-flex justify-space-between align-end">
-            <div class="headline font-weight-light white--text">
+        <v-sheet class="my-4" color="neutral">
+          <v-sheet class="d-flex justify-space-between align-end pa-2" color="accentwave">
+            <div class="headline font-weight-light black--text">
               Top Politicians
             </div>
             <!-- v-switch
@@ -40,7 +40,7 @@
               dense
               inset
             />-->
-          </div>
+          </v-sheet>
 
           <!-- Livestream Grid -->
           <stream-grid
@@ -52,7 +52,7 @@
             :lg="3"
             :xl="2"
           />
-        </div>
+        </v-sheet>
 
         <!-- fuckin index.vue.txt -->
       </v-container>

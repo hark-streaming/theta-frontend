@@ -35,8 +35,9 @@
 
         </v-row>
     
+        <!-- Tags -->
         <v-row class="ma-0 py-2">
-          <vue-tags
+          <!-- <vue-tags
             :active="tags"
             :all="tags"
             :element-count-for-start-arrow-scrolling="3"
@@ -46,8 +47,19 @@
             :tag-color-default="'green'"
             :tag-list-label="'Stream Topics'"
             :placeholder="'Select a stream topic....'"
-          />
-          <h1>{{ this.tags[0] }}</h1>
+          /> -->
+
+          <v-chip 
+            v-for="(tag, index) in tags" 
+            :key="index"
+            small
+            color="green"
+            text-color="white"
+            class="mr-2"
+            label
+            >
+            {{ tag }}
+          </v-chip>
         </v-row>
 
       </v-container>
