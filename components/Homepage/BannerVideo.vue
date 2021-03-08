@@ -28,7 +28,7 @@
     </div>
 
     <!-- Chat -->
-    <div
+    <!-- <div
       v-if="displayChat"
       class="d-flex flex-shrink-1"
       :style="{ width: mobile ? '100%' : '450px', 'height': mobile ? '500px' : '555px' }"
@@ -36,10 +36,10 @@
       <chat
         :chat-channel="name"
       />
-    </div>
+    </div> -->
 
     <!-- Restore chat FAB -->
-    <v-fab-transition>
+    <!-- <v-fab-transition>
       <v-btn
         v-show="!displayChat"
         color="primary"
@@ -53,7 +53,7 @@
       >
         <v-icon color="black">question_answer</v-icon>
       </v-btn>
-    </v-fab-transition>
+    </v-fab-transition> -->
 
   </v-card>
 </template>

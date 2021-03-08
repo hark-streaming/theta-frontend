@@ -11,20 +11,18 @@
         <v-row class="justify-center">
           <v-col cols="12" md="10" xl="8">
             <!-- Banner Stream -->
-            <!--
             <banner-video
               v-if="live[0]"
-              :src="live[0].src"
+              :src="live[0].url"
               :type="live[0].type"
               :poster="poster"
               :name="live[0].name"
               :mobile="mobile"
               :offline="offline"
             /> 
-            -->
 
             <!-- <test-theta /> -->
-            <homepage-video />
+            <!-- <homepage-video /> -->
           </v-col>
         </v-row>
 
@@ -91,6 +89,7 @@ export default {
       chatMessages: null,
       offline: true,
 
+      livestreams: []
     };
   },
 
@@ -273,6 +272,7 @@ export default {
     version() {
       return `v${process.env.version}`;
     },
+
   },
 
   mounted() {
