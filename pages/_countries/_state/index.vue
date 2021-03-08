@@ -4,13 +4,13 @@
 
     <v-row>
       <!-- News & Stats -->
-      <v-col cols="3" clipped left>
-        <img :src="image" class="d-flex state-img" />
-        <v-card elevation="2" class="pa-4 my-3 sticky-card">
-          <v-card-title class="mt-2">{{ name }} Articles</v-card-title>
-          <div :key="index" v-for="(a, index) in articles">
-            <news :article="a" />
-          </div>
+      <v-col cols="3" clipped left style="padding-top: 0px !important;">
+        <!-- <img :src="image" class="d-flex state-img" /> -->
+        <v-card elevation="2" class="pt-3 sticky-card">
+          <v-card-title class="mt-2 justify-center">{{ name }} Articles</v-card-title>
+          <v-row no-gutters>
+            <news :key="index" v-for="(a, index) in articles" :article="a" />
+          </v-row>
         </v-card>
       </v-col>
       <v-row no-gutters>
@@ -18,17 +18,31 @@
           <test-theta />
         </v-col>
 
-        <v-col cols="4"> </v-col>
+        <v-col cols="4">
+          <div class="pl-3 height-100">
+            <v-card elevation="2" class="pa-2 height-100">
+              <v-card-title class="mt-2 justify-center">{{ name }} Counties</v-card-title>
+            </v-card>
+          </div>
+        </v-col>
 
         <!-- Streams & Videos -->
-        <v-col cols="12" right>
-          <v-card elevation="2" class="pa-4">
+        <v-col cols="12" class="mt-3">
+          <v-card elevation="2" class="pa-3">
+            <div v-if="noStreams == true" class="text-center pt-2">
+              <h4 class="mb-4">There are no streams on {{ name }} right now.</h4>
+              <div>Do you have something to say about {{ name }}?</div>
+              <p>
+                Consider signing up as a <a href="/register">commentator.</a>
+              </p>
+            </div>
+
             <!--
             <stream-grid >
 
             </stream-grid>
           -->
-            <div class="brogermy">AHHH</div>
+            <div v-if="!noStreams" class="brogermy">AHHH THIS IS WHERE ALL OF THE STREAMS WOULD BE</div>
           </v-card>
         </v-col>
       </v-row>
@@ -44,6 +58,9 @@ export default {
     return {
       mounted: false,
       loading: true,
+
+      // options
+      noStreams: true,
 
       // Hydrated data defaults
       name: "",
@@ -167,6 +184,10 @@ export default {
 .sticky-card {
   position: sticky;
   top: 60px;
+}
+
+.height-100 {
+  height: 100%;
 }
 
 .brogermy {
