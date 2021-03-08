@@ -61,6 +61,7 @@
                         :live="live"
                         :autoplay="live || !disableBumps"
                         :docked="smartDetach"
+                        :streamer="name"
                         @ended="onEnded"
                         @stats="trackWatchTime"
                     >
@@ -469,7 +470,6 @@ export default {
 
             // Attempt to load via API server
             try {
-                // TODO: add our own endpoint to get a channel
                 const { data } = await $axios.getSSR(
                     //`https://api.bitwave.tv/api/channel/${channel}`,
                     //`http://localhost:5001/hark-e2efe/us-central1/api/channel/${channel}`,

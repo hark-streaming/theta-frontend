@@ -1,5 +1,6 @@
 // i copied this from https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.js
-
+// the function runs as soon as this file is loaded
+// https://stackoverflow.com/questions/60365052/why-is-functionglobal-factory-used-in-so-many-js-libraries
 
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :

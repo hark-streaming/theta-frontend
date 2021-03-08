@@ -3,6 +3,7 @@ const pkg = require('./package');
 
 // noinspection PointlessArithmeticExpressionJS
 module.exports = {
+    //ssr: false,
     components: true,
 
     /*
@@ -34,20 +35,25 @@ module.exports = {
             // https://cdn.bitwave.tv/static/img/BitWave2.sm.jpg // old image
         ],
         script: [
-            // { src: "https://cdn.jsdelivr.net/npm/hls.js@latest" },
-            // { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js" },
-            // { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta-hls-plugin.umd.min.js" },
-            // { src: "https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.min.js" },
             {
+                hid: "ThetaWebWidget",
                 type: "application/javascript",
                 src: "https://theta-web-widgets.thetatoken.org/js/ThetaWebWidgets.js"
-            }
+            },
+            // {
+            //     hid: "Thetacode",
+            //     src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js",
+            //     callback: () => {
+            //         console.log("theta script loaded");
+            //     },
+            // }
+
         ],
         link: [
             {
                 rel: 'icon',
                 type: 'image/x-icon',
-                href: '/favicon.ico?3',
+                href: '/favicon.ico',
                 crossorigin: 'anonymouse',
             },
             {
@@ -252,6 +258,8 @@ module.exports = {
         '@/plugins/firebase',
         '@/plugins/VueClipboard',
         '@/plugins/utils.js',
+        //'@/plugins/thetaplayer.js',
+        { src: '@/plugins/thetaplayer', mode: 'client' },
         { src: '@/plugins/commandParser.js', mode: 'client' },
         { src: '@/plugins/pwa.client.js', mode: 'client' },
         { src: '@/plugins/sw-hook', mode: 'client' },

@@ -8,8 +8,8 @@
       prominent
     >
 
-      <v-container :style="{height:'100%'}" :class="mt-10" :align="stretch">
-        <v-row :class="ma-0">
+      <v-container style="{height:'100%'}" align="stretch">
+        <v-row class="ma-0 pb-2">
           <!-- Live / Replay / Offline Indicator -->
           <v-chip
             class="flex-shrink-0"
@@ -35,8 +35,9 @@
 
         </v-row>
     
-        <v-row :class="ma-0">
-          <vue-tags
+        <!-- Tags -->
+        <v-row class="ma-0 py-2">
+          <!-- <vue-tags
             :active="tags"
             :all="tags"
             :element-count-for-start-arrow-scrolling="3"
@@ -46,7 +47,19 @@
             :tag-color-default="'green'"
             :tag-list-label="'Stream Topics'"
             :placeholder="'Select a stream topic....'"
-          />
+          /> -->
+
+          <v-chip 
+            v-for="(tag, index) in tags" 
+            :key="index"
+            small
+            color="green"
+            text-color="white"
+            class="mr-2"
+            label
+            >
+            {{ tag }}
+          </v-chip>
         </v-row>
 
       </v-container>
@@ -70,124 +83,127 @@
 
     </v-toolbar>
 
-    <!-- Stream Actions -->
-    <div class="d-flex flex-shrink-0 align-center flex-wrap px-3 py-2">
-      <div
-        class="caption grey--text my-2"
-        :title="timestamp"
-      >
-        <v-icon
-          v-show="replay"
-          size="16"
-          color="grey"
-        >restore</v-icon>
-        <div class="d-inline-block">
-          {{ live
-          ? 'Started Streaming: '
-          : replay
-          ? 'Streamed: '
-          : 'Last Streamed: ' }}
-        </div>
-        <v-fade-transition mode="out-in">
-          <div
-            class="d-inline-block"
-            :key="lastStreamed"
-          >
-            {{ lastStreamed }}
+    <v-sheet color="neutral">
+
+      <!-- Stream Actions -->
+      <div class="d-flex flex-shrink-0 align-center flex-wrap px-3 py-2">
+        <div
+          class="caption grey--text my-2"
+          :title="timestamp"
+        >
+          <v-icon
+            v-show="replay"
+            size="16"
+            color="grey"
+          >restore</v-icon>
+          <div class="d-inline-block">
+            {{ live
+            ? 'Started Streaming: '
+            : replay
+            ? 'Streamed: '
+            : 'Last Streamed: ' }}
           </div>
-        </v-fade-transition>
-      </div>
+          <v-fade-transition mode="out-in">
+            <div
+              class="d-inline-block"
+              :key="lastStreamed"
+            >
+              {{ lastStreamed }}
+            </div>
+          </v-fade-transition>
+        </div>
 
-      <v-spacer />
+        <v-spacer />
 
-      <div class="d-flex">
-        <!-- Edit Stream Info Dialog -->
-        <edit-stream-data
-          v-if="channelOwner"
-          :username="username"
-          :title="title"
-          :description="description"
-          :nsfw="nsfw"
-        />
+        <div class="d-flex">
+          <!-- Edit Stream Info Dialog -->
+          <edit-stream-data
+            v-if="channelOwner"
+            :username="username"
+            :title="title"
+            :description="description"
+            :nsfw="nsfw"
+          />
 
-        <!-- Restream Dialog -->
-        <restream-dialog
-          v-if="channelOwner"
-          :username="name"
-          :owner="uid"
-          :live="live"
-        />
-      </div>
-
-      <!-- Share Stream Dialog -->
-      <share-stream :user="name" />
-    </div>
-
-    <v-divider />
-
-    <!-- Stream Data -->
-    <v-tabs-items
-      v-model="tabData"
-      style="background: transparent"
-      touchless
-    >
-      <!-- Description -->
-      <v-tab-item>
-        <div
-          id="description"
-          ref="description"
-          class="pa-3"
-          style="min-height: 300px"
-        >
-          <!-- Stream Description -->
-          <vue-markdown
-            v-if="description && !replay"
-            :source="description"
+          <!-- Restream Dialog -->
+          <restream-dialog
+            v-if="channelOwner"
+            :username="name"
+            :owner="uid"
+            :live="live"
           />
         </div>
-      </v-tab-item>
 
-      <!-- Archives -->
-      <v-tab-item>
-        <div>
-          <stream-archives
-            style="min-height: 300px"
-            :streamer="name"
-          />
-        </div>
-      </v-tab-item>
+        <!-- Share Stream Dialog -->
+        <share-stream :user="name" />
+      </div>
 
-      <!-- Theta -->
-      <v-tab-item>
-        <theta-tab>
-          
-        </theta-tab>
-        <!-- Theta Web Widget -->
-        <div
-          id="theta-section"
-          ref="theta-section"
-          class="pa-3"
-          style="min-height: 300px"
-        >
-          <!-- Stream Description -->
-          This is where the theta rewards stats would be shown, but it's not showing up.
-          <div id="MY_THETA_WEB_WIDGET_ID"></div>
-        </div>
-      </v-tab-item>
+      <v-divider />
 
-      <!-- Debug Stream -->
-      <v-tab-item
-        v-if="!replay"
+      <!-- Stream Data -->
+      <v-tabs-items
+        v-model="tabData"
+        style="background: transparent"
+        touchless
       >
-        <div>
-          <debug-stream
+        <!-- Description -->
+        <v-tab-item>
+          <div
+            id="description"
+            ref="description"
+            class="pa-3"
             style="min-height: 300px"
-            :streamer="name"
-          />
-        </div>
-      </v-tab-item>
-    </v-tabs-items>
+          >
+            <!-- Stream Description -->
+            <vue-markdown
+              v-if="description && !replay"
+              :source="description"
+            />
+          </div>
+        </v-tab-item>
 
+        <!-- Archives -->
+        <v-tab-item>
+          <div>
+            <stream-archives
+              style="min-height: 300px"
+              :streamer="name"
+            />
+          </div>
+        </v-tab-item>
+
+        <!-- Theta -->
+        <v-tab-item>
+          <theta-tab>
+            
+          </theta-tab>
+          <!-- Theta Web Widget -->
+          <div
+            id="theta-section"
+            ref="theta-section"
+            class="pa-3"
+            style="min-height: 300px"
+          >
+            <!-- Stream Description -->
+            This is where the theta rewards stats would be shown, but it's not showing up.
+            <div id="MY_THETA_WEB_WIDGET_ID"></div>
+          </div>
+        </v-tab-item>
+
+        <!-- Debug Stream -->
+        <v-tab-item
+          v-if="!replay"
+        >
+          <div>
+            <debug-stream
+              style="min-height: 300px"
+              :streamer="name"
+            />
+          </div>
+        </v-tab-item>
+      </v-tabs-items>
+    
+    </v-sheet>
 
     <!-- Footer -->
     <simple-footer :version="version" />
@@ -230,7 +246,7 @@
       description: { type: String },
       timestamp: { type: Date },
       replay: { type: Boolean },
-      tags: { type: [] }
+      tags: { type: Array }
     },
 
     data () {

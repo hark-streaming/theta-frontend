@@ -1,5 +1,5 @@
 <template>
-  <v-app :class="{ ssr: ssr, systemAlert: !!showSystemAlert }">
+  <v-app :class="{ ssr: ssr, systemAlert: !!showSystemAlert }" light>
     <!-- System Bar -->
     <v-slide-y-transition>
       <system-alert
@@ -18,10 +18,9 @@
     <v-app-bar
       app
       :clipped-left="true"
-      dark
       dense
       fixed
-      color="accentwave"
+      color="secondary"
     >
       <!--<v-btn
         icon
@@ -62,18 +61,17 @@
           id="logo_text"
           exact-active-class="app-title-active"
           class="text-none title px-2"
+          color="white"
         >{{ title }}</v-btn>
         
       </v-toolbar-title>
 
-      <!-- temporary -->
       <div><PagesDropDown></PagesDropDown></div>
 
       <v-spacer />
 
-      <!-- <stream-here-btn /> -->
-
-      <notifications v-if="isAuth" />
+      <!-- Notifications Button -->
+      <!-- <notifications v-if="isAuth" /> -->
 
       <user-menu class="ml-2" />
 
@@ -84,7 +82,7 @@
     <!--<sidebar v-model="drawer" />-->
 
     <!-- Content -->
-    <v-main>
+    <v-main >
       <nuxt />
     </v-main>
 
@@ -105,6 +103,7 @@
   import StreamHereBtn from '@/components/SubLayout/StreamHereBtn';
   import SystemAlert from '@/components/Alerts/SystemAlert';
   import PagesDropDown from "../components/PagesDropDown";
+  import colors from "assets/vars/colors.scss";
 
   const Fireworks = async () => await import( '@/components/effects/fireworks' );
 
@@ -244,5 +243,10 @@
       display: block !important;
     }
   }
+
+  #app {
+    background-image: linear-gradient(to top right, #54547c, #ebe8e8, #cc6464);
+  }
+  
 
 </style>

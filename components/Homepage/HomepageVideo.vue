@@ -47,18 +47,8 @@
 </template>
 
 <script>
-import videojs from "video.js";
-import hls from "hls.js";
-
-// if(process.brower){
-//     import Theta from "../../static/js/theta.js"
-// }
-
-
-//import "@videojs/http-streaming";
-//import "videojs-contrib-quality-levels";
-//import "videojs-hls-quality-selector";
-//import "@/assets/js/VideoPlayer/TriSpinner";
+// temporarily removed
+//import videojs from "video.js";
 
 import "@/assets/js/VideoPlayer/ThetaHls";
 import { auth } from "@/plugins/firebase.js";
@@ -80,9 +70,6 @@ import { Player } from "@/store/player";
 // Ok here's why it wasn't: the theta script that registers the plugin must be called after all other scripts
 // and also it doesn't like the libraries for some reason
 
-// UPDATE: I made a plugin to handle the tech registering, and now you only need
-// to load the one theta script. Thank god.
-
 export default {
     name: "theta-video-player",
 
@@ -90,13 +77,19 @@ export default {
         return {
             script: [
                 {
-                    hid: "Thetacode",
-                    //src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js",
-                    src: "/js/theta.js",
+                    hid: "sequenceload",
+                    src: "/js/seqLoadTheta.js",
+                    defer: true,
                     callback: () => {
-                        console.log("theta cdn script loaded");
+                        console.log("sequential scripts loaded");
 
-                        this.playerInitialize();
+                        // The sequence script being loaded doesnt ensure it has been executed
+                        // As a temporary workaround, wait 1 second so the scripts load
+                        // Yes this is very dumb but i want to move on
+                        setTimeout(() => {
+                            console.log("initializing the videojs player");
+                            this.playerInitialize();
+                        }, 1000);
                     },
                 },
             ],
@@ -126,20 +119,20 @@ export default {
             watchDuration: 0,
             watchInterval: 60,
             lastVPQ: null,
+
+            // Video data
+            live: false, 
+            autoplay: false, 
+            docked: false, 
+            streamer: "testman",
+
+            mounted: true, 
         };
     },
 
     methods: {
         playerInitialize() {
-            // This plugin call registers the stuff needed for the Theta videojs player
-            console.log("CALLING ThetaPlayerSetup function");
-            //this.$ThetaPlayerSetup(window.Theta, hls, videojs);
-            this.$ThetaPlayerSetup(window.Theta, hls, videojs);
-            
-            console.log("this is window theta", window.Theta);
-            
-
-            console.log("INITIALIZING PLAYER"); 
+            console.log("HELLO I AM IN PLAYER INIT");
             console.log(
                 `URL: ${this.source.url}, TYPE: ${this.source.type}, POSTER: ${this.poster}, AUTOPLAY: ${this.autoplay}, POSTER: ${this.poster}`
             );
@@ -147,14 +140,13 @@ export default {
             this.initialized = false;
 
             // Create video.js player
-            this.player = videojs("streamplayer", {
+            this.player = window.player = videojs("streamplayer", {
                 //#region Theta stuff
                 techOrder: ["theta_hlsjs" /*, "html5"*/], // disable html5 fallback so we know when theta broken
                 theta_hlsjs: {
                     videoId: this.streamer,
-                    // TODO: make sure firebase auth is loaded by this point 
-                    //       so there is no accidental userId/guestId mismatch
-                    userId: "12345",//this.getUserId, 
+                    //im just going to put the id token here, don't know if thats what it wants
+                    userId: this.getAuthUserIdToken, 
                     walletUrl:
                         "wss://api-wallet-service.thetatoken.org/theta/ws",
                     onWalletAccessToken: this.getWalletAccessToken,
@@ -222,41 +214,6 @@ export default {
 
             // --- Video.js plugin functions
 
-            // Add reloadSourceOnError plugin
-            //this.player.reloadSourceOnError({ errorInterval: 10 });
-
-            // Load all qualities
-            // this.qualityLevels = this.player.qualityLevels();
-            // this.player.hlsQualitySelector({
-            //     displayCurrentQuality: true,
-            // });
-
-            // Autoplay detection magic
-            /*const autoPlayEvents = [ 'loadedmetadata', 'durationchange' ];
-        const autoPlayListener = event => {
-          // Attempt Autoplay
-          const attemptAutoplay = () => {
-            this.player.play()
-              .then(() => {
-                if ( process.env.APP_DEBUG ) console.log( `Autoplayed` )
-              })
-              .catch ( error => {
-                if ( process.env.APP_DEBUG ) console.log( `Autoplay prevented, Attempting to autoplay muted.`, error );
-                this.player.muted( true );
-                this.player.play();
-              });
-          };
-          if (event.type === 'durationchange' && this.player.duration() === Infinity) {
-            attemptAutoplay();
-            this.player.off( autoPlayEvents, autoPlayListener );
-          }
-          if (event.type === 'loadedmetadata') {
-            attemptAutoplay();
-            this.player.off( autoPlayEvents, autoPlayListener );
-          }
-        };
-        this.player.on( autoPlayEvents, autoPlayListener ); //*/
-
             // Video Player Ready
             this.player.ready(async () => {
                 // Restore Volume & mute
@@ -274,19 +231,6 @@ export default {
                         error
                     );
                 }
-
-                // const playerTech = this.player.tech({
-                //     IWillNotUseThisInPlugins: true,
-                // });
-
-                // playerTech.on("retryplaylist", (event) => {
-                //     console.log(`retryplaylist:`, event);
-                //     if (!this.live) console.log(`livestream is offline.`);
-                // });
-
-                // playerTech.on("usage", (event) => {
-                //     console.log(`${event.name}:`, event);
-                // });
 
                 // "Keep Live" Feature
                 this.player.liveTracker.on("liveedgechange", async () => {
@@ -320,7 +264,6 @@ export default {
             });
 
             // Scroll to adjust volume
-            // player.controlBar.volumePanel.volumeControl
             const volumeControlElement = this.player.controlBar.volumePanel.volumeControl.el();
 
             const handleVolumeScroll = (event) => {
@@ -334,16 +277,6 @@ export default {
                 if (event.deltaY > 0)
                     this.player.volume(Math.max(0.0, vol - 0.05));
             };
-
-            // Player is active (mouseover)
-            /*this.player.on( 'useractive', () => {
-          volumeControlElement.addEventListener( 'wheel', handleVolumeScroll );
-        });
-
-        // Player is inactive
-        this.player.on( 'userinactive', () => {
-          volumeControlElement.removeEventListener( 'wheel', handleVolumeScroll );
-        });*/
 
             // Add event listener by default in case user loads with cursor over stream
             volumeControlElement.addEventListener(
@@ -448,7 +381,6 @@ export default {
         },
 
         reloadPlayer() {
-            // this.player.reset(); this.player.load();
             if (!this.initialized) {
                 console.log(
                     `reloadPlayer() called but player is not initialized yet!`
@@ -541,6 +473,7 @@ export default {
 
         // From https://docs.thetatoken.org/docs/theta-p2p-javascript-sdk
         async getWalletAccessToken() {
+            
             // Get the user id token, if it exits
             const idToken = await this.getAuthUserIdToken();
 
@@ -551,53 +484,270 @@ export default {
             }
 
             //This API should check the user's auth
-            let body = await this.$axios.post(
-                `https://us-central1-hark-e2efe.cloudfunctions.net/api/jwtauth`,
-                { idToken: idToken }
-            );
+            //let body = await yourAPIRequestToGenerateThetaWalletAccessTokenForAuthedUser();
 
             //Return the access token from the request body
-            return body.access_token;
+            //return body.access_token;
+            return null;
         },
 
         // returns the user's id auth token if they are logged in, otherwise, null
         async getAuthUserIdToken() {
             // not logged in, return null
             if (auth.currentUser == null) {
-                //console.log("USER NOT LOGGED IN");
                 return null;
-            }
-
+            } 
+            
             // logged in, return auth token
             else {
                 const token = await auth.currentUser.getIdToken(true);
-                //console.log("USER LOGGED IN, TOKEN: ", token);
+
                 return token;
             }
         },
-
-        getUserId(){
-            if(auth.currentUser == null){
-                console.log("not logged in, using guest id for theta");
-                return "" + (new Date().getTime())
-            }
-            else {
-                console.log("logged in, using uid for theta");
-                return auth.currentUser.uid;
-            }
-        },
-
-        
 
         ...mapMutations(Player.namespace, {
             setPiP: Player.$mutations.setPiP,
             setDetach: Player.$mutations.setDetach,
         }),
 
+        getStreamData() {
+            const channel = this.$route.params.watch;
+            const streamer = (this.streamer || channel).toLowerCase();
+            this.streamDataListener = db
+                .collection("streams")
+                .doc(streamer)
+                .onSnapshot(
+                    async (doc) => await this.streamDataChanged(doc.data()),
+                    (error) => {
+                        this.$sentry.captureException(error);
+                    }
+                );
+        },
+
         // We dont want it to load from local cause it fricks up
         // ...mapActions(Player.namespace, {
         //     loadPlayerSettings: Player.$actions.loadSettings,
         // }),
+    },
+
+    async asyncData({ $axios, params, error }) {
+        const channel = params.watch;
+
+        // Timeout to prevent SSR from locking up
+        const timeout = process.server ? process.env.SSR_TIMEOUT : 0;
+
+        const getChannelHydration = async () => {
+            let channelData = null;
+
+            // Attempt to load via API server
+            try {
+                const { data } = await $axios.getSSR(
+                    //`https://api.bitwave.tv/api/channel/${channel}`,
+                    //`http://localhost:5001/hark-e2efe/us-central1/api/channel/${channel}`,
+                    `https://us-central1-hark-e2efe.cloudfunctions.net/api/channel/${channel}`,
+                    { timeout }
+                );
+                // Simple response validation
+                if (data && data.hasOwnProperty("name")) {
+                    channelData = data;
+                }
+            } catch (error) {
+                // API server failed
+                console.error(error.message);
+
+                // API failed with 404, but server did not fail with 5xx
+                if (error.response && error.response.status === 404) {
+                    console.error(`API server reponded with 404`);
+                    return {
+                        success: false,
+                        error: {
+                            statusCode: 404,
+                            message: `API SERVER FAIL Could not find channel '${channel}'.`,
+                        },
+                    };
+                }
+            }
+
+            // API server failed unexpectedly 5xx - Attempt to load from database
+            if (!channelData) {
+                // API server failed, query database directly
+                try {
+                    console.log(`API server failed! Attempting to bypass.`);
+
+                    const streamer = channel.toLowerCase();
+
+                    const streamDoc = await db
+                        .collection("streams")
+                        .doc(streamer)
+                        .get();
+
+                    // Channel does not exist in database (404)
+                    if (!streamDoc.exists) {
+                        console.error(
+                            `Database query did not find streamer!`,
+                            channel
+                        );
+                        return {
+                            success: false,
+                            error: {
+                                statusCode: 404,
+                                message: `DATABASE CALL FAIL Could not find channel '${channel}'.`,
+                            },
+                        };
+                    }
+
+                    const data = streamDoc.data();
+
+                    // Re-map channel data
+                    channelData = {
+                        name: data.user.name,
+                        avatar: data.user.avatar,
+                        to: `/${data.user.name}`,
+                        title: data.title,
+                        description: data.description,
+                        poster: data.cover,
+                        thumbnail: data.thumbnail,
+                        live: data.live,
+                        nsfw: data.nsfw,
+                        url: data.url,
+                        owner: data.owner,
+                        scheduled: data.scheduled,
+                        banned: data.banned || false,
+                        tags: data.tags,
+                    };
+
+                    console.log(`Bypass should be successfull...`);
+                } catch (error) {
+                    // API & Database query failure
+                    console.error(`Database query failed!`);
+                    console.error(error.message);
+                    return {
+                        success: false,
+                        error: {
+                            statusCode: 500,
+                            message: `Bitwave API cache failed & Bitwave Database API failed!<br>${error.message}`,
+                        },
+                    };
+                }
+            }
+
+            try { // THIS IS WHERE THE API DATA IS MAPPED TO THE VUE
+                const data = channelData;
+
+                // Ban flag
+                const banned = data.banned || false;
+
+                // Streamer user properties
+                this.streamer = data.name;
+                const avatar = data.avatar;
+                const owner = data.owner;
+
+                // Stream data
+                const title = data.title;
+                const description = data.description;
+
+                // Stream properties
+                const nsfw = data.nsfw;
+                this.autoplay = data.live || !disableBumps;
+                this.docked = "smartDetach"
+
+                // Stream tags
+                const tags = data.tags;
+
+                // Stream media
+                let type = data.type || `application/x-mpegURL`; // DASH -> application/dash+xml
+                let url = data.url;
+
+                // Process timestamp
+                const timestamp = data.timestamp
+                    ? new Date(data.timestamp)
+                    : null;
+
+                // Process scheduled date
+                const scheduled = data.scheduled
+                    ? new Date(data.scheduled)
+                    : null;
+
+                // Process cover image
+                const poster = live ? data.thumbnail : data.poster;
+
+                // Fallback to bump if offline
+                if (live === false) {
+                    try {
+                        const { data } = await $axios.getSSR(
+                            "https://api.bitwave.tv/api/bump",
+                            {
+                                timeout,
+                            }
+                        );
+                        url = data.url;
+                        type = "video/mp4";
+                    } catch (error) {
+                        console.error(error.message);
+                        url = "https://cdn.bitwave.tv/static/bumps/2a3un.mp4";
+                        type = "video/mp4";
+                    }
+                }
+
+                return {
+                    success: true,
+                    data: {
+                        name,
+                        avatar,
+                        title,
+                        description,
+                        poster,
+                        live,
+                        nsfw,
+                        owner,
+                        url,
+                        type,
+                        timestamp,
+                        scheduled,
+                        banned,
+                        tags,
+                    },
+                };
+            } catch (error) {
+                // Unknown error, unlikely to occur
+                console.error(`Unknown API Error: ${error.message}`);
+                return {
+                    success: false,
+                    error: {
+                        statusCode: 500,
+                        message: `Unknown API Error!\n${error.message}`,
+                    },
+                };
+            }
+
+            // This should be unreachable
+            return {
+                success: false,
+                error: { statusCode: 500, message: `This should never occur.` },
+            };
+        };
+
+        // Get Channel data for page
+        const channelData = await getChannelHydration();
+        if (channelData.success === false) {
+            console.error(`Channel Data API failed.`, channelData.error);
+            if (channelData && !channelData.success) {
+                error({ ...channelData.error });
+                return;
+            }
+        }
+
+        // Intercept for banned
+        if (channelData.banned) {
+            console.log(`Channel is banned`);
+            error({ statusCode: 401, message: banMessage });
+            return;
+        }
+
+        return {
+            ...channelData.data,
+        };
     },
 
     computed: {
@@ -618,6 +768,16 @@ export default {
                 return this.poster;
             }
         },
+
+        smartDetach() {
+            return this.detach && !this.mobile && !this.inPiP;
+        }, 
+
+        mobile() {
+            return this.mounted
+                ? this.$vuetify.breakpoint.smAndDown
+                : !this.$device.isDesktopOrTablet;
+        },
     },
 
     watch: {
@@ -628,11 +788,6 @@ export default {
         },
 
         source(newSource) {
-            /*if ( this.url  !== newSource.url || this.type !== newSource.type ) {
-          this.url  = newSource.url;
-          this.type = newSource.type;
-          this.reloadPlayer();
-        }*/
 
             // Always reload when source is changed
             // Ensures that a stream will restart after brief drop out.
@@ -645,17 +800,6 @@ export default {
 
     async mounted() {
         console.log("MOUNTED CALLED");
-        // Temporarily removed
-        //await this.loadPlayerSettings();
-        //this.$hello('mounted');
-
-        //this.playerInitialize();
-        
-        // from https://stackoverflow.com/questions/43652265/how-to-run-vuejs-code-only-after-vue-is-fully-loaded-and-initialized/43656809
-        // window.addEventListener('load', () => {
-        //   console.log("LOAD EVENT FIRED, INITIALIZING PLAYER");
-        //   this.playerInitialize();
-        // });
 
         this.watchTimer = setInterval(
             () => this.trackWatchTime(),
@@ -677,29 +821,4 @@ export default {
 </script>
 
 <style lang='scss'>
-/*  @import "~assets/style/stream-player.scss";
-
-  .detach-player {
-    position: fixed;
-    left: 80px;
-    top: 48px;
-    margin: 1rem;
-    width: 20rem;
-    height: 11.25rem;
-    z-index: 10;
-    overflow: hidden;
-
-    &:hover .detach-overlay {
-      transform: translateY( 0 );
-    }
-  }
-
-  .detach-overlay {
-    width: 100%;
-    position: absolute;
-    top: 0;
-    transform: translateY( -100% );
-    transition: .1s;
-    background-color: rgba(0,0,0,.75);
-  }*/
 </style>

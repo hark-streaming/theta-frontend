@@ -1,8 +1,8 @@
 <template>
     <div>
         <!-- Chat Header -->
-        <div class="mx-5">
-            <h1 class="font-weight-light rgb-text">Streamer Dashboard</h1>
+        <div class="ma-6" align="center">
+            <h1 >Streamer Dashboard</h1>
         </div>
 
         <!-- Main Container -->
@@ -10,9 +10,11 @@
             <!-- Main dashboard -->
             <v-row>
                 <!-- Stream Preview? -->
-                <v-col :cols="12">
-                    <h1>Stream Preview</h1>
-                    <v-responsive height="calc( 100% + 32px )">
+                <v-col >
+                    <v-sheet color="secondary" class="pl-3">
+                        <h1 :style="{color: 'white'}">Stream Preview</h1>
+                    </v-sheet>
+                    <v-responsive height="calc( 100% )">
                         <iframe
                             :src="`/embed/${username}`"
                             frameborder="none"
@@ -20,32 +22,34 @@
                             width="100%"
                             height="100%"
                         ></iframe>
-                    </v-responsive>
+                    </v-responsive> 
+                    
                 </v-col>
 
                 <!-- Chat -->
-                <v-col :cols="4"> 
-                    <div :style="{display:block}">
-                        <!-- Chat Alerts? -->
-                        <dashboard-superchats />
-                    </div>
-                    <div
+                <v-col cols=4> 
+                    <!-- <div :style="{display:block}">
+                        <!- Chat Alerts? -->
+                        <!-- <dashboard-superchats /> -->
+                    <!-- </div> -->
+                    <v-sheet
                         v-if="displayChat"
                         class="d-flex flex-shrink-1"
                         :style="{
                             height: mobile ? '500px' : '555px',
                             display:block
-                        }" 
+                        }"
+                        light
                     >
                         <chat :chat-channel="username" />
-                    </div>
+                    </v-sheet>
                 </v-col>
             </v-row>
 
             <!-- Configuration -->
 
             <!-- Stream Info -->
-            <v-layout justify-center>
+            <v-layout justify-center class="pt-4">
                 <v-flex v-if="showStreamInfo" xs12 sm10 md8 lg6>
                     <v-card class="mb-4 pa-3">
                         <v-layout column>
@@ -139,7 +143,6 @@ import { auth, db } from "@/plugins/firebase.js";
 import { mapGetters, mapState } from "vuex";
 import { Chat as ChatStore } from "@/store/chat";
 import { VStore } from "@/store";
-import DashboardSuperchats from '../components/Dashboard/DashboardSuperchats.vue';
 
 export default {
     name: "dashboard",
@@ -147,7 +150,6 @@ export default {
     middleware: "auth",
 
     components: {
-        DashboardSuperchats
         
     },
 

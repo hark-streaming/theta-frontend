@@ -1,6 +1,6 @@
 <template>
   <v-card width="225">
-    <v-sheet tile color="primary" class="px-2 py-1">
+    <v-sheet tile color="secondary" class="px-2 py-1">
       <div class="d-flex align-center">
 
         <!-- Avatar with webp support -->
@@ -37,8 +37,8 @@
         </v-avatar>
 
         <div>
-          <div class="title black--text">{{ username }}</div>
-          <div class="body-2 black--text">{{ userRank }} {{ userType }}</div>
+          <div class="title white--text">{{ username }}</div>
+          <div class="body-2 white--text">{{ userRank }} {{ userType }}</div>
         </div>
       </div>
     </v-sheet>
