@@ -66,15 +66,9 @@
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 import { VStore } from "@/store";
-// import HomepageVideo from "@/components/Homepage/HomepageVideo.vue";
-import HomepageVideo from '../components/Homepage/HomepageVideo.vue';
 
 export default {
   scrollToTop: true,
-
-  components: {
-    HomepageVideo
-  },
 
   head() {
    
