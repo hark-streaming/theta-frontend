@@ -12,11 +12,11 @@
           <v-col cols="12" md="10" xl="8">
             <!-- Banner Stream -->
             <banner-video
-              v-if="live[0]"
-              :src="live[0].url"
-              :type="live[0].type"
+              v-if="mostViewed"
+              :src="mostViewed.url"
+              :type="mostViewed.type"
               :poster="poster"
-              :name="live[0].name"
+              :name="mostViewed.name"
               :mobile="mobile"
               :offline="offline"
             /> 
@@ -51,6 +51,7 @@
             :md="4"
             :lg="3"
             :xl="2"
+            @getHighestViews="mostViewedStream($event)"
           />
         </v-sheet>
 
@@ -83,11 +84,17 @@ export default {
       chatMessages: null,
       offline: true,
 
-      livestreams: []
+      mostViewed: null,
     };
   },
 
   methods: {
+
+    mostViewedStream( stream ) {
+      // console.log(this);
+      this.mostViewed = stream;
+    },
+
     ...mapMutations({
       setBlurNsfw: VStore.$mutations.setBlurNsfw,
     }),
