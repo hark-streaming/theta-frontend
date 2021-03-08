@@ -13,6 +13,9 @@ export default ({ app }, inject) => {
 
 // copied from https://d1ktbyo67sh8fw.cloudfront.net/js/videojs-theta-plugin.js
 //#region Vjs plugin
+
+'use strict';
+
 function _extends() {
     _extends = Object.assign || function (target) {
         for (var i = 1; i < arguments.length; i++) {

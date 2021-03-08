@@ -50,6 +50,11 @@
 import videojs from "video.js";
 import hls from "hls.js";
 
+// if(process.brower){
+//     import Theta from "../../static/js/theta.js"
+// }
+
+
 //import "@videojs/http-streaming";
 //import "videojs-contrib-quality-levels";
 //import "videojs-hls-quality-selector";
@@ -86,7 +91,8 @@ export default {
             script: [
                 {
                     hid: "Thetacode",
-                    src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js",
+                    //src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js",
+                    src: "/js/theta.js",
                     callback: () => {
                         console.log("theta cdn script loaded");
 
@@ -127,9 +133,13 @@ export default {
         playerInitialize() {
             // This plugin call registers the stuff needed for the Theta videojs player
             console.log("CALLING ThetaPlayerSetup function");
+            //this.$ThetaPlayerSetup(window.Theta, hls, videojs);
             this.$ThetaPlayerSetup(window.Theta, hls, videojs);
+            
+            console.log("this is window theta", window.Theta);
+            
 
-            console.log("INITIALIZING PLAYER");
+            console.log("INITIALIZING PLAYER"); 
             console.log(
                 `URL: ${this.source.url}, TYPE: ${this.source.type}, POSTER: ${this.poster}, AUTOPLAY: ${this.autoplay}, POSTER: ${this.poster}`
             );
@@ -144,7 +154,7 @@ export default {
                     videoId: this.streamer,
                     // TODO: make sure firebase auth is loaded by this point 
                     //       so there is no accidental userId/guestId mismatch
-                    userId: this.getUserId, 
+                    userId: "12345",//this.getUserId, 
                     walletUrl:
                         "wss://api-wallet-service.thetatoken.org/theta/ws",
                     onWalletAccessToken: this.getWalletAccessToken,
@@ -561,19 +571,23 @@ export default {
             // logged in, return auth token
             else {
                 const token = await auth.currentUser.getIdToken(true);
-                console.log("USER LOGGED IN, TOKEN: ", token);
+                //console.log("USER LOGGED IN, TOKEN: ", token);
                 return token;
             }
         },
 
         getUserId(){
-            if(auth.currentUser.uid == null){
+            if(auth.currentUser == null){
+                console.log("not logged in, using guest id for theta");
                 return "" + (new Date().getTime())
             }
             else {
+                console.log("logged in, using uid for theta");
                 return auth.currentUser.uid;
             }
         },
+
+        
 
         ...mapMutations(Player.namespace, {
             setPiP: Player.$mutations.setPiP,
