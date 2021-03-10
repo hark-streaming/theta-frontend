@@ -11,20 +11,18 @@
         <v-row class="justify-center">
           <v-col cols="12" md="10" xl="8">
             <!-- Banner Stream -->
-            <!--
             <banner-video
-              v-if="live[0]"
-              :src="live[0].src"
-              :type="live[0].type"
+              v-if="mostViewed"
+              :src="mostViewed.url"
+              :type="mostViewed.type"
               :poster="poster"
-              :name="live[0].name"
+              :name="mostViewed.name"
               :mobile="mobile"
               :offline="offline"
             /> 
-            -->
 
             <!-- <test-theta /> -->
-            <homepage-video />
+            <!-- <homepage-video /> -->
           </v-col>
         </v-row>
 
@@ -53,6 +51,7 @@
             :md="4"
             :lg="3"
             :xl="2"
+            @getHighestViews="mostViewedStream($event)"
           />
         </v-sheet>
 
@@ -68,15 +67,9 @@
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 import { VStore } from "@/store";
-// import HomepageVideo from "@/components/Homepage/HomepageVideo.vue";
-import HomepageVideo from '../components/Homepage/HomepageVideo.vue';
 
 export default {
   scrollToTop: true,
-
-  components: {
-    HomepageVideo
-  },
 
   head() {
    
@@ -91,10 +84,17 @@ export default {
       chatMessages: null,
       offline: true,
 
+      mostViewed: null,
     };
   },
 
   methods: {
+
+    mostViewedStream( stream ) {
+      // console.log(this);
+      this.mostViewed = stream;
+    },
+
     ...mapMutations({
       setBlurNsfw: VStore.$mutations.setBlurNsfw,
     }),
@@ -273,6 +273,7 @@ export default {
     version() {
       return `v${process.env.version}`;
     },
+
   },
 
   mounted() {
