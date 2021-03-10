@@ -6,22 +6,24 @@
         <v-row>
             <v-col>
                 <v-card elevation="2" @click="showLogin = true">
-                    <v-card-title> Viewers </v-card-title>
-                    <v-card-subtitle> The followers for which the world moves. </v-card-subtitle>
+                    <v-card-title class="justify-center"> Viewers </v-card-title>
+                    <v-card-subtitle class="text-center"> 
+                        We, the People. 
+                    </v-card-subtitle>
                 </v-card>
             </v-col>
             <v-col>
                 <v-card elevation="2" to="/register/commentator">
-                    <v-card-title> Voices </v-card-title>
-                    <v-card-subtitle>
+                    <v-card-title class="justify-center"> Voices </v-card-title>
+                    <v-card-subtitle class="text-center">
                         Creators, Commentators, Activists
                     </v-card-subtitle>
                 </v-card>
             </v-col>
             <v-col>
                 <v-card elevation="2" to="/register/politician">
-                    <v-card-title> Civic Servants </v-card-title>
-                    <v-card-subtitle>
+                    <v-card-title class="justify-center"> Civic Servants </v-card-title>
+                    <v-card-subtitle class="text-center">
                         Candidates & PACs
                     </v-card-subtitle>
                 </v-card>

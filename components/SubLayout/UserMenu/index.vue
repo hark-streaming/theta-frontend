@@ -43,6 +43,15 @@
         color="primary"
         class="black--text"
         small
+        :to="registerTo"
+      >
+        Register
+      </v-btn>
+
+      <v-btn
+        color="primary"
+        class="black--text"
+        small
         @click="showLogin = true"
       >
         Login
@@ -66,6 +75,7 @@ export default {
     return {
       profileMenu: false,
       showLogin: false,
+      registerTo: "/register",
       defaultProfilePic:
         "https://cdn.bitwave.tv/static/img/troll_hazzie.png?_bw",
     };
