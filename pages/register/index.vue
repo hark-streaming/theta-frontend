@@ -1,18 +1,18 @@
 <template>
     <v-container grid-list-md>
-        <div class="mb-4 d-flex justify-space-around">REGISTER PAGE</div>
+        <h1 class="mb-4 d-flex justify-space-around"> Registration </h1>
 
         <!-- 3 card layout -->
-        <v-row no-gutters>
+        <v-row>
             <v-col>
                 <v-card elevation="2" @click="showLogin = true">
-                    <v-card-title> Viewer </v-card-title>
-                    <v-card-subtitle> average shumuck </v-card-subtitle>
+                    <v-card-title> Viewers </v-card-title>
+                    <v-card-subtitle> The followers for which the world moves. </v-card-subtitle>
                 </v-card>
             </v-col>
             <v-col>
                 <v-card elevation="2" to="/register/commentator">
-                    <v-card-title> Commentator </v-card-title>
+                    <v-card-title> Voices </v-card-title>
                     <v-card-subtitle>
                         Creators, Commentators, Activists
                     </v-card-subtitle>
@@ -20,9 +20,9 @@
             </v-col>
             <v-col>
                 <v-card elevation="2" to="/register/politician">
-                    <v-card-title> Politician </v-card-title>
+                    <v-card-title> Civic Servants </v-card-title>
                     <v-card-subtitle>
-                        Candidates, PACs, Organizations
+                        Candidates & PACs
                     </v-card-subtitle>
                 </v-card>
             </v-col>
