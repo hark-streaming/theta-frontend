@@ -3,8 +3,9 @@
     <div class="mt-3 grey--text caption">NOTE: All purchases support bitwave media directly currently. Additional monetization options for streamers is in progress.</div>
     <div class="mt-3 white--text caption"><i>wavecoins are nonrefundable and cannot be redeemed for cash value.</i></div>
 
+
+    <!-- to="/wavecoin-acceptable-use-policy" -->
     <nuxt-link
-      to="/wavecoin-acceptable-use-policy"
       class="mb-3 caption"
       no-prefetch
     >

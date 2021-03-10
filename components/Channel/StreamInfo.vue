@@ -49,7 +49,7 @@
             :placeholder="'Select a stream topic....'"
           /> -->
 
-          <v-chip 
+          <!-- <v-chip 
             v-for="(tag, index) in tags" 
             :key="index"
             small
@@ -59,7 +59,9 @@
             label
             >
             {{ tag }}
-          </v-chip>
+          </v-chip> -->
+
+          <TempTags :tags="tags" />
         </v-row>
 
       </v-container>
@@ -213,6 +215,7 @@
 <script>
   import { mapGetters } from 'vuex';
   import { VStore } from '@/store';
+  import TempTags from '@/components/TempTags';
 
   import { timeAgo } from '@/assets/js/time-ago';
 
@@ -236,6 +239,7 @@
       StreamArchives,
       RestreamDialog,
       DebugStream,
+      TempTags
     },
 
     props: {

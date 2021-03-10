@@ -66,7 +66,17 @@
         
       </v-toolbar-title>
 
-      <div><PagesDropDown></PagesDropDown></div>
+      <div><PagesDropDown /></div>
+      <div><LocationDropDown /></div>
+
+      <v-spacer />
+
+      <v-text-field 
+        label="Search"
+        clearable 
+        background-color="neutral" 
+        class="mt-3 mb-n2">
+      </v-text-field>
 
       <v-spacer />
 
@@ -102,8 +112,8 @@
   import Notifications from '@/components/Notifications'
   import StreamHereBtn from '@/components/SubLayout/StreamHereBtn';
   import SystemAlert from '@/components/Alerts/SystemAlert';
-  import PagesDropDown from "../components/PagesDropDown";
-  import colors from "assets/vars/colors.scss";
+  import PagesDropDown from "@/components/RoutingBar/PagesDropDown";
+  import LocationDropDown from "@/components/RoutingBar/LocationDropDown";
 
   const Fireworks = async () => await import( '@/components/effects/fireworks' );
 
@@ -119,7 +129,8 @@
       Notifications,
       StreamHereBtn,
       Fireworks,
-      PagesDropDown
+      PagesDropDown, 
+      LocationDropDown
     },
 
     data () {
@@ -248,5 +259,6 @@
     background-image: linear-gradient(to top right, #54547c, #ebe8e8, #cc6464);
   }
   
+
 
 </style>

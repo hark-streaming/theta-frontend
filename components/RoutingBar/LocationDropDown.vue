@@ -3,7 +3,7 @@
 <template>
     <div class="dropdown">
 
-        <button class="dropbtn">Pages<img id="drop-arrow" src="/images/dropdown-arrow.png" /></button>
+        <button class="dropbtn">Locations<img id="drop-arrow" src="/images/dropdown-arrow.png" /></button>
         <div class="dropdown-content">
             <nuxt-link v-for="(page, index) in pages" :key="index" :to="page.path">{{ page.name }}</nuxt-link>
         </div>
@@ -19,29 +19,9 @@ export default {
             // links not working?? "Unknown API Error! Cannot read property 'abbreviation' of null"
             pages: [
                 { 
-                    name: "Test", 
-                    path: "/test" 
+                    name: "Wisconsin", 
+                    path: "/usa/wi" 
                 }, 
-                { 
-                    name: "Admin", 
-                    path: "/admin" 
-                }, 
-                {
-                    name: "Chat", 
-                    path: "/chat"
-                }, 
-                {
-                    name: "Login", 
-                    path: "/login"
-                },
-                {
-                    name: "Index", 
-                    path: "/index"
-                },
-                {
-                    name: "Privacy", 
-                    path: "/privacy"
-                },
             ], 
             text_color: "primary"
         }
@@ -52,7 +32,7 @@ export default {
 <style scoped>
     .dropbtn {
         color: white;
-        padding: 16px;
+        padding: 16px 6px;
         font-size: 16px;
         border: none;
     }

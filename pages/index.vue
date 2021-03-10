@@ -4,12 +4,12 @@
       <!-- Goal Progress -->
       <goal-progress v-if="false" />
 
-      <v-container fluid>
+      <v-container>
         <!-- Site Banner -->
         <message-of-the-day />
 
         <v-row class="justify-center">
-          <v-col cols="12" md="10" xl="8">
+          <v-col cols="12" md="8" xl="8" class="pr-0">
             <!-- Banner Stream -->
             <banner-video
               v-if="mostViewed"
@@ -23,6 +23,15 @@
 
             <!-- <test-theta /> -->
             <!-- <homepage-video /> -->
+          </v-col>
+
+          <v-col class="grow pl-0">
+            <v-sheet color="neutral" class="fill-height pa-5">
+              <h2>{{ mostViewed.name }}</h2>
+              <h4>Viewers: {{ viewCount }}</h4>
+              <TempTags :tags="mostViewed.tags" class="my-2"/>
+              <p>{{ mostViewed.description }}</p>
+            </v-sheet>
           </v-col>
         </v-row>
 
@@ -52,6 +61,7 @@
             :lg="3"
             :xl="2"
             @getHighestViews="mostViewedStream($event)"
+            @getHighestViewCount="highestViewCount($event)"
           />
         </v-sheet>
 
@@ -67,13 +77,17 @@
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 import { VStore } from "@/store";
+import TempTags from "../components/TempTags";
 
 export default {
   scrollToTop: true,
 
+  components: {
+    TempTags
+  },
+
   head() {
    
-    
   },
 
   data() {
@@ -84,7 +98,8 @@ export default {
       chatMessages: null,
       offline: true,
 
-      mostViewed: null,
+      mostViewed: {},
+      viewCount: 0,
     };
   },
 
@@ -93,6 +108,10 @@ export default {
     mostViewedStream( stream ) {
       // console.log(this);
       this.mostViewed = stream;
+    },
+
+    highestViewCount( viewCount ) {
+      this.viewCount = viewCount
     },
 
     ...mapMutations({
@@ -288,3 +307,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  banner-video {
+    max-width: 200px;
+  }
+</style>

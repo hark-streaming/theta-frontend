@@ -193,4 +193,5 @@ export default {
 .brogermy {
   min-height: 2000px;
 }
+
 </style>

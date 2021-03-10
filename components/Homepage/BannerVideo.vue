@@ -215,4 +215,5 @@
 
 <style lang='scss'>
   @import "~assets/style/stream-player.scss";
+
 </style>

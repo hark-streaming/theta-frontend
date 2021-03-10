@@ -28,10 +28,15 @@
 
                 <!-- Chat -->
                 <v-col cols=4> 
+
                     <!-- <div :style="{display:block}">
                         <!- Chat Alerts? -->
                         <!-- <dashboard-superchats /> -->
                     <!-- </div> -->
+                    <v-sheet color="accentwave" align=center class="pt-2 pb-1">
+                        <v-btn small color="green">Donations</v-btn>
+                    </v-sheet>
+
                     <v-sheet
                         v-if="displayChat"
                         class="d-flex flex-shrink-1"

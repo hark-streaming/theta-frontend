@@ -89,17 +89,17 @@
         </v-list-item>
 
         <!-- Live Chat -->
-        <v-list-item :to="`/chat/${username}`">
+        <!-- <v-list-item :to="`/chat/${username}`">
           <v-list-item-action>
             <v-icon>forum</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Live Chat</v-list-item-title>
           </v-list-item-content>
-        </v-list-item>
+        </v-list-item> -->
 
         <!-- OBS Overlays -->
-        <v-list-item
+        <!-- <v-list-item
           v-if="userType === 'Streamer'"
           to="/overlay/chat"
         >
@@ -109,7 +109,7 @@
           <v-list-item-content>
             <v-list-item-title>OBS Overlay</v-list-item-title>
           </v-list-item-content>
-        </v-list-item>
+        </v-list-item> -->
 
         <!-- Report -->
         <v-list-item to="/report">
@@ -135,7 +135,7 @@
         </v-list-item>
 
         <!-- Buy Color -->
-        <braintree-drop-in class="my-1" />
+        <!-- <braintree-drop-in class="my-1" /> -->
 
         <!-- Sign OUt -->
         <v-list-item @click="logout">

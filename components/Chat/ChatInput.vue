@@ -54,7 +54,7 @@
       <chat-mod-tools v-if="false"/>
 
       <!-- WaveCoin™ -->
-      <v-menu
+      <!-- <v-menu
         v-if="true"
         v-model="showChatCoins"
         :close-on-content-click="false"
@@ -78,7 +78,7 @@
         <chat-coin
           @close="showChatCoins = false"
         />
-      </v-menu>
+      </v-menu> -->
 
       <v-spacer/>
 
@@ -117,7 +117,7 @@
   import { Chat } from '@/store/chat';
 
   const ChatSettings = async () => await import( '@/components/Chat/ChatSettings' );
-  const ChatCoin     = async () => await import ( '@/components/Payment/ChatCoin' );
+  // const ChatCoin     = async () => await import ( '@/components/Payment/ChatCoin' );
 
   import AutocompleteChat from '@/components/Chat/AutocompleteChat';
   import ChatModTools from '@/components/Chat/ChatModTools/index';
@@ -194,7 +194,7 @@
 
     components: {
       ChatModTools,
-      ChatCoin,
+      // ChatCoin,
       ChatSettings,
       AutocompleteChat,
     },
@@ -208,7 +208,7 @@
       return {
         mounted: false,
 
-        showChatCoins: false,
+        // showChatCoins: false,
 
         messageBufferIndex: -1,
         showUsernameSuggestions: false,

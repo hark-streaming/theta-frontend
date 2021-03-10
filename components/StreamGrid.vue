@@ -137,6 +137,7 @@ export default {
         return { ...stream, viewCount: this.getChannelViews(stream.name) || 0 };
       });
       let streamlist = streams.sort((a, b) => b.viewCount - a.viewCount);
+      this.$emit("getHighestViewCount", streamlist[0].viewCount);
       this.$emit("getHighestViews", streamlist[0]);
       return streamlist;
     },
