@@ -95,7 +95,7 @@ export default {
       mounted: false,
       player: null,
       // poster: "https://cdn.bitwave.tv/static/img/Bitwave_Banner.jpg",
-      poster: "/static/bitwave_cover.png",
+      poster: "/bitwave_cover.png",
       chatMessages: null,
       offline: true,
 

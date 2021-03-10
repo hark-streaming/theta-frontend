@@ -62,11 +62,13 @@
           exact-active-class="app-title-active"
           class="text-none title px-2"
           color="white"
-        >{{ title }}</v-btn>
+        >
+          <v-img src="/images/hark-logo.png" max-width="60"></v-img>
+        </v-btn>
         
       </v-toolbar-title>
 
-      <div><PagesDropDown /></div>
+      <!-- <div><PagesDropDown /></div> -->
       <div><LocationDropDown /></div>
 
       <v-spacer />
@@ -75,7 +77,9 @@
         label="Search"
         clearable 
         background-color="neutral" 
-        class="mt-3 mb-n2">
+        class="mt-3 mb-n2"
+        dense
+        flat>
       </v-text-field>
 
       <v-spacer />
