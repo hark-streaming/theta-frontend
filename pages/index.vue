@@ -6,9 +6,9 @@
 
       <v-container>
         <!-- Site Banner -->
-        <message-of-the-day />
+        <!-- <message-of-the-day /> -->
 
-        <v-row class="justify-center">
+        <v-row class="justify-center mt-5 mb-8">
           <v-col cols="12" md="8" xl="8" class="pr-0">
             <!-- Banner Stream -->
             <banner-video
@@ -28,7 +28,7 @@
           <v-col class="grow pl-0">
             <v-sheet color="neutral" class="fill-height pa-5">
               <h2>{{ mostViewed.name }}</h2>
-              <h4>Viewers: {{ viewCount }}</h4>
+              <h4>Viewers: {{ mostViewed.viewCount }}</h4>
               <TempTags :tags="mostViewed.tags" class="my-2"/>
               <p>{{ mostViewed.description }}</p>
             </v-sheet>
@@ -100,7 +100,6 @@ export default {
       offline: true,
 
       mostViewed: {},
-      viewCount: 0,
     };
   },
 
