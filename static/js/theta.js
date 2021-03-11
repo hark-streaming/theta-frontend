@@ -11470,7 +11470,7 @@
 	  maxConcurrentPeerTxs: 1,
 	  allowGeoLocation: false,
 	  allowRangeRequests: true,
-	  debug: false
+	  debug: false //KEVIN TRIED SETTING TRUE HERE, DIDNT PRINT DEBUGS?
 	};
 
 	/**
@@ -20346,7 +20346,7 @@
 
 	var Theta =
 	/*#__PURE__*/
-	function () {
+	function () { // THIS GUY IS WHAT window.Theta IS -KEVIN
 	  _createClass(Theta, null, [{
 	    key: "registerPlugin",
 	    value: function registerPlugin(pluginName, pluginClass) {
@@ -20470,7 +20470,7 @@
 	    }
 	  }]);
 
-	  function Theta() {
+	  function Theta() { // THIS IS LIKE A SECONDARY THETA THAT YOU CAN MAKE YOURSELF -KEVIN
 	    var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
 	    _classCallCheck(this, Theta);
@@ -20482,7 +20482,7 @@
 	      config[prop] = defaultConfig[prop];
 	    }
 
-	    if (config['debug'] === true) {
+	    if (config['debug'] === true) { //KEVIN CHANGED THIS TO TRUE FOR TESTING
 	      Theta.setDebug(true);
 	    }
 
@@ -20563,7 +20563,7 @@
 	    this.playerStats.setFragmentSize(config.fragmentSize);
 	    this.playerStats.start();
 	    this.eventHandlers_ = {};
-	    this.widgetConnected = false;
+	    this.widgetConnected = true; //false; //KEVIN CHANGED THIS TO TRUE
 	  }
 
 	  _createClass(Theta, [{
@@ -20591,17 +20591,17 @@
 	    key: "trigger",
 	    value: function trigger(name, data) {
 	      Logger.log('Trigger Event.name:', name);
-	      if (!this.eventHandlers_.hasOwnProperty(name)) return;
+	      /*if (!this.eventHandlers_.hasOwnProperty(name)) return; //TEMPORARILY REMOVED -KEVIN
 	      var evs = this.eventHandlers_[name],
 	          l = evs.length;
 
 	      for (var _i = 0; _i < l; _i++) {
 	        var f = evs[_i];
 	        f(data);
-	      } //Pass the event to the window (or the parent window) where the widget can get it
+	      }*/ //Pass the event to the window (or the parent window) where the widget can get it
 
 
-	      if (this.widgetConnected) {
+	      if (this.widgetConnected/*true*/) {// KEVIN CHANGED THIS TO TRUE
 	        //TODO have support for the dev to pass in the domains to whitelist...we can loop over them and send the event to those.
 	        var receivers = [window.parent, window];
 
@@ -20617,7 +20617,7 @@
 	        }
 	      }
 	    }
-	  }, {
+	  },  {
 	    key: "connectWidget",
 	    value: function connectWidget() {
 	      this.widgetConnected = true;
