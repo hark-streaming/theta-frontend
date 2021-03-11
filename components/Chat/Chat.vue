@@ -11,6 +11,8 @@
     <chat-header
       :page="page"
       :is-channel-owner="isChannelOwner"
+      :donateOn="donateOn"
+      :donateMsg="donateMsg"
       @add-channel-tag="addUserTag( page )"
     />
 
@@ -133,6 +135,8 @@
     props: {
       chatChannel : { type: String },
       forceGlobal : { type: Boolean },
+      donateOn : {type: Boolean}, 
+      donateMsg : {type: String},
     },
 
     components: {

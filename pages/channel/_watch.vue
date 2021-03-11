@@ -97,7 +97,11 @@
                 width: mobile && landscape ? '50%' : null,
             }"
         >
-            <chat :chat-channel="name" />
+            <chat 
+                :chat-channel="name" 
+                :donateOn="donateOn"
+                :donateMsg="donateMsg"
+            />
         </div>
 
         <!-- Restore chat FAB -->
@@ -242,6 +246,8 @@ export default {
             scheduled: null,
             banned: false,
             tags: [],
+            donateOn: true, 
+            donateMsg: "",
 
             banMessage:
                 "This channel has been banned for breaching our Terms of Service.",
@@ -329,6 +335,9 @@ export default {
             // Stream properties
             this.nsfw = data.nsfw;
             const live = data.live;
+
+            this.donateOn = data.donateOn;
+            this.donateMsg = data.donateMsg;
 
             this.tags = data.tags;
 
@@ -543,6 +552,8 @@ export default {
                         scheduled: data.scheduled,
                         banned: data.banned || false,
                         tags: data.tags,
+                        donateOn: data.donateOn, 
+                        donateMsg: data.donateMsg,
                     };
 
                     console.log(`Bypass should be successfull...`);
@@ -578,6 +589,9 @@ export default {
                 // Stream properties
                 const nsfw = data.nsfw;
                 const live = data.live;
+
+                const donateOn = data.donateOn;
+                const donateMsg = data.donateMsg;
 
                 // Stream tags
                 const tags = data.tags;
@@ -634,6 +648,8 @@ export default {
                         scheduled,
                         banned,
                         tags,
+                        donateOn, 
+                        donateMsg,
                     },
                 };
             } catch (error) {

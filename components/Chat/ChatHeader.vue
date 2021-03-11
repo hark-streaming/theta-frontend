@@ -21,6 +21,8 @@
         {{ page }}
       </h4>
 
+      <v-btn v-if="donateOn" color="primary" small>{{ donateMsg }}</v-btn>
+
       <div class="d-flex">
 
         <!-- TODO: Move this to it's own component during poll refactor -->
@@ -102,6 +104,8 @@ const ChatPoll = async () => await import ( '@/components/Chat/ChatPoll' );
     props: {
       page: { type: String },
       isChannelOwner: { type: Boolean },
+      donateOn: { type: Boolean, default: false }, 
+      donateMsg: { type: String },
     },
 
     data () {
