@@ -33,9 +33,6 @@
                         <!- Chat Alerts? -->
                         <!-- <dashboard-superchats /> -->
                     <!-- </div> -->
-                    <v-sheet color="accentwave" align=center class="pt-2 pb-1">
-                        <v-btn small color="green">Donations</v-btn>
-                    </v-sheet>
 
                     <v-sheet
                         v-if="displayChat"
@@ -101,6 +98,29 @@
                                 />
                             </v-flex>
                             <!-- TODO: Remove NSFW because Hark won't have any -->
+                            <v-flex shrink>
+                                <v-switch 
+                                    v-model="streamData.donateOn"
+                                    label="Donate Button"
+                                    color = "primary"
+                                    hide-details
+                                    dense
+                                    inset
+                                    @change="showSave = true"
+                                />
+                                <v-text-field 
+                                    v-model="streamData.donateMsg"
+                                    label="Button Message"
+                                    outlined
+                                    color="primary"
+                                    auto-grow
+                                    dense
+                                    class="mt-4"
+                                    counter="50"
+                                    :disabled="!streamData.donateOn"
+                                    @input="showSave = true"
+                                />
+                            </v-flex>
                             <v-flex shrink>
                                 <v-switch
                                     v-model="streamData.nsfw"
@@ -184,6 +204,8 @@ export default {
                 nsfw: false,
                 url: "",
                 key: "",
+                donateMsg: "",
+                donateOn: false,
             },
 
             streamDataLoading: true,
@@ -233,6 +255,8 @@ export default {
         async streamDataChanged(data) {
             this.streamData.archive = !!data.archive;
             this.streamData.title = data.title;
+            this.streamData.donateMsg = data.donateMsg;
+            this.streamData.donateOn = data.donateOn;
             this.streamData.nsfw = data.nsfw;
             this.description = data.description;
             this.activeTags = this.parseTags(data.tags);
@@ -248,6 +272,8 @@ export default {
             this.saveLoading = true;
             const archive = this.streamData.archive;
             const title = this.streamData.title;
+            const donateMsg = this.streamData.donateMsg;
+            const donateOn = this.streamData.donateOn;
             const nsfw = this.streamData.nsfw;
             const description = this.description;
             const stream = this.username.toLowerCase();
@@ -259,6 +285,8 @@ export default {
                 archive,
                 nsfw,
                 title,
+                donateMsg,
+                donateOn,
                 description,
                 tags
             });
