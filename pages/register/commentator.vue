@@ -1,5 +1,5 @@
 <template>
-  <v-container class="px-16">
+  <v-container>
     <v-row>
       <v-col cols="4">
         <v-card elevation="2" class="pa-6 sticky-card">
@@ -22,7 +22,9 @@
             </v-timeline-item>
             <v-timeline-item
               small
-              :color="false ? 'primary' : 'secondaryneutral'"
+              :color="
+                entityInformationFilled() ? 'primary' : 'secondaryneutral'
+              "
               >Entity Information</v-timeline-item
             >
             <v-timeline-item
@@ -42,7 +44,6 @@
               select "Sole Proprietor".
             </v-card-subtitle>
             <v-select
-              v-model="select"
               :items="entityTypes"
               :rules="[(v) => !!v || 'Item is required']"
               label="Entity Type"
@@ -68,7 +69,7 @@
               required
             />
             <v-text-field
-              v-model="name"
+              v-model="username"
               :counter="100"
               :rules="nameRules"
               label="Account Username"
@@ -106,6 +107,27 @@
               @on-tag-created="onTagCreated"
             />
           </v-card>
+          <v-card elevation="2" class="px-8 pb-4 mb-6">
+            <v-card-title> Submission </v-card-title>
+            <v-card-subtitle>
+              Solve the h-captcha and submit to finish registering!
+            </v-card-subtitle>
+            <v-hcaptcha
+              tabindex="5"
+              :key="attempts"
+              @verify="onCaptchaVerify"
+              @expired=""
+              @error="onCaptchaError"
+            />
+            <v-btn
+              color="primary"
+              class="black--text"
+              small
+              @click="createHcaptchaUser"
+            >
+              Submit
+            </v-btn>
+          </v-card>
         </v-form>
       </v-col>
     </v-row>
@@ -121,6 +143,8 @@ export default {
   data() {
     return {
       valid: true,
+
+      // rules
       nameRules: [(v) => !!v || "Name is required"],
       einRules: [(v) => /(^[1-9]\d?-\d{7}$)|^$/.test(v) || "EIN must be valid"],
       phoneRules: [
@@ -132,10 +156,21 @@ export default {
         (v) => !!v || "E-mail is required",
         (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
-      select: null,
-      name: "",
-      email: "",
+
+      // form submit
       selectedEntityType: "",
+      ein: null,
+      name: "",
+      username: "",
+      email: "",
+      phone: "",
+      captchaToken: null,
+
+      // returns
+      usernameError: "",
+      usernameSuccess: "",
+
+      // selects
       entityTypes: [
         "Sole Proprietor / Partnership",
         "Nonprofit 501(c)(3)",
@@ -159,9 +194,178 @@ export default {
     resetValidation() {
       this.$refs.form.resetValidation();
     },
+
+    // Create hCaptcha User
+    // CALLED ON REGISTER BUTTON
+    // WE NEED AN HCAPTCHA SITE KEY FOR CAPTCHA TO WORK
+    // FOR LOCALHOST TESTING, use 127.0.0.1 instead of localhost
+    async createHcaptchaUser() {
+      // Put form in loading state
+      this.loading = true;
+
+      // Validate inputs and captcha solution
+      // TODO: make captcha work
+      // Dont validate right now because testing
+      const valid = true; //await this.validate();
+      console.log(valid);
+      if (!valid) {
+        this.loading = false;
+        return false;
+      }
+
+      // Log analytics
+      this.$ga.event({
+        eventCategory: "login",
+        eventAction: "register",
+      });
+
+      // Send off our data!
+      try {
+        //const endpoint = 'https://api.bitwave.tv/v1/user/register';
+        //const endpoint = 'http://localhost:5001/hark-e2efe/us-central1/api/users/register';
+        const endpoint =
+          "https://us-central1-hark-e2efe.cloudfunctions.net/api/users/register";
+        const payload = {
+          username: this.user.username,
+          email: this.user.email,
+          password: this.user.password,
+          captcha: this.captchaToken,
+        };
+
+        // Submit to API server
+        const result = await this.$axios.$post(endpoint, payload);
+
+        if (result.success) {
+          this.showSuccess(result.message + "\nSigning in to new account...");
+        } else {
+          this.showError(result.message);
+          this.captchaToken = null;
+          this.attempts += 1;
+          this.loading = false;
+          return false;
+        }
+      } catch (error) {
+        console.error(error);
+        this.showError(error.message);
+        this.captchaToken = null;
+        this.attempts += 1;
+        this.loading = false;
+        return false;
+      }
+
+      // Now finally (attempt to) login to our newly created user.
+      // In theory this should never fail cuz we just registered
+      // our account with the exact same credentials...
+      try {
+        // Set firebase.auth.Auth.Persistence.SESSION
+        await auth.setPersistence("local");
+        await auth.signInWithEmailAndPassword(
+          this.user.email,
+          this.user.password
+        );
+      } catch (error) {
+        this.showError(error.message);
+        console.log(error.message);
+      }
+
+      // Disable loading animation
+      this.loading = false;
+    },
+
+    // callbacks
     onEntityTypeChange(v) {
       this.selectedEntityType = v;
     },
+    entityInformationFilled() {
+      return (
+        this.name != "" &&
+        this.username != "" &&
+        this.email != "" &&
+        this.phone != ""
+      );
+    },
+    async onCaptchaVerify(token) {
+      this.captchaToken = token;
+      await this.validate();
+    },
+    async onCpatchaExpired(data) {
+      this.captchaToken = null;
+      await this.validate();
+    },
+    async onCaptchaError(data) {
+      this.captchaToken = null;
+      await this.validate();
+    },
+
+    // Validate Data
+    async validate() {
+      // Validate username & form
+      const validUsername = await this.checkUsername(this.username);
+      const validForm = await this.$refs.form.validate();
+
+      console.log(`Valid username: ${validUsername}, validForm: ${validForm}`);
+
+      // Validate Inputs
+      if (!(validUsername && validForm)) {
+        //this.showError("Please fix errors in red");
+        alert("Please fix the errors in red");
+        return false;
+      }
+
+      // Check for captcha
+      if (!this.captchaToken) {
+        //this.showError("Please train an AI with the captcha");
+        alert("Please train an AI with the captcha");
+        return false;
+      }
+
+      // All good
+      return true;
+    },
+
+    // Check Username
+    async checkUsername(username) {
+      // default state
+      this.usernameError = "";
+      this.usernameSuccess = "";
+
+      // Don't check unless we have a username
+      if (!username) {
+        this.usernameError = "Name is required";
+        return false;
+      }
+
+      try {
+        // Verify Username is valid & not taken
+        // TODO: update to hark endpoint
+        const endpoint = "https://api.bitwave.tv/api/check-username";
+        const payload = { username: username };
+        const config = { progress: false };
+        const checkUsername = await this.$axios.$post(
+          endpoint,
+          payload,
+          config
+        );
+
+        // Validate API response
+        if (checkUsername.valid) {
+          this.usernameSuccess = "Username Available";
+          return true;
+        } else {
+          this.usernameError = checkUsername.error;
+          return false;
+        }
+        // Failed to check username
+      } catch {
+        error;
+      }
+      {
+        console.error(error);
+        this.usernameError = error.message;
+        return false;
+      }
+    },
+
     // tags
     async getAllTags() {
       // get snapshot of all the tags
@@ -201,12 +405,6 @@ export default {
     onTagRemoved(tag) {
       console.log(tag);
       this.activeTags = this.activeTags.filter((x) => x != tag);
-    },
-    onTagCreated(tag) {
-      tag.slug = tag.slug.toLowerCase().Replace(" ", "_");
-      console.log(tag);
-      this.allTags.push(tag);
-      this.activeTags.push(tag);
     },
   },
 

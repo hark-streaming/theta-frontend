@@ -152,7 +152,7 @@
         </div>
 
 
-        <!-- Reister Button -->
+        <!-- Register Button -->
         <v-btn
           v-if="signUp"
           block
