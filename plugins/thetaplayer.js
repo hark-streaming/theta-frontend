@@ -193,7 +193,7 @@ function registerPluginVjs(Theta, Hls, videojs) {
                 thetaOpts = _this$options_.thetaOpts; //Create Wallet
 
             var wallet = this.initThetaWallet(walletUrl, onWalletAccessToken); //Create Theta
-
+            console.log("Inside plugins, this is the theta wallet?", wallet);    
             this.theta_ = this.initTheta({
                 wallet: wallet,
                 videoId: videoId,

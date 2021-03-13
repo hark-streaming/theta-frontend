@@ -94,8 +94,11 @@ export default {
                     src: "/js/theta.js",
                     callback: () => {
                         console.log("theta cdn script loaded");
-
-                        this.playerInitialize();
+                        //this.isAuthed = auth.onAuthStateChanged( async user => await this.authenticated( user ) );
+                        // im just going to put a settimeout here bc I don't want to set up the wait for firebase auth
+                        // TODO: Set up firebase auth waiter
+                        setTimeout(() => this.playerInitialize(), 500 );
+                        //this.playerInitialize();
                     },
                 },
                 {  
@@ -131,8 +134,8 @@ export default {
 
     data() {
         return {
-            //scriptsLoaded: false,
             initialized: false,
+            isAuthed: false,
 
             player: null,
             url: null,
@@ -157,8 +160,11 @@ export default {
 
             //turn theta debugging on
             window.Theta.setDebug(true);
+            console.log("this is the wallet", window.Theta.Wallet);
+            console.log("this is the P2P", window.Theta.P2P);
+            console.log("this is the default config before player", window.Theta.DefaultConfig);
 
-            console.log("this is window theta", window.Theta);
+            //console.log("this is window theta", window.Theta);
 
             console.log("INITIALIZING PLAYER");
             console.log(
@@ -175,7 +181,7 @@ export default {
                     videoId: this.streamer,
                     // TODO: make sure firebase auth is loaded by this point
                     //       so there is no accidental userId/guestId mismatch
-                    userId: this.getUserId,
+                    userId: this.getUserId(),
                     walletUrl:
                         "wss://api-wallet-service.thetatoken.org/theta/ws",
                     onWalletAccessToken: this.getWalletAccessToken,
