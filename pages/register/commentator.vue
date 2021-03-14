@@ -22,15 +22,15 @@
             </v-timeline-item>
             <v-timeline-item
               small
+              :color="false ? 'primary' : 'secondaryneutral'"
+              >Categorization</v-timeline-item
+            >
+            <v-timeline-item
+              small
               :color="
                 entityInformationFilled() ? 'primary' : 'secondaryneutral'
               "
               >Entity Information</v-timeline-item
-            >
-            <v-timeline-item
-              small
-              :color="false ? 'primary' : 'secondaryneutral'"
-              >Categorization</v-timeline-item
             >
           </v-timeline>
         </v-card>
@@ -54,6 +54,25 @@
               v-if="selectedEntityType != 'Sole Proprietor / Partnership'"
               :rules="einRules"
               label="EIN (Not Required, Helpful for Validation)"
+            />
+          </v-card>
+          <v-card elevation="2" class="px-8 pb-4 mb-6">
+            <v-card-title> Categorization </v-card-title>
+            <v-card-subtitle>
+              Categories for your channel. Can be changed later.
+            </v-card-subtitle>
+            <vue-tags
+              :active="activeTags"
+              :all="allTags"
+              :element-count-for-start-arrow-scrolling="4"
+              :tab-index="1"
+              :tag-creation-enabled="false"
+              :colors-enabled="false"
+              :tag-color-default="'green'"
+              :tag-list-label="'Channel Topics'"
+              :placeholder="'Select some channel topics....'"
+              @on-tag-added="onTagAdded"
+              @on-tag-removed="onTagRemoved"
             />
           </v-card>
           <v-card elevation="2" class="px-8 pb-4 mb-6">
@@ -86,25 +105,25 @@
               :rules="phoneRules"
               label="US Phone Number"
             />
-          </v-card>
-          <v-card elevation="2" class="px-8 pb-4 mb-6">
-            <v-card-title> Categorization </v-card-title>
-            <v-card-subtitle>
-              Categories for your channel. Can be changed later.
-            </v-card-subtitle>
-            <vue-tags
-              :active="activeTags"
-              :all="allTags"
-              :element-count-for-start-arrow-scrolling="4"
-              :tab-index="1"
-              :tag-creation-enabled="false"
-              :colors-enabled="false"
-              :tag-color-default="'green'"
-              :tag-list-label="'Channel Topics'"
-              :placeholder="'Select some channel topics....'"
-              @on-tag-added="onTagAdded"
-              @on-tag-removed="onTagRemoved"
-              @on-tag-created="onTagCreated"
+            <!-- Password Field -->
+            <v-text-field
+              id="password"
+              key="password"
+              v-model="password"
+              :append-icon="showPassword ? 'visibility' : 'visibility_off'"
+              :rules="passwordRules"
+              :type="showPassword ? 'text' : 'password'"
+              name="input-10-1"
+              label="Password"
+              hint="At least 8 characters"
+              autocomplete="password"
+              validate-on-blur
+              solo
+              light
+              :disabled="loading"
+              @click:append="showPassword = !showPassword"
+              tabindex="3"
+              :persistent-hint="signUp"
             />
           </v-card>
           <v-card elevation="2" class="px-8 pb-4 mb-6">
@@ -144,6 +163,21 @@ export default {
     return {
       valid: true,
 
+      // form submit
+      selectedEntityType: "",
+      ein: null,
+      name: "",
+      username: "",
+      email: "",
+      phone: "",
+      password: "",
+      captchaToken: null,
+
+      // form logic
+      usernameError: "",
+      usernameSuccess: "",
+      showPassword: false,
+
       // rules
       nameRules: [(v) => !!v || "Name is required"],
       einRules: [(v) => /(^[1-9]\d?-\d{7}$)|^$/.test(v) || "EIN must be valid"],
@@ -156,19 +190,10 @@ export default {
         (v) => !!v || "E-mail is required",
         (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
-
-      // form submit
-      selectedEntityType: "",
-      ein: null,
-      name: "",
-      username: "",
-      email: "",
-      phone: "",
-      captchaToken: null,
-
-      // returns
-      usernameError: "",
-      usernameSuccess: "",
+      passwordRules: [
+        value => ( value && value.length >= 8 ) || 'Min 8 characters',
+        (v) => !!v || "Password is required",
+      ],
 
       // selects
       entityTypes: [
@@ -221,15 +246,18 @@ export default {
 
       // Send off our data!
       try {
-        //const endpoint = 'https://api.bitwave.tv/v1/user/register';
-        //const endpoint = 'http://localhost:5001/hark-e2efe/us-central1/api/users/register';
         const endpoint =
           "https://us-central1-hark-e2efe.cloudfunctions.net/api/users/register";
         const payload = {
-          username: this.user.username,
-          email: this.user.email,
-          password: this.user.password,
+          username: this.username,
+          email: this.email,
+          password: this.password,
           captcha: this.captchaToken,
+          ein: this.ein,
+          entity: this.selectedEntityType,
+          name: this.name,
+          phone: this.phone,
+          role: "streamer",
         };
 
         // Submit to API server
@@ -246,7 +274,8 @@ export default {
         }
       } catch (error) {
         console.error(error);
-        this.showError(error.message);
+        alert(error.message);
+        //this.showError(error.message);
         this.captchaToken = null;
         this.attempts += 1;
         this.loading = false;
@@ -281,7 +310,8 @@ export default {
         this.name != "" &&
         this.username != "" &&
         this.email != "" &&
-        this.phone != ""
+        this.phone != "" &&
+        this.password != ""
       );
     },
     async onCaptchaVerify(token) {
@@ -307,20 +337,21 @@ export default {
 
       // Validate Inputs
       if (!(validUsername && validForm)) {
-        //this.showError("Please fix errors in red");
-        alert("Please fix the errors in red");
+        this.showError("Please fix errors in red");
         return false;
       }
 
       // Check for captcha
       if (!this.captchaToken) {
-        //this.showError("Please train an AI with the captcha");
-        alert("Please train an AI with the captcha");
+        this.showError("Please train an AI with the captcha");
         return false;
       }
 
       // All good
       return true;
+    },
+    showError(error) {
+      alert(error);
     },
 
     // Check Username
@@ -428,5 +459,13 @@ export default {
   padding: 8px;
   margin: auto;
   width: 50%;
+}
+
+.tags__shadow {
+  z-index: 5 !important;
+}
+
+.tags__shadow--tag-list-active {
+  z-index: 5 !important;
 }
 </style>
