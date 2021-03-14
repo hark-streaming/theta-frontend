@@ -52,7 +52,7 @@
 
             <!-- Stream Info -->
             <v-layout justify-center class="pt-4">
-                <v-flex v-if="showStreamInfo" xs12 sm10 md8 lg6>
+                <!-- <v-flex v-if="showStreamInfo" xs12 sm10 md8 lg6>
                     <v-card class="mb-4 pa-3">
                         <v-layout column>
                             <v-flex class="mb-3">
@@ -97,7 +97,7 @@
                                     @on-tag-created="onTagCreated"
                                 />
                             </v-flex>
-                            <!-- TODO: Remove NSFW because Hark won't have any -->
+                            
                             <v-flex shrink>
                                 <v-switch 
                                     v-model="streamData.donateOn"
@@ -156,7 +156,9 @@
                             </v-layout>
                         </v-layout>
                     </v-card>
-                </v-flex>
+                </v-flex> -->
+            
+                <StreamInfoDashboard :username="username"/>
             </v-layout>
         </v-container>
     </div>
@@ -168,6 +170,7 @@ import { auth, db } from "@/plugins/firebase.js";
 import { mapGetters, mapState } from "vuex";
 import { Chat as ChatStore } from "@/store/chat";
 import { VStore } from "@/store";
+import StreamInfoDashboard from "@/components/StreamInfoDashboard";
 
 export default {
     name: "dashboard",
@@ -175,7 +178,7 @@ export default {
     middleware: "auth",
 
     components: {
-        
+        StreamInfoDashboard
     },
 
     data() {
@@ -198,7 +201,7 @@ export default {
 
             streamDocListener: null,
 
-            streamData: {
+            /* streamData: {
                 archive: false,
                 title: "",
                 nsfw: false,
@@ -206,24 +209,24 @@ export default {
                 key: "",
                 donateMsg: "",
                 donateOn: false,
-            },
+            }, */
 
-            streamDataLoading: true,
+            // streamDataLoading: true,
             showStreamInfo: true,
-            showSave: false,
-            saveLoading: false,
+            // showSave: false,
+            // saveLoading: false,
             
-            description: "",
+            // description: "",
 
 
             // topic tags
-            activeTags: [],
+            /* activeTags: [],
             allTags: [],
             tagColors: [
                 'green',
                 'red',
                 'blue'
-            ]
+            ] */
         };
     },
 
@@ -237,48 +240,48 @@ export default {
         },
 
         getStreamData() {
-            this.streamDataLoading = true;
+            // this.streamDataLoading = true;
 
             const stream = this.username.toLowerCase();
             const streamRef = db.collection("streams").doc(stream);
             return streamRef.onSnapshot(
                 async (doc) => {
-                    await this.getAllTags();
+                    // await this.getAllTags();
                     this.showStreamInfo = doc.exists;
-                    if (this.showStreamInfo) 
-                        await this.streamDataChanged(doc.data());
+                    // if (this.showStreamInfo) 
+                        // await this.streamDataChanged(doc.data());
                 },
                 () => (this.showStreamInfo = false)
             );
         },
 
-        async streamDataChanged(data) {
-            this.streamData.archive = !!data.archive;
-            this.streamData.title = data.title;
-            this.streamData.donateMsg = data.donateMsg;
-            this.streamData.donateOn = data.donateOn;
-            this.streamData.nsfw = data.nsfw;
-            this.description = data.description;
-            this.activeTags = this.parseTags(data.tags);
-            this.streamDataLoading = false;
-        },
+        /* async streamDataChanged(data) {
+            // this.streamData.archive = !!data.archive;
+            // this.streamData.title = data.title;
+            // this.streamData.donateMsg = data.donateMsg;
+            // this.streamData.donateOn = data.donateOn;
+            // this.streamData.nsfw = data.nsfw;
+            // this.description = data.description;
+            // this.activeTags = this.parseTags(data.tags);
+            // this.streamDataLoading = false;
+        }, */
 
-        async updateStreamData() {
+        /* async updateStreamData() {
             this.$ga.event({
                 eventCategory: "profile",
                 eventAction: "update stream",
                 eventLabel: this.username.toLowerCase(),
             });
-            this.saveLoading = true;
-            const archive = this.streamData.archive;
-            const title = this.streamData.title;
-            const donateMsg = this.streamData.donateMsg;
-            const donateOn = this.streamData.donateOn;
-            const nsfw = this.streamData.nsfw;
-            const description = this.description;
+            // this.saveLoading = true;
+            // const archive = this.streamData.archive;
+            // const title = this.streamData.title;
+            // const donateMsg = this.streamData.donateMsg;
+            // const donateOn = this.streamData.donateOn;
+            // const nsfw = this.streamData.nsfw;
+            // const description = this.description;
             const stream = this.username.toLowerCase();
-            const tags = [];
-            this.activeTags.forEach(x => tags.push(x.name));
+            // const tags = [];
+            // this.activeTags.forEach(x => tags.push(x.name));
 
             const streamRef = db.collection("streams").doc(stream); // MAKE SURE THE FIRESTORE HAS THE CORRECT SECURITY RULES HERE
             await streamRef.update({
@@ -287,12 +290,12 @@ export default {
                 title,
                 donateMsg,
                 donateOn,
-                description,
+                // description,
                 tags
             });
-            this.saveLoading = false;
-            this.showSave = false;
-        },
+            // this.saveLoading = false;
+            // this.showSave = false;
+        }, */
 
         async kickStream() {
             const token = await auth.currentUser.getIdToken(true);
@@ -333,7 +336,7 @@ export default {
         },
 
         // tags
-        async getAllTags() {
+        /* async getAllTags() {
 
             // get snapshot of all the tags
             const tgsSnapshot = await db.collection("tags").get();
@@ -348,9 +351,9 @@ export default {
             console.log(tagRef);
             this.allTags = tagRef;
             return;
-        },
+        }, */
 
-        parseTags(tags) {
+        /* parseTags(tags) {
             try {
                 let parsedTags = [];
                 tags.forEach(x => {
@@ -386,13 +389,13 @@ export default {
             this.allTags.push(tag);
             this.activeTags.push(tag);
             this.showSave = true;
-        }
+        } */
     },
 
     computed: {
         ...mapGetters({
             username: VStore.$getters.getUsername,
-            uid: VStore.$getters.getUID,
+            // uid: VStore.$getters.getUID,
             user: VStore.$getters.getUser,
         }),
 
@@ -431,8 +434,8 @@ export default {
 
 <style>
 
-.tags__shadow--tag-list-active{
+/* .tags__shadow--tag-list-active{
     z-index: 5 !important;
-}
+} */
 
 </style>

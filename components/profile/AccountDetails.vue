@@ -10,21 +10,21 @@
         <v-card class="mb-4 pa-3">
 
           <div class="d-flex justify-space-around align-center">
-            <v-avatar color="grey darken-4" size="100" class="ma-3">
+            <v-avatar color="grey darken-4" size="200" class="ma-3">
               <img
                 :src="imageUrl || `https://cdn.bitwave.tv/static/img/troll_hazzie.png?_bw`"
                 alt="avatar"
               />
             </v-avatar>
-            <div class="flex-shrink-1 text-xs-center my-1">
-              <h3>My Profile</h3>
-              <p>send in complaints for $5 / issue.</p>
-              <v-btn
+            <!-- <div class="flex-shrink-1 text-xs-center my-1">
+              <h3>My Profile</h3> -->
+              <!-- <p>send in complaints for $5 / issue.</p> -->
+              <!-- <v-btn
                 color="red"
                 href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JAN2HKQ9CTYZY&source=url"
                 target="_blank"
-              >COMPLAINTS</v-btn>
-            </div>
+              >COMPLAINTS</v-btn> -->
+            <!-- </div> -->
           </div>
 
           <div v-if="user" class="my-2">

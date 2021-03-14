@@ -67,30 +67,49 @@
                   >
                     <div class="mb-4">
                       <div class="title secondary--text">Getting Started</div>
-                      To get started, first copy and paste a <strong>Server URL</strong> and your <strong>Stream Key</strong> from below into your livestreaming software (such as OBS).<br>
+                      Copy and paste a <strong>Server URL</strong> and your <strong>Stream Key</strong> from below into your livestreaming software (such as OBS).*
+                      
+                      <p class="extraInfo">
+                        *You may need to choose "Custom RTMP Server" in your software in order to do this.
+                      </p>
+                    </div>
+                      <!-- To get started, first copy and paste a <strong>Server URL</strong> and your <strong>Stream Key</strong> from below into your livestreaming software (such as OBS).<br>
                       You may need to choose "Custom RTMP Server" in your software in order to do this.<br>
                       We currently offer 2 stream ingestion servers that you may connect to: <br>
                       US West ( Primary ), and US East ( Backup / Auxillary capacity ).<br>
                       A European server is planned dependant on finances & demand.<br>
-                      It is suggested you try connecting to both servers in order to determine which server provides a more stable connection.
-                    </div>
+                      It is suggested you try connecting to both servers in order to determine which server provides a more stable connection. -->
+                    
                     <div class="mb-2">
                       <div class="title secondary--text">Choose a Bitrate</div>
-                      We recommend a bitrate of 2,500kb/s (2.5mb/s) CBR for most streamsers (if their net supports it).<br>
-                      Please do not exceed 8,000kb/s (8.0mb/s). While our servers <i>are</i> capable of managing numerous high bitrate
-                      streams with ease, it is unlikely that all viewers will be able to smoothly watch a stream at rates above 8.0mb/s.
+                      We recommend a bitrate of 2,500kb/s (2.5mb/s) CBR for most streamsers (if their net supports it). 
+                      Do not exceed 8,000kb/s (8.0mb/s).*
+
+                      <p class="extraInfo">
+                        *It is unlikely that all viewers will be able to smoothly watch a stream at rates above 8.0mb/s.
+                      </p>
                     </div>
+                      <!-- We recommend a bitrate of 2,500kb/s (2.5mb/s) CBR for most streamsers (if their net supports it).<br>
+                      Please do not exceed 8,000kb/s (8.0mb/s). While our servers <i>are</i> capable of managing numerous high bitrate
+                      streams with ease, it is unlikely that all viewers will be able to smoothly watch a stream at rates above 8.0mb/s. -->
+
                     <div class="mb-2">
                       <div class="title secondary--text">Set Your Keyframes</div>
-                      Lastly, ensure your keyframes are set to either 1 or 2 in your streaming software.<br>
-                      <strong>DO NOT FORGET THIS.</strong><br>
-                      Using other rates may result in unstable streams, loss of connection, increased stream delays, frequent buffering, and can even cause your stream's video to freeze entirely.
+                      <strong>Ensure that your keyframes are set to either 1 or 2 in your streaming software.*</strong>
+                      
+                      <p class="extraInfo">
+                        *Using other rates may result in unstable streams, loss of connection, increased stream delays, frequent buffering, and can even cause your stream's video to freeze entirely.
+                      </p>
                     </div>
-                    <div class="mb-2">
+                      <!-- Lastly, ensure your keyframes are set to either 1 or 2 in your streaming software.<br>
+                      <strong>DO NOT FORGET THIS.</strong><br>
+                      Using other rates may result in unstable streams, loss of connection, increased stream delays, frequent buffering, and can even cause your stream's video to freeze entirely. -->
+                    
+                    <!-- <div class="mb-2">
                       <div class="title secondary--text">Asking For Help</div>
                       If you are having issues setting up or connecting your stream, try asking for help in chat. There are many knowledgeable users with streaming experience who will likely
                       offer to help resolve any issues. There are also links on the homepage in case you need to get in touch with a developer.
-                    </div>
+                    </div> -->
                   </div>
                 </v-expand-transition>
               </div>
@@ -100,15 +119,15 @@
             <v-flex>
               <v-text-field
                 class="mb-3"
-                value="rtmp://stream.bitwave.tv/live"
-                label="Primary Server URL (US West)"
-                color="primary"
+                value="rtmp://13.59.151.129:1935/live"
+                label="Server URL"
+                color="secondary"
                 readonly
                 outlined
                 hide-details
                 :loading="streamDataLoading"
               />
-              <v-text-field
+              <!-- <v-text-field
                 class="mb-3"
                 value="rtmp://stream.bitrave.tv/live"
                 label="Backup Server URL (US East)"
@@ -117,14 +136,14 @@
                 outlined
                 hide-details
                 :loading="streamDataLoading"
-              />
+              /> -->
             </v-flex>
             <v-flex>
               <v-text-field
                 v-model="streamData.key"
                 ref="streamkeyinput"
                 label="Stream Key"
-                color="primary"
+                color="secondary"
                 readonly
                 outlined
                 :messages="keyMessage"
@@ -159,7 +178,7 @@
 
     <!-- Stream Info -->
     <v-layout justify-center>
-      <v-flex
+      <!-- <v-flex
         v-if="showStreamInfo"
         xs12
         sm10
@@ -228,11 +247,13 @@
             </v-layout>
           </v-layout>
         </v-card>
-      </v-flex>
+      </v-flex> -->
+    
+      <StreamInfoDashboard :username="username" />
     </v-layout>
 
     <!-- Webhooks -->
-    <v-layout justify-center>
+    <!-- <v-layout justify-center>
       <v-flex
         v-if="showStreamInfo"
         xs12
@@ -247,9 +268,9 @@
           <div>
             <manage-webhooks />
           </div>
-        </v-card>
+        </v-card> 
       </v-flex>
-    </v-layout>
+    </v-layout> -->
 
   </v-container>
 </template>
@@ -263,6 +284,8 @@
   import AccountDetails from '@/components/profile/AccountDetails';
   import ManageWebhooks from '@/components/profile/ManageWebhooks';
 
+  import StreamInfoDashboard from "@/components/StreamInfoDashboard";
+
   export default {
 
     name: 'profile',
@@ -270,6 +293,7 @@
     components: {
       ManageWebhooks,
       AccountDetails,
+      StreamInfoDashboard,
     },
 
     middleware: 'auth',
@@ -455,3 +479,12 @@
     },
   }
 </script>
+
+<style scoped>
+  .extraInfo {
+    font-size: 12px;
+    margin-top: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+</style>
