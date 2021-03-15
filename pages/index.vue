@@ -39,7 +39,7 @@
         <v-sheet class="my-4" color="neutral">
           <v-sheet class="d-flex justify-space-between align-end pa-2" color="accentwave">
             <div class="headline font-weight-light black--text">
-              Top Streamss
+              Top Streams
             </div>
             <!-- v-switch
               v-model="blurNSFW"
