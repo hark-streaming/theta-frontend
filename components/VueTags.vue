@@ -55,21 +55,19 @@
           :key="index"
           @click="addTag(index)"
         >
-          <div v-if="index <= 5">
-            <span
-              class="tags__create-tag-label"
-              v-if="tagCreationEnabled && tag.id === 0"
-              >Create</span
-            >
-            <div
-              class="tags__list-item-tag"
-              :style="
-                'background-color:' +
-                (colorsEnabled && 'color' in tag ? tag.color : tagColorDefault)
-              "
-            >
-              <span>{{ tag.name }}</span>
-            </div>
+          <span
+            class="tags__create-tag-label"
+            v-if="tagCreationEnabled && tag.id === 0"
+            >Create</span
+          >
+          <div
+            class="tags__list-item-tag"
+            :style="
+              'background-color:' +
+              (colorsEnabled && 'color' in tag ? tag.color : tagColorDefault)
+            "
+          >
+            <span>{{ tag.name }}</span>
           </div>
         </div>
       </div>
@@ -176,6 +174,9 @@ export default {
           color: this.newTagColor,
         });
       }
+
+      list = list.slice(0, 5);
+      console.log(list);
 
       return list;
     },
