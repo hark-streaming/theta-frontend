@@ -191,7 +191,7 @@ export default {
         (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
       passwordRules: [
-        value => ( value && value.length >= 8 ) || 'Min 8 characters',
+        (value) => (value && value.length >= 8) || "Min 8 characters",
         (v) => !!v || "Password is required",
       ],
 
@@ -246,7 +246,7 @@ export default {
 
       // Send off our data!
       try {
-        const endpoint =
+        const endpoint = //"https://localhost:5001/api/users/register";
           "https://us-central1-hark-e2efe.cloudfunctions.net/api/users/register";
         const payload = {
           username: this.username,
