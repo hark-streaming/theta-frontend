@@ -198,7 +198,7 @@ export default {
         );*/
 
         const { data } = await $axios.getSSR(
-          "https://us-central1-hark-e2efe.cloudfunctions.net/api/channel/functions/live",
+          "https://us-central1-hark-e2efe.cloudfunctions.net/api/utils/live",
           
           {
             timeout,
