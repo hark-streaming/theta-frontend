@@ -667,7 +667,7 @@ export default {
 
             //This API should check the user's auth
             let body = await this.$axios.post(
-                `https://us-central1-hark-e2efe.cloudfunctions.net/api/jwtauth`,
+                `https://us-central1-hark-e2efe.cloudfunctions.net/api/utils/jwtauth`,
                 { idToken: idToken }
             );
 
