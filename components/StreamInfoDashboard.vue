@@ -44,7 +44,7 @@
                         @on-tag-created="onTagCreated"
                     />
                 </v-flex>
-                <!-- TODO: Remove NSFW because Hark won't have any -->
+                
                 <v-flex shrink>
                     <v-switch 
                         v-model="streamData.donateOn"
