@@ -55,12 +55,13 @@
     "videojs-youtube": "^2.6.1",
     "vue-awesome-countdown": "^1.1.4",
     "vue-chartjs": "^3.5.1",
-    "vue-clipboard2": "^0.3.1",
-    "vue-tags-component": "^1.3.0"
+    "vue-clipboard2": "^0.3.1"
   },
   "devDependencies": {
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/vuetify": "^1.11.3",
+    "less": "^3.0.4",
+    "less-loader": "^4.1.0",
     "node-sass": "^5.0.0",
     "nodemon": "^2.0.7",
     "stylus": "^0.54.8",

@@ -1,4 +1,4 @@
 import Vue from 'vue';
-import { VueTags } from 'vue-tags-component';
+//import { VueTags } from 'vue-tags-component';
 
-Vue.component('vue-tags', VueTags);
+//Vue.component('vue-tags', VueTags);
