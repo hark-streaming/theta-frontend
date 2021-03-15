@@ -246,7 +246,7 @@ export default {
 
       // Send off our data!
       try {
-        const endpoint = //"https://localhost:5001/api/users/register";
+        const endpoint = 
           "https://us-central1-hark-e2efe.cloudfunctions.net/api/users/register";
         const payload = {
           username: this.username,
@@ -257,6 +257,7 @@ export default {
           entity: this.selectedEntityType,
           name: this.name,
           phone: this.phone,
+          tags: this.activeTags,
           role: "streamer",
         };
 
