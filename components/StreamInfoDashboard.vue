@@ -13,7 +13,7 @@
                         outlined
                         hide-details
                         :loading="streamDataLoading || saveLoading"
-                        @input="showSave = true"
+                        @input="enableSave"
                     />
                 </v-flex>
                 <v-flex>
@@ -25,7 +25,7 @@
                         color="secondary"
                         label="Stream Description (markdown supported)"
                         auto-grow
-                        @input="showSave = true"
+                        @input="enableSave"
                     />
                 </v-flex>
                 <v-flex class="mt-2">
@@ -53,7 +53,7 @@
                         hide-details
                         dense
                         inset
-                        @change="showSave = true"
+                        @change="enableSave"
                     />
                     <v-text-field 
                         v-model="streamData.donateMsg"
@@ -65,7 +65,7 @@
                         class="mt-4"
                         counter="50"
                         :disabled="!streamData.donateOn"
-                        @input="showSave = true"
+                        @input="enableSave"
                     />
                 </v-flex>
                 <!-- <v-flex shrink>
@@ -115,7 +115,7 @@ import { VStore } from "@/store";
 export default {
 
     props: {
-        username: ""
+        username: { type: String }
     },
 
     data() {
@@ -231,7 +231,7 @@ export default {
                 tags
             });
             this.saveLoading = false;
-            this.showSave = false;
+            this.disableSave();
         },
 
         async kickStream() {
@@ -309,13 +309,13 @@ export default {
 
         onTagAdded(tag) {
             this.activeTags.push(tag);
-            this.showSave = true;
+            this.enableSave();
         },
 
         onTagRemoved(tag) {
             console.log(tag);
             this.activeTags = this.activeTags.filter(x => x != tag);
-            this.showSave = true;
+            this.enableSave();
         },
 
         onTagCreated(tag) {
@@ -323,7 +323,17 @@ export default {
             console.log(tag);
             this.allTags.push(tag);
             this.activeTags.push(tag);
-            this.showSave = true;
+            this.enableSave();
+        }, 
+
+        enableSave() {
+            this.showSave= true;
+            this.$emit("saveEnabled");
+        }, 
+
+        disableSave() {
+            this.showSave = false;
+            this.$emit("saveDisabled");
         }
     },
 

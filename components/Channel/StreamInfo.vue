@@ -75,7 +75,7 @@
           show-arrows
         >
           <v-tab>{{ replay ? 'Summary' : 'Description' }}</v-tab>
-          <v-tab>Replays</v-tab>
+          <!-- <v-tab>Replays</v-tab> -->
           <v-tab>Theta</v-tab>
 
           <!-- Removed the Stream Stats -->
@@ -128,12 +128,12 @@
           />
 
           <!-- Restream Dialog -->
-          <restream-dialog
+          <!-- <restream-dialog
             v-if="channelOwner"
             :username="name"
             :owner="uid"
             :live="live"
-          />
+          /> -->
         </div>
 
         <!-- Share Stream Dialog -->
@@ -165,14 +165,14 @@
         </v-tab-item>
 
         <!-- Archives -->
-        <v-tab-item>
+        <!-- <v-tab-item>
           <div>
             <stream-archives
               style="min-height: 300px"
               :streamer="name"
             />
           </div>
-        </v-tab-item>
+        </v-tab-item> -->
 
         <!-- Theta -->
         <v-tab-item>
@@ -226,7 +226,7 @@
   // Async Components - We don't expect these components to be required frequently
   const EditStreamData = async () => await import ( '@/components/Channel/EditStreamData' );
   const StreamArchives = async () => await import ( '@/components/Channel/StreamArchives' );
-  const RestreamDialog = async () => await import ( '@/components/Restream/RestreamDialog' );
+  // const RestreamDialog = async () => await import ( '@/components/Restream/RestreamDialog' );
   const DebugStream = async () => await import ( '@/components/Analytics/DebugStream' );
 
   export default {
@@ -237,7 +237,7 @@
       ShareStream,
       EditStreamData,
       StreamArchives,
-      RestreamDialog,
+      // RestreamDialog,
       DebugStream,
       TempTags
     },
@@ -319,13 +319,13 @@
         switch ( this.$utils.normalize( tabQuery ) ) {
 
           // Replays
-          case 'replay':
+          /* case 'replay':
           case 'replays':
           case 'archive':
           case 'archives':
             this.tabData = 1;
             console.log( `replay tab` );
-            break;
+            break; */
 
           // Stream Stats
           case 'stat':
