@@ -9,7 +9,7 @@
                     <v-text-field
                         v-model="streamData.title"
                         label="Stream Title"
-                        color="primary"
+                        color="secondary"
                         outlined
                         hide-details
                         :loading="streamDataLoading || saveLoading"
@@ -22,7 +22,7 @@
                         name="input-7-1"
                         outlined
                         hide-details
-                        color="primary"
+                        color="secondary"
                         label="Stream Description (markdown supported)"
                         auto-grow
                         @input="showSave = true"
@@ -49,7 +49,7 @@
                     <v-switch 
                         v-model="streamData.donateOn"
                         label="Donate Button"
-                        color = "primary"
+                        color = "secondary"
                         hide-details
                         dense
                         inset
@@ -59,7 +59,7 @@
                         v-model="streamData.donateMsg"
                         label="Button Message"
                         outlined
-                        color="primary"
+                        color="secondary"
                         auto-grow
                         dense
                         class="mt-4"
