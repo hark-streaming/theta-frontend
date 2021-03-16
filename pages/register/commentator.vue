@@ -46,6 +46,7 @@
             <v-select
               :items="entityTypes"
               :rules="[(v) => !!v || 'Item is required']"
+              :disabled="loading"
               label="Entity Type"
               required
               @change="onEntityTypeChange"
@@ -53,6 +54,7 @@
             <v-text-field
               v-if="selectedEntityType != 'Sole Proprietor / Partnership'"
               :rules="einRules"
+              :disabled="loading"
               label="EIN (Not Required, Helpful for Validation)"
             />
           </v-card>
@@ -84,6 +86,7 @@
               v-model="name"
               :counter="100"
               :rules="nameRules"
+              :disabled="loading"
               label="Entity Name"
               required
             />
@@ -91,18 +94,21 @@
               v-model="username"
               :counter="100"
               :rules="nameRules"
+              :disabled="loading"
               label="Account Username"
               required
             />
             <v-text-field
               v-model="email"
               :rules="emailRules"
+              :disabled="loading"
               label="E-mail"
               required
             />
             <v-text-field
               v-model="phone"
               :rules="phoneRules"
+              :disabled="loading"
               label="US Phone Number"
             />
             <!-- Password Field -->
@@ -143,6 +149,7 @@
               class="black--text"
               small
               @click="createHcaptchaUser"
+              :loading="loading"
             >
               Submit
             </v-btn>
@@ -177,6 +184,7 @@ export default {
       usernameError: "",
       usernameSuccess: "",
       showPassword: false,
+      loading: false,
 
       // rules
       nameRules: [(v) => !!v || "Name is required"],
@@ -290,9 +298,10 @@ export default {
         // Set firebase.auth.Auth.Persistence.SESSION
         await auth.setPersistence("local");
         await auth.signInWithEmailAndPassword(
-          this.user.email,
-          this.user.password
+          this.email,
+          this.password
         );
+        this.$router.replace("/");
       } catch (error) {
         this.showError(error.message);
         console.log(error.message);
@@ -353,6 +362,10 @@ export default {
     },
     showError(error) {
       alert(error);
+    },
+    showSuccess(success) {
+      //alert(success);
+      console.log(success);
     },
 
     // Check Username
