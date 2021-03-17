@@ -19819,9 +19819,9 @@
 
 	    this.config = Object.assign({}, DEFAULT_CONFIG, config);
 	    this.provider = this.config.provider; // Latest on-chain account state. Call this.getAccount() to update.
-
+        
 	    this.account = null; // Auth tokens issued by tracker.
-
+        // I have no idea where this accoount data gets filled in, but i think it is important -kevin
 	    this.auth = {};
 	  }
 

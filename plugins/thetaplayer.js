@@ -53,7 +53,7 @@ function registerPluginVjs(Theta, Hls, videojs) {
     var VideoJSThetaWalletWebSocketProvider = /*#__PURE__*/function (_Theta$WalletWebSocke) {
         _inheritsLoose(VideoJSThetaWalletWebSocketProvider, _Theta$WalletWebSocke);
 
-        function VideoJSThetaWalletWebSocketProvider(config) {
+        function VideoJSThetaWalletWebSocketProvider(config) { // this uses our access token from our backend -kevin
             var _this;
 
             _this = _Theta$WalletWebSocke.call(this, config) || this;
@@ -208,6 +208,7 @@ function registerPluginVjs(Theta, Hls, videojs) {
 
             // THE BIG QUESTION
             // where does the wallet go??? where does theta_ go? -kevin
+            // i think it goes in the p2p object under context -kevin
             this.theta_ = this.initTheta({
                 wallet: wallet,
                 videoId: videoId,
@@ -252,7 +253,7 @@ function registerPluginVjs(Theta, Hls, videojs) {
                 return null;
             }
 
-            var walletProvider = new VideoJSThetaWalletWebSocketProvider({
+            var walletProvider = new VideoJSThetaWalletWebSocketProvider({ // a provider
                 url: walletURL,
                 onAccessToken: onWalletAccessToken
             });

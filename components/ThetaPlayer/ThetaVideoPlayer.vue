@@ -658,6 +658,7 @@ export default {
         async getWalletAccessToken() {
             // Get the user id token, if it exits
             const idToken = await this.getAuthUserIdToken();
+            //const idToken = "123";
 
             //Check if a user is logged in...
             if (idToken == null) {
@@ -672,8 +673,8 @@ export default {
             );
 
             //Return the access token from the request body
-            console.log("wallet access token return", body);
-            return body.access_token;
+            console.log("wallet access token return", body.data.access_token);
+            return body.data.access_token;
         },
 
         // returns the user's id auth token if they are logged in, otherwise, null
@@ -687,7 +688,7 @@ export default {
             // logged in, return auth token
             else {
                 const token = await auth.currentUser.getIdToken(true);
-                //console.log("USER LOGGED IN, TOKEN: ", token);
+                console.log("USER LOGGED IN, TOKEN: ", token);
                 return token;
             }
         },
