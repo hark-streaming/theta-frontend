@@ -45,7 +45,7 @@
                     />
                 </v-flex>
                 
-                <v-flex shrink>
+                <v-flex shrink class="mt-4">
                     <v-switch 
                         v-model="streamData.donateOn"
                         label="Donate Button"
@@ -93,6 +93,15 @@
                 <v-layout>
                     <v-spacer />
                     <v-btn
+                        color="cyan"
+                        outlined
+                        class="mr-2"
+                        :disabled="!showSave"
+                        @click="resetData"
+                        >
+                        reset
+                    </v-btn>
+                    <v-btn
                         :disabled="!showSave"
                         :loading="saveLoading"
                         color="primary"
@@ -115,7 +124,7 @@ import { VStore } from "@/store";
 export default {
 
     props: {
-        username: { type: String }
+        username: { type: String, default: "" }
     },
 
     data() {
@@ -155,7 +164,6 @@ export default {
             
             description: "",
 
-
             // topic tags
             activeTags: [],
             allTags: [],
@@ -163,7 +171,16 @@ export default {
                 'green',
                 'red',
                 'blue'
-            ]
+            ], 
+
+            old: {
+                archive: false, 
+                title: "", 
+                donateMsg: "", 
+                donateOn: false, 
+                description: "", 
+                activeTags: []
+            },
         };
     },
 
@@ -201,6 +218,8 @@ export default {
             this.description = data.description;
             this.activeTags = this.parseTags(data.tags);
             this.streamDataLoading = false;
+
+            this.setOld();
         },
 
         async updateStreamData() {
@@ -219,6 +238,8 @@ export default {
             const stream = this.username.toLowerCase();
             const tags = [];
             this.activeTags.forEach(x => tags.push(x.name));
+
+            this.setOld();
 
             const streamRef = db.collection("streams").doc(stream); // MAKE SURE THE FIRESTORE HAS THE CORRECT SECURITY RULES HERE
             await streamRef.update({
@@ -334,6 +355,30 @@ export default {
         disableSave() {
             this.showSave = false;
             this.$emit("saveDisabled");
+        }, 
+
+        setOld() {
+            this.old.title = this.streamData.title;
+            this.old.description = this.description;
+            this.old.donateOn = this.streamData.donateOn;
+            this.old.donateMsg = this.streamData.donateMsg;
+            this.old.archive = this.streamData.archive;
+
+            this.old.activeTags = [];
+            this.activeTags.forEach(x => this.old.activeTags.push(x));
+        }, 
+
+        resetData() {
+            this.streamData.title = this.old.title;
+            this.description = this.old.description;
+            this.streamData.donateOn = this.old.donateOn;
+            this.streamData.donateMsg = this.old.donateMsg;
+            this.streamData.archive = this.old.archive;
+
+            this.activeTags = [];
+            this.old.activeTags.forEach(x => this.activeTags.push(x));
+
+            this.disableSave();
         }
     },
 
@@ -374,6 +419,7 @@ export default {
         }
         if (this.streamDocListener) this.streamDocListener();
     },
+
 };
 </script>
 
