@@ -672,6 +672,7 @@ export default {
             );
 
             //Return the access token from the request body
+            console.log("wallet access token return", body);
             return body.access_token;
         },
 
@@ -757,17 +758,19 @@ export default {
 
     async mounted() {
         console.log("MOUNTED CALLED");
-        // Temporarily removed
-        //await this.loadPlayerSettings();
-        //this.$hello('mounted');
-
-        //this.playerInitialize();
-
-        // from https://stackoverflow.com/questions/43652265/how-to-run-vuejs-code-only-after-vue-is-fully-loaded-and-initialized/43656809
-        // window.addEventListener('load', () => {
-        //   console.log("LOAD EVENT FIRED, INITIALIZING PLAYER");
-        //   this.playerInitialize();
-        // });
+        
+        setTimeout(() => {
+            //console.log("--wallet settings after 3 secoonds---");
+            console.log("3sec theta", window.Theta);
+            console.log("3sec wibndow", window);
+            console.log("3sec theta wallet provider", window.Theta.WalletWebSocketProvider);
+            console.log("3sec theta wallet", window.Theta.Wallet);
+            console.log("3sec theta wallet ready?", window.Theta.Wallet.isReady);
+            console.log("3sec theta hlsjs frag loader", window.Theta.HlsJsFragmentLoader);
+            console.log("3sec is peering enabled", window.Theta.isPeeringEnabled);
+            console.log("3sec is peering enabled but from the P2P", window.Theta.P2P.isPeeringEnabled);
+            //console.log(wallet);
+        }, 3000);
 
         this.watchTimer = setInterval(
             () => this.trackWatchTime(),

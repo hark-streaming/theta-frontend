@@ -19396,7 +19396,7 @@
 
 	  return HTTPProvider;
 	}(Provider);
-	var WebSocketProvider =
+	var WebSocketProvider = // THIS IS WHAT THE VIDEOJS PLUGIN MAKES/USES -KEVIN
 	/*#__PURE__*/
 	function (_Provider2) {
 	  _inherits(WebSocketProvider, _Provider2);

@@ -193,7 +193,21 @@ function registerPluginVjs(Theta, Hls, videojs) {
                 thetaOpts = _this$options_.thetaOpts; //Create Wallet
 
             var wallet = this.initThetaWallet(walletUrl, onWalletAccessToken); //Create Theta
-            console.log("Inside plugins, this is the theta wallet?", wallet);    
+
+            // KEVIN TESTING VVV
+            // the "wallet" is a WalletService object from Theta.js script
+            console.log("Inside thetaplayer.js plugin, this is the theta wallet?", wallet);   
+            console.log("Inside thetaplayer.js plugin, wallet account?", wallet.getAccount());
+            console.log("Inside thetaplayer.js plugin, wallet isready?", wallet.isReady());
+            setTimeout(() => {
+                console.log("Inside thetaplayer.js plugin 10 seconds later, wallet isready?", wallet.isReady());
+                console.log("Inside thetaplayer.js plugin 10 seconds later, wallet account?", wallet.getAccount());
+                
+            }, 10000);
+            // KEVIN TESTING^^^
+
+            // THE BIG QUESTION
+            // where does the wallet go??? where does theta_ go? -kevin
             this.theta_ = this.initTheta({
                 wallet: wallet,
                 videoId: videoId,
@@ -201,8 +215,15 @@ function registerPluginVjs(Theta, Hls, videojs) {
                 thetaOpts: thetaOpts
             });
 
+            // KEVIN TESTING
+            console.log("this is what this.theta_ is", this.theta_);
+
             if (onThetaReady && this.theta_) {
                 onThetaReady(this.theta_);
+
+                // KEVIN TESTING
+                console.log("Inside thetaplayer.js plugin onthetaready, wallet isready?", wallet.isReady());
+                console.log("Inside thetaplayer.js plugin onthetaready, wallet account?", wallet.getAccount());
             }
         };
 
@@ -235,7 +256,7 @@ function registerPluginVjs(Theta, Hls, videojs) {
                 url: walletURL,
                 onAccessToken: onWalletAccessToken
             });
-            var wallet = new Theta.Wallet({
+            var wallet = new Theta.Wallet({// this dude is a WalletService object
                 provider: walletProvider
             });
             wallet.start();
