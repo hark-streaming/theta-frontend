@@ -159,7 +159,7 @@ export default {
             this.$ThetaPlayerSetup(window.Theta, hls, videojs);
 
             //turn theta debugging on
-            window.Theta.setDebug(true);
+            //window.Theta.setDebug(true);
             console.log("this is the wallet", window.Theta.Wallet);
             console.log("this is the P2P", window.Theta.P2P);
             console.log("this is the default config before player", window.Theta.DefaultConfig);
@@ -760,18 +760,18 @@ export default {
     async mounted() {
         console.log("MOUNTED CALLED");
         
-        setTimeout(() => {
-            //console.log("--wallet settings after 3 secoonds---");
-            console.log("3sec theta", window.Theta);
-            console.log("3sec wibndow", window);
-            console.log("3sec theta wallet provider", window.Theta.WalletWebSocketProvider);
-            console.log("3sec theta wallet", window.Theta.Wallet);
-            console.log("3sec theta wallet ready?", window.Theta.Wallet.isReady);
-            console.log("3sec theta hlsjs frag loader", window.Theta.HlsJsFragmentLoader);
-            console.log("3sec is peering enabled", window.Theta.isPeeringEnabled);
-            console.log("3sec is peering enabled but from the P2P", window.Theta.P2P.isPeeringEnabled);
-            //console.log(wallet);
-        }, 3000);
+        // setTimeout(() => {
+        //     //console.log("--wallet settings after 3 secoonds---");
+        //     console.log("3sec theta", window.Theta);
+        //     console.log("3sec wibndow", window);
+        //     console.log("3sec theta wallet provider", window.Theta.WalletWebSocketProvider);
+        //     console.log("3sec theta wallet", window.Theta.Wallet);
+        //     console.log("3sec theta wallet ready?", window.Theta.Wallet.isReady);
+        //     console.log("3sec theta hlsjs frag loader", window.Theta.HlsJsFragmentLoader);
+        //     console.log("3sec is peering enabled", window.Theta.isPeeringEnabled);
+        //     console.log("3sec is peering enabled but from the P2P", window.Theta.P2P.isPeeringEnabled);
+        //     //console.log(wallet);
+        // }, 3000);
 
         this.watchTimer = setInterval(
             () => this.trackWatchTime(),
