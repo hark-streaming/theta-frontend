@@ -123,7 +123,7 @@ export default {
             //this.createThetaObj("testman", "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8","12345")
             var widget = new ThetaWebWidgets.OverviewWithTrafficChartWidget();
             widget.setTheme(ThetaWebWidgets.Themes.Light);
-            widget.setMainMessage("TEST TIME");
+            widget.setMainMessage("Theta Network Stats");
             widget.render("MY_THETA_WEB_WIDGET_ID");
 
             //console.log("the window event listeners", getEventListeners(window));
