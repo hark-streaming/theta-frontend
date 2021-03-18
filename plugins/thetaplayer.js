@@ -196,14 +196,14 @@ function registerPluginVjs(Theta, Hls, videojs) {
 
             // KEVIN TESTING VVV
             // the "wallet" is a WalletService object from Theta.js script
-            console.log("Inside thetaplayer.js plugin, this is the theta wallet?", wallet);   
-            console.log("Inside thetaplayer.js plugin, wallet account?", wallet.getAccount());
-            console.log("Inside thetaplayer.js plugin, wallet isready?", wallet.isReady());
-            setTimeout(() => {
-                console.log("Inside thetaplayer.js plugin 10 seconds later, wallet isready?", wallet.isReady());
-                console.log("Inside thetaplayer.js plugin 10 seconds later, wallet account?", wallet.getAccount());
+            // console.log("Inside thetaplayer.js plugin, this is the theta wallet?", wallet);   
+            // console.log("Inside thetaplayer.js plugin, wallet account?", wallet.getAccount());
+            // console.log("Inside thetaplayer.js plugin, wallet isready?", wallet.isReady());
+            // setTimeout(() => {
+            //     console.log("Inside thetaplayer.js plugin 10 seconds later, wallet isready?", wallet.isReady());
+            //     console.log("Inside thetaplayer.js plugin 10 seconds later, wallet account?", wallet.getAccount());
                 
-            }, 10000);
+            // }, 10000);
             // KEVIN TESTING^^^
 
             // THE BIG QUESTION
