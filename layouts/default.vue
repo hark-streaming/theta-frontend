@@ -73,14 +73,14 @@
 
       <v-spacer />
 
-      <v-text-field 
-        label="Search"
-        clearable 
-        background-color="neutral" 
-        class="mt-3 mb-n2"
-        dense
-        flat>
-      </v-text-field>
+      <v-btn
+        :v-if="!mobile"
+        :ripple="false"
+        to="/search"
+        color="white"
+      >
+        Search
+      </v-btn>
 
       <v-spacer />
 

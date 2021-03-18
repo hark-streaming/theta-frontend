@@ -265,6 +265,7 @@ module.exports = {
         { src: '@/plugins/sw-hook', mode: 'client' },
         { src: '@/plugins/VueCountdown', mode: 'client' },
         { src: '@/plugins/VueTags', mode: 'client' },
+        { src: '@/plugins/fuse.js', mode: 'client' },
     ],
 
     /*
@@ -282,6 +283,7 @@ module.exports = {
         ['@nuxtjs/google-analytics', { id: 'UA-133753190-2' }],
         ['@nuxtjs/component-cache', { maxAge: 1000 * 60 * 2 }],
         ['nuxt-stripe-module', { publishableKey: process.env.STRIPE_PUBLISHABLE_KEY }],
+        
     ],
 
     /*
@@ -389,4 +391,6 @@ module.exports = {
 
         },
     },
+
+
 };
