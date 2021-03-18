@@ -114,7 +114,7 @@
                         tabindex="5"
                         :key="attempts"
                         @verify="onCaptchaVerify"
-                        @expired=""
+                        @expired="onCaptchaExpired"
                         @error="onCaptchaError"
                     />
                 </div>
@@ -263,7 +263,7 @@ export default {
         },
 
         // CAPTCHA Expired
-        async onCpatchaExpired(data) {
+        async onCaptchaExpired(data) {
             this.captchaToken = null;
             await this.validate();
         },
@@ -283,11 +283,9 @@ export default {
             this.loading = true;
 
             // Validate inputs and captcha solution
-            // TODO: make captcha work
-            // Dont validate right now because testing
-            const valid = true; //await this.validate();
-            console.log(valid);
+            const valid = await this.validate();
             if (!valid) {
+                console.log("validate failed!");
                 this.loading = false;
                 return false;
             }
@@ -297,9 +295,9 @@ export default {
                 eventCategory: "login",
                 eventAction: "register",
             });
-
             // Send off our data!
             try {
+                console.log("attempting to register user");
                 //const endpoint = 'https://api.bitwave.tv/v1/user/register';
                 //const endpoint = 'http://localhost:5001/hark-e2efe/us-central1/api/users/register';
                 const endpoint =
@@ -313,7 +311,6 @@ export default {
 
                 // Submit to API server
                 const result = await this.$axios.$post(endpoint, payload);
-
                 if (result.success) {
                     this.showSuccess(
                         result.message + "\nSigning in to new account..."
@@ -394,7 +391,9 @@ export default {
         async validate() {
             // Validate username & form
             const validUsername = await this.checkUsername(this.user.username);
-            const validForm = await this.$refs.loginForm.validate();
+            // this calls a vuetify v-form validate check
+            // If i understand correctly it just checks if the fields are filled out or not -kevin
+            const validForm = await this.$refs.loginForm.validate(); 
 
             console.log(
                 `Valid username: ${validUsername}, validForm: ${validForm}`
@@ -402,12 +401,14 @@ export default {
 
             // Validate Inputs
             if (!(validUsername && validForm)) {
+                console.log("invalid username and form!");
                 this.showError("Please fix errors in red");
                 return false;
             }
 
             // Check for captcha
             if (!this.captchaToken) {
+                console.log("invalid captcha!");
                 this.showError("Please train an AI with the captcha");
                 return false;
             }
@@ -430,6 +431,7 @@ export default {
 
             try {
                 const userRef = db.collection("users");
+
 
                 // Verify Username is valid & not taken
                 // TODO: update to hark endpoint

@@ -53,7 +53,7 @@ function registerPluginVjs(Theta, Hls, videojs) {
     var VideoJSThetaWalletWebSocketProvider = /*#__PURE__*/function (_Theta$WalletWebSocke) {
         _inheritsLoose(VideoJSThetaWalletWebSocketProvider, _Theta$WalletWebSocke);
 
-        function VideoJSThetaWalletWebSocketProvider(config) {
+        function VideoJSThetaWalletWebSocketProvider(config) { // this uses our access token from our backend -kevin
             var _this;
 
             _this = _Theta$WalletWebSocke.call(this, config) || this;
@@ -193,7 +193,22 @@ function registerPluginVjs(Theta, Hls, videojs) {
                 thetaOpts = _this$options_.thetaOpts; //Create Wallet
 
             var wallet = this.initThetaWallet(walletUrl, onWalletAccessToken); //Create Theta
-            console.log("Inside plugins, this is the theta wallet?", wallet);    
+
+            // KEVIN TESTING VVV
+            // the "wallet" is a WalletService object from Theta.js script
+            console.log("Inside thetaplayer.js plugin, this is the theta wallet?", wallet);   
+            console.log("Inside thetaplayer.js plugin, wallet account?", wallet.getAccount());
+            console.log("Inside thetaplayer.js plugin, wallet isready?", wallet.isReady());
+            setTimeout(() => {
+                console.log("Inside thetaplayer.js plugin 10 seconds later, wallet isready?", wallet.isReady());
+                console.log("Inside thetaplayer.js plugin 10 seconds later, wallet account?", wallet.getAccount());
+                
+            }, 10000);
+            // KEVIN TESTING^^^
+
+            // THE BIG QUESTION
+            // where does the wallet go??? where does theta_ go? -kevin
+            // i think it goes in the p2p object under context -kevin
             this.theta_ = this.initTheta({
                 wallet: wallet,
                 videoId: videoId,
@@ -201,8 +216,15 @@ function registerPluginVjs(Theta, Hls, videojs) {
                 thetaOpts: thetaOpts
             });
 
+            // KEVIN TESTING
+            console.log("this is what this.theta_ is", this.theta_);
+
             if (onThetaReady && this.theta_) {
                 onThetaReady(this.theta_);
+
+                // KEVIN TESTING
+                console.log("Inside thetaplayer.js plugin onthetaready, wallet isready?", wallet.isReady());
+                console.log("Inside thetaplayer.js plugin onthetaready, wallet account?", wallet.getAccount());
             }
         };
 
@@ -231,11 +253,11 @@ function registerPluginVjs(Theta, Hls, videojs) {
                 return null;
             }
 
-            var walletProvider = new VideoJSThetaWalletWebSocketProvider({
+            var walletProvider = new VideoJSThetaWalletWebSocketProvider({ // a provider
                 url: walletURL,
                 onAccessToken: onWalletAccessToken
             });
-            var wallet = new Theta.Wallet({
+            var wallet = new Theta.Wallet({// this dude is a WalletService object
                 provider: walletProvider
             });
             wallet.start();
