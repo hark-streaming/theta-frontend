@@ -97,8 +97,8 @@ export default {
                         //this.isAuthed = auth.onAuthStateChanged( async user => await this.authenticated( user ) );
                         // im just going to put a settimeout here bc I don't want to set up the wait for firebase auth
                         // TODO: Set up firebase auth waiter
-                        setTimeout(() => this.playerInitialize(), 500 );
-                        //this.playerInitialize();
+                        //setTimeout(() => this.playerInitialize(), 500 );
+                        this.playerInitialize();
                     },
                 },
                 {  
@@ -181,10 +181,15 @@ export default {
                     videoId: this.streamer,
                     // TODO: make sure firebase auth is loaded by this point
                     //       so there is no accidental userId/guestId mismatch
-                    userId: this.getUserId(),
+
+                    // Temporarily changed for main branch
+                    //userId: this.getUserId(),
+                    userId: "" + new Date().getTime(),
                     walletUrl:
                         "wss://api-wallet-service.thetatoken.org/theta/ws",
-                    onWalletAccessToken: this.getWalletAccessToken,
+                    // Temporarily changed for main branch
+                    //onWalletAccessToken: this.getWalletAccessToken,
+                    onWalletAccessToken: null,
                     hlsOpts: {
                         overrideNative: !videojs.browser.IS_SAFARI,
                         allowSeeksWithinUnsafeLiveWindow: true,
