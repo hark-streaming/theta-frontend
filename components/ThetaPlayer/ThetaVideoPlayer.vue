@@ -455,94 +455,6 @@ export default {
             });
         },
 
-        // createThetaObj(vid_id, vid_url, userId){
-        //     const PEER_SERVER_HOST = "prod-theta-peerjs.thetatoken.org";
-        //     const PEER_SERVER_PORT = 8700;
-        //     const TRACKER_SERVER_HOST = "prod-testnet-grouping.thetatoken.org";
-        //     const TRACKER_SERVER_PORT = 8700;
-
-        //     const PLATFORM_THETA_WALLET_SERVICE_URL =
-        //         "wss://api-wallet-service.thetatoken.org/theta/ws";
-
-        //     // TODO Fill these in with your data
-        //     const VIDEO_ID = vid_id;
-        //     //const VIDEO_URL = "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8";
-        //     const VIDEO_URL = vid_url
-        //         "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8";
-        //     let theta = new Theta({
-        //         //TODO adjust params as needed depending on your HLS settings
-        //         fragmentSize: 5000,
-        //         failoverFactor: 0.7,
-        //         fragmentTimeout: 3000,
-        //         probeTimeout: 600,
-        //         statsReportInterval: 90000,
-        //         peerReqInterval: 120000,
-
-        //         videoId: VIDEO_ID,
-        //         userId: userId,
-        //         wallet: null,
-
-        //         peerServer: {
-        //             host: PEER_SERVER_HOST,
-        //             port: PEER_SERVER_PORT,
-        //             secure: true,
-        //         },
-        //         trackerServer: {
-        //             host: TRACKER_SERVER_HOST,
-        //             port: TRACKER_SERVER_PORT,
-        //             secure: true,
-        //             path: "",
-        //         },
-
-        //         debug: true,
-        //     });
-
-        //     // Event handlers
-        //     theta.addEventListener(Theta.Events.PEERS_CHANGED, function (data) {
-        //         // Connected peers changed
-        //         // Data:
-        //         // totalPeers : Integer
-        //     });
-        //     theta.addEventListener(Theta.Events.TRAFFIC, function (data) {
-        //         // Bandwidth was used
-        //         // Data:
-        //         // type : String ('cdn', 'p2p_inbound', 'p2p_outbound')
-        //         // stats : Object
-        //         // stats.size : Integer - Total bytes
-        //     });
-        //     theta.addEventListener(
-        //         Theta.Events.PAYMENT_RECEIVED,
-        //         function (data) {
-        //             // Payment received
-        //             // Data:
-        //             // payment : Object - info about the payment
-        //             // payment.amount : Integer - Payment amount in GammaWei
-        //         }
-        //     );
-        //     theta.addEventListener(Theta.Events.PAYMENT_SENT, function (data) {
-        //         // Payment sent
-        //         // Data:
-        //         // payment : Object - info about the payment
-        //         // payment.amount : Integer - Payment amount in GammaWei
-        //     });
-        //     theta.addEventListener(
-        //         Theta.Events.ACCOUNT_UPDATED,
-        //         function (data) {
-        //             // Account/waller updated
-        //             // Data:
-        //             // account : Object - info about the account/wallet
-        //         }
-        //     );
-        //     theta.start();
-
-        //     //If you are using the Theta widget, connect the widget so it can listen to events
-        //     theta.connectWidget();
-
-        //     console.log("new theta created", theta);
-
-        //     return theta;
-        // },
-
         trackWatchTime() {
             if (this.player.paused() || !this.live) {
                 return;
@@ -760,18 +672,18 @@ export default {
     async mounted() {
         console.log("MOUNTED CALLED");
         
-        setTimeout(() => {
-            //console.log("--wallet settings after 3 secoonds---");
-            console.log("3sec theta", window.Theta);
-            console.log("3sec wibndow", window);
-            console.log("3sec theta wallet provider", window.Theta.WalletWebSocketProvider);
-            console.log("3sec theta wallet", window.Theta.Wallet);
-            console.log("3sec theta wallet ready?", window.Theta.Wallet.isReady);
-            console.log("3sec theta hlsjs frag loader", window.Theta.HlsJsFragmentLoader);
-            console.log("3sec is peering enabled", window.Theta.isPeeringEnabled);
-            console.log("3sec is peering enabled but from the P2P", window.Theta.P2P.isPeeringEnabled);
-            //console.log(wallet);
-        }, 3000);
+        // setTimeout(() => {
+        //     //console.log("--wallet settings after 3 secoonds---");
+        //     console.log("3sec theta", window.Theta);
+        //     console.log("3sec wibndow", window);
+        //     console.log("3sec theta wallet provider", window.Theta.WalletWebSocketProvider);
+        //     console.log("3sec theta wallet", window.Theta.Wallet);
+        //     console.log("3sec theta wallet ready?", window.Theta.Wallet.isReady);
+        //     console.log("3sec theta hlsjs frag loader", window.Theta.HlsJsFragmentLoader);
+        //     console.log("3sec is peering enabled", window.Theta.isPeeringEnabled);
+        //     console.log("3sec is peering enabled but from the P2P", window.Theta.P2P.isPeeringEnabled);
+        //     //console.log(wallet);
+        // }, 3000);
 
         this.watchTimer = setInterval(
             () => this.trackWatchTime(),
