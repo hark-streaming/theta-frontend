@@ -77,7 +77,7 @@ export default {
       showLogin: false,
       registerTo: "/register",
       defaultProfilePic:
-        "https://cdn.bitwave.tv/static/img/troll_hazzie.png?_bw",
+        "https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png",
     };
   },
 

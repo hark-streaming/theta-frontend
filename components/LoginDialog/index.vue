@@ -15,24 +15,7 @@
         <!-- Body Content -->
         <v-card-text class="px-4 py-0">
             <v-form ref="loginForm" v-model="valid" onSubmit="return false">
-                <!-- DONT BE STUPID - DONT DOX YOURSELF -->
-                <!-- general purpose warning to idiots -->
-                <div class="mt-4">
-                    <v-alert
-                        v-if="signUp"
-                        color="primary"
-                        outlined
-                        dense
-                        class="caption"
-                    >
-                        If you wish to stay anonymous - or not doxxed<br />
-                        Consider using a new username<br />
-                        <span class="overline"
-                            >only you can protect your online privacy!</span
-                        >
-                    </v-alert>
-                </div>
-
+                <div class="mt-4" />
                 <!-- Username Field -->
                 <v-text-field
                     v-if="signUp"

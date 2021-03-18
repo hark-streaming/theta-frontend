@@ -29,8 +29,8 @@
           color="grey darken-4"
         >
           <img
-            src="https://cdn.bitwave.tv/static/img/troll_hazzie.png?_bw"
-            alt="hazmat suit troll"
+            src="https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png"
+            alt="hark user"
             crossorigin
           >
           <!--<v-icon v-else>person</v-icon>-->

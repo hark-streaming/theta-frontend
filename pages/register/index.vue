@@ -11,7 +11,7 @@
             We, the People.
           </v-card-subtitle>
           <v-img
-            src="https://cdn.discordapp.com/attachments/814278920168931382/819051556384276531/viewer.png"
+            src="https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png"
             class="center-img"
           />
           <div class="pa-4">

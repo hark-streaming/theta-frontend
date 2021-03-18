@@ -12,7 +12,7 @@
           <div class="d-flex justify-space-around align-center">
             <v-avatar color="grey darken-4" size="200" class="ma-3">
               <img
-                :src="imageUrl || `https://cdn.bitwave.tv/static/img/troll_hazzie.png?_bw`"
+                :src="imageUrl || `https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png`"
                 alt="avatar"
               />
             </v-avatar>

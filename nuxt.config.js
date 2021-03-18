@@ -210,7 +210,7 @@ module.exports = {
                 '/sounds/tweet.mp3',
                 '/images/icon-2.png',
                 'https://cdn.bitwave.tv/static/img/Bitwave_Banner.jpg',
-                'https://cdn.bitwave.tv/static/img/troll_hazzie.png?_bw',
+                'https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png',
                 'https://fonts.googleapis.com/css?family=Material+Icons',
                 'https://cdn.bitwave.tv/static/img/firework-banner.gif',
             ],
