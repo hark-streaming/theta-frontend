@@ -1,16 +1,78 @@
 <template>
-    <v-container color="neutral">
-        <v-card color="secondary" class="px-4 pt-6">
+    <v-container color="neutral" fluid class="pa-4">
+        <!-- <v-card color="secondary" class="px-4 pt-6"> -->
             <v-text-field
                 label="Search"
                 background-color="neutral"
-                class="mb-n2"
                 clearable
                 v-model="searchValue"
                 solo
                 @keydown.enter="search"
             ></v-text-field>
-        </v-card>
+        <!-- </v-card> -->
+
+        <v-row v-if="showContent">
+
+            <!-- Streamers -->
+            <!-- <v-col>
+                <v-list>
+                    <v-subheader>Streamers</v-subheader>
+                    
+                    <template v-for="(streamer, index) in this.streamersResults">
+                        <v-list-item :key="streamer.name">
+                            <v-list-item-avatar>
+                                <v-img :src="streamer.avatar"></v-img>
+                            </v-list-item-avatar>
+                            <v-list-item-content>
+                                <v-list-item-title>{{ streamer.name }}</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+
+                        <v-divider :key="index"></v-divider>
+                    </template>
+                </v-list>
+            </v-col> -->
+
+            <!-- Streams -->
+            <v-col>
+                <v-list three-line>
+                    <v-subheader>Streams</v-subheader>
+
+                    <!-- Error message if no results are found -->
+                    <p v-if="this.streamsResults.length == 0" class="ml-10">
+                        No results found.
+                    </p>
+
+                    <!-- List of streams -->
+                    <template v-for="(stream, index) in this.streamsResults">
+                        <v-list-item :key="stream.title" :to="stream.to">
+                            <v-list-item-avatar>
+                                <v-img :src="stream.avatar"></v-img>
+                            </v-list-item-avatar>
+
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    <strong>{{ stream.name }}: </strong>
+                                    {{ stream.title }}
+                                </v-list-item-title>
+
+                                <v-list-item-subtitle>
+                                    {{ stream.description }}
+                                </v-list-item-subtitle>
+                                <v-list-item-subtitle>
+                                    <span v-for="(tag, index) in stream.tags" :key="index">
+                                        {{ tag }}<span v-if="index < stream.tags.length - 1">,</span>
+                                    </span>
+                                </v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+
+                        <v-divider :key="index"></v-divider>
+                    </template>
+                </v-list>
+            </v-col>
+        </v-row>
+
     </v-container>
 </template>
 
@@ -20,19 +82,54 @@ import Fuse from "fuse.js";
 export default {
     data() {
         return {
-            streamers: [], 
-            searchValue: ""
+            streamers: ["uninitialized"], 
+            
+            searchValue: "", 
+            streamsResults: [], 
+            // streamersResults: [],
+
+            showContent: false
         }
     }, 
 
     methods: {
         search() {
-            const options = {
-                keys: ["name"], 
-                includeScore: true
+            if (this.searchValue == "" || this.searchValue == null) {
+                return;
             }
+
+            this.searchStreams();
+            // this.searchStreamers();
+            this.showContent = true;
+        },
+
+        searchStreams() {          
+            this.streamsResults = [];
+
+            const options = {
+                keys: [
+                    "title", 
+                    "name",
+                    "tags",
+                    { name: "description", weight: 0.5 }
+                ],
+            };
             const fuse = new Fuse(this.streamers, options);
-            console.log( fuse.search(this.searchValue));
+            let results = fuse.search(this.searchValue);
+            results.forEach(x => this.streamsResults.push(x.item));
+            return;
+        }, 
+
+        searchStreamers() {
+            this.streamersResults = [];
+
+            const options = {
+                keys: ["name"],
+            };
+            const fuse = new Fuse(this.streamers, options);
+            let results = fuse.search(this.searchValue);
+            results.forEach(x => this.streamersResults.push(x.item));
+            return;
         }
     }, 
 
