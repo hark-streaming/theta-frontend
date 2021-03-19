@@ -78,13 +78,15 @@
 
 <script>
 import Fuse from "fuse.js";
+import { VStore } from "@/store";
 
 export default {
     data() {
         return {
+            searchValue: "",
+
             streamers: ["uninitialized"], 
             
-            searchValue: "", 
             streamsResults: [], 
             // streamersResults: [],
 
@@ -94,7 +96,7 @@ export default {
 
     methods: {
         search() {
-            if (this.searchValue == "" || this.searchValue == null) {
+            if (this.searchValue == null || this.searchValue == "") {
                 return;
             }
 
@@ -185,5 +187,10 @@ export default {
             offline: false,
         };
     },
+
+    mounted() {
+        this.searchValue = this.$store.getters.getSearchValue;
+        this.search();
+    }
 }
 </script>

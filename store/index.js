@@ -30,6 +30,8 @@ const $states = {
     showAll: 'SHOW_ALL',
 
     pwaPrompt: 'PWA_PROMPT',
+
+    searchValue: '',
 };
 
 const $getters = {
@@ -109,6 +111,8 @@ export const state = () => ({
     [$states.showAll]: true,
 
     [$states.pwaPrompt]: null,
+
+    searchValue: ""
 });
 
 
@@ -239,6 +243,10 @@ export const getters = {
         return state[$states.pwaPrompt];
     },
 
+    getSearchValue(state) {
+        return state.searchValue;
+    }
+
 };
 
 
@@ -301,6 +309,10 @@ export const mutations = {
     [$mutations.setPwaPrompt](state, data) {
         state[$states.pwaPrompt] = data;
     },
+
+    setSearchValue(state, data) {
+        state.searchValue = data;
+    }
 };
 
 

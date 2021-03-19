@@ -8,7 +8,18 @@
         <!-- Site Banner -->
         <!-- <message-of-the-day /> -->
 
-        <v-row class="justify-center mt-5 mb-8">
+        <v-row class="pt-8">
+          <v-text-field
+            v-model="searchValue"
+            label="Search"
+            background-color="neutral"
+            clearable
+            solo
+            @keydown.enter="goToSearch"
+          ></v-text-field>
+        </v-row>
+
+        <v-row class="justify-center mb-8">
           <v-col cols="12" md="8" xl="8" class="pr-0">
             <!-- Banner Stream -->
             <!-- <banner-video
@@ -109,6 +120,8 @@ export default {
       offline: true,
 
       mostViewed: {},
+
+      searchValue: ""
     };
   },
 
@@ -125,11 +138,20 @@ export default {
 
     ...mapMutations({
       setBlurNsfw: VStore.$mutations.setBlurNsfw,
+      setSearchValue: VStore.$mutations.setSearchValue
     }),
 
     ...mapActions({
       loadSettings: VStore.$actions.loadSettings,
     }),
+
+    goToSearch() {
+      if (this.searchValue == null || this.searchValue == "") return;
+
+      // this.setSearchValue(this.searchValue.toString());
+      this.$store.commit("setSearchValue", this.searchValue);
+      this.$router.push("/search");
+    }
   },
 
   async asyncData({ $axios }) {

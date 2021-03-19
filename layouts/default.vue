@@ -70,18 +70,7 @@
 
       <!-- <div><PagesDropDown /></div> -->
       <div><LocationDropDown /></div>
-
-      <v-spacer />
-
-      <v-btn
-        :v-if="!mobile"
-        :ripple="false"
-        href="/search"
-        color="white"
-      >
-        Search
-      </v-btn>
-
+      
       <v-spacer />
 
       <!-- Notifications Button -->
