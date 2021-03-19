@@ -54,7 +54,7 @@
         <v-btn
           :v-if="!mobile"
           :ripple="false"
-          to="/"
+          href="/"
           depressed
           text
           exact
@@ -76,7 +76,7 @@
       <v-btn
         :v-if="!mobile"
         :ripple="false"
-        to="/search"
+        href="/search"
         color="white"
       >
         Search
