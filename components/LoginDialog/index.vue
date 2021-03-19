@@ -290,6 +290,10 @@ export default {
                     email: this.user.email,
                     password: this.user.password,
                     captcha: this.captchaToken,
+                    role: "user",
+                    ein: 1,
+                    name: "na",
+                    phone: 1,
                 };
 
                 // Submit to API server
