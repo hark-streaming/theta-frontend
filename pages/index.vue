@@ -11,7 +11,7 @@
         <v-row class="justify-center mt-5 mb-8">
           <v-col cols="12" md="8" xl="8" class="pr-0">
             <!-- Banner Stream -->
-            <banner-video
+            <!-- <banner-video
               v-if="mostViewed"
               :src="mostViewed.url"
               :type="mostViewed.type"
@@ -19,7 +19,16 @@
               :name="mostViewed.name"
               :mobile="mobile"
               :offline="offline"
-            /> 
+            />  -->
+            <test-theta 
+              v-if="mostViewed"
+              :src="mostViewed.url"
+              :type="mostViewed.type"
+              :poster="poster"
+              :name="mostViewed.name"
+              :mobile="mobile"
+              :offline="offline"
+            />
 
             <!-- <test-theta /> -->
             <!-- <homepage-video /> -->
