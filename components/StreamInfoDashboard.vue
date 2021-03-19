@@ -67,6 +67,16 @@
                         :disabled="!streamData.donateOn"
                         @input="enableSave"
                     />
+                    <v-text-field
+                        v-model="streamData.donateUrl"
+                        label="Donation URL"
+                        outlined
+                        color="secondary"
+                        auto-grow
+                        dense
+                        :disabled="!streamData.donateOn"
+                        @input="enableSave"
+                    />
                 </v-flex>
                 <!-- <v-flex shrink>
                     <v-switch
@@ -155,6 +165,7 @@ export default {
                 key: "",
                 donateMsg: "",
                 donateOn: false,
+                donateUrl: ""
             },
 
             streamDataLoading: true,
@@ -178,6 +189,7 @@ export default {
                 title: "", 
                 donateMsg: "", 
                 donateOn: false, 
+                donateUrl: "",
                 description: "", 
                 activeTags: []
             },
@@ -214,6 +226,7 @@ export default {
             this.streamData.title = data.title;
             this.streamData.donateMsg = data.donateMsg;
             this.streamData.donateOn = data.donateOn;
+            this.streamData.donateUrl = data.donateUrl;
             // this.streamData.nsfw = data.nsfw;
             this.description = data.description;
             this.activeTags = this.parseTags(data.tags);
@@ -233,6 +246,7 @@ export default {
             const title = this.streamData.title;
             const donateMsg = this.streamData.donateMsg;
             const donateOn = this.streamData.donateOn;
+            const donateUrl = this.streamData.donateUrl;
             // const nsfw = this.streamData.nsfw;
             const description = this.description;
             const stream = this.username.toLowerCase();
@@ -248,6 +262,7 @@ export default {
                 title,
                 donateMsg,
                 donateOn,
+                donateUrl,
                 description,
                 tags
             });
@@ -362,6 +377,7 @@ export default {
             this.old.description = this.description;
             this.old.donateOn = this.streamData.donateOn;
             this.old.donateMsg = this.streamData.donateMsg;
+            this.old.donateUrl = this.streamData.donateUrl;
             this.old.archive = this.streamData.archive;
 
             this.old.activeTags = [];
@@ -373,6 +389,7 @@ export default {
             this.description = this.old.description;
             this.streamData.donateOn = this.old.donateOn;
             this.streamData.donateMsg = this.old.donateMsg;
+            this.streamData.donateUrl = this.old.donateUrl;
             this.streamData.archive = this.old.archive;
 
             this.activeTags = [];

@@ -13,6 +13,7 @@
       :is-channel-owner="isChannelOwner"
       :donateOn="donateOn"
       :donateMsg="donateMsg"
+      :donateUrl="donateUrl"
       @add-channel-tag="addUserTag( page )"
     />
 
@@ -135,8 +136,9 @@
     props: {
       chatChannel : { type: String },
       forceGlobal : { type: Boolean },
-      donateOn : {type: Boolean}, 
-      donateMsg : {type: String},
+      donateOn : { type: Boolean, default: false }, 
+      donateMsg : { type: String, default: "" },
+      donateUrl : { type: String, default: "" }
     },
 
     components: {

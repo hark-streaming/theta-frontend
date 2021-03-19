@@ -101,6 +101,7 @@
                 :chat-channel="name" 
                 :donateOn="donateOn"
                 :donateMsg="donateMsg"
+                :donateUrl="donateUrl"
             />
         </div>
 
@@ -248,6 +249,7 @@ export default {
             tags: [],
             donateOn: true, 
             donateMsg: "",
+            donateUrl: "",
 
             banMessage:
                 "This channel has been banned for breaching our Terms of Service.",
@@ -338,6 +340,7 @@ export default {
 
             this.donateOn = data.donateOn;
             this.donateMsg = data.donateMsg;
+            this.donateUrl = data.donateUrl;
 
             this.tags = data.tags;
 
@@ -554,6 +557,7 @@ export default {
                         tags: data.tags,
                         donateOn: data.donateOn, 
                         donateMsg: data.donateMsg,
+                        donateUrl: data.donateUrl
                     };
 
                     console.log(`Bypass should be successfull...`);
@@ -592,6 +596,7 @@ export default {
 
                 const donateOn = data.donateOn;
                 const donateMsg = data.donateMsg;
+                const donateUrl = data.donateUrl;
 
                 // Stream tags
                 const tags = data.tags;
@@ -650,6 +655,7 @@ export default {
                         tags,
                         donateOn, 
                         donateMsg,
+                        donateUrl
                     },
                 };
             } catch (error) {
