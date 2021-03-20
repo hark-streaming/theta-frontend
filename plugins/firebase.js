@@ -44,7 +44,7 @@ if (!firebase.apps.length) {
     else {
         console.log("using dev environment");
 
-        process.env.API_URL = "http://us-central1-hark-e2efe.cloudfunctions.net/api";
+        process.env.API_URL = "https://us-central1-hark-e2efe.cloudfunctions.net/api";
         console.log("using api url", process.env.API_URL);
 
         firebase.initializeApp(firebaseDevConfig);
