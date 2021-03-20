@@ -253,7 +253,8 @@
 
       try {
         //const { data } = await $axios.getSSR( `https://api.bitwave.tv/api/channel/${user}`, { timeout } );
-        const { data } = await $axios.getSSR( `https://us-central1-hark-e2efe.cloudfunctions.net/api/channel/${user}`, { timeout } );
+        //const { data } = await $axios.getSSR( `https://us-central1-hark-e2efe.cloudfunctions.net/api/channel/${user}`, { timeout } );
+        const { data } = await $axios.getSSR( `${process.env.API_URL}/channel/${user}`, { timeout } );
 
         const name   = data.name;
         const avatar = data.avatar;

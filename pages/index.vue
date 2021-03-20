@@ -229,8 +229,8 @@ export default {
         );*/
 
         const { data } = await $axios.getSSR(
-          "https://us-central1-hark-e2efe.cloudfunctions.net/api/utils/live",
-          
+          //"https://us-central1-hark-e2efe.cloudfunctions.net/api/utils/live",
+          `${process.env.API_URL}/utils/live`,
           {
             timeout,
           }
@@ -238,7 +238,7 @@ export default {
         
 
         if (data && data.success) {
-          console.log("help");
+          //console.log("live data good", data);
           return {
             live: data.live,
             streamers: data.streamers,

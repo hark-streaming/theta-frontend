@@ -485,7 +485,8 @@ export default {
                 const { data } = await $axios.getSSR(
                     //`https://api.bitwave.tv/api/channel/${channel}`,
                     //`http://localhost:5001/hark-e2efe/us-central1/api/channel/${channel}`,
-                    `https://us-central1-hark-e2efe.cloudfunctions.net/api/channel/${channel}`,
+                    //`https://us-central1-hark-e2efe.cloudfunctions.net/api/channel/${channel}`,
+                    `${process.env.API_URL}/channel/${channel}`,
                     { timeout }
                 );
                 // Simple response validation
