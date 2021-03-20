@@ -12,11 +12,8 @@
     "start:express": "cross-env NODE_ENV=production node server/index.js",
     "start:nuxt": "cross-env NODE_ENV=production nuxt start",
     "generate": "nuxt generate",
-    "docker:build": "docker build -t bitwavetv/bitwave:latest .",
-    "docker:push": "docker push bitwavetv/bitwave:latest",
-    "rollout": "kubectl rollout deployment/bitwave-app -n bitwave-node",
-    "rollout:restart": "kubectl rollout deployment/bitwave-app -n bitwave-node",
-    "rollout:status": "kubectl rollout status deployment/bitwave-app -n bitwave-node"
+    "docker:build": "docker build -t jeremyboetticherhark/hark-frontend:latest .",
+    "docker:push": "docker push jeremyboetticherhark/hark-frontend:latest"
   },
   "dependencies": {
     "@bitwave/chat-client": "^0.3.10",

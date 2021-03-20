@@ -4,7 +4,7 @@
 # install dependencies
 $ npm ci
 
-# serve with hot reload at localhost:3001
+# serve with hot reload at localhost:3000
 $ npm run dev
 ```
 

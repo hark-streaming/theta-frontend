@@ -6,22 +6,22 @@ MAINTAINER dispatch <admin@bitwave.tv>
 RUN npm install -g typescript
 
 # Install npm packages
-COPY package.json package-lock.json /bitwave/
-RUN cd /bitwave && \
+COPY package.json package-lock.json /theta-bitwave/
+RUN cd /theta-bitwave && \
     npm ci && \
     npm cache verify
 
 # Copy source code
-COPY . /bitwave
-WORKDIR /bitwave
+COPY . /theta-bitwave
+WORKDIR /theta-bitwave
 
 # Build server
-RUN cd /bitwave && \
+RUN cd /theta-bitwave && \
     npm run build && \
     npm prune --production --dry-run
 
 # Expose port
-EXPOSE 3001
+EXPOSE 3000
 
 ENV HOST 0.0.0.0
 
