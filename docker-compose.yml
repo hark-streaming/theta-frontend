@@ -9,7 +9,7 @@ services:
     image: jeremyboetticherhark/hark-frontend:latest
 
     ports:
-      - "5000:3000"
+      - "80:3000"
 
     environment:
       - BMS_ENV=dev
