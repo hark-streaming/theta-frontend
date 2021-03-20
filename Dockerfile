@@ -21,7 +21,7 @@ RUN cd /theta-bitwave && \
     npm prune --production --dry-run
 
 # Expose port
-EXPOSE 3000
+EXPOSE 80
 
 ENV HOST 0.0.0.0
 
