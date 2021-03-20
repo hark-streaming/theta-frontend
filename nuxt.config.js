@@ -14,7 +14,7 @@ module.exports = {
         VERSION: pkg.version || '0.0.0',
 
         APP_DEBUG: process.env.APP_DEBUG || false,
-        BITWAVE_ENV: process.env.BITWAVE_ENV || process.env.NODE_ENV || 'production',
+        HARK_ENV: process.env.NODE_ENV,
 
         WORKBOX_DEBUG: process.env.WORKBOX_DEBUG,
 

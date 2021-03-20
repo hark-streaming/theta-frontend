@@ -255,7 +255,8 @@ export default {
       // Send off our data!
       try {
         const endpoint =
-          "https://us-central1-hark-e2efe.cloudfunctions.net/api/users/register";
+          //"https://us-central1-hark-e2efe.cloudfunctions.net/api/users/register";
+          `${process.env.API_URL}/users/register`;
         const payload = {
           username: this.username,
           email: this.email,
