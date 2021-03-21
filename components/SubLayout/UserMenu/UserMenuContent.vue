@@ -38,7 +38,7 @@
 
         <div>
           <div class="title white--text">{{ username }}</div>
-          <div class="body-2 white--text">{{ userRank }} {{ userType }}</div>
+          <div class="body-2 white--text">{{ userType }}</div>
         </div>
       </div>
     </v-sheet>
@@ -201,8 +201,8 @@
       },
 
       userType () {
-        if ( !this.user ) return 'Troll';
-        if ( this.user.hasOwnProperty( 'streamkey' ) ) return 'Streamer';
+        if ( !this.user ) return 'Viewer';
+        if ( this.user.hasOwnProperty( 'streamkey' ) && this.user.streamkey != "" ) return 'Streamer';
         else return 'Viewer'
       },
 
