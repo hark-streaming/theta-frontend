@@ -12,7 +12,7 @@
       </v-flex>
     </v-layout>
 
-    <account-details />
+    <account-details-2 />
 
     <!-- Get a stream key -->
     <!--
@@ -282,7 +282,8 @@
   import { mapGetters } from 'vuex';
   import { VStore } from '@/store';
 
-  import AccountDetails from '@/components/profile/AccountDetails';
+  //import AccountDetails from '@/components/profile/AccountDetails';
+  import AccountDetails2 from '@/components/profile/AccountDetails2';
   import ManageWebhooks from '@/components/profile/ManageWebhooks';
 
   import StreamInfoDashboard from "@/components/StreamInfoDashboard";
@@ -293,7 +294,7 @@
 
     components: {
       ManageWebhooks,
-      AccountDetails,
+      AccountDetails2,
       StreamInfoDashboard,
     },
 
