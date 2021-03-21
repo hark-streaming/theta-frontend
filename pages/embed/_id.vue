@@ -239,12 +239,9 @@
     async asyncData ( { $axios, params, query } ) {
       const user = params.id;
       const skin = query.skin || query.s;
-      const isOdysee = skin && skin.toLowerCase() === 'odysee';
 
       // adjust default image according to skin
-      const errorPoster = isOdysee
-        ? 'https://cdn.bitwave.tv/static/img/BitWave2.sm.jpg'
-        : 'https://cdn.bitwave.tv/static/img/odysee-banner-live-mockup-2.jpg';
+      const errorPoster ='https://cdn.discordapp.com/attachments/814278920168931382/823092021753413633/hark-title.png';
 
       // Timeout to prevent SSR from locking up
       const timeout = process.server

@@ -122,7 +122,7 @@ export default {
 
       const _thumbnail =
         this.thumbnails[this.imageIndex] ||
-        "https://cdn.bitwave.tv/static/img/Bitwave_Banner.jpg";
+        "https://cdn.discordapp.com/attachments/814278920168931382/823092021753413633/hark-title.png";
 
       this.streams[this.imageIndex].thumbnail = `${_thumbnail}?${timestamp}`;
     },

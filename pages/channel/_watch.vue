@@ -237,7 +237,7 @@ export default {
             avatar: null,
             title: "",
             description: "",
-            poster: "https://cdn.bitwave.tv/static/img/Bitwave_Banner.jpg",
+            poster: "https://cdn.discordapp.com/attachments/814278920168931382/823092021753413633/hark-title.png",
             live: false,
             nsfw: false,
             owner: null,

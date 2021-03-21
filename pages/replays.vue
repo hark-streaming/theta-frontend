@@ -70,7 +70,7 @@
 
   const title = `Stream Replays - [bitwave.tv]`;
   const description = `Browse the most recent stream replays available.`;
-  const image = `https://cdn.bitwave.tv/static/img/Bitwave_Banner.jpg`;
+  const image = `https://cdn.discordapp.com/attachments/814278920168931382/823092021753413633/hark-title.png`;
 
   export default {
     name: 'replays',

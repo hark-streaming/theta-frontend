@@ -15,8 +15,8 @@
     <account-details />
 
     <!-- Get a stream key -->
+    <!--
     <v-layout
-      v-if="!showStreamInfo"
       justify-center
     >
       <v-flex
@@ -34,6 +34,7 @@
         </v-card>
       </v-flex>
     </v-layout>
+    -->
 
     <!-- Stream Key -->
     <v-layout justify-center>

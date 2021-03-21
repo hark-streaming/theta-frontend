@@ -30,9 +30,8 @@ module.exports = {
             { charset: 'utf-8' },
             { property: 'viewport', content: 'width=device-width, initial-scale=1' },
             { property: 'og:site_name', content: 'Hark' },
-            { property: 'og:image', content: 'https://cdn.bitwave.tv/static/img/Bitwave_Banner.jpg', hid: 'og:image' },
+            { property: 'og:image', content: 'https://cdn.discordapp.com/attachments/814278920168931382/823092021753413633/hark-title.png', hid: 'og:image' },
             { property: 'description', content: pkg.description, hid: 'description' },
-            // https://cdn.bitwave.tv/static/img/BitWave2.sm.jpg // old image
         ],
         script: [
             {
@@ -209,10 +208,9 @@ module.exports = {
                 // Assets
                 '/sounds/tweet.mp3',
                 '/images/icon-2.png',
-                'https://cdn.bitwave.tv/static/img/Bitwave_Banner.jpg',
+                'https://cdn.discordapp.com/attachments/814278920168931382/823092021753413633/hark-title.png',
                 'https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png',
-                'https://fonts.googleapis.com/css?family=Material+Icons',
-                'https://cdn.bitwave.tv/static/img/firework-banner.gif',
+                'https://fonts.googleapis.com/css?family=Material+Icons'
             ],
 
             // routingExtensions: [],
@@ -222,10 +220,10 @@ module.exports = {
       ** Manifest Module
       */
         manifest: {
-            name: '[bitwave.tv]',
-            short_name: '[bitwave.tv]',
-            description: 'An open platform live streaming service for creators to freely express themselves.',
-            categories: ['entertainment', 'social'],
+            name: 'Hark',
+            short_name: 'hark.tv',
+            description: pkg.description,
+            categories: ['politics', 'activism', 'social'],
             lang: 'en',
             display: 'standalone',
             background_color: '#000000',
@@ -234,13 +232,13 @@ module.exports = {
 
         meta: {
             appleStatusBarStyle: 'black-translucent',
-            name: '[bitwave.tv]',
-            description: 'An open platform live streaming service for creators to freely express themselves.',
+            name: 'hark.tv',
+            description: pkg.description,
             theme_color: '#13a9fe',
             ogType: 'website',
-            ogHost: 'https://bitwave.tv',
-            twitterCard: 'summary_large_image',
-            twitterSite: '@BitwaveTV',
+            ogHost: 'https://hark.tv',
+            //twitterCard: 'summary_large_image',
+            //twitterSite: '@BitwaveTV',
             // twitterCreator: '',
         },
     },
@@ -354,14 +352,14 @@ module.exports = {
                 options: {
                     position: 'top-center',
                     icon: 'autorenew',
-                    theme: 'bitwave',
+                    theme: 'hark',
                     className: '',
                     type: 'update-toast',
                     action: {
                         text: 'update',
                         class: 'update-toast',
                         onClick: (e, toast) => {
-                            console.log('Reloading the page to update to latest version of bitwave.');
+                            console.log('Reloading the page to update to latest version of hark.');
                             toast.goAway(0);
                             window.location.reload();
                         }

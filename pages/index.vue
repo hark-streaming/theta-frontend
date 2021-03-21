@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div >
+    <div>
       <!-- Goal Progress -->
       <goal-progress v-if="false" />
 
@@ -31,7 +31,7 @@
               :mobile="mobile"
               :offline="offline"
             />  -->
-            <test-theta 
+            <test-theta
               v-if="mostViewed"
               :src="mostViewed.url"
               :type="mostViewed.type"
@@ -49,41 +49,25 @@
             <v-sheet color="neutral" class="fill-height pa-5">
               <h2>{{ mostViewed.name }}</h2>
               <h4>Viewers: {{ mostViewed.viewCount }}</h4>
-              <TempTags :tags="mostViewed.tags" class="my-2"/>
+              <TempTags :tags="mostViewed.tags" class="my-2" />
               <p>{{ mostViewed.description }}</p>
             </v-sheet>
           </v-col>
         </v-row>
 
         <!-- Live Now Header -->
-        <v-sheet class="my-4" color="neutral">
-          <v-sheet class="d-flex justify-space-between align-end pa-2" color="accentwave">
-            <div class="headline font-weight-light black--text">
-              Top Streams
-            </div>
-            <!-- v-switch
-              v-model="blurNSFW"
-              label="Blur NSFW thumbnails"
-              color="primary"
-              hide-details
-              dense
-              inset
-            />-->
-          </v-sheet>
-
-          <!-- Livestream Grid -->
-          <stream-grid
-            :streamers="streamers"
-            :blur-nsfw="blurNSFW"
-            :cols="12"
-            :sm="6"
-            :md="4"
-            :lg="3"
-            :xl="2"
-            @getHighestViews="mostViewedStream($event)"
-            @getHighestViewCount="highestViewCount($event)"
-          />
-        </v-sheet>
+        <!-- Livestream Grid -->
+        <stream-grid
+          :streamers="streamers"
+          :blur-nsfw="blurNSFW"
+          :cols="12"
+          :sm="6"
+          :md="4"
+          :lg="3"
+          :xl="2"
+          @getHighestViews="mostViewedStream($event)"
+          @getHighestViewCount="highestViewCount($event)"
+        />
 
         <!-- fuckin index.vue.txt -->
       </v-container>
@@ -103,42 +87,38 @@ export default {
   scrollToTop: true,
 
   components: {
-    TempTags
+    TempTags,
   },
 
-  head() {
-   
-  },
+  head() {},
 
   data() {
     return {
       mounted: false,
       player: null,
-      // poster: "https://cdn.bitwave.tv/static/img/Bitwave_Banner.jpg",
       poster: "/bitwave_cover.png",
       chatMessages: null,
       offline: true,
 
       mostViewed: {},
 
-      searchValue: ""
+      searchValue: "",
     };
   },
 
   methods: {
-
-    mostViewedStream( stream ) {
+    mostViewedStream(stream) {
       // console.log(this);
       this.mostViewed = stream;
     },
 
-    highestViewCount( viewCount ) {
-      this.viewCount = viewCount
+    highestViewCount(viewCount) {
+      this.viewCount = viewCount;
     },
 
     ...mapMutations({
       setBlurNsfw: VStore.$mutations.setBlurNsfw,
-      setSearchValue: VStore.$mutations.setSearchValue
+      setSearchValue: VStore.$mutations.setSearchValue,
     }),
 
     ...mapActions({
@@ -151,7 +131,7 @@ export default {
       // this.setSearchValue(this.searchValue.toString());
       this.$store.commit("setSearchValue", this.searchValue);
       this.$router.push("/search");
-    }
+    },
   },
 
   async asyncData({ $axios }) {
@@ -235,7 +215,6 @@ export default {
             timeout,
           }
         );
-        
 
         if (data && data.success) {
           //console.log("live data good", data);
@@ -323,7 +302,6 @@ export default {
     version() {
       return `v${process.env.version}`;
     },
-
   },
 
   mounted() {
@@ -340,7 +318,7 @@ export default {
 </script>
 
 <style scoped>
-  banner-video {
-    max-width: 200px;
-  }
+banner-video {
+  max-width: 200px;
+}
 </style>

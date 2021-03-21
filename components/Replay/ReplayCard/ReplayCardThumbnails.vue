@@ -69,7 +69,7 @@
         thumbnailIndex: 0,
         changeThumbnailInterval: null,
         thumbnailLoaded: false,
-        lazySource: 'https://cdn.bitwave.tv/static/img/Bitwave_Banner.jpg',
+        lazySource: 'https://cdn.discordapp.com/attachments/814278920168931382/823092021753413633/hark-title.png',
         blurOverride: false,
       };
     },
@@ -126,7 +126,8 @@
 
     computed: {
       thumbnailImage () {
-        if ( !this.thumbnails || !this.thumbnails.length ) return 'hhttps://cdn.bitwave.tv/static/img/Bitwave_Banner-256.jpg';
+        if ( !this.thumbnails || !this.thumbnails.length ) 
+          return 'https://cdn.discordapp.com/attachments/814278920168931382/823093538903556106/hark-banner-256.png';
         return this.thumbnails[ this.thumbnailIndex ];
       },
     },
