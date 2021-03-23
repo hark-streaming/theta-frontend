@@ -50,7 +50,7 @@
               />
               <v-btn
                 large
-                class="flex-shrink-1 ml-2"
+                class="flex-shrink-1 ml-2 mb-7"
                 :loading="uploadingAvatar"
                 color="primary"
                 outlined

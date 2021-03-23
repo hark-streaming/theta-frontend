@@ -253,6 +253,11 @@
       <StreamInfoDashboard :username="username" />
     </v-layout>
 
+    <v-layout justify-center>
+        <card-form />
+    </v-layout>
+    
+
     <!-- Webhooks -->
     <!-- <v-layout justify-center>
       <v-flex
@@ -285,6 +290,7 @@
   //import AccountDetails from '@/components/profile/AccountDetails';
   import AccountDetails2 from '@/components/profile/AccountDetails2';
   import ManageWebhooks from '@/components/profile/ManageWebhooks';
+  import CardForm from '@/components/DonationCards/CardForm';
 
   import StreamInfoDashboard from "@/components/StreamInfoDashboard";
 
@@ -295,6 +301,7 @@
     components: {
       ManageWebhooks,
       AccountDetails2,
+      CardForm,
       StreamInfoDashboard,
     },
 
