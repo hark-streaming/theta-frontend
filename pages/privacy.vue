@@ -11,9 +11,9 @@
           <div id="topheader">
             <div data-custom-class="title"><strong>PRIVACY POLICY</strong></div>
             <p><strong><span data-custom-class="subtitle">Last updated June 14, 2020</span></strong></p>
-            <p><span data-custom-class="body_text">Thank you for choosing to be part of our community at Bitwave Media (&ldquo;<strong>Company</strong>&rdquo;, &ldquo;<strong>we</strong>&rdquo;, &ldquo;<strong>us</strong>&rdquo;, or &ldquo;<strong>our</strong>&rdquo;). We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our <span data-custom-class="body_text"><span data-custom-class="body_text">policy</span></span>, or our practices with regards to your personal information, please contact us at support@bitwave.tv.</span></p>
-            <p><span data-custom-class="body_text">When you visit our website <a href="https://bitwave.tv" target="_blank" rel="noopener" data-custom-class="link">https://bitwave.tv</a>, mobile application, and use our services, you trust us with your personal information. We take your privacy very seriously. In this <span data-custom-class="body_text"><span data-custom-class="body_text">privacy policy</span></span>, we seek to explain to you in the clearest way possible what information we collect, how we use it and what rights you have in relation to it. We hope you take some time to read through it carefully, as it is important. If there are any terms in this <span data-custom-class="body_text"><span data-custom-class="body_text">privacy policy</span></span>&nbsp;that you do not agree with, please discontinue use of our Sites or Apps and our services.</span></p>
-            <p><span data-custom-class="body_text">This <span data-custom-class="body_text"><span data-custom-class="body_text">privacy policy</span></span>&nbsp;applies to all information collected through our website (such as <a href="https://bitwave.tv" target="_blank" rel="noopener" data-custom-class="link">https://bitwave.tv</a>), mobile application,&nbsp;</span><span data-custom-class="body_text">("<strong>Apps</strong>"), and/or any related services, sales, marketing or events (we refer to them collectively in this <span data-custom-class="body_text"><span data-custom-class="body_text">privacy policy</span></span>&nbsp;as the "<strong>Services</strong>").</span></p>
+            <p><span data-custom-class="body_text">Thank you for choosing to be part of our community at Hark (&ldquo;<strong>Company</strong>&rdquo;, &ldquo;<strong>we</strong>&rdquo;, &ldquo;<strong>us</strong>&rdquo;, or &ldquo;<strong>our</strong>&rdquo;). We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our <span data-custom-class="body_text"><span data-custom-class="body_text">policy</span></span>, or our practices with regards to your personal information, please contact us at support@hark.tv.</span></p>
+            <p><span data-custom-class="body_text">When you visit our website <a href="https://hark.tv" target="_blank" rel="noopener" data-custom-class="link">https://hark.tv</a>, mobile application, and use our services, you trust us with your personal information. We take your privacy very seriously. In this <span data-custom-class="body_text"><span data-custom-class="body_text">privacy policy</span></span>, we seek to explain to you in the clearest way possible what information we collect, how we use it and what rights you have in relation to it. We hope you take some time to read through it carefully, as it is important. If there are any terms in this <span data-custom-class="body_text"><span data-custom-class="body_text">privacy policy</span></span>&nbsp;that you do not agree with, please discontinue use of our Sites or Apps and our services.</span></p>
+            <p><span data-custom-class="body_text">This <span data-custom-class="body_text"><span data-custom-class="body_text">privacy policy</span></span>&nbsp;applies to all information collected through our website (such as <a href="https://hark.tv" target="_blank" rel="noopener" data-custom-class="link">https://hark.tv</a>), mobile application,&nbsp;</span><span data-custom-class="body_text">("<strong>Apps</strong>"), and/or any related services, sales, marketing or events (we refer to them collectively in this <span data-custom-class="body_text"><span data-custom-class="body_text">privacy policy</span></span>&nbsp;as the "<strong>Services</strong>").</span></p>
             <p><strong><span data-custom-class="body_text">Please read this <span data-custom-class="body_text"><span data-custom-class="body_text">privacy policy</span></span>&nbsp;carefully as it will help you make informed decisions about sharing your personal information with us.</span></strong></p>
           </div>
 
@@ -153,14 +153,14 @@
           <div id="infominors">
             <p><strong><span data-custom-class="heading_1">9. DO WE COLLECT INFORMATION FROM MINORS?</span></strong></p>
             <p><strong><em><span data-custom-class="body_text">In Short:</span>&nbsp;</em>&nbsp;</strong><em><span data-custom-class="body_text">We do not knowingly collect data from or market to children under 18 years of age.</span></em></p>
-            <p><span data-custom-class="body_text">We do not knowingly solicit data from or market to children under 18 years of age. By using the Services or Apps, you represent that you are at least 18 or that you are the parent or guardian of such a minor and consent to such minor dependent&rsquo;s use of the Services or Apps. If we learn that personal information from users less than 18 years of age has been collected, we will deactivate the account and take reasonable measures to promptly delete such data from our records. If you become aware of any data we have collected from children under age 18, please contact us at support@bitwave.tv.</span></p>
+            <p><span data-custom-class="body_text">We do not knowingly solicit data from or market to children under 18 years of age. By using the Services or Apps, you represent that you are at least 18 or that you are the parent or guardian of such a minor and consent to such minor dependent&rsquo;s use of the Services or Apps. If we learn that personal information from users less than 18 years of age has been collected, we will deactivate the account and take reasonable measures to promptly delete such data from our records. If you become aware of any data we have collected from children under age 18, please contact us at support@hark.tv.</span></p>
           </div>
 
           <div id="privacyrights">
             <p><strong><span data-custom-class="heading_1">10. WHAT ARE YOUR PRIVACY RIGHTS?</span></strong></p>
             <p><strong><em><span data-custom-class="body_text">In Short:</span>&nbsp;</em>&nbsp;</strong><span data-custom-class="body_text"><em>You may review, change, or terminate your account at any time.</em></span></p>
             <p><span data-custom-class="body_text">If you are resident in the European Economic Area and you believe we are unlawfully processing your personal information, you also have the right to complain to your local data protection supervisory authority. You can find their contact details here:</span>&nbsp;<span data-custom-class="body_text"><a href="http://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm" target="_blank" rel="noopener" data-custom-class="link">http://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm</a>.</span></p>
-            <p><span data-custom-class="body_text">If you have questions or comments about your privacy rights, you may email us at support@bitwave.tv.</span></p>
+            <p><span data-custom-class="body_text">If you have questions or comments about your privacy rights, you may email us at support@hark.tv.</span></p>
             <div><strong><span data-custom-class="heading_2">Account Information</span></strong></div>
             <p><span data-custom-class="body_text">If you would at any time like to review or change the information in your account or terminate your account, you can:</span></p>
             <p>■ <span data-custom-class="body_text">Contact us using the contact information provided. </span></p>
@@ -172,7 +172,7 @@
 
           <div id="databreach">
             <p><strong><span data-custom-class="heading_1">11. DATA BREACH</span></strong></p>
-            <p><span data-custom-class="body_text">A privacy breach occurs when there is unauthorized access to or collection, use, disclosure or disposal of personal information. You will be notified about data breaches when Bitwave Media believes you are likely to be at risk or serious harm. For example, a data breach may be likely to result in serious financial harm or harm to your mental or physical well-being. In the event that Bitwave Media becomes aware of a security breach which has resulted or may result in unauthorized access, use or disclosure of personal information Bitwave Media will promptly investigate the matter and notify the applicable Supervisory Authority not later than 72 hours after having become aware of it, unless the personal data breach is unlikely to result in a risk to the rights and freedoms of natural persons.</span></p>
+            <p><span data-custom-class="body_text">A privacy breach occurs when there is unauthorized access to or collection, use, disclosure or disposal of personal information. You will be notified about data breaches when Hark Media believes you are likely to be at risk or serious harm. For example, a data breach may be likely to result in serious financial harm or harm to your mental or physical well-being. In the event that Hark Media becomes aware of a security breach which has resulted or may result in unauthorized access, use or disclosure of personal information Hark Media will promptly investigate the matter and notify the applicable Supervisory Authority not later than 72 hours after having become aware of it, unless the personal data breach is unlikely to result in a risk to the rights and freedoms of natural persons.</span></p>
           </div>
 
           <div id="DNT">
@@ -195,16 +195,16 @@
 
           <div id="contact">
             <p><strong><span data-custom-class="heading_1">15. HOW CAN YOU CONTACT US ABOUT THIS POLICY?</span></strong></p>
-            <p><span data-custom-class="body_text">If you have questions or comments about this policy, you may email us at support@bitwave.tv or by post to:</span></p>
-            <div><span data-custom-class="body_text">Bitwave Media</span>&nbsp;</div>
-            <div><span data-custom-class="body_text">1 Mustang Drive</span></div>
-            <div><span data-custom-class="body_text">San Luis Obispo, CA 93405</span></div>
+            <p><span data-custom-class="body_text">If you have questions or comments about this policy, you may email us at support@hark.tv or by post to:</span></p>
+            <div><span data-custom-class="body_text">Hark Streaming Inc.</span>&nbsp;</div>
+            <div><span data-custom-class="body_text">1309 Coffeen Avenue, Ste 1200</span></div>
+            <div><span data-custom-class="body_text">Sheridan, WY 82801</span></div>
             <div><span data-custom-class="body_text">United States</span></div>
           </div>
 
           <div>
             <p><strong><span data-custom-class="heading_1">HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?</span></strong></p>
-            <div><span data-custom-class="body_text">Based on the laws of some countries, you may have the right to request access to the personal information we collect from you, change that information, or delete it in some circumstances. To request to review, update, or delete your personal information, please visit: <a href="https://bitwave.tv/report" target="_blank" rel="noopener" data-custom-class="link">https://bitwave.tv/report</a>. We will respond to your request within 30 days.</span></div>
+            <div><span data-custom-class="body_text">Based on the laws of some countries, you may have the right to request access to the personal information we collect from you, change that information, or delete it in some circumstances. To request to review, update, or delete your personal information, please visit: <a href="https://hark.tv/report" target="_blank" rel="noopener" data-custom-class="link">https://hark.tv/report</a>. We will respond to your request within 30 days.</span></div>
           </div>
 
         </div>
@@ -232,27 +232,21 @@
 <style lang='scss'>
   [data-custom-class='body'], [data-custom-class='body'] * {
     background: transparent !important;
-    color: white !important;;
   }
   [data-custom-class='title'], [data-custom-class='title'] * {
     font-size: 26px !important;
-    color: white !important;;
   }
   [data-custom-class='subtitle'], [data-custom-class='subtitle'] * {
     font-size: 14px !important;
-    color: white !important;;
   }
   [data-custom-class='heading_1'], [data-custom-class='heading_1'] * {
     font-size: 19px !important;
-    color: white !important;;
   }
   [data-custom-class='heading_2'], [data-custom-class='heading_2'] * {
     font-size: 17px !important;
-    color: white !important;;
   }
   [data-custom-class='body_text'], [data-custom-class='body_text'] * {
     font-size: 14px !important;
-    color: white !important;;
   }
   [data-custom-class='link'], [data-custom-class='link'] * {
     font-size: 14px !important;

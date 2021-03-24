@@ -101,6 +101,7 @@
                 :chat-channel="name" 
                 :donateOn="donateOn"
                 :donateMsg="donateMsg"
+                :donateUrl="donateUrl"
             />
         </div>
 
@@ -236,7 +237,7 @@ export default {
             avatar: null,
             title: "",
             description: "",
-            poster: "https://cdn.bitwave.tv/static/img/Bitwave_Banner.jpg",
+            poster: "https://cdn.discordapp.com/attachments/814278920168931382/823092021753413633/hark-title.png",
             live: false,
             nsfw: false,
             owner: null,
@@ -248,6 +249,7 @@ export default {
             tags: [],
             donateOn: true, 
             donateMsg: "",
+            donateUrl: "",
 
             banMessage:
                 "This channel has been banned for breaching our Terms of Service.",
@@ -338,6 +340,7 @@ export default {
 
             this.donateOn = data.donateOn;
             this.donateMsg = data.donateMsg;
+            this.donateUrl = data.donateUrl;
 
             this.tags = data.tags;
 
@@ -482,7 +485,8 @@ export default {
                 const { data } = await $axios.getSSR(
                     //`https://api.bitwave.tv/api/channel/${channel}`,
                     //`http://localhost:5001/hark-e2efe/us-central1/api/channel/${channel}`,
-                    `https://us-central1-hark-e2efe.cloudfunctions.net/api/channel/${channel}`,
+                    //`https://us-central1-hark-e2efe.cloudfunctions.net/api/channel/${channel}`,
+                    `${process.env.API_URL}/channel/${channel}`,
                     { timeout }
                 );
                 // Simple response validation
@@ -554,6 +558,7 @@ export default {
                         tags: data.tags,
                         donateOn: data.donateOn, 
                         donateMsg: data.donateMsg,
+                        donateUrl: data.donateUrl
                     };
 
                     console.log(`Bypass should be successfull...`);
@@ -592,6 +597,7 @@ export default {
 
                 const donateOn = data.donateOn;
                 const donateMsg = data.donateMsg;
+                const donateUrl = data.donateUrl;
 
                 // Stream tags
                 const tags = data.tags;
@@ -650,6 +656,7 @@ export default {
                         tags,
                         donateOn, 
                         donateMsg,
+                        donateUrl
                     },
                 };
             } catch (error) {

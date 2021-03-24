@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div >
+    <div>
       <!-- Goal Progress -->
       <goal-progress v-if="false" />
 
@@ -8,10 +8,21 @@
         <!-- Site Banner -->
         <!-- <message-of-the-day /> -->
 
-        <v-row class="justify-center mt-5 mb-8">
+        <v-row class="pt-8">
+          <v-text-field
+            v-model="searchValue"
+            label="Search"
+            background-color="neutral"
+            clearable
+            solo
+            @keydown.enter="goToSearch"
+          ></v-text-field>
+        </v-row>
+
+        <v-row class="justify-center mb-8">
           <v-col cols="12" md="8" xl="8" class="pr-0">
             <!-- Banner Stream -->
-            <banner-video
+            <!-- <banner-video
               v-if="mostViewed"
               :src="mostViewed.url"
               :type="mostViewed.type"
@@ -19,7 +30,16 @@
               :name="mostViewed.name"
               :mobile="mobile"
               :offline="offline"
-            /> 
+            />  -->
+            <test-theta
+              v-if="mostViewed"
+              :src="mostViewed.url"
+              :type="mostViewed.type"
+              :poster="poster"
+              :name="mostViewed.name"
+              :mobile="mobile"
+              :offline="offline"
+            />
 
             <!-- <test-theta /> -->
             <!-- <homepage-video /> -->
@@ -29,41 +49,25 @@
             <v-sheet color="neutral" class="fill-height pa-5">
               <h2>{{ mostViewed.name }}</h2>
               <h4>Viewers: {{ mostViewed.viewCount }}</h4>
-              <TempTags :tags="mostViewed.tags" class="my-2"/>
+              <TempTags :tags="mostViewed.tags" class="my-2" />
               <p>{{ mostViewed.description }}</p>
             </v-sheet>
           </v-col>
         </v-row>
 
         <!-- Live Now Header -->
-        <v-sheet class="my-4" color="neutral">
-          <v-sheet class="d-flex justify-space-between align-end pa-2" color="accentwave">
-            <div class="headline font-weight-light black--text">
-              Top Streams
-            </div>
-            <!-- v-switch
-              v-model="blurNSFW"
-              label="Blur NSFW thumbnails"
-              color="primary"
-              hide-details
-              dense
-              inset
-            />-->
-          </v-sheet>
-
-          <!-- Livestream Grid -->
-          <stream-grid
-            :streamers="streamers"
-            :blur-nsfw="blurNSFW"
-            :cols="12"
-            :sm="6"
-            :md="4"
-            :lg="3"
-            :xl="2"
-            @getHighestViews="mostViewedStream($event)"
-            @getHighestViewCount="highestViewCount($event)"
-          />
-        </v-sheet>
+        <!-- Livestream Grid -->
+        <stream-grid
+          :streamers="streamers"
+          :blur-nsfw="blurNSFW"
+          :cols="12"
+          :sm="6"
+          :md="4"
+          :lg="3"
+          :xl="2"
+          @getHighestViews="mostViewedStream($event)"
+          @getHighestViewCount="highestViewCount($event)"
+        />
 
         <!-- fuckin index.vue.txt -->
       </v-container>
@@ -83,44 +87,51 @@ export default {
   scrollToTop: true,
 
   components: {
-    TempTags
+    TempTags,
   },
 
-  head() {
-   
-  },
+  head() {},
 
   data() {
     return {
       mounted: false,
       player: null,
-      // poster: "https://cdn.bitwave.tv/static/img/Bitwave_Banner.jpg",
       poster: "/bitwave_cover.png",
       chatMessages: null,
       offline: true,
 
       mostViewed: {},
+
+      searchValue: "",
     };
   },
 
   methods: {
-
-    mostViewedStream( stream ) {
+    mostViewedStream(stream) {
       // console.log(this);
       this.mostViewed = stream;
     },
 
-    highestViewCount( viewCount ) {
-      this.viewCount = viewCount
+    highestViewCount(viewCount) {
+      this.viewCount = viewCount;
     },
 
     ...mapMutations({
       setBlurNsfw: VStore.$mutations.setBlurNsfw,
+      setSearchValue: VStore.$mutations.setSearchValue,
     }),
 
     ...mapActions({
       loadSettings: VStore.$actions.loadSettings,
     }),
+
+    goToSearch() {
+      if (this.searchValue == null || this.searchValue == "") return;
+
+      // this.setSearchValue(this.searchValue.toString());
+      this.$store.commit("setSearchValue", this.searchValue);
+      this.$router.push("/search");
+    },
   },
 
   async asyncData({ $axios }) {
@@ -198,16 +209,15 @@ export default {
         );*/
 
         const { data } = await $axios.getSSR(
-          "https://us-central1-hark-e2efe.cloudfunctions.net/api/utils/live",
-          
+          //"https://us-central1-hark-e2efe.cloudfunctions.net/api/utils/live",
+          `${process.env.API_URL}/utils/live`,
           {
             timeout,
           }
         );
-        
 
         if (data && data.success) {
-          console.log("help");
+          //console.log("live data good", data);
           return {
             live: data.live,
             streamers: data.streamers,
@@ -292,7 +302,6 @@ export default {
     version() {
       return `v${process.env.version}`;
     },
-
   },
 
   mounted() {
@@ -309,7 +318,7 @@ export default {
 </script>
 
 <style scoped>
-  banner-video {
-    max-width: 200px;
-  }
+banner-video {
+  max-width: 200px;
+}
 </style>

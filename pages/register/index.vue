@@ -25,7 +25,9 @@
               <li>Supporting the creators you love.</li>
             </ul>
           </div>
-          <v-btn @click="showLogin = true" class="mb-3 center-img d-flex">Register</v-btn>
+          <v-btn @click="showLogin = true" class="mb-3 center-img d-flex"
+            >Register</v-btn
+          >
         </v-card>
       </v-col>
       <v-col>
@@ -76,7 +78,6 @@
               </li>
             </ul>
           </div>
-          <v-btn to="/register/politician" class="mb-3 d-flex">Register</v-btn>
         </v-card>
       </v-col>
     </v-row>
@@ -98,11 +99,13 @@ export default {
     };
   },
 
-  methods: {},
+  methods: {
+  },
 
   computed: {},
 
-  mounted() {},
+  mounted() {
+  },
 
   beforeDestroy() {},
 };

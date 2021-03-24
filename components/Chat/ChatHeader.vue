@@ -21,7 +21,17 @@
         {{ page }}
       </h4>
 
-      <v-btn v-if="donateOn" color="primary" small>{{ donateMsg }}</v-btn>
+      <!-- Donate Button -->
+      <v-btn 
+        v-if="donateOn" 
+        color="primary" 
+        class="black--text"
+        target="_blank"
+        :href="donateUrl"
+        small
+      >
+        {{ donateMsg }}
+      </v-btn>
 
       <div class="d-flex">
 
@@ -105,7 +115,8 @@ const ChatPoll = async () => await import ( '@/components/Chat/ChatPoll' );
       page: { type: String },
       isChannelOwner: { type: Boolean },
       donateOn: { type: Boolean, default: false }, 
-      donateMsg: { type: String },
+      donateMsg: { type: String, default: "" },
+      donateUrl: { type: String, default: "" }
     },
 
     data () {

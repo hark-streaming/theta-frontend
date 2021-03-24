@@ -11,6 +11,8 @@
     </div>
     <div class="d-flex overline">
       <v-divider vertical class="mx-2" color="white"/>
+      <a href="privacy" target="_blank">Privacy</a>
+      <v-divider vertical class="mx-2" color="white"/>
       <a href="tos" target="_blank">ToS</a>
       <v-divider vertical class="mx-2" color="white"/>
       <a href="http://hark.tv/" target="_blank">Contact Us</a>

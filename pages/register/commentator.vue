@@ -254,8 +254,9 @@ export default {
 
       // Send off our data!
       try {
-        const endpoint = 
-          "https://us-central1-hark-e2efe.cloudfunctions.net/api/users/register";
+        const endpoint =
+          //"https://us-central1-hark-e2efe.cloudfunctions.net/api/users/register";
+          `${process.env.API_URL}/users/register`;
         const payload = {
           username: this.username,
           email: this.email,
@@ -297,10 +298,7 @@ export default {
       try {
         // Set firebase.auth.Auth.Persistence.SESSION
         await auth.setPersistence("local");
-        await auth.signInWithEmailAndPassword(
-          this.email,
-          this.password
-        );
+        await auth.signInWithEmailAndPassword(this.email, this.password);
         this.$router.replace("/");
       } catch (error) {
         this.showError(error.message);
@@ -366,6 +364,27 @@ export default {
     showSuccess(success) {
       //alert(success);
       console.log(success);
+    },
+    // onAuth handlers
+    async authenticated(user) {
+      if (user) {
+        if (process.client) {
+          this.$router.replace("/");
+          console.log(
+            `%cLoginDialog.vue:%c Logged in! %o`,
+            "background: #2196f3; color: #fff; border-radius: 3px; padding: .2rem .5rem;",
+            "",
+            user
+          );
+        }
+      } else {
+        if (process.client)
+          console.log(
+            `%cLoginDialog.vue:%c Not logged in!`,
+            "background: #2196f3; color: #fff; border-radius: 3px; padding: .2rem .5rem;",
+            ""
+          );
+      }
     },
 
     // Check Username
@@ -456,6 +475,7 @@ export default {
   computed: {},
 
   async mounted() {
+    auth.onAuthStateChanged(async (user) => await this.authenticated(user));
     await this.getAllTags();
   },
 

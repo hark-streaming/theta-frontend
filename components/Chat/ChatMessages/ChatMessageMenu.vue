@@ -35,8 +35,8 @@
             >
             <img
               v-else
-              src="https://cdn.bitwave.tv/static/img/troll_hazzie.png?_bw"
-              alt="hazmat suit bitwave troll"
+              src="https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png"
+              alt="hark user"
               :style="{ background: color }"
               :key="username"
               crossorigin

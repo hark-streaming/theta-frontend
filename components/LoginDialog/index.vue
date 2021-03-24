@@ -15,24 +15,7 @@
         <!-- Body Content -->
         <v-card-text class="px-4 py-0">
             <v-form ref="loginForm" v-model="valid" onSubmit="return false">
-                <!-- DONT BE STUPID - DONT DOX YOURSELF -->
-                <!-- general purpose warning to idiots -->
-                <div class="mt-4">
-                    <v-alert
-                        v-if="signUp"
-                        color="primary"
-                        outlined
-                        dense
-                        class="caption"
-                    >
-                        If you wish to stay anonymous - or not doxxed<br />
-                        Consider using a new username<br />
-                        <span class="overline"
-                            >only you can protect your online privacy!</span
-                        >
-                    </v-alert>
-                </div>
-
+                <div class="mt-4" />
                 <!-- Username Field -->
                 <v-text-field
                     v-if="signUp"
@@ -301,12 +284,17 @@ export default {
                 //const endpoint = 'https://api.bitwave.tv/v1/user/register';
                 //const endpoint = 'http://localhost:5001/hark-e2efe/us-central1/api/users/register';
                 const endpoint =
-                    "https://us-central1-hark-e2efe.cloudfunctions.net/api/users/register";
+                    //"https://us-central1-hark-e2efe.cloudfunctions.net/api/users/register";
+                    `${process.env.API_URL}/users/register`;
                 const payload = {
                     username: this.user.username,
                     email: this.user.email,
                     password: this.user.password,
                     captcha: this.captchaToken,
+                    role: "user",
+                    ein: 1,
+                    name: "na",
+                    phone: 1,
                 };
 
                 // Submit to API server
@@ -430,28 +418,31 @@ export default {
             }
 
             try {
-                const userRef = db.collection("users");
+                // all usernames will be valid for now
+                // TODO: add our own username checking
+                return true;
+                // const userRef = db.collection("users");
 
 
-                // Verify Username is valid & not taken
-                // TODO: update to hark endpoint
-                const endpoint = "https://api.bitwave.tv/api/check-username";
-                const payload = { username: username };
-                const config = { progress: false };
-                const checkUsername = await this.$axios.$post(
-                    endpoint,
-                    payload,
-                    config
-                );
+                // // Verify Username is valid & not taken
+                // // TODO: update to hark endpoint
+                // const endpoint = "https://api.bitwave.tv/api/check-username";
+                // const payload = { username: username };
+                // const config = { progress: false };
+                // const checkUsername = await this.$axios.$post(
+                //     endpoint,
+                //     payload,
+                //     config
+                // );
 
-                // Validate API response
-                if (checkUsername.valid) {
-                    this.usernameSuccess = "Username Available";
-                    return true;
-                } else {
-                    this.usernameError = checkUsername.error;
-                    return false;
-                }
+                // // Validate API response
+                // if (checkUsername.valid) {
+                //     this.usernameSuccess = "Username Available";
+                //     return true;
+                // } else {
+                //     this.usernameError = checkUsername.error;
+                //     return false;
+                // }
 
                 // Failed to check username
             } catch {

@@ -29,8 +29,8 @@
           color="grey darken-4"
         >
           <img
-            src="https://cdn.bitwave.tv/static/img/troll_hazzie.png?_bw"
-            alt="hazmat suit troll"
+            src="https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png"
+            alt="hark user"
             crossorigin
           >
           <!--<v-icon v-else>person</v-icon>-->
@@ -38,7 +38,7 @@
 
         <div>
           <div class="title white--text">{{ username }}</div>
-          <div class="body-2 white--text">{{ userRank }} {{ userType }}</div>
+          <div class="body-2 white--text">{{ userType }}</div>
         </div>
       </div>
     </v-sheet>
@@ -201,8 +201,8 @@
       },
 
       userType () {
-        if ( !this.user ) return 'Troll';
-        if ( this.user.hasOwnProperty( 'streamkey' ) ) return 'Streamer';
+        if ( !this.user ) return 'Viewer';
+        if ( this.user.hasOwnProperty( 'streamkey' ) && this.user.streamkey != "" ) return 'Streamer';
         else return 'Viewer'
       },
 

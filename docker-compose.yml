@@ -5,11 +5,11 @@ services:
 
   # API Server Configuration
   api-server:
-    container_name: bitwave
-    image: bitwavetv/bitwave:latest
+    container_name: hark-frontend
+    image: jeremyboetticherhark/hark-frontend:latest
 
     ports:
-      - "5000:3000"
+      - "80:3000"
 
     environment:
       - BMS_ENV=dev

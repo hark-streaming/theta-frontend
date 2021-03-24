@@ -161,7 +161,7 @@
       },
 
       streamlink () {
-        return `https://bitwave.tv/${this.user}`;
+        return `https://demo.hark.tv/channel/${this.user}`;
       },
 
       shareLink () {
@@ -171,9 +171,9 @@
       twitterLink () {
         const text = `Come watch ${this.user}'s stream!\n`;
         const url = this.shareLink;
-        const hashtags = 'freespeech';
-        const via = 'bitwavetv';
-        const related = 'bitwavetv,dispatchcommit';
+        const hashtags = 'hark';
+        const via = 'harktv';
+        const related = 'harktv';
         const base = 'https://twitter.com/intent/tweet';
 
         return `${base}?text=${encodeURI(text)}&url=${url}&hashtags=${hashtags}&via=${via}&related=${related}`;

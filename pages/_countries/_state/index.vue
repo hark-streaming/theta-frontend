@@ -89,6 +89,7 @@ export default {
           data,
         } = await $axios.getSSR(
           `https://us-central1-hark-e2efe.cloudfunctions.net/api/location/usa/${state}`,
+          //`${process.env.API_URL}/location/usa/${state}`, // we're using the dev api call here since prod currently doesn't have all the states data
           { timeout }
         );
         // Simple response validation

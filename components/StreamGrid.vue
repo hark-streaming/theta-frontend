@@ -94,7 +94,8 @@ export default {
     async dataChanged(docs) {
       console.log("in streamgrid data changed");
       //docs = await $axios.get("http://localhost:3000/v1/channels/live");
-      docs = await $axios.get("http://us-central1-hark-e2efe.cloudfunctions.net/api/utils/live");
+      //docs = await $axios.get("http://us-central1-hark-e2efe.cloudfunctions.net/api/utils/live");
+      docs = await $axios.get(`${process.env.API_URL}/utils/live`);
       this.streams = docs.map( doc => {
           const stream = doc.data();
           const thumbnail = ( stream.live ? stream.thumbnail : stream.cover ) || stream.cover;
@@ -121,7 +122,7 @@ export default {
 
       const _thumbnail =
         this.thumbnails[this.imageIndex] ||
-        "https://cdn.bitwave.tv/static/img/Bitwave_Banner.jpg";
+        "https://cdn.discordapp.com/attachments/814278920168931382/823092021753413633/hark-title.png";
 
       this.streams[this.imageIndex].thumbnail = `${_thumbnail}?${timestamp}`;
     },

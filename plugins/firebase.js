@@ -3,6 +3,7 @@ import jwt_decode from 'jwt-decode';
 
 import 'firebase/auth'
 import 'firebase/firestore'
+import 'firebase/storage';
 import 'firebase/analytics'
 import 'firebase/performance'
 import 'firebase/messaging'
@@ -12,15 +13,7 @@ import 'firebase/messaging'
 import { VStore } from '@/store';
 import { logger } from "~/plugins/store-utils";
 
-const firebaseConfig = {
-    /*apiKey: "AIzaSyCgIwubBz-nTd0mof6l7eklzJk1evuwzhg",
-    authDomain: "bitwave-7f415.firebaseapp.com",
-    databaseURL: "https://bitwave-7f415.firebaseio.com",
-    projectId: "bitwave-7f415",
-    storageBucket: "bitwave-7f415.appspot.com",
-    messagingSenderId: "246532190856",
-    appId: "1:246532190856:web:314a8853ea0f20717ee53d",
-    measurementId: "G-W05DKSF957",*/
+const firebaseDevConfig = {
     apiKey: "AIzaSyCQYdyR8yEFNIcVRPJEFo-78_HvEdcEn5Y",
     authDomain: "hark-e2efe.firebaseapp.com",
     projectId: "hark-e2efe",
@@ -30,16 +23,43 @@ const firebaseConfig = {
     measurementId: "G-77KW3MDC4R"
 };
 
+const firebaseProdConfig = {
+    apiKey: "AIzaSyBVnKxQKp8cC0dZsSSkeCDj35TWnEXLmOM",
+    authDomain: "hark-prod.firebaseapp.com",
+    projectId: "hark-prod",
+    storageBucket: "hark-prod.appspot.com",
+    messagingSenderId: "603488437412",
+    appId: "1:603488437412:web:c79319d95dd50fdea11231",
+    measurementId: "G-QB6SPMYRQ0"
+}
+
 if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
+    if(process.env.NODE_ENV == "production"){
+        console.log("using prod environment"); 
+
+        process.env.API_URL = "https://us-central1-hark-prod.cloudfunctions.net/api";
+        console.log("using api url", process.env.API_URL);
+
+        firebase.initializeApp(firebaseProdConfig);
+    }
+    else {
+        console.log("using dev environment");
+
+        process.env.API_URL = "https://us-central1-hark-e2efe.cloudfunctions.net/api";
+        console.log("using api url", process.env.API_URL);
+
+        firebase.initializeApp(firebaseDevConfig);
+    }
+    
 }
 
 const auth = firebase.auth();
 const db = firebase.firestore();
+const storage = firebase.storage();
 const FieldValue = firebase.firestore.FieldValue;
 const EmailAuthProvider = firebase.auth.EmailAuthProvider;
 
-export { auth, db, FieldValue, EmailAuthProvider }
+export { auth, db, storage, FieldValue, EmailAuthProvider }
 
 
 const listenToAuthState = (callback) => {

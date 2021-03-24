@@ -27,19 +27,21 @@
             <!-- </div> -->
           </div>
 
-          <div v-if="user" class="my-2">
+          <div v-if="user" class="my-4">
 
             <h2 class="mb-2">Profile</h2>
 
-            <div class="d-flex align-center mb-5">
+            <div class="d-flex align-center ">
               <v-file-input
                 ref="image"
+                accept="image/png, image/jpeg, image/bmp"
+                show-size
+                :rules="sizeRules"
                 color="blue"
                 label="Select new profile photo"
                 solo
                 light
                 filled
-                hide-details
                 prepend-icon=""
                 prepend-inner-icon="$file"
                 background-color="white"
@@ -48,7 +50,7 @@
               />
               <v-btn
                 large
-                class="flex-shrink-1 ml-2"
+                class="flex-shrink-1 ml-2 mb-7"
                 :loading="uploadingAvatar"
                 color="primary"
                 outlined
@@ -57,14 +59,7 @@
               >SAVE</v-btn>
             </div>
 
-            <v-text-field
-              v-show="false"
-              v-model="user.uid"
-              label="UserID"
-              readonly
-              outlined
-            />
-
+            <!-- username -->
             <v-text-field
               v-model="username"
               messages="You cannot change your username"
@@ -74,6 +69,7 @@
               outlined
             />
 
+            <!-- email and password -->
             <v-form
               ref="updatepw"
               @submit.prevent="updateProfile"
@@ -161,6 +157,7 @@
 
             </v-form>
 
+            <!-- logout button -->
             <div class="d-flex">
               <v-spacer />
               <v-btn
@@ -186,7 +183,7 @@
 <script>
   import { mapGetters, mapActions } from 'vuex'
   import { VStore } from '@/store';
-  import { auth, db, EmailAuthProvider } from '@/plugins/firebase';
+  import { auth, db, EmailAuthProvider, storage } from '@/plugins/firebase';
 
   export default {
     name: 'AccountDetails',
@@ -197,6 +194,8 @@
         uploadingAvatar: false,
         imageFile: null,
         imageName: null,
+
+        sizeRules:[value => !value || value.size < 1000000 || 'Avatar size should be less than 1 MB!'],
 
         editProfile: false,
 
@@ -223,12 +222,16 @@
       },
 
       onFilePicked ( file ) {
-        if ( !!file ) {
+        if ( file ) {
           this.imageName = file.name;
-          if( this.imageName.lastIndexOf('.') <= 0 ) return;
+          //if( this.imageName.lastIndexOf('.') <= 0 ) return;
 
           const fr = new FileReader ();
           fr.readAsDataURL( file );
+          if(file.size > 1000000) { // don't do anything if the file is too big
+                console.log("file too big");
+                return;
+          }
           fr.addEventListener('load', () => {
             this.imageUrl  = fr.result;
             this.imageFile = file; // this is an image file that can be sent to server...
@@ -243,61 +246,24 @@
       async uploadFile () {
         if ( !this.imageFile ) return false;
         this.uploadingAvatar = true;
-        const formData = new FormData();
-        formData.append( 'upload', this.imageFile );
+
+        // upload to firebase storage, under /uid/avatar/image.jpg
+        var storageRef = storage.ref().child(this.uid + "/avatar/" + this.imageName);
         try {
-          const { data } = await this.$axios.post(
-            'https://api.bitwave.tv/upload',
-            formData,
-            { headers: { 'content-type': 'multipart/formdata', }, }
-          );
-          console.log( `Upload successfull.` );
-          this.$toast.success( 'Upload successful', { icon: 'done', duration: 5000 } );
-          console.log( data );
-
-          if ( data.hasOwnProperty( 'avatars' ) ) {
-            // Supports additional webp images
-            this.imageUrl = data.transforms.find( image => image.id === 'thumbnail' ).location;
-            this.saveUserAvatars( this.imageUrl, data.avatars );
-          } else {
-            // Fallback code
-            this.imageUrl = data.transforms.find( image => image.id === 'thumbnail' ).location;
-            this.saveUserAvatar( this.imageUrl );
-          }
-
-        } catch ( error ) {
-          console.log( `Upload failed!` );
-          this.$toast.error( 'Failed to upload image', { icon: 'error', duration: 5000 } );
-          console.log( error.message );
+            await storageRef.put(this.imageFile);
+            //console.log("uploaded", this.imageName);
+            let downloadUrl = await storageRef.getDownloadURL();
+            //console.log("image url", downloadUrl);
+            this.imageUrl = downloadUrl;
+            
+            // save the link to the firestore
+            this.saveUserAvatar(this.imageUrl);
         }
+        catch(err) {
+            console.log("uploadFile error", err);
+        }
+        
         this.uploadingAvatar = false;
-      },
-
-      async saveUserAvatars ( url, avatars ) {
-        const userId = this.uid;
-        const docRef = db.collection( 'users' ).doc( userId );
-        await docRef.update({
-          avatar: url,
-          avatars: avatars,
-        });
-
-        if ( this.isStreamer ) {
-          const stream = this.username.toLowerCase();
-          const streamRef = db.collection( 'streams' ).doc( stream );
-          await streamRef.update({
-            'user.avatar': url,
-            'user.avatars': avatars,
-          });
-        }
-
-        this.imageFile = null;
-        this.imageName = '';
-
-        this.$ga.event({
-          eventCategory : 'profile',
-          eventAction   : 'update avatar',
-          eventLabel    : this.username.toLowerCase(),
-        });
       },
 
       async saveUserAvatar ( url ) {
@@ -311,7 +277,7 @@
           const stream = this.username.toLowerCase();
           const streamRef = db.collection( 'streams' ).doc( stream );
           await streamRef.update({
-            'user.avatar': url,
+            avatar: url,
           });
         }
 

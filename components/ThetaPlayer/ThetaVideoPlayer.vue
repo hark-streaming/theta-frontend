@@ -97,8 +97,8 @@ export default {
                         //this.isAuthed = auth.onAuthStateChanged( async user => await this.authenticated( user ) );
                         // im just going to put a settimeout here bc I don't want to set up the wait for firebase auth
                         // TODO: Set up firebase auth waiter
-                        setTimeout(() => this.playerInitialize(), 500 );
-                        //this.playerInitialize();
+                        //setTimeout(() => this.playerInitialize(), 500 );
+                        this.playerInitialize();
                     },
                 },
                 {  
@@ -159,7 +159,7 @@ export default {
             this.$ThetaPlayerSetup(window.Theta, hls, videojs);
 
             //turn theta debugging on
-            window.Theta.setDebug(true);
+            //window.Theta.setDebug(true);
             console.log("this is the wallet", window.Theta.Wallet);
             console.log("this is the P2P", window.Theta.P2P);
             console.log("this is the default config before player", window.Theta.DefaultConfig);
@@ -181,10 +181,15 @@ export default {
                     videoId: this.streamer,
                     // TODO: make sure firebase auth is loaded by this point
                     //       so there is no accidental userId/guestId mismatch
-                    userId: this.getUserId(),
+
+                    // Temporarily changed for main branch
+                    //userId: this.getUserId(),
+                    userId: "" + new Date().getTime(),
                     walletUrl:
                         "wss://api-wallet-service.thetatoken.org/theta/ws",
-                    onWalletAccessToken: this.getWalletAccessToken,
+                    // Temporarily changed for main branch
+                    //onWalletAccessToken: this.getWalletAccessToken,
+                    onWalletAccessToken: null,
                     hlsOpts: {
                         overrideNative: !videojs.browser.IS_SAFARI,
                         allowSeeksWithinUnsafeLiveWindow: true,
@@ -580,7 +585,8 @@ export default {
 
             //This API should check the user's auth
             let body = await this.$axios.post(
-                `https://us-central1-hark-e2efe.cloudfunctions.net/api/utils/jwtauth`,
+                `${process.env.API_URL}/utils/jwtauth`,
+                
                 { idToken: idToken }
             );
 
