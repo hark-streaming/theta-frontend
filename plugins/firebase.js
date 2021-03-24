@@ -3,6 +3,7 @@ import jwt_decode from 'jwt-decode';
 
 import 'firebase/auth'
 import 'firebase/firestore'
+import 'firebase/storage';
 import 'firebase/analytics'
 import 'firebase/performance'
 import 'firebase/messaging'
@@ -54,10 +55,11 @@ if (!firebase.apps.length) {
 
 const auth = firebase.auth();
 const db = firebase.firestore();
+const storage = firebase.storage();
 const FieldValue = firebase.firestore.FieldValue;
 const EmailAuthProvider = firebase.auth.EmailAuthProvider;
 
-export { auth, db, FieldValue, EmailAuthProvider }
+export { auth, db, storage, FieldValue, EmailAuthProvider }
 
 
 const listenToAuthState = (callback) => {
