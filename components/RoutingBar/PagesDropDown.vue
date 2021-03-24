@@ -18,14 +18,18 @@ export default {
             // pages to be listed in drop down menu
             // links not working?? "Unknown API Error! Cannot read property 'abbreviation' of null"
             pages: [
-                { 
+                /* { 
                     name: "Admin", 
                     path: "/admin" 
                 }, 
                 {
                     name: "Privacy", 
                     path: "/privacy"
-                },
+                }, */
+                {
+                    name: "Donations", 
+                    path: "/donations"
+                }
             ], 
             text_color: "primary"
         }

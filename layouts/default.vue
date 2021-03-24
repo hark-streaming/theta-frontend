@@ -70,6 +70,7 @@
 
       <!-- <div><PagesDropDown /></div> -->
       <div><LocationDropDown /></div>
+      <div><PagesDropDown /></div>
       
       <v-spacer />
 
