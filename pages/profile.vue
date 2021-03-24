@@ -16,266 +16,258 @@
       <v-tab>Streaming</v-tab>
       <v-tab>Donations</v-tab>
 
+      <!-- ACCOUNT TAB -->
       <v-tab-item eager>
-
+        <account-details-2 />
       </v-tab-item>
 
+      <!-- STREAM TAB -->
       <v-tab-item eager>
-
-      </v-tab-item>
-
-      <v-tab-item eager>
-        
-      </v-tab-item>
-    </v-tabs>
-
-    <account-details-2 />
-
-    <!-- Get a stream key -->
-    <!--
-    <v-layout
-      justify-center
-    >
-      <v-flex
-        xs12
-        sm10
-        md8
-        lg6
-      >
-        <v-card class="mb-4 pa-3">
-          <h2 class="mb-3">Want to stream?</h2>
-          <v-btn
-            to="/streamkey"
-            color="primary"
-          >Get A Streamkey</v-btn>
-        </v-card>
-      </v-flex>
-    </v-layout>
-    -->
-
-    <!-- Stream Key -->
-    <v-layout justify-center>
-      <v-flex v-if="showStreamInfo" xs12 sm10 md8 lg6>
-        <v-card class="mb-4 pa-3">
-          <v-layout column>
-            <v-flex class="mb-3">
-              <h2>Stream Server Configuration</h2>
-
-              <div class="my-3">
+        <!-- Get a stream key -->
+        <!--
+          <v-layout
+            justify-center
+          >
+            <v-flex
+              xs12
+              sm10
+              md8
+              lg6
+            >
+              <v-card class="mb-4 pa-3">
+                <h2 class="mb-3">Want to stream?</h2>
                 <v-btn
-                  color="accent"
-                  outlined
-                  small
-                  @click="showStreamkeyHelp = !showStreamkeyHelp"
-                >
-                  {{ showStreamkeyHelp ? "Hide" : "Show" }} Help
-                </v-btn>
+                  to="/streamkey"
+                  color="primary"
+                >Get A Streamkey</v-btn>
+              </v-card>
+            </v-flex>
+          </v-layout>
+          -->
 
-                <v-expand-transition>
-                  <div v-show="showStreamkeyHelp" class="my-2 body-2">
-                    <div class="mb-4">
-                      <div class="title secondary--text">Getting Started</div>
-                      Copy and paste a <strong>Server URL</strong> and your
-                      <strong>Stream Key</strong> from below into your
-                      livestreaming software (such as OBS).*
+        <!-- Stream Key -->
+        <v-layout justify-center>
+          <v-flex v-if="showStreamInfo" xs12 sm10 md8 lg6>
+            <v-card class="mb-4 pa-3">
+              <v-layout column>
+                <v-flex class="mb-3">
+                  <h2>Stream Server Configuration</h2>
 
-                      <p class="extraInfo">
-                        *You may need to choose "Custom RTMP Server" in your
-                        software in order to do this.
-                      </p>
-                    </div>
-                    <!-- To get started, first copy and paste a <strong>Server URL</strong> and your <strong>Stream Key</strong> from below into your livestreaming software (such as OBS).<br>
+                  <div class="my-3">
+                    <v-btn
+                      color="accent"
+                      outlined
+                      small
+                      @click="showStreamkeyHelp = !showStreamkeyHelp"
+                    >
+                      {{ showStreamkeyHelp ? "Hide" : "Show" }} Help
+                    </v-btn>
+
+                    <v-expand-transition>
+                      <div v-show="showStreamkeyHelp" class="my-2 body-2">
+                        <div class="mb-4">
+                          <div class="title secondary--text">
+                            Getting Started
+                          </div>
+                          Copy and paste a <strong>Server URL</strong> and your
+                          <strong>Stream Key</strong> from below into your
+                          livestreaming software (such as OBS).*
+
+                          <p class="extraInfo">
+                            *You may need to choose "Custom RTMP Server" in your
+                            software in order to do this.
+                          </p>
+                        </div>
+                        <!-- To get started, first copy and paste a <strong>Server URL</strong> and your <strong>Stream Key</strong> from below into your livestreaming software (such as OBS).<br>
                       You may need to choose "Custom RTMP Server" in your software in order to do this.<br>
                       We currently offer 2 stream ingestion servers that you may connect to: <br>
                       US West ( Primary ), and US East ( Backup / Auxillary capacity ).<br>
                       A European server is planned dependant on finances & demand.<br>
                       It is suggested you try connecting to both servers in order to determine which server provides a more stable connection. -->
 
-                    <div class="mb-2">
-                      <div class="title secondary--text">Choose a Bitrate</div>
-                      We recommend a bitrate of 2,500kb/s (2.5mb/s) CBR for most
-                      streamsers (if their net supports it). Do not exceed
-                      8,000kb/s (8.0mb/s).*
+                        <div class="mb-2">
+                          <div class="title secondary--text">
+                            Choose a Bitrate
+                          </div>
+                          We recommend a bitrate of 2,500kb/s (2.5mb/s) CBR for
+                          most streamsers (if their net supports it). Do not
+                          exceed 8,000kb/s (8.0mb/s).*
 
-                      <p class="extraInfo">
-                        *It is unlikely that all viewers will be able to
-                        smoothly watch a stream at rates above 8.0mb/s.
-                      </p>
-                    </div>
-                    <!-- We recommend a bitrate of 2,500kb/s (2.5mb/s) CBR for most streamsers (if their net supports it).<br>
+                          <p class="extraInfo">
+                            *It is unlikely that all viewers will be able to
+                            smoothly watch a stream at rates above 8.0mb/s.
+                          </p>
+                        </div>
+                        <!-- We recommend a bitrate of 2,500kb/s (2.5mb/s) CBR for most streamsers (if their net supports it).<br>
                       Please do not exceed 8,000kb/s (8.0mb/s). While our servers <i>are</i> capable of managing numerous high bitrate
                       streams with ease, it is unlikely that all viewers will be able to smoothly watch a stream at rates above 8.0mb/s. -->
 
-                    <div class="mb-2">
-                      <div class="title secondary--text">
-                        Set Your Keyframes
-                      </div>
-                      <strong
-                        >Ensure that your keyframes are set to either 1 or 2 in
-                        your streaming software.*</strong
-                      >
+                        <div class="mb-2">
+                          <div class="title secondary--text">
+                            Set Your Keyframes
+                          </div>
+                          <strong
+                            >Ensure that your keyframes are set to either 1 or 2
+                            in your streaming software.*</strong
+                          >
 
-                      <p class="extraInfo">
-                        *Using other rates may result in unstable streams, loss
-                        of connection, increased stream delays, frequent
-                        buffering, and can even cause your stream's video to
-                        freeze entirely.
-                      </p>
-                    </div>
-                    <!-- Lastly, ensure your keyframes are set to either 1 or 2 in your streaming software.<br>
+                          <p class="extraInfo">
+                            *Using other rates may result in unstable streams,
+                            loss of connection, increased stream delays,
+                            frequent buffering, and can even cause your stream's
+                            video to freeze entirely.
+                          </p>
+                        </div>
+                        <!-- Lastly, ensure your keyframes are set to either 1 or 2 in your streaming software.<br>
                       <strong>DO NOT FORGET THIS.</strong><br>
                       Using other rates may result in unstable streams, loss of connection, increased stream delays, frequent buffering, and can even cause your stream's video to freeze entirely. -->
 
-                    <!-- <div class="mb-2">
+                        <!-- <div class="mb-2">
                       <div class="title secondary--text">Asking For Help</div>
                       If you are having issues setting up or connecting your stream, try asking for help in chat. There are many knowledgeable users with streaming experience who will likely
                       offer to help resolve any issues. There are also links on the homepage in case you need to get in touch with a developer.
                     </div> -->
+                      </div>
+                    </v-expand-transition>
                   </div>
-                </v-expand-transition>
-              </div>
-            </v-flex>
-            <v-flex>
-              <v-text-field
-                class="mb-3"
-                value="rtmp://13.59.151.129:1935/live"
-                label="Server URL"
-                color="secondary"
-                readonly
-                outlined
-                hide-details
-                :loading="streamDataLoading"
-              />
-              <!-- <v-text-field
-                class="mb-3"
-                value="rtmp://stream.bitrave.tv/live"
-                label="Backup Server URL (US East)"
-                color="primary"
-                readonly
-                outlined
-                hide-details
-                :loading="streamDataLoading"
-              /> -->
-            </v-flex>
-            <v-flex>
-              <v-text-field
-                v-model="streamData.key"
-                ref="streamkeyinput"
-                label="Stream Key"
-                color="secondary"
-                readonly
-                outlined
-                :messages="keyMessage"
-                :loading="streamDataLoading || keyLoading"
-                :type="showKey ? 'text' : 'password'"
-                :append-icon="showKey ? 'visibility' : 'visibility_off'"
-                @click:append="showKey = !showKey"
-                @click="showKey = !showKey"
-                @focus="showKey = !showKey"
-              />
-            </v-flex>
-            <v-layout>
-              <v-spacer />
-              <v-btn
-                color="primary"
-                outlined
-                :loading="keyLoading"
-                @click="resetStreamKey"
-                class="mr-2"
-                >Reset</v-btn
-              >
-              <v-btn
-                color="primary"
-                class="black--text"
-                :loading="keyLoading"
-                @click="copyToClipboard"
-                >Copy</v-btn
-              >
-            </v-layout>
-          </v-layout>
-        </v-card>
-      </v-flex>
-    </v-layout>
+                </v-flex>
+                <v-flex>
+                  <v-text-field
+                    class="mb-3"
+                    value="rtmp://13.59.151.129:1935/live"
+                    label="Server URL"
+                    color="secondary"
+                    readonly
+                    outlined
+                    hide-details
+                    :loading="streamDataLoading"
+                  />
+                </v-flex>
+                <v-flex>
+                  <v-text-field
+                    v-model="streamData.key"
+                    ref="streamkeyinput"
+                    label="Stream Key"
+                    color="secondary"
+                    readonly
+                    outlined
+                    :messages="keyMessage"
+                    :loading="streamDataLoading || keyLoading"
+                    :type="showKey ? 'text' : 'password'"
+                    :append-icon="showKey ? 'visibility' : 'visibility_off'"
+                    @click:append="showKey = !showKey"
+                    @click="showKey = !showKey"
+                    @focus="showKey = !showKey"
+                  />
+                </v-flex>
+                <v-layout>
+                  <v-spacer />
+                  <v-btn
+                    color="primary"
+                    outlined
+                    :loading="keyLoading"
+                    @click="resetStreamKey"
+                    class="mr-2"
+                    >Reset</v-btn
+                  >
+                  <v-btn
+                    color="primary"
+                    class="black--text"
+                    :loading="keyLoading"
+                    @click="copyToClipboard"
+                    >Copy</v-btn
+                  >
+                </v-layout>
+              </v-layout>
+            </v-card>
+          </v-flex>
+        </v-layout>
 
-    <!-- Stream Info -->
-    <v-layout justify-center>
-      <!-- <v-flex
-        v-if="showStreamInfo"
-        xs12
-        sm10
-        md8
-        lg6
-      >
-        <v-card class="mb-4 pa-3">
-          <v-layout column>
-            <v-flex class="mb-3">
-              <h2>Stream Info</h2>
-            </v-flex>
-            <v-flex class="mb-3">
-              <v-text-field
-                v-model="streamData.title"
-                label="Stream Title"
-                color="primary"
-                outlined
-                hide-details
-                :loading="streamDataLoading || saveLoading"
-                @input="showSave = true"
-              />
-            </v-flex>
-            <v-flex>
-              <v-textarea
-                v-model="description"
-                name="input-7-1"
-                outlined
-                hide-details
-                color="primary"
-                label="Stream Description (markdown supported)"
-                auto-grow
-                @input="showSave = true"
-              />
-            </v-flex>
-            <v-flex shrink>
-              <v-switch
-                v-model="streamData.nsfw"
-                label="NSFW"
-                color="primary"
-                hide-details
-                dense
-                inset
-                @change="showSave = true"
-              />
-            </v-flex>
-            <v-flex shrink>
-              <v-switch
-                v-model="streamData.archive"
-                label="Stream Replays"
-                color="primary"
-                hide-details
-                dense
-                inset
-                @change="showSave = true"
-              />
-            </v-flex>
-            <v-layout>
-              <v-spacer/>
-              <v-btn
-                :disabled="!showSave"
-                :loading="saveLoading"
-                color="primary"
-                outlined
-                @click="updateStreamData"
-              >save</v-btn>
-            </v-layout>
-          </v-layout>
-        </v-card>
-      </v-flex> -->
+        <!-- Stream Info -->
+        <v-layout justify-center>
+          <!-- <v-flex
+            v-if="showStreamInfo"
+            xs12
+            sm10
+            md8
+            lg6
+          >
+            <v-card class="mb-4 pa-3">
+              <v-layout column>
+                <v-flex class="mb-3">
+                  <h2>Stream Info</h2>
+                </v-flex>
+                <v-flex class="mb-3">
+                  <v-text-field
+                    v-model="streamData.title"
+                    label="Stream Title"
+                    color="primary"
+                    outlined
+                    hide-details
+                    :loading="streamDataLoading || saveLoading"
+                    @input="showSave = true"
+                  />
+                </v-flex>
+                <v-flex>
+                  <v-textarea
+                    v-model="description"
+                    name="input-7-1"
+                    outlined
+                    hide-details
+                    color="primary"
+                    label="Stream Description (markdown supported)"
+                    auto-grow
+                    @input="showSave = true"
+                  />
+                </v-flex>
+                <v-flex shrink>
+                  <v-switch
+                    v-model="streamData.nsfw"
+                    label="NSFW"
+                    color="primary"
+                    hide-details
+                    dense
+                    inset
+                    @change="showSave = true"
+                  />
+                </v-flex>
+                <v-flex shrink>
+                  <v-switch
+                    v-model="streamData.archive"
+                    label="Stream Replays"
+                    color="primary"
+                    hide-details
+                    dense
+                    inset
+                    @change="showSave = true"
+                  />
+                </v-flex>
+                <v-layout>
+                  <v-spacer/>
+                  <v-btn
+                    :disabled="!showSave"
+                    :loading="saveLoading"
+                    color="primary"
+                    outlined
+                    @click="updateStreamData"
+                  >save</v-btn>
+                </v-layout>
+              </v-layout>
+            </v-card>
+          </v-flex> -->
 
-      <StreamInfoDashboard :username="username" />
-    </v-layout>
+          <StreamInfoDashboard :username="username" />
+        </v-layout>
+      </v-tab-item>
 
-    <v-layout justify-center>
-      <card-form />
-    </v-layout>
+      <!-- DONATIONS TAB -->
+      <v-tab-item eager> 
+        <v-layout justify-center>
+          <card-form />
+        </v-layout>
+      </v-tab-item>
+      
+    </v-tabs>
   </v-container>
 </template>
 
@@ -506,7 +498,6 @@ export default {
 </script>
 
 <style>
-
 .extraInfo {
   font-size: 12px;
   margin-top: 8px;
@@ -517,5 +508,4 @@ export default {
 .theme--light.v-tabs-items {
   background: transparent !important;
 }
-
 </style>
