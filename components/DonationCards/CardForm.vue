@@ -170,7 +170,10 @@ export default {
             this.uploadingMain = true;
 
             // upload the image and save link
-            let link = await this.uploadImage(this.mainimage, this.mainimageurl);
+            let link = await this.uploadImage(
+                this.mainimage,
+                this.mainimageurl
+            );
             this.mainimageurl = link;
 
             // image is done uploading, set file to null
@@ -232,10 +235,14 @@ export default {
 
             let cardDoc = await db.collection("dcards").doc(this.uid).get();
             let data = cardDoc.data();
-            this.cardData.title = data.title;
-            this.cardData.link = data.link;
-            this.cardData.shortdesc = data.shortdesc;
-            this.cardData.longdesc = data.longdesc;
+
+            // if they have previous data load it
+            if (data != null) {     
+                this.cardData.title = data.title;
+                this.cardData.link = data.link;
+                this.cardData.shortdesc = data.shortdesc;
+                this.cardData.longdesc = data.longdesc;
+            }
 
             // set the old data so we can use reset button
             this.setOld();
