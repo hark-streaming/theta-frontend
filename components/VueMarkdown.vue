@@ -22,6 +22,7 @@
     const approvedDomains = [
       'bitwave.tv',
       'cdn.bitwave.tv',
+      'cdn.discordapp.com',
       'imgur.com',
       'i.imgur.com',
       'i.stack.imgur.com',

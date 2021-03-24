@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md>
-    <h1 class="mb-4 d-flex justify-space-around">REGISTRATION</h1>
+    <h1 class="mb-4 d-flex justify-space-around">Registration</h1>
 
     <!-- 3 card layout -->
     <v-row>
