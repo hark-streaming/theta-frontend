@@ -8,7 +8,7 @@
         md8
         lg6
       >
-        <h1 class="ml-2">Your Account</h1>
+        <h1 class="ml-2 text-center">Your Account</h1>
       </v-flex>
     </v-layout>
 
