@@ -97,27 +97,9 @@ export default {
                         //this.isAuthed = auth.onAuthStateChanged( async user => await this.authenticated( user ) );
                         // im just going to put a settimeout here bc I don't want to set up the wait for firebase auth
                         // TODO: Set up firebase auth waiter
-                        //setTimeout(() => this.playerInitialize(), 500 );
-                        this.playerInitialize();
+                        setTimeout(() => this.playerInitialize(), 500 );
+                        //this.playerInitialize();
                     },
-                },
-                {  
-                    // hid: "thetawebwidget",
-                    // src: "https://theta-web-widgets.thetatoken.org/js/ThetaWebWidgets.js",
-                    // callback: () => {
-                    //     if (process.browser) {
-                    //         console.log("connecting the theta widget");
-
-                    //         //console.log("i made a new theta", theta);
-                    //         //this.createThetaObj("testman", "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8","12345")
-                    //         var widget = new ThetaWebWidgets.OverviewWithTrafficChartWidget();
-                    //         widget.setTheme(ThetaWebWidgets.Themes.Light);
-                    //         widget.setMainMessage("TEST TIME");
-                    //         widget.render("MY_THETA_WEB_WIDGET_ID");
-
-                    //         //console.log("the window event listeners", getEventListeners(window));
-                    //     }
-                    // },
                 },
             ],
         };
@@ -159,10 +141,10 @@ export default {
             this.$ThetaPlayerSetup(window.Theta, hls, videojs);
 
             //turn theta debugging on
-            //window.Theta.setDebug(true);
-            console.log("this is the wallet", window.Theta.Wallet);
-            console.log("this is the P2P", window.Theta.P2P);
-            console.log("this is the default config before player", window.Theta.DefaultConfig);
+            window.Theta.setDebug(true);
+            //console.log("this is the wallet", window.Theta.Wallet);
+            //console.log("this is the P2P", window.Theta.P2P);
+            //console.log("this is the default config before player", window.Theta.DefaultConfig);
 
             //console.log("this is window theta", window.Theta);
 
@@ -181,15 +163,10 @@ export default {
                     videoId: this.streamer,
                     // TODO: make sure firebase auth is loaded by this point
                     //       so there is no accidental userId/guestId mismatch
-
-                    // Temporarily changed for main branch
-                    //userId: this.getUserId(),
-                    userId: "" + new Date().getTime(),
+                    userId: this.getUserId(),
                     walletUrl:
                         "wss://api-wallet-service.thetatoken.org/theta/ws",
-                    // Temporarily changed for main branch
-                    //onWalletAccessToken: this.getWalletAccessToken,
-                    onWalletAccessToken: null,
+                    onWalletAccessToken: this.getWalletAccessToken,
                     hlsOpts: {
                         overrideNative: !videojs.browser.IS_SAFARI,
                         allowSeeksWithinUnsafeLiveWindow: true,
@@ -387,7 +364,7 @@ export default {
             //---------------------------
             // UX Tweaks & Enhancements
             //---------------------------
-
+            //#region ui
             // Prevent volume bar from pushing around the live button
             const controlBar = this.player.controlBar;
             const removeHover = (el) => el.removeClass("vjs-hover");
@@ -458,6 +435,7 @@ export default {
                     console.log("streamer offline and got an error");
                 console.warn(`Player error:`, error);
             });
+            //#endregion
         },
 
         trackWatchTime() {
@@ -575,7 +553,6 @@ export default {
         async getWalletAccessToken() {
             // Get the user id token, if it exits
             const idToken = await this.getAuthUserIdToken();
-            //const idToken = "123";
 
             //Check if a user is logged in...
             if (idToken == null) {
