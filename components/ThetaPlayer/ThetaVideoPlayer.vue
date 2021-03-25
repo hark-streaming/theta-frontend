@@ -94,7 +94,7 @@ export default {
                         //this.isAuthed = auth.onAuthStateChanged( async user => await this.authenticated( user ) );
                         // im just going to put a settimeout here bc I don't want to set up the wait for firebase auth
                         // TODO: Set up firebase auth waiter
-                        setTimeout(() => this.playerInitialize(), 500 );
+                        setTimeout(() => this.playerInitialize(), 500);
                         //this.playerInitialize();
                     },
                 },
@@ -134,7 +134,7 @@ export default {
             console.log("CALLING ThetaPlayerSetup function");
             // this.$ThetaPlayerSetup(this.createThetaObj("testman", "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8","12345")
             // , hls, videojs);
-            
+
             this.$ThetaPlayerSetup(window.Theta, hls, videojs);
 
             //turn theta debugging on
@@ -162,7 +162,7 @@ export default {
                     //       so there is no accidental userId/guestId mismatch
                     userId: this.getUserId(),
                     walletUrl:
-                        "wss://api-wallet-service.thetatoken.org/theta/ws",
+                        "wss://beta-api-wallet-service.thetatoken.org/theta/ws",
                     onWalletAccessToken: this.getWalletAccessToken,
                     hlsOpts: {
                         overrideNative: !videojs.browser.IS_SAFARI,
@@ -560,12 +560,12 @@ export default {
             //This API should check the user's auth
             let body = await this.$axios.post(
                 `${process.env.API_URL}/utils/jwtauth`,
-                
+
                 { idToken: idToken }
             );
 
             //Return the access token from the request body
-            console.log("wallet access token return", body.data.access_token);
+            //console.log("wallet access token return", body.data);
             return body.data.access_token;
         },
 
@@ -651,7 +651,7 @@ export default {
 
     async mounted() {
         console.log("MOUNTED CALLED");
-        
+
         // setTimeout(() => {
         //     //console.log("--wallet settings after 3 secoonds---");
         //     console.log("3sec theta", window.Theta);
