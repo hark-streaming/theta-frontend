@@ -50,10 +50,6 @@
 import videojs from "video.js";
 import hls from "hls.js";
 
-// if(process.brower){
-//     import Theta from "../../static/js/theta.js"
-// }
-
 //import "@videojs/http-streaming";
 //import "videojs-contrib-quality-levels";
 //import "videojs-hls-quality-selector";
@@ -92,6 +88,7 @@ export default {
                     hid: "Thetacode",
                     //src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js",
                     src: "/js/theta.js",
+                    //src:"/js/seqLoadTheta.js",
                     callback: () => {
                         console.log("theta cdn script loaded");
                         //this.isAuthed = auth.onAuthStateChanged( async user => await this.authenticated( user ) );
