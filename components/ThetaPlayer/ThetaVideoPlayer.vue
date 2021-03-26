@@ -50,10 +50,6 @@
 import videojs from "video.js";
 import hls from "hls.js";
 
-// if(process.brower){
-//     import Theta from "../../static/js/theta.js"
-// }
-
 //import "@videojs/http-streaming";
 //import "videojs-contrib-quality-levels";
 //import "videojs-hls-quality-selector";
@@ -92,32 +88,15 @@ export default {
                     hid: "Thetacode",
                     //src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js",
                     src: "/js/theta.js",
+                    //src:"/js/seqLoadTheta.js",
                     callback: () => {
                         console.log("theta cdn script loaded");
                         //this.isAuthed = auth.onAuthStateChanged( async user => await this.authenticated( user ) );
                         // im just going to put a settimeout here bc I don't want to set up the wait for firebase auth
                         // TODO: Set up firebase auth waiter
-                        //setTimeout(() => this.playerInitialize(), 500 );
-                        this.playerInitialize();
+                        setTimeout(() => this.playerInitialize(), 500);
+                        //this.playerInitialize();
                     },
-                },
-                {  
-                    // hid: "thetawebwidget",
-                    // src: "https://theta-web-widgets.thetatoken.org/js/ThetaWebWidgets.js",
-                    // callback: () => {
-                    //     if (process.browser) {
-                    //         console.log("connecting the theta widget");
-
-                    //         //console.log("i made a new theta", theta);
-                    //         //this.createThetaObj("testman", "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8","12345")
-                    //         var widget = new ThetaWebWidgets.OverviewWithTrafficChartWidget();
-                    //         widget.setTheme(ThetaWebWidgets.Themes.Light);
-                    //         widget.setMainMessage("TEST TIME");
-                    //         widget.render("MY_THETA_WEB_WIDGET_ID");
-
-                    //         //console.log("the window event listeners", getEventListeners(window));
-                    //     }
-                    // },
                 },
             ],
         };
@@ -155,14 +134,14 @@ export default {
             console.log("CALLING ThetaPlayerSetup function");
             // this.$ThetaPlayerSetup(this.createThetaObj("testman", "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8","12345")
             // , hls, videojs);
-            
+
             this.$ThetaPlayerSetup(window.Theta, hls, videojs);
 
             //turn theta debugging on
-            //window.Theta.setDebug(true);
-            console.log("this is the wallet", window.Theta.Wallet);
-            console.log("this is the P2P", window.Theta.P2P);
-            console.log("this is the default config before player", window.Theta.DefaultConfig);
+            window.Theta.setDebug(true);
+            //console.log("this is the wallet", window.Theta.Wallet);
+            //console.log("this is the P2P", window.Theta.P2P);
+            //console.log("this is the default config before player", window.Theta.DefaultConfig);
 
             //console.log("this is window theta", window.Theta);
 
@@ -181,15 +160,10 @@ export default {
                     videoId: this.streamer,
                     // TODO: make sure firebase auth is loaded by this point
                     //       so there is no accidental userId/guestId mismatch
-
-                    // Temporarily changed for main branch
-                    //userId: this.getUserId(),
-                    userId: "" + new Date().getTime(),
+                    userId: this.getUserId(),
                     walletUrl:
-                        "wss://api-wallet-service.thetatoken.org/theta/ws",
-                    // Temporarily changed for main branch
-                    //onWalletAccessToken: this.getWalletAccessToken,
-                    onWalletAccessToken: null,
+                        "wss://beta-api-wallet-service.thetatoken.org/theta/ws",
+                    onWalletAccessToken: this.getWalletAccessToken,
                     hlsOpts: {
                         overrideNative: !videojs.browser.IS_SAFARI,
                         allowSeeksWithinUnsafeLiveWindow: true,
@@ -387,7 +361,7 @@ export default {
             //---------------------------
             // UX Tweaks & Enhancements
             //---------------------------
-
+            //#region ui
             // Prevent volume bar from pushing around the live button
             const controlBar = this.player.controlBar;
             const removeHover = (el) => el.removeClass("vjs-hover");
@@ -458,95 +432,8 @@ export default {
                     console.log("streamer offline and got an error");
                 console.warn(`Player error:`, error);
             });
+            //#endregion
         },
-
-        // createThetaObj(vid_id, vid_url, userId){
-        //     const PEER_SERVER_HOST = "prod-theta-peerjs.thetatoken.org";
-        //     const PEER_SERVER_PORT = 8700;
-        //     const TRACKER_SERVER_HOST = "prod-testnet-grouping.thetatoken.org";
-        //     const TRACKER_SERVER_PORT = 8700;
-
-        //     const PLATFORM_THETA_WALLET_SERVICE_URL =
-        //         "wss://api-wallet-service.thetatoken.org/theta/ws";
-
-        //     // TODO Fill these in with your data
-        //     const VIDEO_ID = vid_id;
-        //     //const VIDEO_URL = "https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8";
-        //     const VIDEO_URL = vid_url
-        //         "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8";
-        //     let theta = new Theta({
-        //         //TODO adjust params as needed depending on your HLS settings
-        //         fragmentSize: 5000,
-        //         failoverFactor: 0.7,
-        //         fragmentTimeout: 3000,
-        //         probeTimeout: 600,
-        //         statsReportInterval: 90000,
-        //         peerReqInterval: 120000,
-
-        //         videoId: VIDEO_ID,
-        //         userId: userId,
-        //         wallet: null,
-
-        //         peerServer: {
-        //             host: PEER_SERVER_HOST,
-        //             port: PEER_SERVER_PORT,
-        //             secure: true,
-        //         },
-        //         trackerServer: {
-        //             host: TRACKER_SERVER_HOST,
-        //             port: TRACKER_SERVER_PORT,
-        //             secure: true,
-        //             path: "",
-        //         },
-
-        //         debug: true,
-        //     });
-
-        //     // Event handlers
-        //     theta.addEventListener(Theta.Events.PEERS_CHANGED, function (data) {
-        //         // Connected peers changed
-        //         // Data:
-        //         // totalPeers : Integer
-        //     });
-        //     theta.addEventListener(Theta.Events.TRAFFIC, function (data) {
-        //         // Bandwidth was used
-        //         // Data:
-        //         // type : String ('cdn', 'p2p_inbound', 'p2p_outbound')
-        //         // stats : Object
-        //         // stats.size : Integer - Total bytes
-        //     });
-        //     theta.addEventListener(
-        //         Theta.Events.PAYMENT_RECEIVED,
-        //         function (data) {
-        //             // Payment received
-        //             // Data:
-        //             // payment : Object - info about the payment
-        //             // payment.amount : Integer - Payment amount in GammaWei
-        //         }
-        //     );
-        //     theta.addEventListener(Theta.Events.PAYMENT_SENT, function (data) {
-        //         // Payment sent
-        //         // Data:
-        //         // payment : Object - info about the payment
-        //         // payment.amount : Integer - Payment amount in GammaWei
-        //     });
-        //     theta.addEventListener(
-        //         Theta.Events.ACCOUNT_UPDATED,
-        //         function (data) {
-        //             // Account/waller updated
-        //             // Data:
-        //             // account : Object - info about the account/wallet
-        //         }
-        //     );
-        //     theta.start();
-
-        //     //If you are using the Theta widget, connect the widget so it can listen to events
-        //     theta.connectWidget();
-
-        //     console.log("new theta created", theta);
-
-        //     return theta;
-        // },
 
         trackWatchTime() {
             if (this.player.paused() || !this.live) {
@@ -663,7 +550,6 @@ export default {
         async getWalletAccessToken() {
             // Get the user id token, if it exits
             const idToken = await this.getAuthUserIdToken();
-            //const idToken = "123";
 
             //Check if a user is logged in...
             if (idToken == null) {
@@ -674,12 +560,12 @@ export default {
             //This API should check the user's auth
             let body = await this.$axios.post(
                 `${process.env.API_URL}/utils/jwtauth`,
-                
+
                 { idToken: idToken }
             );
 
             //Return the access token from the request body
-            console.log("wallet access token return", body.data.access_token);
+            //console.log("wallet access token return", body.data);
             return body.data.access_token;
         },
 
@@ -765,7 +651,7 @@ export default {
 
     async mounted() {
         console.log("MOUNTED CALLED");
-        
+
         // setTimeout(() => {
         //     //console.log("--wallet settings after 3 secoonds---");
         //     console.log("3sec theta", window.Theta);

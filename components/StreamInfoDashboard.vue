@@ -258,7 +258,6 @@ export default {
             const streamRef = db.collection("streams").doc(stream); // MAKE SURE THE FIRESTORE HAS THE CORRECT SECURITY RULES HERE
             await streamRef.update({
                 archive,
-                // nsfw,
                 title,
                 donateMsg,
                 donateOn,
