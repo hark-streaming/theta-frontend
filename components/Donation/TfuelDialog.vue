@@ -131,6 +131,7 @@ export default {
         name: { type: String },
         balance: { type: String },
         tokenName: { type: String },
+        uid: { type: String},
     },
 
     data() {
