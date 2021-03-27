@@ -33,8 +33,8 @@ export default {
             name: "testman",
             balance: "100",
             tokenName: "TEST-HARK",
-            streamerContract="",
-            senderUid=""
+            streamerContract: "11",
+            senderUid: "11"
         };
     },
 };
