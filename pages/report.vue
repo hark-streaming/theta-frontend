@@ -176,7 +176,7 @@
         this.submitting = true;
         this.success = true;
 
-        const endpoint = `https://api.bitwave.tv/v1/reports`
+        const endpoint = `${process.env.API_URL}/reports`
         const payload = {
           name: this.name,
           email: this.email,

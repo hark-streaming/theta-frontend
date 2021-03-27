@@ -14,7 +14,8 @@
                         :title="card.title"
                         :longdesc="card.longdesc"
                         :shortdesc="card.shortdesc"
-                        :link="card.link"/>
+                        :link="card.link"
+                        :tags="card.tags"/>
                 </v-col>
 
                 <v-responsive
