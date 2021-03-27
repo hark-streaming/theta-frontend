@@ -16,7 +16,8 @@
             :name="name"
             :balance="balance"
             :tokenName="tokenName"
-            :uid="senderAddress"
+            :streamerContract="streamerContract"
+            :senderUid="senderUid"
             @close="showDonate = false"
             />
         </v-dialog>
@@ -32,7 +33,8 @@ export default {
             name: "testman",
             balance: "100",
             tokenName: "TEST-HARK",
-            uid=""
+            streamerContract="",
+            senderUid=""
         };
     },
 };
