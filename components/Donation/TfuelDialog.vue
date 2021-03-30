@@ -15,7 +15,7 @@
         </v-sheet>
 
         <!-- Donate header -->
-        <h3 class="mt-3 text-center">Donate TFUEL to {{ streamer }}</h3>
+        <h3 class="mt-3 text-center">Support {{ streamer }} with TFUEL!</h3>
 
         <!-- Tfuel balance -->
         <v-card-subtitle class="my-2">
@@ -147,12 +147,12 @@ export default {
     props: {
         avatar: { type: String },
         streamer: { type: String },
-        balance: { type: String },
+        //balance: { type: String },
         tokenName: { type: String },
 
         // uid props needed for donate api call
         streamerUid: { type: String },
-        senderUid: { type: String },
+        //senderUid: { type: String },
     },
 
     data() {
@@ -162,6 +162,8 @@ export default {
 
             donateLoading: false,
             lineLoading: false,
+
+            balance: 0,
 
             alert: false,
             alertMessage: "Something went wrong!",
@@ -241,6 +243,17 @@ export default {
         tokenAmount: function () {
             return this.donateAmount * 100;
         },
+    },
+
+    // get the balance of the current user
+    async mounted() {
+        const uid = await auth.currentUser.uid;
+
+        // call api for the p2p wallet balance
+        let result = await this.$axios.get(`${process.env.API_URL}/theta/address/${uid}`);
+
+        //return balance
+        this.balance = result.data.p2pBalance;
     },
 };
 </script>
