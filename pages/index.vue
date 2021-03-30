@@ -8,7 +8,7 @@
         <!-- Site Banner -->
         <!-- <message-of-the-day /> -->
 
-        <v-row class="pt-8">
+        <!-- <v-row class="pt-8">
           <v-text-field
             v-model="searchValue"
             label="Search"
@@ -17,7 +17,7 @@
             solo
             @keydown.enter="goToSearch"
           ></v-text-field>
-        </v-row>
+        </v-row> -->
 
         <v-row class="justify-center mb-8">
           <v-col cols="12" md="8" xl="8" class="pr-0">
