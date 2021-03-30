@@ -18,10 +18,16 @@
         <h3 class="mt-3 text-center">Donate TFUEL to {{ streamer }}</h3>
 
         <!-- Tfuel balance -->
-        <v-card-subtitle class="mt-3">
+        <v-card-subtitle class="my-2">
             <div>Your Balance:</div>
-            <v-icon color="orange">mdi-arrow-up-bold-box-outline</v-icon>
-            {{ balance }} TFUEL
+            <v-row class="mt-2">
+                <img
+                    src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
+                    width="24px"
+                    height="24px"
+                />
+                <span class="ml-1">{{ balance }} TFUEL </span>
+            </v-row>
         </v-card-subtitle>
 
         <!-- 1,5,10 tfuel buttons-->
@@ -29,27 +35,42 @@
             <v-btn-toggle class="mb-3" v-model="donateAmount" borderless>
                 <v-btn value="1" outlined @click="resetCustom">
                     <v-col>
-                        <v-icon color="orange" class="mb-1"
+                        <!-- <v-icon color="orange" class="mb-1"
                             >mdi-arrow-up-bold-box-outline</v-icon
-                        >
+                        > -->
+                        <img
+                            src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
+                            width="24px"
+                            height="24px"
+                        />
                         <div>1 TFUEL</div>
                     </v-col>
                 </v-btn>
 
                 <v-btn value="5" outlined @click="resetCustom">
                     <v-col>
-                        <v-icon color="orange" class="mb-1"
+                        <!-- <v-icon color="orange" class="mb-1"
                             >mdi-arrow-up-bold-box-outline</v-icon
-                        >
+                        > -->
+                        <img
+                            src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
+                            width="24px"
+                            height="24px"
+                        />
                         <div>5 TFUEL</div>
                     </v-col>
                 </v-btn>
 
                 <v-btn value="10" outlined @click="resetCustom">
                     <v-col>
-                        <v-icon color="orange" class="mb-1"
+                        <!-- <v-icon color="orange" class="mb-1"
                             >mdi-arrow-up-bold-box-outline</v-icon
-                        >
+                        > -->
+                        <img
+                            src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
+                            width="24px"
+                            height="24px"
+                        />
                         <div>10 TFUEL</div>
                     </v-col>
                 </v-btn>
@@ -170,8 +191,7 @@ export default {
                     this.alert = true;
                     this.alertMessage = "Thank you!";
                     this.alertType = "success";
-                }
-                else {
+                } else {
                     // some api error
                     this.alert = true;
                     this.alertMessage = "API call failed! Transaction stopped.";
