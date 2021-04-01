@@ -1,5 +1,5 @@
 <template>
-  <v-card color="neutral">
+  <v-card color="neutral" style="height: 388px" class="d-flex flex-column">
     <v-img :src="bgimage" height="80" class="mb-n6"> </v-img>
 
     <div class="d-flex justify-start px-4 pb-1">
@@ -15,11 +15,11 @@
 
       <div class="mt-8 px-3">
         <h3>{{ title }}</h3>
-        <TempTags :tags="tags" />
+        <TempTags :tags="tags" :shortenList="true" :maxNumTags="2"/>
       </div>
     </div>
 
-    <div class="px-4 py-1">
+    <div class="px-4 my-2 overflow-y-auto" style="height: 150px">
       <p>{{ longdesc }}</p>
     </div>
 
@@ -28,7 +28,7 @@
         <v-btn color="primary" :href="link">{{ shortdesc }}</v-btn>
       </div>
       <div class="pr-4 pb-3">
-        <v-btn color="primary" :href="link">DONATE</v-btn>
+        <v-btn color="primary" :href="walletLink">DONATE</v-btn>
       </div>
     </div>
   </v-card>
@@ -51,6 +51,7 @@ export default {
     shortdesc: { type: String, default: "" },
     title: { type: String, default: "" },
     tags: { type: Array },
+    walletLink: { type: String, default: "" }
   },
 };
 </script>

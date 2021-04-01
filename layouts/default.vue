@@ -74,6 +74,20 @@
       
       <v-spacer />
 
+      <v-text-field
+        v-if="showSearchBar"
+        v-model="searchValue"
+        label="Search"
+        background-color="neutral"
+        clearable
+        solo
+        dense
+        class="mb-n6"
+        @keydown.enter="goToSearch"
+      ></v-text-field>
+
+      <v-spacer />
+
       <!-- Notifications Button -->
       <!-- <notifications v-if="isAuth" /> -->
 
@@ -135,6 +149,9 @@
         drawer: null,
         ssr: true,
         systemAlertHidden: null,
+
+        searchValue: "", 
+        showSearchBar: true
       }
     },
 
@@ -161,6 +178,14 @@
         console.debug( `PWA Prompt:`, prompt );
         prompt.preventDefault();
         this.setPwaPrompt( prompt );
+      },
+
+      goToSearch() {
+        if (this.searchValue == null || this.searchValue == "") return;
+
+        // this.setSearchValue(this.searchValue.toString());
+        this.$store.commit("setSearchValue", this.searchValue);
+        this.$router.push("/search");
       },
     },
 
@@ -226,6 +251,16 @@
       }
     },
 
+    created () {
+      this.$nuxt.$on("searchLoaded", () => {
+        this.showSearchBar = false;
+      }); 
+
+      this.$nuxt.$on("searchDestroyed", () => {
+        this.showSearchBar = true;
+      })
+    }
+
   }
 </script>
 
@@ -253,6 +288,4 @@
     background-image: linear-gradient(to top right, #54547c, #ebe8e8, #cc6464);
   }
   
-
-
 </style>

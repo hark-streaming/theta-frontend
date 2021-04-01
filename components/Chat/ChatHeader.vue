@@ -1,144 +1,176 @@
 <template>
-  <div>
-    <!-- Chat Header -->
-    <v-sheet
-      id="chat-header"
-      class="d-flex align-center justify-space-between pa-2"
-      color="accentwave"
-    >
-
-      <!-- Viewer List -->
-      <div style="height: 32px;">
-        <ViewerList :page="page" />
-      </div>
-
-      <!-- Chat Label -->
-      <h4
-        @click="addChannelTag"
-        class="mx-2 text-truncate"
-        style="cursor: pointer;"
-      >
-        {{ page }}
-      </h4>
-
-      <!-- Donate Button -->
-      <v-btn 
-        v-if="donateOn" 
-        color="primary" 
-        class="black--text"
-        target="_blank"
-        :href="donateUrl"
-        small
-      >
-        {{ donateMsg }}
-      </v-btn>
-
-      <div class="d-flex">
-
-        <!-- TODO: Move this to it's own component during poll refactor -->
-        <!-- Create Poll Button -->
-        <div
-          v-if="isChannelOwner"
+    <div>
+        <!-- Chat Header -->
+        <v-sheet
+            id="chat-header"
+            class="d-flex align-center justify-space-between pa-2"
+            color="accentwave"
         >
-          <v-menu
-            v-model="showPoll"
-            :close-on-content-click="false"
-            :close-on-click="false"
-            bottom
-            offset-y
-            left
-          >
-            <template #activator="{ on: menu }">
-              <v-tooltip
-                left
-                color="error"
-                transition="slide-x-reverse-transition"
-              >
-                <template #activator="{ on: tooltip }">
-                  <v-btn
-                    v-on="{ ...tooltip, /*focus: () => true, ...menu,*/ }"
-                    small
-                    color="primary darken-4 black--text"
+            <!-- Viewer List -->
+            <div style="height: 32px">
+                <ViewerList :page="page" />
+            </div>
+
+            <!-- Chat Label -->
+            <h4
+                @click="addChannelTag"
+                class="mx-2 text-truncate"
+                style="cursor: pointer"
+            >
+                {{ page }}
+            </h4>
+
+            <div class="d-flex">
+                <!-- TODO: Move this to it's own component during poll refactor -->
+                <!-- Create Poll Button -->
+                <div v-if="isChannelOwner">
+                    <v-menu
+                        v-model="showPoll"
+                        :close-on-content-click="false"
+                        :close-on-click="false"
+                        bottom
+                        offset-y
+                        left
+                    >
+                        <template #activator="{ on: menu }">
+                            <v-tooltip
+                                left
+                                color="error"
+                                transition="slide-x-reverse-transition"
+                            >
+                                <template #activator="{ on: tooltip }">
+                                    <v-btn
+                                        v-on="{
+                                            ...tooltip /*focus: () => true, ...menu,*/,
+                                        }"
+                                        small
+                                        color="primary darken-4 black--text"
+                                        class="mr-2"
+                                        >POLL</v-btn
+                                    >
+                                </template>
+                                <span>
+                                    <v-icon>warning</v-icon>
+                                    Temporarily Disabled Due to a Bug
+                                </span>
+                            </v-tooltip>
+                        </template>
+
+                        <!-- Create Poll Dialog -->
+                        <chat-poll
+                            id="chat-poll"
+                            @close="showPoll = false"
+                            @create="createPoll"
+                        />
+                    </v-menu>
+                </div>
+
+                <!-- Chat Admin Menu -->
+                <lazy-chat-admin-menu-button
+                    v-if="isChannelOwner || isAdmin"
                     class="mr-2"
-                  >POLL</v-btn>
-                </template>
-                <span>
-                  <v-icon>warning</v-icon>
-                  Temporarily Disabled Due to a Bug
-                </span>
-              </v-tooltip>
-            </template>
+                />
 
-            <!-- Create Poll Dialog -->
-            <chat-poll
-              id="chat-poll"
-              @close="showPoll = false"
-              @create="createPoll"
+                <!-- Chat Overflow Menu -->
+                <chat-overflow-menu :page="page" />
+            </div>
+        </v-sheet>
+
+        <!-- Donate Button row -->
+        <v-sheet class="d-flex align-center justify-space-around pa-2">
+            <!-- Donate TFUEL Button -->
+            <v-btn
+                color="secondary"
+                class="white--text"
+                small
+                @click="showDonate = true"
+            >
+                <img
+                    src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
+                    width="20px"
+                    height="20px"
+                    class="mr-1"
+                />
+                Donate TFUEL
+            </v-btn>
+
+            <!-- Custom Donate Button -->
+            <v-btn
+                v-if="donateOn"
+                color="primary"
+                class="black--text"
+                target="_blank"
+                :href="donateUrl"
+                small
+            >
+                {{ donateMsg }}
+            </v-btn>
+        </v-sheet>
+
+        <v-dialog v-model="showDonate" width="500">
+            <lazy-tfuel-dialog
+                :avatar="avatar"
+                :streamer="page"
+                :tokenName="'TEST-HARK'"
+                :streamerUid="streamerUid"
+                @close="showDonate = false"
             />
-          </v-menu>
-        </div>
-
-        <!-- Chat Admin Menu -->
-        <lazy-chat-admin-menu-button
-          v-if="isChannelOwner || isAdmin"
-          class="mr-2"
-        />
-
-        <!-- Chat Overflow Menu -->
-        <chat-overflow-menu
-          :page="page"
-        />
-
-      </div>
-    </v-sheet>
-  </div>
+        </v-dialog>
+    </div>
 </template>
 
 <script>
-import ViewerList from '@/components/Chat/ViewerList';
-import ChatOverflowMenu from '@/components/Chat/ChatOverflowMenu';
-import { mapGetters } from 'vuex';
-import { VStore } from '@/store';
+import ViewerList from "@/components/Chat/ViewerList";
+import ChatOverflowMenu from "@/components/Chat/ChatOverflowMenu";
+import { mapGetters } from "vuex";
+import { VStore } from "@/store";
 
-const ChatPoll = async () => await import ( '@/components/Chat/ChatPoll' );
+const ChatPoll = async () => await import("@/components/Chat/ChatPoll");
 
-  export default {
-    name: 'ChatHeader',
+export default {
+    name: "ChatHeader",
 
     components: {
-      ViewerList,
-      ChatOverflowMenu,
-      ChatPoll,
+        ViewerList,
+        ChatOverflowMenu,
+        ChatPoll,
     },
 
     props: {
-      page: { type: String },
-      isChannelOwner: { type: Boolean },
-      donateOn: { type: Boolean, default: false }, 
-      donateMsg: { type: String, default: "" },
-      donateUrl: { type: String, default: "" }
+        page: { type: String }, // this is the streamer's name pretty much
+        isChannelOwner: { type: Boolean },
+        donateOn: { type: Boolean, default: false },
+        donateMsg: { type: String, default: "" },
+        donateUrl: { type: String, default: "" },
+
+        // props for the tfuel button
+        // TODO: pass these puppies in
+        avatar: { type: String },
+        tokenName: { type: String },
+        streamerUid: { type: String },
     },
 
-    data () {
-      return {
-        showPoll: false,
-      };
+    data() {
+        return {
+            showDonate: false,
+            showPoll: false,
+        };
     },
 
     methods: {
-      addChannelTag () {
-        this.$emit( 'add-channel-tag' );
-      },
+        addChannelTag() {
+            this.$emit("add-channel-tag");
+        },
 
-      createPoll ( poll ) {
-        this.$emit( 'create-poll', poll );
-      },
+        createPoll(poll) {
+            this.$emit("create-poll", poll);
+        },
     },
 
     computed: {
-      ...mapGetters({
-        isAdmin: VStore.$getters.isAdmin,
-      }),
+        ...mapGetters({
+            isAdmin: VStore.$getters.isAdmin,
+        }),
     },
-  };
+};
 </script>

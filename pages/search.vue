@@ -191,6 +191,11 @@ export default {
     mounted() {
         this.searchValue = this.$store.getters.getSearchValue;
         this.search();
+        this.$nuxt.$emit("searchLoaded");
+    }, 
+
+    beforeDestroy() {
+        this.$nuxt.$emit("searchDestroyed");
     }
 }
 </script>

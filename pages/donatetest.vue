@@ -13,11 +13,9 @@
         <v-dialog v-model="showDonate" width="500">
             <lazy-tfuel-dialog 
             :avatar="avatar"
-            :name="name"
-            :balance="balance"
+            :streamer="streamer"
             :tokenName="tokenName"
-            :streamerContract="streamerContract"
-            :senderUid="senderUid"
+            :streamerUid="streamerUid"
             @close="showDonate = false"
             />
         </v-dialog>
@@ -30,11 +28,11 @@ export default {
         return {
             showDonate: false,
             avatar: "https://firebasestorage.googleapis.com/v0/b/hark-e2efe.appspot.com/o/WgPFRIKY7WNdADUeOURxuqlLCeT2%2Favatar%2Foutput1.jpg?alt=media&token=49517c31-c936-4c56-8998-fcaafe516856",
-            name: "testman",
-            balance: "100",
+            streamer: "testman",
+            //balance: "100",
             tokenName: "TEST-HARK",
-            streamerContract: "11",
-            senderUid: "11"
+            streamerUid: "11",
+            //senderUid: "11"
         };
     },
 };

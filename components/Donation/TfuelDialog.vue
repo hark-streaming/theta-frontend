@@ -8,19 +8,26 @@
         >
             <!-- avatar and name -->
             <v-avatar color="primary" size="48" class="mr-3">
-                <img :src="avatar" :alt="name" />
+                <img :src="avatar" :alt="streamer" />
             </v-avatar>
 
-            <h2 class="white--text">{{ name }}</h2>
+            <h2 class="white--text">{{ streamer }}</h2>
         </v-sheet>
 
         <!-- Donate header -->
-        <h3 class="mt-3 text-center">Donate TFUEL to {{ name }}</h3>
+        <h3 class="mt-3 text-center">Support {{ streamer }} with TFUEL!</h3>
 
         <!-- Tfuel balance -->
-        <v-card-subtitle class="mt-3">
-            <v-icon color="orange">mdi-arrow-up-bold-box-outline</v-icon>
-            {{ balance }} TFUEL
+        <v-card-subtitle class="my-2">
+            <div>Your Balance:</div>
+            <v-row class="mt-2">
+                <img
+                    src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
+                    width="24px"
+                    height="24px"
+                />
+                <span class="ml-1">{{ balance }} TFUEL </span>
+            </v-row>
         </v-card-subtitle>
 
         <!-- 1,5,10 tfuel buttons-->
@@ -28,27 +35,42 @@
             <v-btn-toggle class="mb-3" v-model="donateAmount" borderless>
                 <v-btn value="1" outlined @click="resetCustom">
                     <v-col>
-                        <v-icon color="orange" class="mb-1"
+                        <!-- <v-icon color="orange" class="mb-1"
                             >mdi-arrow-up-bold-box-outline</v-icon
-                        >
+                        > -->
+                        <img
+                            src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
+                            width="24px"
+                            height="24px"
+                        />
                         <div>1 TFUEL</div>
                     </v-col>
                 </v-btn>
 
                 <v-btn value="5" outlined @click="resetCustom">
                     <v-col>
-                        <v-icon color="orange" class="mb-1"
+                        <!-- <v-icon color="orange" class="mb-1"
                             >mdi-arrow-up-bold-box-outline</v-icon
-                        >
+                        > -->
+                        <img
+                            src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
+                            width="24px"
+                            height="24px"
+                        />
                         <div>5 TFUEL</div>
                     </v-col>
                 </v-btn>
 
                 <v-btn value="10" outlined @click="resetCustom">
                     <v-col>
-                        <v-icon color="orange" class="mb-1"
+                        <!-- <v-icon color="orange" class="mb-1"
                             >mdi-arrow-up-bold-box-outline</v-icon
-                        >
+                        > -->
+                        <img
+                            src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
+                            width="24px"
+                            height="24px"
+                        />
                         <div>10 TFUEL</div>
                     </v-col>
                 </v-btn>
@@ -67,11 +89,8 @@
         </v-text-field>
 
         <!-- governance token info -->
-        <!-- <p class="text-center">
-            You will receive {{ tokenAmount }} {{ tokenName }} for this
-            donation.
-        </p> -->
-        <v-layout justify-center class="my-5">
+        <!-- will not show if tokenname is not provided -->
+        <v-layout v-show="tokenName" justify-center class="my-5">
             <span> You will receive </span>
             <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
@@ -80,7 +99,7 @@
                     </a>
                 </template>
                 <span>
-                    This is {{ name }}'s custom token! It is rewarded for
+                    This is {{ streamer }}'s custom token! It is rewarded for
                     donating TFUEL.</span
                 >
             </v-tooltip>
@@ -110,9 +129,7 @@
             >
                 Donate
             </v-btn>
-            <v-btn color="grey" plain large @click="closeForm">
-                Cancel
-            </v-btn>
+            <v-btn color="grey" plain large @click="closeForm"> Cancel </v-btn>
         </v-layout>
 
         <!-- loader line for extra visual -->
@@ -122,24 +139,32 @@
 </template>
 
 <script>
+import { auth } from "@/plugins/firebase.js";
 export default {
     // name export allows it to be usable everywhere
     name: "TfuelDialog",
 
     props: {
         avatar: { type: String },
-        name: { type: String },
-        balance: { type: String },
+        streamer: { type: String },
+        //balance: { type: String },
         tokenName: { type: String },
-        uid: { type: String},
+
+        // uid props needed for donate api call
+        streamerUid: { type: String },
+        //senderUid: { type: String },
     },
 
     data() {
         return {
             donateAmount: 0,
             customAmount: 0,
+
             donateLoading: false,
             lineLoading: false,
+
+            balance: 0,
+
             alert: false,
             alertMessage: "Something went wrong!",
             alertType: "error",
@@ -148,18 +173,37 @@ export default {
     methods: {
         // called when donate button is pressed
         async onDonate() {
-            
-
             this.donateLoading = true;
             this.lineLoading = true;
 
             // do the api stuff here
             // throw an error if error
-
-            // Success!
-            this.alert = true;
-            this.alertMessage = "Thank you!";
-            this.alertType = "success";
+            try {
+                const token = await auth.currentUser.getIdToken(true);
+                let result = await this.$axios.post(
+                    `${process.env.API_URL}/theta/donate/${this.streamerUid}`,
+                    {
+                        idToken: token,
+                        amount: this.donateAmount,
+                    }
+                );
+                // if the api is good
+                if (result.data.success) {
+                    // Success!
+                    this.alert = true;
+                    this.alertMessage = "Thank you!";
+                    this.alertType = "success";
+                } else {
+                    // some api error
+                    this.alert = true;
+                    this.alertMessage = "API call failed! Transaction stopped.";
+                    this.alertType = "error";
+                }
+            } catch (err) {
+                this.alert = true;
+                this.alertMessage = err;
+                this.alertType = "error";
+            }
 
             // stop loading
             this.donateLoading = false;
@@ -197,8 +241,19 @@ export default {
     computed: {
         // governance tokens based on amount of tfuel you donate
         tokenAmount: function () {
-            return this.donateAmount;
+            return this.donateAmount * 100;
         },
+    },
+
+    // get the balance of the current user
+    async mounted() {
+        const uid = await auth.currentUser.uid;
+
+        // call api for the p2p wallet balance
+        let result = await this.$axios.get(`${process.env.API_URL}/theta/address/${uid}`);
+
+        //return balance
+        this.balance = result.data.p2pBalance;
     },
 };
 </script>
