@@ -1,5 +1,5 @@
 <template>
-    <v-flex xs12 sm10 md8 lg6>
+    <v-flex xs14 sm12 md10 lg8>
         <v-card class="mb-4 pa-3" :loading="cardDataLoading || saveLoading">
             <!-- add like a preview here of what the card looks like or soemthing -->
 

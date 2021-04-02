@@ -1,12 +1,7 @@
 <template>
   <div>
     <v-layout justify-center>
-      <v-flex
-        xs12
-        sm10
-        md8
-        lg6
-      >
+      <v-flex xs14 sm12 md10 lg8>
         <v-card class="mb-4 pa-3">
 
           <div class="d-flex justify-space-around align-center">

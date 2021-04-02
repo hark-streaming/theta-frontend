@@ -1,5 +1,5 @@
 <template>
-    <v-flex v-if="showStreamInfo" xs12 sm10 md8 lg6>
+    <v-flex v-if="showStreamInfo" xs14 sm12 md10 lg8>
         <v-card class="mb-4 pa-3">
             <v-layout column>
                 <v-flex class="mb-3">

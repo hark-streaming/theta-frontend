@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout justify-center class="text-xs-center">
-      <v-flex class="my-3" xs12 sm10 md8 lg6>
+      <v-flex class="my-3" xs14 sm12 md10 lg8>
         <h1 class="ml-2 text-center">Your Account</h1>
       </v-flex>
     </v-layout>
@@ -13,7 +13,7 @@
       centered
     >
       <v-tab>Account</v-tab>
-      <v-tab>Streaming</v-tab>
+      <v-tab :disabled="!showStreamInfo">Streaming</v-tab>
       <v-tab>Donations</v-tab>
 
       <!-- ACCOUNT TAB -->
@@ -47,7 +47,7 @@
 
         <!-- Stream Key -->
         <v-layout justify-center>
-          <v-flex v-if="showStreamInfo" xs12 sm10 md8 lg6>
+          <v-flex v-if="showStreamInfo" xs14 sm12 md10 lg8>
             <v-card class="mb-4 pa-3">
               <v-layout column>
                 <v-flex class="mb-3">
@@ -261,12 +261,17 @@
       </v-tab-item>
 
       <!-- DONATIONS TAB -->
-      <v-tab-item eager> 
-        <v-layout justify-center>
+      <v-tab-item eager>
+        <v-layout :v-if="showStreamInfo" justify-center>
           <card-form />
         </v-layout>
+        <v-layout :v-if="showStreamInfo" justify-center>
+          <governance-token-form />
+        </v-layout>
+        <v-layout :v-if="showStreamInfo" justify-center>
+          <cash-out-card />
+        </v-layout>
       </v-tab-item>
-      
     </v-tabs>
   </v-container>
 </template>
