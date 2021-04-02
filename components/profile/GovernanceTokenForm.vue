@@ -1,44 +1,49 @@
 <template>
   <v-flex xs14 sm12 md10 lg8>
+    <!-- Token Info -->
     <v-card class="mb-4 pa-3">
       <!-- title -->
-      <v-flex class="mb-3">
-        <h2>Custom Token Management</h2>
-      </v-flex>
+      <v-flex class="mb-3"><h2>Custom Token Management</h2></v-flex>
 
       <div v-if="tokenExists">
         <v-flex class="d-flex">
-          <v-avatar color="h-red">
-            {{ tokenData.symbol }}
-          </v-avatar>
+          <img
+            class="custom-token-image mr-4"
+            src="https://cdn.discordapp.com/attachments/814278920168931382/827009394113642496/custom_token.png"
+          />
           <div>
-            There are about {{ tokenHolders }} different donors holding
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-                <a href="tokens" v-bind="attrs" v-on="on" class="mx-1">
-                  {{ tokenData.symbol }} tokens.
-                </a>
-              </template>
-              <span>
-                Custom tokens represent loyalty to your organization. For every
-                1 TFuel donated, they gain 100 of your custom tokens.</span
-              >
-            </v-tooltip>
+            <div class="mb-4">
+              There are about {{ tokenHolders }} registered donors holding
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <a href="tokens" v-bind="attrs" v-on="on" class="mx-1">
+                    {{ tokenData.symbol }} tokens.
+                  </a>
+                </template>
+                <span>
+                  Custom tokens represent loyalty to your organization. For
+                  every 1 TFuel donated, they gain 100 of your custom
+                  tokens.</span
+                >
+              </v-tooltip>
+            </div>
+            <v-text-field
+              v-model="formData.topDonors"
+              outlined
+              label="Your top donors should be called:"
+              @input="enableSave"
+            />
+            <v-text-field
+              v-model="formData.loyalDonors"
+              outlined
+              label="Donors of over 100 TFuel should be called:"
+              @input="enableSave"
+            />
           </div>
         </v-flex>
 
         <!-- submission buttons -->
         <v-layout>
-          <v-spacer />
-          <v-btn
-            color="cyan"
-            outlined
-            class="mr-2"
-            :disabled="!showSave"
-            @click="resetData"
-          >
-            reset
-          </v-btn>
           <v-btn
             :disabled="!showSave"
             :loading="saveLoading"
@@ -83,6 +88,7 @@
               technology develops!
             </li>
           </ul>
+          <div>Please note, token generation may take a few seconds.</div>
 
           <!-- submission buttons -->
           <v-row class="mt-2 pa-3">
@@ -99,6 +105,14 @@
         </div>
       </div>
     </v-card>
+
+    <!-- Polls -->
+    <v-card v-if="tokenExists" class="mb-4 pa-3">
+      <!-- title -->
+      <v-flex class="mb-3">
+        <h2>Governance Polls</h2>
+      </v-flex>
+    </v-card>
   </v-flex>
 </template>
 
@@ -111,18 +125,25 @@ export default {
   data() {
     return {
       // token generation
-      tokenExists: false,
+      tokenExists: true,
       tokenGenerating: false,
+      dataLoading: true,
 
-      showSave: false,
-      saveLoading: false,
-      cardDataLoading: false,
-
+      // token data
       tokenData: {
         name: "Hark Governance Token",
         symbol: "HARK-HARK",
       },
       tokenHolders: 100,
+
+      // form
+      formData: {
+        topDonors: "Top Donor",
+        loyalDonors: "Loyal Donor",
+      },
+
+      // form control
+      showSave: false,
     };
   },
   methods: {
@@ -137,41 +158,31 @@ export default {
     },
 
     async getCardData() {
-      this.cardDataLoading = true;
+      this.dataLoading = true;
 
-      let cardDoc = await db.collection("dcards").doc(this.uid).get();
+      let cardDoc = await db.collection("chats").doc(this.uid).get();
       let data = cardDoc.data();
 
       // if they have previous data load it
       if (data != null) {
-        this.cardData.title = data.title;
-        this.cardData.link = data.link;
-        this.cardData.shortdesc = data.shortdesc;
-        this.cardData.longdesc = data.longdesc;
+        this.formData.topDonors = data.topDonors;
+        this.formData.loyalDonors = data.loyalDonors;
       }
 
-      this.cardDataLoading = false;
-    },
-    resetData() {
-      this.cardData.title = this.old.title;
-      this.cardData.link = this.old.link;
-      this.cardData.shortdesc = this.old.shortdesc;
-      this.cardData.longdesc = this.old.longdesc;
+      this.dataLoading = false;
     },
     async updateCardData() {
       this.saveLoading = true;
-      await db.collection("dcards").doc(this.uid).update({
-        title: this.cardData.title,
-        shortdesc: this.cardData.shortdesc,
-        longdesc: this.cardData.longdesc,
-        link: this.cardData.link,
+      await db.collection("chats").doc(this.uid).update({
+        topDonors: this.formData.topDonors,
+        loyalDonors: this.formData.loyalDonors
       });
 
       this.saveLoading = false;
     },
     async generateCustomToken() {
       alert("boogily boogily boo");
-    }
+    },
   },
   computed: {
     ...mapGetters({

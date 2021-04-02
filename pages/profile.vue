@@ -13,38 +13,27 @@
       centered
     >
       <v-tab>Account</v-tab>
-      <v-tab :disabled="!showStreamInfo">Streaming</v-tab>
       <v-tab>Donations</v-tab>
+      <v-tab :disabled="!showStreamInfo">Streaming</v-tab>
+      <v-tab :disabled="!showStreamInfo">Custom Token</v-tab>
 
       <!-- ACCOUNT TAB -->
       <v-tab-item eager>
         <account-details-2 />
       </v-tab-item>
 
+      <!-- DONATIONS TAB -->
+      <v-tab-item eager>
+        <v-layout :v-if="showStreamInfo" justify-center>
+          <card-form />
+        </v-layout>
+        <v-layout :v-if="showStreamInfo" justify-center>
+          <cash-out-card />
+        </v-layout>
+      </v-tab-item>
+
       <!-- STREAM TAB -->
       <v-tab-item eager>
-        <!-- Get a stream key -->
-        <!--
-          <v-layout
-            justify-center
-          >
-            <v-flex
-              xs12
-              sm10
-              md8
-              lg6
-            >
-              <v-card class="mb-4 pa-3">
-                <h2 class="mb-3">Want to stream?</h2>
-                <v-btn
-                  to="/streamkey"
-                  color="primary"
-                >Get A Streamkey</v-btn>
-              </v-card>
-            </v-flex>
-          </v-layout>
-          -->
-
         <!-- Stream Key -->
         <v-layout justify-center>
           <v-flex v-if="showStreamInfo" xs14 sm12 md10 lg8>
@@ -185,91 +174,14 @@
 
         <!-- Stream Info -->
         <v-layout justify-center>
-          <!-- <v-flex
-            v-if="showStreamInfo"
-            xs12
-            sm10
-            md8
-            lg6
-          >
-            <v-card class="mb-4 pa-3">
-              <v-layout column>
-                <v-flex class="mb-3">
-                  <h2>Stream Info</h2>
-                </v-flex>
-                <v-flex class="mb-3">
-                  <v-text-field
-                    v-model="streamData.title"
-                    label="Stream Title"
-                    color="primary"
-                    outlined
-                    hide-details
-                    :loading="streamDataLoading || saveLoading"
-                    @input="showSave = true"
-                  />
-                </v-flex>
-                <v-flex>
-                  <v-textarea
-                    v-model="description"
-                    name="input-7-1"
-                    outlined
-                    hide-details
-                    color="primary"
-                    label="Stream Description (markdown supported)"
-                    auto-grow
-                    @input="showSave = true"
-                  />
-                </v-flex>
-                <v-flex shrink>
-                  <v-switch
-                    v-model="streamData.nsfw"
-                    label="NSFW"
-                    color="primary"
-                    hide-details
-                    dense
-                    inset
-                    @change="showSave = true"
-                  />
-                </v-flex>
-                <v-flex shrink>
-                  <v-switch
-                    v-model="streamData.archive"
-                    label="Stream Replays"
-                    color="primary"
-                    hide-details
-                    dense
-                    inset
-                    @change="showSave = true"
-                  />
-                </v-flex>
-                <v-layout>
-                  <v-spacer/>
-                  <v-btn
-                    :disabled="!showSave"
-                    :loading="saveLoading"
-                    color="primary"
-                    outlined
-                    @click="updateStreamData"
-                  >save</v-btn>
-                </v-layout>
-              </v-layout>
-            </v-card>
-          </v-flex> -->
-
           <StreamInfoDashboard :username="username" />
         </v-layout>
       </v-tab-item>
 
-      <!-- DONATIONS TAB -->
+      <!-- TOKEN TAB -->
       <v-tab-item eager>
-        <v-layout :v-if="showStreamInfo" justify-center>
-          <card-form />
-        </v-layout>
-        <v-layout :v-if="showStreamInfo" justify-center>
+        <v-layout justify-center>
           <governance-token-form />
-        </v-layout>
-        <v-layout :v-if="showStreamInfo" justify-center>
-          <cash-out-card />
         </v-layout>
       </v-tab-item>
     </v-tabs>
@@ -288,6 +200,7 @@ import ManageWebhooks from "@/components/profile/ManageWebhooks";
 import CardForm from "@/components/DonationCards/CardForm";
 
 import StreamInfoDashboard from "@/components/StreamInfoDashboard";
+import GovernanceTokenForm from "../components/profile/GovernanceTokenForm.vue";
 
 export default {
   name: "profile",
