@@ -40,6 +40,18 @@
             </template>
           </v-progress-linear>
 
+          <!-- General Success / Error Alert -->
+          <v-alert
+            v-model="alert"
+            class="mt-4 mb-4"
+            :type="alertType"
+            transition="expand-transition"
+            dense
+            dismissible
+          >
+            {{ alertMessage }}
+          </v-alert>
+
           <!-- submission buttons -->
           <v-row class="mt-2 pa-3">
             <v-spacer />
@@ -49,7 +61,9 @@
               color="primary"
               outlined
               @click="requestPayout"
-              >{{alreadyRequested ? "Request in Review" : "Request Cash Out"}}</v-btn
+              >{{
+                alreadyRequested ? "Request in Review" : "Request Cash Out"
+              }}</v-btn
             >
           </v-row>
         </div>
@@ -69,6 +83,11 @@ export default {
       // token generation
       tfuelAmount: 0,
 
+      // alert
+      alert: false,
+      alertMessage: "",
+      alertType: "info",
+
       alreadyRequested: false,
       requestLoading: false,
     };
@@ -76,12 +95,23 @@ export default {
   methods: {
     async requestPayout() {
       this.requestLoading = true;
-      const endpoint = `${process.env.API_URL}/theta/cashout/${this.uid}`;
 
-      // Submit to API server
-      const result = await this.$axios.$post(endpoint, {});
+      let endpoint;
+      let result;
+      try {
+        endpoint = `${process.env.API_URL}/theta/cashout/${this.uid}`;
+        result = await this.$axios.$post(endpoint, {});
+      } catch {
+        this.alert = true;
+        this.alertMessage = "There was an error, try again in a bit.";
+        this.alertType = "error";
 
-      alreadyRequested = result.success;
+        this.requestLoading = false;
+        this.alreadyRequested = false;
+        return;
+      }
+
+      this.alreadyRequested = result.success;
 
       this.requestLoading = false;
     },
@@ -95,14 +125,14 @@ export default {
     }),
   },
   async mounted() {
-      const endpoint = `${process.env.API_URL}/theta/address/${this.uid}`;
-      const result = await this.$axios.$get(endpoint);
-      console.log(result);
+    const endpoint = `${process.env.API_URL}/theta/address/${this.uid}`;
+    const result = await this.$axios.$get(endpoint);
+    console.log(result);
 
-      this.tfuelAmount = result.p2pBalance;
+    this.tfuelAmount = result.p2pBalance;
 
-      const cashoutDoc = await db.collection("cashout").doc(this.uid).get();
-      this.alreadyRequested = cashoutDoc.exists;
+    const cashoutDoc = await db.collection("cashout").doc(this.uid).get();
+    this.alreadyRequested = cashoutDoc.exists;
   },
 };
 </script>

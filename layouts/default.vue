@@ -285,7 +285,8 @@
   }
 
   #app {
-    background-image: linear-gradient(to top right, #54547c, #ebe8e8, #cc6464);
+    //background-image: linear-gradient(to top right, #54547c, #ebe8e8, #cc6464);
+    background-image: linear-gradient(to top right, rgb(109, 109, 126) 0%, rgba(235,232,232,1) 15%, rgba(235,232,232,1) 85%, rgb(207, 169, 169) 100%);
   }
   
 </style>
