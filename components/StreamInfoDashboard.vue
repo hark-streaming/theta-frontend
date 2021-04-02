@@ -1,125 +1,172 @@
 <template>
     <v-flex v-if="showStreamInfo" xs14 sm12 md10 lg8>
         <v-card class="mb-4 pa-3">
-            <v-layout column>
-                <v-flex class="mb-3">
-                    <h2>Stream Info</h2>
-                </v-flex>
-                <v-flex class="mb-3">
-                    <v-text-field
-                        v-model="streamData.title"
-                        label="Stream Title"
-                        color="secondary"
-                        outlined
-                        hide-details
-                        :loading="streamDataLoading || saveLoading"
-                        @input="enableSave"
-                    />
-                </v-flex>
-                <v-flex>
-                    <v-textarea
-                        v-model="description"
-                        name="input-7-1"
-                        outlined
-                        hide-details
-                        color="secondary"
-                        label="Stream Description (markdown supported)"
-                        auto-grow
-                        @input="enableSave"
-                    />
-                </v-flex>
-                <v-flex class="mt-2">
-                    <vue-tags
-                        :active="activeTags"
-                        :all="allTags"
-                        :element-count-for-start-arrow-scrolling="3"
-                        :tab-index="1"
-                        :tag-creation-enabled="true"
-                        :colors-enabled="false"
-                        :tag-color-default="'green'"
-                        :tag-list-label="'Stream Topics'"
-                        :placeholder="'Select a stream topic....'"
-                        @on-tag-added="onTagAdded"
-                        @on-tag-removed="onTagRemoved"
-                        @on-tag-created="onTagCreated"
-                    />
-                </v-flex>
-                
-                <v-flex shrink class="mt-4">
-                    <v-switch 
-                        v-model="streamData.donateOn"
-                        label="Donate Button"
-                        color = "secondary"
-                        hide-details
-                        dense
-                        inset
-                        @change="enableSave"
-                    />
-                    <v-text-field 
-                        v-model="streamData.donateMsg"
-                        label="Button Message"
-                        outlined
-                        color="secondary"
-                        auto-grow
-                        dense
-                        class="mt-4"
-                        counter="50"
-                        :disabled="!streamData.donateOn"
-                        @input="enableSave"
-                    />
-                    <v-text-field
-                        v-model="streamData.donateUrl"
-                        label="Donation URL"
-                        outlined
-                        color="secondary"
-                        auto-grow
-                        dense
-                        :disabled="!streamData.donateOn"
-                        @input="enableSave"
-                    />
-                </v-flex>
-                <!-- <v-flex shrink>
-                    <v-switch
-                        v-model="streamData.nsfw"
-                        label="NSFW"
-                        color="primary"
-                        hide-details
-                        dense
-                        inset
-                        @change="showSave = true"
-                    />
-                </v-flex> -->
-                <!-- <v-flex shrink>
-                    <v-switch
-                        v-model="streamData.archive"
-                        label="Stream Replays"
-                        color="primary"
-                        hide-details
-                        dense
-                        inset
-                        @change="showSave = true"
-                    />
-                </v-flex> -->
-                <v-layout>
-                    <v-spacer />
-                    <v-btn
-                        color="cyan"
-                        outlined
-                        class="mr-2"
-                        :disabled="!showSave"
-                        @click="resetData"
-                        >
-                        reset
-                    </v-btn>
-                    <v-btn
-                        :disabled="!showSave"
-                        :loading="saveLoading"
-                        color="primary"
-                        outlined
-                        @click="updateStreamData"
-                        >save</v-btn
+            <v-container>
+                <v-row no-gutters>
+                    <v-flex class="mb-3">
+                        <h2>Stream Info</h2>
+                    </v-flex>
+                </v-row>
+
+                <v-row no-gutters>
+                    <v-col class="pr-2">
+                    <!-- <v-layout column> -->
+                        
+                        <v-flex class="mb-3">
+                            <v-text-field
+                                v-model="streamData.title"
+                                label="Stream Title"
+                                color="secondary"
+                                outlined
+                                hide-details
+                                :loading="streamDataLoading || saveLoading"
+                                @input="enableSave"
+                            />
+                        </v-flex>
+                        <v-flex>
+                            <v-textarea
+                                v-model="description"
+                                name="input-7-1"
+                                outlined
+                                hide-details
+                                color="secondary"
+                                label="Stream Description (markdown supported)"
+                                auto-grow
+                                @input="enableSave"
+                            />
+                        </v-flex>
+                        <v-flex class="mt-2">
+                            <vue-tags
+                                :active="activeTags"
+                                :all="allTags"
+                                :element-count-for-start-arrow-scrolling="3"
+                                :tab-index="1"
+                                :tag-creation-enabled="true"
+                                :colors-enabled="false"
+                                :tag-color-default="'green'"
+                                :tag-list-label="'Stream Topics'"
+                                :placeholder="'Select a stream topic....'"
+                                @on-tag-added="onTagAdded"
+                                @on-tag-removed="onTagRemoved"
+                                @on-tag-created="onTagCreated"
+                            />
+                        </v-flex>
+                        
+                        <v-flex shrink class="mt-4">
+                            <v-switch 
+                                v-model="streamData.donateOn"
+                                label="Donate Button"
+                                color = "secondary"
+                                hide-details
+                                dense
+                                inset
+                                @change="enableSave"
+                            />
+                            <v-text-field 
+                                v-model="streamData.donateMsg"
+                                label="Button Message"
+                                outlined
+                                color="secondary"
+                                auto-grow
+                                dense
+                                class="mt-4"
+                                counter="50"
+                                :disabled="!streamData.donateOn"
+                                @input="enableSave"
+                            />
+                            <v-text-field
+                                v-model="streamData.donateUrl"
+                                label="Donation URL"
+                                outlined
+                                color="secondary"
+                                auto-grow
+                                dense
+                                :disabled="!streamData.donateOn"
+                                @input="enableSave"
+                            />
+                        </v-flex>
+                        <!-- <v-flex shrink>
+                            <v-switch
+                                v-model="streamData.nsfw"
+                                label="NSFW"
+                                color="primary"
+                                hide-details
+                                dense
+                                inset
+                                @change="showSave = true"
+                            />
+                        </v-flex> -->
+                        <!-- <v-flex shrink>
+                            <v-switch
+                                v-model="streamData.archive"
+                                label="Stream Replays"
+                                color="primary"
+                                hide-details
+                                dense
+                                inset
+                                @change="showSave = true"
+                            />
+                        </v-flex> -->
+                        
+                    <!-- </v-layout> -->
+                    </v-col>
+
+                    <!-- <v-col cols="4" class="pl-2">
+                        <h3>Polls</h3>
+
+                        <v-card 
+                            v-for="(poll, index) in this.streamData.polls"
+                            :key="index"
+                            outlined
+                            class="pa-2"
+                            >
+                            <v-row no-gutters>
+                                <v-col cols="9">
+                                    <v-text-field 
+                                        v-model="poll.question"
+                                        label="Prompt"
+                                        solo
+                                        hide-details
+                                        dense
+                                        @input="enableSave"
+                                    />
+                                </v-col>
+
+                                <v-col class="d-flex align-center pl-3" cols="3">
+                                    <v-btn 
+                                        rounded 
+                                        small 
+                                        color="primary"
+                                    >Delete<br>poll</v-btn>
+                                </v-col>
+                            </v-row>
+                            
+                        </v-card>
+
+                        <v-btn @click="addPoll">Add poll</v-btn>
+                    </v-col> -->
+                </v-row>
+            </v-container>
+
+            <v-layout>
+                <v-spacer />
+                <v-btn
+                    color="cyan"
+                    outlined
+                    class="mr-2"
+                    :disabled="!showSave"
+                    @click="resetData"
                     >
-                </v-layout>
+                    reset
+                </v-btn>
+                <v-btn
+                    :disabled="!showSave"
+                    :loading="saveLoading"
+                    color="primary"
+                    outlined
+                    @click="updateStreamData"
+                    >save</v-btn
+                >
             </v-layout>
         </v-card>
     </v-flex>
@@ -165,7 +212,8 @@ export default {
                 key: "",
                 donateMsg: "",
                 donateOn: false,
-                donateUrl: ""
+                donateUrl: "", 
+                // polls: []
             },
 
             streamDataLoading: true,
@@ -191,7 +239,8 @@ export default {
                 donateOn: false, 
                 donateUrl: "",
                 description: "", 
-                activeTags: []
+                activeTags: [], 
+                // polls: []
             },
         };
     },
@@ -230,6 +279,10 @@ export default {
             // this.streamData.nsfw = data.nsfw;
             this.description = data.description;
             this.activeTags = this.parseTags(data.tags);
+
+            // this.streamData.polls = [];
+            // data.polls.forEach(x => this.streamData.polls.push(x));
+
             this.streamDataLoading = false;
 
             this.setOld();
@@ -250,8 +303,12 @@ export default {
             // const nsfw = this.streamData.nsfw;
             const description = this.description;
             const stream = this.username.toLowerCase();
+
             const tags = [];
             this.activeTags.forEach(x => tags.push(x.name));
+
+            // const polls = [];
+            // this.streamData.polls.forEach(x => polls.push(x));
 
             this.setOld();
 
@@ -263,7 +320,8 @@ export default {
                 donateOn,
                 donateUrl,
                 description,
-                tags
+                tags, 
+                // polls
             });
             this.saveLoading = false;
             this.disableSave();
@@ -378,6 +436,9 @@ export default {
             this.old.donateMsg = this.streamData.donateMsg;
             this.old.donateUrl = this.streamData.donateUrl;
             this.old.archive = this.streamData.archive;
+            
+            // this.old.polls = [];
+            // this.streamData.polls.forEach(x => this.old.polls.push(x));
 
             this.old.activeTags = [];
             this.activeTags.forEach(x => this.old.activeTags.push(x));
@@ -390,12 +451,27 @@ export default {
             this.streamData.donateMsg = this.old.donateMsg;
             this.streamData.donateUrl = this.old.donateUrl;
             this.streamData.archive = this.old.archive;
+            
+            // this.streamData.polls = [];
+            // this.old.polls.forEach(x => this.activeTags.push(x));
 
             this.activeTags = [];
             this.old.activeTags.forEach(x => this.activeTags.push(x));
 
             this.disableSave();
-        }
+        }, 
+
+        /* addPoll() {
+            const pollData = {
+                question: "", 
+                answers: [
+                    { value: 1, text: "", votes: 0 }
+                ]
+            };
+            this.streamData.polls.push(pollData);
+
+            this.enableSave();
+        } */
     },
 
     computed: {

@@ -53,7 +53,8 @@
     "videojs-youtube": "^2.6.1",
     "vue-awesome-countdown": "^1.1.4",
     "vue-chartjs": "^3.5.1",
-    "vue-clipboard2": "^0.3.1"
+    "vue-clipboard2": "^0.3.1",
+    "vue-poll": "^0.1.8"
   },
   "devDependencies": {
     "@nuxtjs/style-resources": "^1.0.0",

@@ -160,6 +160,10 @@
             
                 <StreamInfoDashboard :username="username"/>
             </v-layout>
+
+            <v-layout>
+                <DashboardPolls :username="username" />
+            </v-layout>
         </v-container>
     </div>
 </template>
@@ -171,6 +175,7 @@ import { mapGetters, mapState } from "vuex";
 import { Chat as ChatStore } from "@/store/chat";
 import { VStore } from "@/store";
 import StreamInfoDashboard from "@/components/StreamInfoDashboard";
+import DashboardPolls from "@/components/Dashboard/DashboardPolls";
 
 export default {
     name: "dashboard",
@@ -178,7 +183,8 @@ export default {
     middleware: "auth",
 
     components: {
-        StreamInfoDashboard
+        StreamInfoDashboard, 
+        DashboardPolls
     },
 
     data() {
