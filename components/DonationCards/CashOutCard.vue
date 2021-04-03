@@ -99,8 +99,11 @@ export default {
       let endpoint;
       let result;
       try {
-        endpoint = `${process.env.API_URL}/theta/cashout/${this.uid}`;
-        result = await this.$axios.$post(endpoint, {});
+        const token = await auth.currentUser.getIdToken(true);
+        endpoint = `${process.env.API_URL}/theta/cashout`;
+        result = await this.$axios.$put(endpoint, {
+            idToken: token
+        });
       } catch {
         this.alert = true;
         this.alertMessage = "There was an error, try again in a bit.";
