@@ -25,7 +25,7 @@
       <!-- DONATIONS TAB -->
       <v-tab-item eager>
         <v-layout justify-center>
-          <v-flex v-if="showStreamInfo" xs14 sm12 md10 lg8>
+          <v-flex xs14 sm12 md10 lg8>
             <donation-history-card />
           </v-flex>
         </v-layout>

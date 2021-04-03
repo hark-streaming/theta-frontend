@@ -3,14 +3,14 @@
     <!-- title -->
     <v-flex class="mb-3">
       <h2>Donation History</h2>
+      <div>
+        This is a summary of the donations that you have given out in the past.
+        See which causes you donate to the most, and in the future, earn badge
+        NFTs for the communities that you engage in!
+      </div>
       <div class="d-flex">
         <div class="container">
-          <DoughnutChart :chartdata="chartdata" :options="options" />
-        </div>
-        <div>
-          This is a summary of the donations that you have given out in the
-          past. See which causes you donate to the most, and in the future, earn
-          badge NFTs for the communities that you engage in!
+          <DoughnutChart :chartdata="chartdata" :options="options" class="small-graph" />
         </div>
       </div>
     </v-flex>
@@ -63,4 +63,9 @@ export default {
   width: 275px;
   height: 200px;
 }
+
+.small-graph {
+  width: 250px;
+}
+
 </style>
