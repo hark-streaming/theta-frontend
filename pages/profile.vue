@@ -15,7 +15,7 @@
       <v-tab>Account</v-tab>
       <v-tab>Donations</v-tab>
       <v-tab :disabled="!showStreamInfo">Streaming</v-tab>
-      <v-tab :disabled="!showStreamInfo">Custom Token</v-tab>
+      <v-tab :disabled="!showStreamInfo">Token</v-tab>
 
       <!-- ACCOUNT TAB -->
       <v-tab-item eager>
@@ -24,6 +24,11 @@
 
       <!-- DONATIONS TAB -->
       <v-tab-item eager>
+        <v-layout justify-center>
+          <v-flex v-if="showStreamInfo" xs14 sm12 md10 lg8>
+            <donation-history-card />
+          </v-flex>
+        </v-layout>
         <v-layout :v-if="showStreamInfo" justify-center>
           <card-form />
         </v-layout>
@@ -200,7 +205,6 @@ import ManageWebhooks from "@/components/profile/ManageWebhooks";
 import CardForm from "@/components/DonationCards/CardForm";
 
 import StreamInfoDashboard from "@/components/StreamInfoDashboard";
-import GovernanceTokenForm from "../components/profile/GovernanceTokenForm.vue";
 
 export default {
   name: "profile",

@@ -44,6 +44,7 @@
 
         <!-- submission buttons -->
         <v-layout>
+          <v-spacer />
           <v-btn
             :disabled="!showSave"
             :loading="saveLoading"
@@ -91,7 +92,7 @@
           <div>Please note, token generation may take a few seconds.</div>
 
           <!-- submission buttons -->
-          <v-row class="mt-2 pa-3">
+          <v-row class="mt-2 pa-3 d-flex">
             <v-spacer />
             <v-btn
               :disabled="tokenExists"
@@ -107,12 +108,7 @@
     </v-card>
 
     <!-- Polls -->
-    <v-card v-if="tokenExists" class="mb-4 pa-3">
-      <!-- title -->
-      <v-flex class="mb-3">
-        <h2>Governance Polls</h2>
-      </v-flex>
-    </v-card>
+    <GovPollForm v-if="tokenExists" />
   </v-flex>
 </template>
 
@@ -120,8 +116,10 @@
 import { auth, db, storage } from "@/plugins/firebase";
 import { mapGetters, mapState } from "vuex";
 import { VStore } from "@/store";
+import GovPollForm from "../DonationCards/GovPollForm.vue";
 
 export default {
+  components: { GovPollForm },
   data() {
     return {
       // token generation
@@ -175,7 +173,7 @@ export default {
       this.saveLoading = true;
       await db.collection("chats").doc(this.uid).update({
         topDonors: this.formData.topDonors,
-        loyalDonors: this.formData.loyalDonors
+        loyalDonors: this.formData.loyalDonors,
       });
 
       this.saveLoading = false;
