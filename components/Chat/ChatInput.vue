@@ -12,7 +12,7 @@
     <v-text-field
       ref="chatmessageinput"
       :value="getMessage"
-      :label="`Chat ${global ? 'globally' : ''} as ${username}...`"
+      :label="`Chat ${global ? 'globally' : ''} as ` +  username.replace('troll', 'guest')"
       :loading="loading"
       :disabled="loading"
       class="mb-0"

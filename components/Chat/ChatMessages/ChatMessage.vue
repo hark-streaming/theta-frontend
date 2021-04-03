@@ -69,14 +69,16 @@
         <div
           class="username text-truncate subtitle-2 pl-1"
           :style="props.userStyling"
-          v-html="props.displayName"
+          
           @click="listeners.select"
-        />
+        >
+        {{props.username.replace("troll", "guest")}}
+        </div>
 
         <div class="flex-grow-1"></div>
 
         <!-- Room Label -->
-        <a
+        <!-- <a
           v-if="props.showChannel"
           :href="props.routePrefix + props.channel"
           @click.prevent="listeners.goto( props.routePrefix + props.channel )"
@@ -86,7 +88,7 @@
             v-text="props.channel"
             :title="props.channel"
           ></kbd>
-        </a>
+        </a> -->
 
       </div>
 

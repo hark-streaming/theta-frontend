@@ -75,9 +75,10 @@
                 <chat-overflow-menu :page="page" />
             </div>
         </v-sheet>
-
+        <v-divider></v-divider>
         <!-- Donate Button row -->
-        <v-sheet class="d-flex align-center justify-space-around pa-2">
+        <v-sheet color="accentwave" class="d-flex align-center justify-space-around pa-2">
+            
             <!-- Donate TFUEL Button -->
             <v-btn
                 color="secondary"
