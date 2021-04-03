@@ -4,13 +4,13 @@
     <v-flex class="mb-3">
       <h2>Donation History</h2>
       <div class="d-flex">
+        <div class="container">
+          <DoughnutChart :chartdata="chartdata" :options="options" />
+        </div>
         <div>
           This is a summary of the donations that you have given out in the
           past. See which causes you donate to the most, and in the future, earn
           badge NFTs for the communities that you engage in!
-        </div>
-        <div class="container">
-          <DoughnutChart :chartdata="chartdata" :options="options" />
         </div>
       </div>
     </v-flex>
@@ -21,23 +21,25 @@
 import { auth, db, storage } from "@/plugins/firebase";
 import { mapGetters, mapState } from "vuex";
 import { VStore } from "@/store";
-import DoughnutChart from '../Chart/DoughnutChart.vue';
+import DoughnutChart from "../Chart/DoughnutChart.vue";
 
 export default {
   data() {
     return {
       chartdata: {
         labels: [123, 456],
-        datasets: [{
-            label: 'Data One',
-            backgroundColor: '#f87979',
-            data: [345, 123]
-          }, {
-            label: 'Date Two',
-            backgroundColor: '#fe5563',
-            data: [100, 566]
-          }
-        ]
+        datasets: [
+          {
+            label: "Data One",
+            backgroundColor: "#f87979",
+            data: [345, 123],
+          },
+          {
+            label: "Date Two",
+            backgroundColor: "#fe5563",
+            data: [100, 566],
+          },
+        ],
       },
       options: null,
     };
