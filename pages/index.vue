@@ -41,7 +41,6 @@
               :offline="offline"
             />
           </v-col>
-
           <v-col class="grow pl-0">
             <v-sheet color="neutral" class="fill-height pa-5">
               <h2>{{ mostViewed.name }}</h2>

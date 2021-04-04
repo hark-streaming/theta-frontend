@@ -109,9 +109,10 @@
             inactivityTimeout: 1000,
             suppressNotSupportedError: true,
             plugins: {
-              bitwaveTriSpinner: {
+            //don't want bitwave trispinner
+              /*bitwaveTriSpinner: {
                 size: 58,
-              },
+              },*/
             },
             userActions: {
               hotkeys: true,
