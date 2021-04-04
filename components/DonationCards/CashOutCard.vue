@@ -19,9 +19,9 @@
             correspondance.
           </div>
           <div class="my-4">
-            <b>PLEASE NOTE:</b> Hark.tv is currently in a test phase, which will
-            affect the worth of TFuel and its permanence.
-            <a href="/test-phase">Click here</a> to learn more.
+            <b>PLEASE NOTE:</b> Hark.tv is currently in the start of its
+            grassroots phase, which will affect the worth of TFuel and its
+            permanence.<a href="/grassroots">Click here</a> to learn more.
           </div>
 
           <v-progress-linear
@@ -102,7 +102,7 @@ export default {
         const token = await auth.currentUser.getIdToken(true);
         endpoint = `${process.env.API_URL}/theta/cashout`;
         result = await this.$axios.$put(endpoint, {
-            idToken: token
+          idToken: token,
         });
       } catch {
         this.alert = true;
