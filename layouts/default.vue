@@ -1,292 +1,259 @@
 <template>
-  <v-app :class="{ ssr: ssr, systemAlert: !!showSystemAlert }" light>
-    <!-- System Bar -->
-    <v-slide-y-transition>
-      <system-alert
-        v-if="showSystemAlert"
-        :id="systemAlert.id"
-        :scroll="systemAlert.scroll"
-        :message="systemAlert.message"
-        :icon="systemAlert.icon"
-        :color="systemAlert.color"
-        :text-color="systemAlert.textColor"
-        @hide="hideSystemAlert"
-      />
-    </v-slide-y-transition>
-
-    <!-- Toolbar -->
-    <v-app-bar
-      app
-      :clipped-left="true"
-      dense
-      fixed
-      color="secondary"
-    >
-      <!--<v-btn
-        icon
-        @click.stop="drawer = !drawer"
-      >
-        <v-icon>menu</v-icon>
-      </v-btn>-->
-
-      <v-toolbar-title
-        class="pl-0"
-      >
-        <!-- <v-btn
-          :ripple="false"
-          depressed
-          icon
-          exact
-          id="logo_image"
-          exact-active-class="app-title-active"
-          class="text-none py-1 mx-0 px-0"
-          @click.stop="drawer = !drawer"
-        >
-          <v-avatar tile size="32">
-            <img
-              :src="bwLogo"
-              alt="bitwave.tv logo"
-              title="bitwave.tv homepage"
+    <v-app :class="{ ssr: ssr, systemAlert: !!showSystemAlert }" light>
+        <!-- System Bar -->
+        <v-slide-y-transition>
+            <system-alert
+                v-if="showSystemAlert"
+                :id="systemAlert.id"
+                :scroll="systemAlert.scroll"
+                :message="systemAlert.message"
+                :icon="systemAlert.icon"
+                :color="systemAlert.color"
+                :text-color="systemAlert.textColor"
+                @hide="hideSystemAlert"
             />
-          </v-avatar>
-        </v-btn> -->
+        </v-slide-y-transition>
 
-        <v-btn
-          :v-if="!mobile"
-          :ripple="false"
-          href="/"
-          depressed
-          text
-          exact
-          id="logo_text"
-          exact-active-class="app-title-active"
-          class="text-none title px-2"
-          color="white"
-        >
-          <v-img src="/images/hark-logo.png" max-width="60"></v-img>
-        </v-btn>
-        
-      </v-toolbar-title>
+        <!-- Toolbar -->
+        <v-app-bar app :clipped-left="true" dense fixed color="secondary">
+            <!-- Logo Button -->
+            <v-toolbar-title class="pl-0">
+                <v-btn
+                    :v-if="!mobile"
+                    :ripple="false"
+                    href="/"
+                    depressed
+                    text
+                    exact
+                    id="logo_text"
+                    exact-active-class="app-title-active"
+                    class="text-none title px-2"
+                    color="white"
+                >
+                    <v-img src="/images/hark-logo.png" max-width="60"></v-img>
+                </v-btn>
+            </v-toolbar-title>
 
-      <!-- <div><PagesDropDown /></div> -->
-      <div><LocationDropDown /></div>
-      <div><PagesDropDown /></div>
-      
-      <v-spacer />
+            <location-drop-down></location-drop-down>
+            <pages-drop-down></pages-drop-down>
 
-      <v-text-field
-        v-if="showSearchBar"
-        v-model="searchValue"
-        label="Search"
-        background-color="neutral"
-        clearable
-        solo
-        dense
-        class="mb-n6"
-        @keydown.enter="goToSearch"
-      ></v-text-field>
+            <v-spacer />
 
-      <v-spacer />
+            <v-text-field
+                v-if="showSearchBar"
+                v-model="searchValue"
+                label="Search"
+                background-color="neutral"
+                clearable
+                solo
+                dense
+                class="mb-n6"
+                @keydown.enter="goToSearch"
+            ></v-text-field>
 
-      <!-- Notifications Button -->
-      <!-- <notifications v-if="isAuth" /> -->
+            <v-spacer />
 
-      <user-menu class="ml-2" />
+            <!-- Notifications Button -->
+            <!-- <notifications v-if="isAuth" /> -->
 
-    </v-app-bar>
+            <user-menu class="ml-2" />
+        </v-app-bar>
 
-    <!-- L-Nav Drawer -->
-    <!-- removed for now-->
-    <!--<sidebar v-model="drawer" />-->
-
-    <!-- Content -->
-    <v-main >
-      <nuxt />
-    </v-main>
-
-    <!-- Fireworks overlay -->
-    <!-- removed for now-->
-    <!--<fireworks
-      :fixed="true"
-      ref="fireworks"
-    />-->
-
-  </v-app>
+        <!-- Content -->
+        <v-main>
+            <nuxt />
+        </v-main>
+    </v-app>
 </template>
 
 <script>
-  import UserMenu from '@/components/SubLayout/UserMenu'
-  import sidebar from '@/components/SubLayout/sidebar'
-  import Notifications from '@/components/Notifications'
-  import StreamHereBtn from '@/components/SubLayout/StreamHereBtn';
-  import SystemAlert from '@/components/Alerts/SystemAlert';
-  import PagesDropDown from "@/components/RoutingBar/PagesDropDown";
-  import LocationDropDown from "@/components/RoutingBar/LocationDropDown";
+import UserMenu from "@/components/SubLayout/UserMenu";
+import sidebar from "@/components/SubLayout/sidebar";
+import Notifications from "@/components/Notifications";
+import StreamHereBtn from "@/components/SubLayout/StreamHereBtn";
+import SystemAlert from "@/components/Alerts/SystemAlert";
+import PagesDropDown from "@/components/RoutingBar/PagesDropDown";
+import LocationDropDown from "@/components/RoutingBar/LocationDropDown";
 
-  const Fireworks = async () => await import( '@/components/effects/fireworks' );
+const Fireworks = async () => await import("@/components/effects/fireworks");
 
-  import { mapGetters, mapMutations } from 'vuex';
-  import { VStore } from '@/store';
+import { mapGetters, mapMutations } from "vuex";
+import { VStore } from "@/store";
 
-  export default {
-
+export default {
     components: {
-      SystemAlert,
-      UserMenu,
-      sidebar,
-      Notifications,
-      StreamHereBtn,
-      Fireworks,
-      PagesDropDown, 
-      LocationDropDown
+        SystemAlert,
+        UserMenu,
+        sidebar,
+        Notifications,
+        StreamHereBtn,
+        Fireworks,
+        PagesDropDown,
+        LocationDropDown,
     },
 
-    data () {
-        PagesDropDown
-      return {
-        bwLogo: '/images/icon-2.png',
-        title: 'HARK',
-        drawer: null,
-        ssr: true,
-        systemAlertHidden: null,
+    data() {
+        PagesDropDown;
+        return {
+            bwLogo: "/images/icon-2.png",
+            title: "HARK",
+            drawer: null,
+            ssr: true,
+            systemAlertHidden: null,
 
-        searchValue: "", 
-        showSearchBar: true
-      }
+            searchValue: "",
+            showSearchBar: true,
+        };
     },
 
     methods: {
-      ...mapMutations({
-        setPwaPrompt: VStore.$mutations.setPwaPrompt
-      }),
+        ...mapMutations({
+            setPwaPrompt: VStore.$mutations.setPwaPrompt,
+        }),
 
-      hideSystemAlert () {
-        try {
-          this.systemAlertHidden = this.systemAlert.id;
-          localStorage.setItem( 'hide-system-alert', this.systemAlert.id );
-        } catch ( error ) {
-          console.warn( `Failed to save 'hide-system-alert' to localStorage!`, error );
-        }
-      },
+        hideSystemAlert() {
+            try {
+                this.systemAlertHidden = this.systemAlert.id;
+                localStorage.setItem("hide-system-alert", this.systemAlert.id);
+            } catch (error) {
+                console.warn(
+                    `Failed to save 'hide-system-alert' to localStorage!`,
+                    error
+                );
+            }
+        },
 
-      async newVersionAvailable ( info ) {
-        console.log( `New service worker available`, info );
-      },
+        async newVersionAvailable(info) {
+            console.log(`New service worker available`, info);
+        },
 
-      onBeforeInstallPrompt ( prompt ) {
-        if ( process.env.APP_DEBUG ) console.log( `Listening for PWA prompt...` );
-        console.debug( `PWA Prompt:`, prompt );
-        prompt.preventDefault();
-        this.setPwaPrompt( prompt );
-      },
+        onBeforeInstallPrompt(prompt) {
+            if (process.env.APP_DEBUG)
+                console.log(`Listening for PWA prompt...`);
+            console.debug(`PWA Prompt:`, prompt);
+            prompt.preventDefault();
+            this.setPwaPrompt(prompt);
+        },
 
-      goToSearch() {
-        if (this.searchValue == null || this.searchValue == "") return;
+        goToSearch() {
+            if (this.searchValue == null || this.searchValue == "") return;
 
-        // this.setSearchValue(this.searchValue.toString());
-        this.$store.commit("setSearchValue", this.searchValue);
-        this.$router.push("/search");
-      },
+            // this.setSearchValue(this.searchValue.toString());
+            this.$store.commit("setSearchValue", this.searchValue);
+            this.$router.push("/search");
+        },
     },
 
     computed: {
-      ...mapGetters({
-        isUpdateAvailable: VStore.$getters.isUpdateAvailable,
-        getAlerts: VStore.$getters.getAlerts,
-        isAuth: VStore.$getters.isAuth,
-      }),
+        ...mapGetters({
+            isUpdateAvailable: VStore.$getters.isUpdateAvailable,
+            getAlerts: VStore.$getters.getAlerts,
+            isAuth: VStore.$getters.isAuth,
+        }),
 
-      systemAlert () {
-        return this.getAlerts.hasOwnProperty( 'systemAlert' )
-          ? this.getAlerts.systemAlert
-          : false;
-      },
+        systemAlert() {
+            return this.getAlerts.hasOwnProperty("systemAlert")
+                ? this.getAlerts.systemAlert
+                : false;
+        },
 
-      showSystemAlert () {
-        return this.systemAlert
-          && this.systemAlert.display
-          && this.systemAlertHidden !== this.systemAlert.id;
-      },
+        showSystemAlert() {
+            return (
+                this.systemAlert &&
+                this.systemAlert.display &&
+                this.systemAlertHidden !== this.systemAlert.id
+            );
+        },
 
-      fireworks () {
-        return this.getAlerts.hasOwnProperty( 'fireworks' )
-          ? this.getAlerts.fireworks
-          : false;
-      },
+        fireworks() {
+            return this.getAlerts.hasOwnProperty("fireworks")
+                ? this.getAlerts.fireworks
+                : false;
+        },
 
-      showFireworks () {
-        return this.fireworks
-          && this.fireworks.display;
-      },
+        showFireworks() {
+            return this.fireworks && this.fireworks.display;
+        },
 
-      mobile () {
-        return this.mounted
-          ? this.$vuetify.breakpoint.smAndDown
-          : !this.$device.isDesktopOrTablet;
-      },
+        mobile() {
+            return this.mounted
+                ? this.$vuetify.breakpoint.smAndDown
+                : !this.$device.isDesktopOrTablet;
+        },
     },
 
     watch: {
-      showFireworks( val ) {
-        if ( val ) this.$refs['fireworks'].start( this.fireworks.message, this.fireworks.subtext );
-      }
+        showFireworks(val) {
+            if (val)
+                this.$refs["fireworks"].start(
+                    this.fireworks.message,
+                    this.fireworks.subtext
+                );
+        },
     },
 
-    async mounted () {
-      this.ssr = false;
+    async mounted() {
+        this.ssr = false;
 
-      try {
-        this.systemAlertHidden = localStorage.getItem( 'hide-system-alert' );
-      } catch ( error ) {
-        this.systemAlertHidden = false;
-        console.warn( `Failed to read 'hide-system-alert from localStorage'`, error.message );
-      }
+        try {
+            this.systemAlertHidden = localStorage.getItem("hide-system-alert");
+        } catch (error) {
+            this.systemAlertHidden = false;
+            console.warn(
+                `Failed to read 'hide-system-alert from localStorage'`,
+                error.message
+            );
+        }
 
-      const workbox = await window.$workbox;
-      if ( workbox ) {
-        workbox.addEventListener( 'waiting', async (event) => {
-          console.log( event );
-          await this.newVersionAvailable({ version: 'SW' });
+        const workbox = await window.$workbox;
+        if (workbox) {
+            workbox.addEventListener("waiting", async (event) => {
+                console.log(event);
+                await this.newVersionAvailable({ version: "SW" });
+            });
+        }
+    },
+
+    created() {
+        this.$nuxt.$on("searchLoaded", () => {
+            this.showSearchBar = false;
         });
-      }
+
+        this.$nuxt.$on("searchDestroyed", () => {
+            this.showSearchBar = true;
+        });
     },
-
-    created () {
-      this.$nuxt.$on("searchLoaded", () => {
-        this.showSearchBar = false;
-      }); 
-
-      this.$nuxt.$on("searchDestroyed", () => {
-        this.showSearchBar = true;
-      })
-    }
-
-  }
+};
 </script>
 
 <style lang="scss">
-  @import "~assets/style/bitwave-toast";
+@import "~assets/style/bitwave-toast";
 
-  #app .app-title-active {
+#app .app-title-active {
     &:hover::before {
-      opacity: 0.24;
+        opacity: 0.24;
     }
 
     &::before {
-      opacity: 0;
+        opacity: 0;
     }
-  }
+}
 
-  #app.ssr {
+#app.ssr {
     .v-menu,
     .v-tooltip {
-      display: block !important;
+        display: block !important;
     }
-  }
+}
 
-  #app {
+#app {
     //background-image: linear-gradient(to top right, #54547c, #ebe8e8, #cc6464);
-    background-image: linear-gradient(to top right, rgb(109, 109, 126) 0%, rgba(235,232,232,1) 15%, rgba(235,232,232,1) 85%, rgb(207, 169, 169) 100%);
-  }
-  
+    background-image: linear-gradient(
+        to top right,
+        rgb(109, 109, 126) 0%,
+        rgba(235, 232, 232, 1) 15%,
+        rgba(235, 232, 232, 1) 85%,
+        rgb(207, 169, 169) 100%
+    );
+}
 </style>
