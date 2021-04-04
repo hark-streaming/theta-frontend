@@ -16,7 +16,7 @@
                 :poster="posterCacheBusted"
                 :style="{ width: '100%' }"
             ></video>
-            <!-- <div id="MY_THETA_WEB_WIDGET_ID"></div> -->
+
             <!-- Detached player topbar overlay -->
             <slot name="minioverlay">
                 <div v-if="docked" class="d-flex align-center detach-overlay">
@@ -50,12 +50,11 @@
 import videojs from "video.js";
 import hls from "hls.js";
 
-//import "@videojs/http-streaming";
-//import "videojs-contrib-quality-levels";
-//import "videojs-hls-quality-selector";
-//import "@/assets/js/VideoPlayer/TriSpinner";
+import "@videojs/http-streaming";
+import "videojs-contrib-quality-levels";
+import "videojs-hls-quality-selector";
 
-import "@/assets/js/VideoPlayer/ThetaHls";
+//import "@/assets/js/VideoPlayer/ThetaHls";
 import { auth } from "@/plugins/firebase.js";
 
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
@@ -138,12 +137,7 @@ export default {
             this.$ThetaPlayerSetup(window.Theta, hls, videojs);
 
             //turn theta debugging on
-            window.Theta.setDebug(true);
-            //console.log("this is the wallet", window.Theta.Wallet);
-            //console.log("this is the P2P", window.Theta.P2P);
-            //console.log("this is the default config before player", window.Theta.DefaultConfig);
-
-            //console.log("this is window theta", window.Theta);
+            //window.Theta.setDebug(true);
 
             console.log("INITIALIZING PLAYER");
             console.log(
@@ -155,7 +149,7 @@ export default {
             // Create video.js player
             this.player = videojs("streamplayer", {
                 //#region Theta stuff
-                techOrder: ["theta_hlsjs" /*, "html5"*/], // disable html5 fallback so we know when theta broken
+                techOrder: ["theta_hlsjs" , /*"html5"*/], // disable html5 fallback so we know when theta broken
                 theta_hlsjs: {
                     videoId: this.streamer,
                     // TODO: make sure firebase auth is loaded by this point
@@ -186,13 +180,12 @@ export default {
                 // aspectRation: '16:9',
                 suppressNotSupportedError: true,
 
-                playbackRates: [0.25, 0.5, 1, 1.25, 1.5, 2],
+                //playbackRates: [0.25, 0.5, 1, 1.25, 1.5, 2],
                 plugins: {
-                    //qualityLevels: {},
+                    qualityLevels: {},
                     /*bitwaveTriSpinner: {
                         size: 58,
                     },*/
-                    //examplePlugin: {},
                 },
                 inactivityTimeout: 2000,
                 controlBar: {
@@ -229,39 +222,13 @@ export default {
             // --- Video.js plugin functions
 
             // Add reloadSourceOnError plugin
-            //this.player.reloadSourceOnError({ errorInterval: 10 });
+            this.player.reloadSourceOnError({ errorInterval: 10 });
 
             // Load all qualities
-            // this.qualityLevels = this.player.qualityLevels();
-            // this.player.hlsQualitySelector({
-            //     displayCurrentQuality: true,
-            // });
-
-            // Autoplay detection magic
-            /*const autoPlayEvents = [ 'loadedmetadata', 'durationchange' ];
-        const autoPlayListener = event => {
-          // Attempt Autoplay
-          const attemptAutoplay = () => {
-            this.player.play()
-              .then(() => {
-                if ( process.env.APP_DEBUG ) console.log( `Autoplayed` )
-              })
-              .catch ( error => {
-                if ( process.env.APP_DEBUG ) console.log( `Autoplay prevented, Attempting to autoplay muted.`, error );
-                this.player.muted( true );
-                this.player.play();
-              });
-          };
-          if (event.type === 'durationchange' && this.player.duration() === Infinity) {
-            attemptAutoplay();
-            this.player.off( autoPlayEvents, autoPlayListener );
-          }
-          if (event.type === 'loadedmetadata') {
-            attemptAutoplay();
-            this.player.off( autoPlayEvents, autoPlayListener );
-          }
-        };
-        this.player.on( autoPlayEvents, autoPlayListener ); //*/
+            this.qualityLevels = this.player.qualityLevels();
+            this.player.hlsQualitySelector({
+                displayCurrentQuality: true,
+            });
 
             // Video Player Ready
             this.player.ready(async () => {
@@ -281,18 +248,18 @@ export default {
                     );
                 }
 
-                // const playerTech = this.player.tech({
-                //     IWillNotUseThisInPlugins: true,
-                // });
+                const playerTech = this.player.tech({
+                    IWillNotUseThisInPlugins: true,
+                });
 
-                // playerTech.on("retryplaylist", (event) => {
-                //     console.log(`retryplaylist:`, event);
-                //     if (!this.live) console.log(`livestream is offline.`);
-                // });
+                playerTech.on("retryplaylist", (event) => {
+                    console.log(`retryplaylist:`, event);
+                    if (!this.live) console.log(`livestream is offline.`);
+                });
 
-                // playerTech.on("usage", (event) => {
-                //     console.log(`${event.name}:`, event);
-                // });
+                playerTech.on("usage", (event) => {
+                    console.log(`${event.name}:`, event);
+                });
 
                 // "Keep Live" Feature
                 this.player.liveTracker.on("liveedgechange", async () => {

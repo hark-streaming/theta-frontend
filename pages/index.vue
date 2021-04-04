@@ -31,7 +31,7 @@
               :mobile="mobile"
               :offline="offline"
             />  -->
-            <test-theta
+            <theta-banner
               v-if="mostViewed"
               :src="mostViewed.url"
               :type="mostViewed.type"
@@ -40,9 +40,6 @@
               :mobile="mobile"
               :offline="offline"
             />
-
-            <!-- <test-theta /> -->
-            <!-- <homepage-video /> -->
           </v-col>
 
           <v-col class="grow pl-0">
