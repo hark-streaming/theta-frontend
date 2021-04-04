@@ -63,6 +63,9 @@
         <v-main>
             <nuxt />
         </v-main>
+
+        <!-- Footer -->
+        <simple-footer :version="'V1.0.0'" />
     </v-app>
 </template>
 

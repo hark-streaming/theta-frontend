@@ -187,7 +187,7 @@
             style="min-height: 300px"
           >
             <!-- Stream Description -->
-            This is where the theta rewards stats would be shown, but it's not showing up.
+            <!-- This is where the theta rewards stats would be shown, but it's not showing up. -->
             <div id="MY_THETA_WEB_WIDGET_ID"></div>
           </div>
         </v-tab-item>
@@ -208,7 +208,7 @@
     </v-sheet>
 
     <!-- Footer -->
-    <simple-footer :version="version" />
+    <!-- <simple-footer :version="version" /> -->
   </div>
 </template>
 

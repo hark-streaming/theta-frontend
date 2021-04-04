@@ -71,7 +71,7 @@
     </div>
 
     <!-- Footer -->
-    <simple-footer :version="version" />
+    <!-- <simple-footer :version="version" /> -->
   </div>
 </template>
 

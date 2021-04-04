@@ -93,7 +93,7 @@
             class="d-flex"
             :class="{ 'chat-desktop': !mobile || (mobile && landscape) }"
             :style="{
-                maxHeight: mobile && !landscape ? '390px' : '100%',
+                maxHeight: mobile && !landscape ? '390px' : '90%',
                 width: mobile && landscape ? '50%' : null,
             }"
         >
