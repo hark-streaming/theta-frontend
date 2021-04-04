@@ -8,13 +8,16 @@
         <!-- Main Container -->
         <v-container>
             <!-- Main dashboard -->
+            <v-row no-gutters class="ma-0">
+                <v-sheet color="secondary" class="pl-3 flex-grow-1 mb-n6">
+                    <h1 :style="{color: 'white'}">Stream Preview</h1>
+                </v-sheet>
+            </v-row>
             <v-row>
                 <!-- Stream Preview? -->
-                <v-col >
-                    <v-sheet color="secondary" class="pl-3">
-                        <h1 :style="{color: 'white'}">Stream Preview</h1>
-                    </v-sheet>
-                    <v-responsive height="calc( 100% )">
+                <v-col>
+                    
+                    <v-responsive height="calc( 100% )" >
                         <iframe
                             :src="`/embed/${username}`"
                             frameborder="none"
@@ -50,6 +53,7 @@
 
             <!-- Configuration -->
 
+            <v-row>
             <!-- Stream Info -->
             <v-layout justify-center class="pt-4">
                 <!-- <v-flex v-if="showStreamInfo" xs12 sm10 md8 lg6>
@@ -160,10 +164,13 @@
             
                 <StreamInfoDashboard :username="username"/>
             </v-layout>
+            </v-row>
 
+            <v-row>
             <v-layout>
                 <DashboardPolls :username="username" />
             </v-layout>
+            </v-row>
         </v-container>
     </div>
 </template>
