@@ -19,8 +19,8 @@
             >
                 <source :src="prerollVideo.source" :type="prerollVideo.type" />
             </video>
+            <!-- <v-skeleton-loader v-if="isLoading" type="card" ></v-skeleton-loader> -->
         </div>
-        <div id="SAMPLE_THETA_WEB_WIDGET_PLACEHOLDER"></div>
     </v-card>
 </template>
 
@@ -43,9 +43,11 @@ export default {
             script: [
                 {
                     hid: "Thetamin",
-                    src: "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js",
+                    src:
+                        "https://d1ktbyo67sh8fw.cloudfront.net/js/theta.umd.min.js",
                     //src: "/js/theta.js",
                     callback: () => {
+                        //this.isLoading = false;
                         this.playerInitialize();
                     },
                 },
@@ -72,6 +74,7 @@ export default {
             initialized: false,
             showPreroll: false,
             player: null,
+            //isLoading: true,
         };
     },
 
@@ -102,7 +105,6 @@ export default {
                     },
                     sources: [{ src: this.src, type: this.type }],
                 });
-                
 
                 // Video Player Ready
                 this.player.ready(async () => {
@@ -188,6 +190,5 @@ export default {
 };
 </script>
 
-<style lang='scss'>
-@import "~assets/style/stream-player.scss";
+<style scoped>
 </style>
