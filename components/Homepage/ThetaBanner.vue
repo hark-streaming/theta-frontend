@@ -91,21 +91,14 @@ export default {
             try {
                 this.player = videojs("theta-banner-player", {
                     //#region Theta stuff
-                    techOrder: ["theta_hlsjs", /*"html5"*/], // has html5 fallback
+                    techOrder: ["theta_hlsjs", "html5"], // has html5 fallback
                     theta_hlsjs: {
                         videoId: this.name,
                         // always uses a guest id here
                         userId: "" + new Date().getTime(),
                         walletUrl:
                             "wss://beta-api-wallet-service.thetatoken.org/theta/ws",
-                        onWalletAccessToken: this.getWalletAccessToken,
-                        // hlsOpts: {
-                        //     overrideNative: !videojs.browser.IS_SAFARI,
-                        //     allowSeeksWithinUnsafeLiveWindow: true,
-                        //     enableLowInitialPlaylist: false,
-                        //     handlePartialData: true,
-                        //     smoothQualityChange: true,
-                        // },
+                        onWalletAccessToken: null,
                     },
                     sources: [{ src: this.src, type: this.type }],
                 });
