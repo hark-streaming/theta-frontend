@@ -172,6 +172,9 @@ export default {
                 poster: this.poster,
                 //sources: [{ src: this.source.url, type: this.source.type }],
                 autoplay: this.autoplay,
+                
+                // loop if video ends
+                loop: true,
 
                 // UI Options
                 liveui: true,
