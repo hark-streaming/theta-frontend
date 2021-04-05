@@ -8,12 +8,17 @@
                         <v-progress-circular
                             indeterminate
                             color="primary"
-                            class="mt-2 mr-6 "
+                            class="mt-2 mr-6"
                             :size="20"
                             :width="4"
                             v-show="balanceLoading"
                         ></v-progress-circular>
-                        <v-row class="mt-2 mr-6" v-bind="attrs" v-on="on" v-show="!balanceLoading">
+                        <v-row
+                            class="mt-2 mr-6"
+                            v-bind="attrs"
+                            v-on="on"
+                            v-show="!balanceLoading"
+                        >
                             <img
                                 src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
                                 width="24px"
@@ -106,19 +111,22 @@ export default {
                 "https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png",
 
             balance: 0,
-            balanceLoading: true,
+            balanceLoading: false,
         };
     },
 
     methods: {
         async setTfuelBalance() {
             // call api for the p2p wallet balance
-            let result = await this.$axios.$get(
-                `${process.env.API_URL}/theta/address/${this.uid}`
-            );
+            try {
+                let result = await this.$axios.$get(
+                    `${process.env.API_URL}/theta/address/${this.uid}`
+                );
 
-            //return balance
-            this.balance = result.p2pBalance;
+                this.balance = result.p2pBalance;
+            } catch (err) {
+                this.balance = 0;
+            }
         },
     },
 
