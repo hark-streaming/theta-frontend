@@ -14,6 +14,10 @@
       :donateOn="donateOn"
       :donateMsg="donateMsg"
       :donateUrl="donateUrl"
+      :loggedIn="isAuth"
+      :avatar="streamerAvatar"
+      :tokenName="streamerTokenName"
+      :streamerUid="streamerUid"
       @add-channel-tag="addUserTag( page )"
     />
 
@@ -136,9 +140,15 @@
     props: {
       chatChannel : { type: String },
       forceGlobal : { type: Boolean },
+
+      // for the donate bar
       donateOn : { type: Boolean, default: false }, 
       donateMsg : { type: String, default: "" },
-      donateUrl : { type: String, default: "" }
+      donateUrl : { type: String, default: "" },
+
+      streamerAvatar: { type: String, default: "" },
+      streamerTokenName: { type: String, default: "" },
+      streamerUid: { type: String, default: "" },
     },
 
     components: {

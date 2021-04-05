@@ -77,14 +77,16 @@
         </v-sheet>
         <v-divider></v-divider>
         <!-- Donate Button row -->
-        <v-sheet color="accentwave" class="d-flex align-center justify-space-around pa-2">
-            
+        <v-sheet
+            color="accentwave"
+            class="d-flex align-center justify-space-around pa-2"
+        >
             <!-- Donate TFUEL Button -->
             <v-btn
                 color="secondary"
                 class="white--text"
                 small
-                @click="showDonate = true"
+                @click="loggedIn ? showDonate = true : showLogin = true"
             >
                 <img
                     src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
@@ -108,14 +110,20 @@
             </v-btn>
         </v-sheet>
 
+        <!-- tfuel donate dialog -->
         <v-dialog v-model="showDonate" width="500">
             <lazy-tfuel-dialog
                 :avatar="avatar"
                 :streamer="page"
-                :tokenName="'TEST-HARK'"
+                :tokenName="tokenName"
                 :streamerUid="streamerUid"
                 @close="showDonate = false"
             />
+        </v-dialog>
+
+        <!-- log in dialog for those not logged in -->
+        <v-dialog v-model="showLogin" width="420">
+            <lazy-login-dialog @close="showLogin = false" />
         </v-dialog>
     </div>
 </template>
@@ -140,12 +148,15 @@ export default {
     props: {
         page: { type: String }, // this is the streamer's name pretty much
         isChannelOwner: { type: Boolean },
+
         donateOn: { type: Boolean, default: false },
         donateMsg: { type: String, default: "" },
         donateUrl: { type: String, default: "" },
 
         // props for the tfuel button
         // TODO: pass these puppies in
+        // if the user is not logged in donate TFUEL button will prompt log in
+        loggedIn: { type: Boolean, default: false },
         avatar: { type: String },
         tokenName: { type: String },
         streamerUid: { type: String },
@@ -155,6 +166,7 @@ export default {
         return {
             showDonate: false,
             showPoll: false,
+            showLogin: false,
         };
     },
 

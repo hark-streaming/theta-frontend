@@ -196,7 +196,7 @@ export default {
                 } else {
                     // some api error
                     this.alert = true;
-                    this.alertMessage = "API call failed! Transaction stopped.";
+                    this.alertMessage = "Transaction failed.";
                     this.alertType = "error";
                 }
             } catch (err) {

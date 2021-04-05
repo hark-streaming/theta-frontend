@@ -97,11 +97,16 @@
                 width: mobile && landscape ? '50%' : null,
             }"
         >
-            <chat 
-                :chat-channel="name" 
+            <chat
+                :chat-channel="name"
+                
                 :donateOn="donateOn"
                 :donateMsg="donateMsg"
                 :donateUrl="donateUrl"
+
+                :streamerAvatar="avatar"
+                :streamerTokenName="streamerTokenName"
+                :streamerUid="streamerUid"
             />
         </div>
 
@@ -136,10 +141,9 @@
             :title="title"
             :nsfw="nsfw"
             :description="description"
-            :timestamp="timestamp" 
+            :timestamp="timestamp"
             :tags="tags"
         />
-
     </div>
 </template>
 
@@ -220,7 +224,7 @@ export default {
         StreamTopBar,
         StreamInfo,
         Chat,
-        BitwaveVideoPlayer,
+        //BitwaveVideoPlayer,
         ThetaVideoPlayer,
     },
 
@@ -237,7 +241,8 @@ export default {
             avatar: null,
             title: "",
             description: "",
-            poster: "https://cdn.discordapp.com/attachments/814278920168931382/823092021753413633/hark-title.png",
+            poster:
+                "https://cdn.discordapp.com/attachments/814278920168931382/823092021753413633/hark-title.png",
             live: false,
             nsfw: false,
             owner: null,
@@ -247,9 +252,13 @@ export default {
             scheduled: null,
             banned: false,
             tags: [],
-            donateOn: true, 
+
+            donateOn: true,
             donateMsg: "",
             donateUrl: "",
+
+            streamerTokenName: "",
+            streamerUid: "",
 
             banMessage:
                 "This channel has been banned for breaching our Terms of Service.",
@@ -320,13 +329,11 @@ export default {
             this.banned = banned;
 
             // Streamer user properties
-
-            // Our data is structured differently rn so these fields were null
-            // TODO: copy bitwave better
-            //this.name = data.user.name;
             this.name = data.name;
-            //this.avatar = data.user.avatar;
             this.avatar = data.avatar;
+            this.streamerUid = this.owner;
+            // we'll just calculate the streamer token name for now
+            this.streamerTokenName = this.name.slice(0,4).toUpperCase() + "-HARK";
 
             this.owner = data.owner;
 
@@ -556,9 +563,9 @@ export default {
                         scheduled: data.scheduled,
                         banned: data.banned || false,
                         tags: data.tags,
-                        donateOn: data.donateOn, 
+                        donateOn: data.donateOn,
                         donateMsg: data.donateMsg,
-                        donateUrl: data.donateUrl
+                        donateUrl: data.donateUrl,
                     };
 
                     console.log(`Bypass should be successfull...`);
@@ -576,7 +583,8 @@ export default {
                 }
             }
 
-            try { // THIS IS WHERE THE API DATA IS MAPPED TO THE VUE
+            try {
+                // THIS IS WHERE THE API DATA IS MAPPED TO THE VUE
                 const data = channelData;
 
                 // Ban flag
@@ -654,9 +662,9 @@ export default {
                         scheduled,
                         banned,
                         tags,
-                        donateOn, 
+                        donateOn,
                         donateMsg,
-                        donateUrl
+                        donateUrl,
                     },
                 };
             } catch (error) {
