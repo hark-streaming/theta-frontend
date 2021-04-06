@@ -19,6 +19,9 @@
                             >
                             <v-row>
                                 <v-col cols="3">
+                                    <!-- <client-only>
+                                        <vue-poll v-bind="poll" />
+                                    </client-only> -->
                                 </v-col>
 
                                 <v-col cols="9">
@@ -105,7 +108,7 @@
 import { auth, db } from "@/plugins/firebase.js";
 import { mapGetters, mapState } from "vuex";
 import { VStore } from "@/store";
-// import VuePoll from "@/plugins/vue-poll.js"
+// import VuePoll from "vue-poll";
 
 export default {
 

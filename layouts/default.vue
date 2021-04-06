@@ -16,47 +16,52 @@
 
         <!-- Toolbar -->
         <v-app-bar app :clipped-left="true" dense fixed color="secondary">
-            <!-- Logo Button -->
-            <v-toolbar-title class="pl-0">
-                <v-btn
-                    :v-if="!mobile"
-                    :ripple="false"
-                    href="/"
-                    depressed
-                    text
-                    exact
-                    id="logo_text"
-                    exact-active-class="app-title-active"
-                    class="text-none title px-2"
-                    color="white"
-                >
-                    <v-img src="/images/hark-logo.png" max-width="60"></v-img>
-                </v-btn>
-            </v-toolbar-title>
+            <v-row no-gutters class="d-flex align-center justify-space-between">
+                <v-col class="d-flex justify-start" cols="3">
+                    <!-- Logo Button -->
+                    <v-toolbar-title class="pl-0 mt-2">
+                        <v-btn
+                            :v-if="!mobile"
+                            :ripple="false"
+                            href="/"
+                            depressed
+                            text
+                            exact
+                            id="logo_text"
+                            exact-active-class="app-title-active"
+                            class="text-none title px-2 .d-sm-none .d-md-flex"
+                            color="white"
+                        >
+                            <v-img src="/images/hark-logo.png" max-width="60"></v-img>
+                        </v-btn>
+                    </v-toolbar-title>
 
-            <location-drop-down></location-drop-down>
-            <pages-drop-down></pages-drop-down>
+                    <location-drop-down></location-drop-down>
+                    <pages-drop-down></pages-drop-down>
+                </v-col>
+                
+                <v-col cols="3">
+                    <v-text-field
+                        v-if="showSearchBar"
+                        v-model="searchValue"
+                        label="Search"
+                        background-color="neutral"
+                        clearable
+                        solo
+                        dense
+                        class="mb-n6"
+                        @keydown.enter="goToSearch"
+                    ></v-text-field>
+                </v-col>
 
-            <v-spacer />
+                <!-- Notifications Button -->
+                <!-- <notifications v-if="isAuth" /> -->
 
-            <v-text-field
-                v-if="showSearchBar"
-                v-model="searchValue"
-                label="Search"
-                background-color="neutral"
-                clearable
-                solo
-                dense
-                class="mb-n6"
-                @keydown.enter="goToSearch"
-            ></v-text-field>
-
-            <v-spacer />
-
-            <!-- Notifications Button -->
-            <!-- <notifications v-if="isAuth" /> -->
-
-            <user-menu class="ml-2" />
+                <v-col cols="3" class="d-flex justify-end">
+                    <user-menu class="ml-2" />
+                </v-col>
+                
+            </v-row>
         </v-app-bar>
 
         <!-- Content -->
