@@ -264,7 +264,7 @@ module.exports = {
         { src: '@/plugins/VueCountdown', mode: 'client' },
         { src: '@/plugins/VueTags', mode: 'client' },
         { src: '@/plugins/fuse.js', mode: 'client' },
-        // { src: '@/plugins/vue-poll.js', mode: 'client' },
+        { src: '@/plugins/vue-poll.js', mode: 'client' },
         { src: '@/plugins/VueChart.js', mode: 'client' }
     ],
 

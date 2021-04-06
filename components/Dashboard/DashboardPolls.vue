@@ -19,9 +19,9 @@
                             >
                             <v-row>
                                 <v-col cols="3">
-                                    <!-- <client-only>
-                                        <vue-poll v-bind="poll" />
-                                    </client-only> -->
+                                    <!-- <client-only> -->
+                                        <!-- <vue-poll /> -->
+                                    <!-- </client-only> -->
                                 </v-col>
 
                                 <v-col cols="9">
