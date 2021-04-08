@@ -6,7 +6,7 @@
         </div>
 
         <!-- Main Container -->
-        <v-container>
+        <v-container fluid>
             <!-- Main dashboard -->
             <v-row no-gutters class="ma-0">
                 <v-sheet color="secondary" class="pl-3 flex-grow-1 mb-n6">
@@ -54,122 +54,121 @@
             <!-- Configuration -->
 
             <v-row>
-            <!-- Stream Info -->
-            <v-layout justify-center class="pt-4">
-                <!-- <v-flex v-if="showStreamInfo" xs12 sm10 md8 lg6>
-                    <v-card class="mb-4 pa-3">
-                        <v-layout column>
-                            <v-flex class="mb-3">
-                                <h2>Stream Info</h2>
-                            </v-flex>
-                            <v-flex class="mb-3">
-                                <v-text-field
-                                    v-model="streamData.title"
-                                    label="Stream Title"
-                                    color="primary"
-                                    outlined
-                                    hide-details
-                                    :loading="streamDataLoading || saveLoading"
-                                    @input="showSave = true"
-                                />
-                            </v-flex>
-                            <v-flex>
-                                <v-textarea
-                                    v-model="description"
-                                    name="input-7-1"
-                                    outlined
-                                    hide-details
-                                    color="primary"
-                                    label="Stream Description (markdown supported)"
-                                    auto-grow
-                                    @input="showSave = true"
-                                />
-                            </v-flex>
-                            <v-flex class="mt-2">
-                                <vue-tags
-                                    :active="activeTags"
-                                    :all="allTags"
-                                    :element-count-for-start-arrow-scrolling="3"
-                                    :tab-index="1"
-                                    :tag-creation-enabled="true"
-                                    :colors-enabled="false"
-                                    :tag-color-default="'green'"
-                                    :tag-list-label="'Stream Topics'"
-                                    :placeholder="'Select a stream topic....'"
-                                    @on-tag-added="onTagAdded"
-                                    @on-tag-removed="onTagRemoved"
-                                    @on-tag-created="onTagCreated"
-                                />
-                            </v-flex>
-                            
-                            <v-flex shrink>
-                                <v-switch 
-                                    v-model="streamData.donateOn"
-                                    label="Donate Button"
-                                    color = "primary"
-                                    hide-details
-                                    dense
-                                    inset
-                                    @change="showSave = true"
-                                />
-                                <v-text-field 
-                                    v-model="streamData.donateMsg"
-                                    label="Button Message"
-                                    outlined
-                                    color="primary"
-                                    auto-grow
-                                    dense
-                                    class="mt-4"
-                                    counter="50"
-                                    :disabled="!streamData.donateOn"
-                                    @input="showSave = true"
-                                />
-                            </v-flex>
-                            <v-flex shrink>
-                                <v-switch
-                                    v-model="streamData.nsfw"
-                                    label="NSFW"
-                                    color="primary"
-                                    hide-details
-                                    dense
-                                    inset
-                                    @change="showSave = true"
-                                />
-                            </v-flex>
-                            <v-flex shrink>
-                                <v-switch
-                                    v-model="streamData.archive"
-                                    label="Stream Replays"
-                                    color="primary"
-                                    hide-details
-                                    dense
-                                    inset
-                                    @change="showSave = true"
-                                />
-                            </v-flex>
-                            <v-layout>
-                                <v-spacer />
-                                <v-btn
-                                    :disabled="!showSave"
-                                    :loading="saveLoading"
-                                    color="primary"
-                                    outlined
-                                    @click="updateStreamData"
-                                    >save</v-btn
-                                >
+                <!-- Stream Info -->
+                <v-layout justify-center class="pt-4">
+                    <!-- <v-flex v-if="showStreamInfo" xs12 sm10 md8 lg6>
+                        <v-card class="mb-4 pa-3">
+                            <v-layout column>
+                                <v-flex class="mb-3">
+                                    <h2>Stream Info</h2>
+                                </v-flex>
+                                <v-flex class="mb-3">
+                                    <v-text-field
+                                        v-model="streamData.title"
+                                        label="Stream Title"
+                                        color="primary"
+                                        outlined
+                                        hide-details
+                                        :loading="streamDataLoading || saveLoading"
+                                        @input="showSave = true"
+                                    />
+                                </v-flex>
+                                <v-flex>
+                                    <v-textarea
+                                        v-model="description"
+                                        name="input-7-1"
+                                        outlined
+                                        hide-details
+                                        color="primary"
+                                        label="Stream Description (markdown supported)"
+                                        auto-grow
+                                        @input="showSave = true"
+                                    />
+                                </v-flex>
+                                <v-flex class="mt-2">
+                                    <vue-tags
+                                        :active="activeTags"
+                                        :all="allTags"
+                                        :element-count-for-start-arrow-scrolling="3"
+                                        :tab-index="1"
+                                        :tag-creation-enabled="true"
+                                        :colors-enabled="false"
+                                        :tag-color-default="'green'"
+                                        :tag-list-label="'Stream Topics'"
+                                        :placeholder="'Select a stream topic....'"
+                                        @on-tag-added="onTagAdded"
+                                        @on-tag-removed="onTagRemoved"
+                                        @on-tag-created="onTagCreated"
+                                    />
+                                </v-flex>
+                                
+                                <v-flex shrink>
+                                    <v-switch 
+                                        v-model="streamData.donateOn"
+                                        label="Donate Button"
+                                        color = "primary"
+                                        hide-details
+                                        dense
+                                        inset
+                                        @change="showSave = true"
+                                    />
+                                    <v-text-field 
+                                        v-model="streamData.donateMsg"
+                                        label="Button Message"
+                                        outlined
+                                        color="primary"
+                                        auto-grow
+                                        dense
+                                        class="mt-4"
+                                        counter="50"
+                                        :disabled="!streamData.donateOn"
+                                        @input="showSave = true"
+                                    />
+                                </v-flex>
+                                <v-flex shrink>
+                                    <v-switch
+                                        v-model="streamData.nsfw"
+                                        label="NSFW"
+                                        color="primary"
+                                        hide-details
+                                        dense
+                                        inset
+                                        @change="showSave = true"
+                                    />
+                                </v-flex>
+                                <v-flex shrink>
+                                    <v-switch
+                                        v-model="streamData.archive"
+                                        label="Stream Replays"
+                                        color="primary"
+                                        hide-details
+                                        dense
+                                        inset
+                                        @change="showSave = true"
+                                    />
+                                </v-flex>
+                                <v-layout>
+                                    <v-spacer />
+                                    <v-btn
+                                        :disabled="!showSave"
+                                        :loading="saveLoading"
+                                        color="primary"
+                                        outlined
+                                        @click="updateStreamData"
+                                        >save</v-btn
+                                    >
+                                </v-layout>
                             </v-layout>
-                        </v-layout>
-                    </v-card>
-                </v-flex> -->
-            
-                <StreamInfoDashboard :username="username"/>
-            </v-layout>
-            </v-row>
-
-            <v-row>
-            <v-layout>
-                <DashboardPolls :username="username" />
-            </v-layout>
+                        </v-card>
+                    </v-flex> -->
+                
+                    <v-col cols="5">
+                        <StreamInfoDashboard :username="username"/>
+                    </v-col>
+                    <v-col cols="7">
+                        <DashboardPolls :username="username" />
+                    </v-col>
+                </v-layout>
             </v-row>
         </v-container>
     </div>
