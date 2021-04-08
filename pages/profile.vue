@@ -179,7 +179,7 @@
 
         <!-- Stream Info -->
         <v-layout justify-center>
-          <StreamInfoDashboard :username="username" />
+          <stream-info-dashboard :username="username" />
         </v-layout>
       </v-tab-item>
 
