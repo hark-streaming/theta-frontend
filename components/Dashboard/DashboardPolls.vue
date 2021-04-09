@@ -18,14 +18,14 @@
                             class="px-2 py-6"
                             >
                             <v-row>
-                                <v-col cols="4">
+                                <v-col cols="5">
                                     <!-- <client-only> -->
                                         <!-- <vue-poll /> -->
                                     <!-- </client-only> -->
                                     <Poll :poll="poll" :skipVote="true" />
                                 </v-col>
 
-                                <v-col cols="8">
+                                <v-col cols="7">
                                     <v-row no-gutters>
                                         <v-col class="flex-grow-1">
                                             <v-text-field 
@@ -343,8 +343,6 @@ export default {
         ...mapGetters({
             uid: VStore.$getters.getUID
         }), 
-
-        
     }, 
 
     mounted() {

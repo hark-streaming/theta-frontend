@@ -13,7 +13,7 @@
             </v-sheet>
 
             <div>
-                <PollChart :chartdata="chartdata" :options="options" class="small-graph" />
+                <PollChart :chartdata="chartdata" :options="options" :style="{height: '100%'}" />
             </div>
 
         </v-card>
@@ -50,36 +50,59 @@ export default {
     data() {
         return {
             chartdata: {
-                /* labels: ['1', '2'], 
-                data: [5, 10] */
-                labels: ["123", "456"],
+                labels: [],
                 datasets: [{
-                    label: "boom", 
-                    data: [1, 2, 3, 4, 5], 
+                    label: "Votes", 
+                    data: [], 
                     borderWidth: 1
                 }],
             }, 
             options: {
                 scales: {
-                    y: {
-                        min: 0
-                    }
-                }
-            }
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true, 
+                            display: false, 
+                            stepSize: 1, 
+                            suggestedMax: 5, 
+                            
+                        }, 
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }, 
+                responsive: true, 
+                animation: false
+            }, 
+
         }
     }, 
+
+    computed: {
+        maximum() {
+            // return Math.max(...this.chartdata.datasets[0].data) + 10;
+        }
+    },
 
     methods: {
         addVote(answerVal) {
             const id = this.poll.customId;
             this.$emit("voteAdded", {id, answerVal});
-        }
+        }, 
+        
     }, 
+
+    mounted() {
+        this.poll.answers.forEach(x => {
+            this.chartdata.labels.push(x.value);
+            this.chartdata.datasets[0].data.push(x.votes);
+        });
+
+        this.options.scales.yAxes[0].ticks.suggestedMax = Math.max(...this.chartdata.datasets[0].data) + 5;
+    }
 }
 </script>
 
 <style scoped>
-/* .small-graph {
-  width: 250px;
-} */
 </style>
