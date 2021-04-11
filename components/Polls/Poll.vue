@@ -3,7 +3,24 @@
 
         <!-- Display while voting is active -->
         <v-card v-if="!skipVote && !poll.showResults" color="neutral">
-            <h4>{{ this.poll.question }}</h4>
+            <v-sheet color="secondary" class="px-1">
+                <h5 :style="{color: 'white'}">{{ this.poll.question }}</h5>
+            </v-sheet>
+
+            <v-list 
+                flat
+                class="pb-8"
+            >
+                <v-list-item
+                    v-for="(answer) in poll.answers"
+                    :key="answer.value"
+                    class="mb-n8"
+                >
+                    <v-checkbox
+                        :label="answer.text"
+                    ></v-checkbox>
+                </v-list-item>
+            </v-list>
         </v-card>
 
         <!-- Display results of poll -->
@@ -94,8 +111,14 @@ export default {
     }, 
 
     mounted() {
+        
         this.poll.answers.forEach(x => {
-            this.chartdata.labels.push(x.value);
+            if (x.text.length > 7) {
+                this.chartdata.labels.push(x.text.substr(0, 7).trim() + "...");
+            } else {
+                this.chartdata.labels.push(x.text);
+            }
+
             this.chartdata.datasets[0].data.push(x.votes);
         });
 
