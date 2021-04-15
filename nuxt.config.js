@@ -256,7 +256,8 @@ module.exports = {
         '@/plugins/firebase',
         '@/plugins/VueClipboard',
         '@/plugins/utils.js',
-        //'@/plugins/thetaplayer.js',
+        
+        { src: '@/plugins/socketio-client', mode: 'client' },
         { src: '@/plugins/thetaplayer', mode: 'client' },
         { src: '@/plugins/commandParser.js', mode: 'client' },
         { src: '@/plugins/pwa.client.js', mode: 'client' },
