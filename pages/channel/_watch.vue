@@ -97,7 +97,8 @@
                 width: mobile && landscape ? '50%' : null,
             }"
         >
-            <chat
+            <!-- <chat -->
+            <hark-chat
                 :chat-channel="name"
                 
                 :donateOn="donateOn"

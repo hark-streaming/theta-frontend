@@ -9,6 +9,7 @@ const devUrl = "http://localhost:4000";
 export default (({ $ioclient }) => {
 
     let socket;
+    let messages = [];
 
     $ioclient.socketConnect = (username, channel) => {
         socket = io(chatUrl, {
@@ -29,9 +30,31 @@ export default (({ $ioclient }) => {
 
     }
 
+    socket.on('chatMessage', function (msg) {
+        // if (messages.length > 100) {
+        //     messages.pop();
+        //     messages.unshift({
+        //         username: username,
+        //         msg: msg,
+        //         room: room,
+        //     });
+        // }
+        // else {
+        //     messages.unshift({
+        //         username: username,
+        //         msg: msg,
+        //         room: room,
+        //     });
+        // }
+        messages.push(msg);
+    });
+
     $ioclient.socketDisconnect = () => {
         socket.off();
         socket.disconnect();
+
+        messages = [];
+        socket = null;
     };
 
 })

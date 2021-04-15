@@ -257,7 +257,7 @@ module.exports = {
         '@/plugins/VueClipboard',
         '@/plugins/utils.js',
         
-        { src: '@/plugins/socketio-client', mode: 'client' },
+        // { src: '@/plugins/socketio-client', mode: 'client' },
         { src: '@/plugins/thetaplayer', mode: 'client' },
         { src: '@/plugins/commandParser.js', mode: 'client' },
         { src: '@/plugins/pwa.client.js', mode: 'client' },
