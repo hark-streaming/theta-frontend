@@ -22,8 +22,8 @@
 
         <!-- TODO: move structure and logic to subcomponent -->
         <!-- <add-ons style="position: relative"> -->
-            <!-- Chat Banner -->
-            <!-- <div
+        <!-- Chat Banner -->
+        <!-- <div
                 :style="{
                     position: 'absolute',
                     top: 0,
@@ -92,38 +92,17 @@
 <script>
 import { auth, db } from "@/plugins/firebase.js";
 
-//import * as _bitwaveChat from '@bitwave/chat-client';
-//const bitwaveChat = _bitwaveChat.default;
-
-// import AddOns from "@/components/Chat/AddOns";
 import ChatHeader from "@/components/Chat/ChatHeader";
 import ChatMessages from "@/components/Chat/ChatMessages";
 import ChatInput from "@/components/Chat/ChatInput";
-
-// const ChatGraph = async () => await import("@/components/Analytics/ChatGraph");
 
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import { Chat } from "@/store/chat";
 import { VStore } from "@/store";
 
-// import {
-//     compareTokens,
-//     sanitize,
-//     stripHTML,
-//     spamDetection,
-// } from "@/assets/js/ChatHelpers";
-
 import { UserStats } from "@/assets/js/Stats/UserStats";
 
-import { ChatConfig } from "@/store/channel/chat-config";
-import * as storeUtils from "@/plugins/store-utils.js";
-import ChatIgnoreList from "@/components/Chat/ChatIgnoreList/index";
-
-// Creates server map for switching chat servers
-//   const chatServers = new Map([
-//     [ 'DEV',  'localhost:5000'  ],
-//     [ 'PROD', 'https://chat.bitwave.tv' ],
-//   ]);
+import { io } from "socket.io-client";
 
 export default {
     name: "Chat",
@@ -154,107 +133,12 @@ export default {
 
     data() {
         return {
-            //chatServer: chatServers.get("PROD"),
-
-            // unsubscribeUser: null,
+            socket: null,
+            messages: [],
 
             loading: true,
             connecting: true,
             chatLimit: 150,
-            // userToken: null,
-
-            // [ Message -> Maybe Message ]
-            // messageFilters: [
-            //     (m) => {
-            //         // Remove ignored users
-            //         if (
-            //             this.useIgnore &&
-            //             this.ignoreList.includes(m.username.toLowerCase())
-            //         )
-            //             return null;
-            //         else return m;
-            //     },
-            //     (m) => {
-            //         // Do not ignore a channel we are in
-            //         const ignoreChannellist = this.ignoreChannelList.slice();
-            //         const index = ignoreChannellist.indexOf(
-            //             this.page.toLowerCase()
-            //         );
-            //         if (index > -1) {
-            //             ignoreChannellist.splice(index, 1);
-            //         }
-
-            //         // Remove ignored channel messages
-            //         if (!ignoreChannellist.includes(m.channel.toLowerCase()))
-            //             return m;
-            //     },
-            //     (m) => {
-            //         // Remove trolls
-            //         if (this.hideTrolls && m.username.startsWith("troll:"))
-            //             return null;
-            //         else return m;
-            //     },
-            //     (m) => {
-            //         if (m.type === "whisper") {
-            //             return m;
-            //         }
-            //         const isLocal = !this.global && !this.forceGlobal;
-            //         if (isLocal) {
-            //             // Include mentions
-            //             // If enabled, allow cross-channel username tagging in local
-            //             const pattern = new RegExp(
-            //                 `@${this.username}\\b`,
-            //                 "gi"
-            //             );
-            //             if (
-            //                 this.getReceiveMentionsInLocal &&
-            //                 m.message.match(pattern)
-            //             )
-            //                 return m;
-
-            //             // Check if message is in our local channel or in our own channel
-            //             const currChannel = this.$utils.normalizedCompare(
-            //                 m.channel,
-            //                 this.username
-            //             );
-            //             const myChannel = this.$utils.normalizedCompare(
-            //                 m.channel,
-            //                 this.page
-            //             );
-
-            //             // if the message is NOT in the current channel AND NOT in our channel
-            //             // then it should be filtered
-            //             if (!currChannel && !myChannel) return null;
-            //         }
-            //         return m;
-            //     },
-            //     (m) => {
-            //         if (this.useIgnore && this.getRecursiveIgnore) {
-            //             // TODO: This should be reversed.
-            //             // That is, we should get the @'s in a mention
-            //             // Then check if the @'d user is in the ignore list
-            //             // if they are, return null early.
-            //             for (const i of this.ignoreList)
-            //                 if (
-            //                     new RegExp(`@${i}(\\s|\\b|$)`, "gi").test(
-            //                         m.message
-            //                     )
-            //                 )
-            //                     return null;
-            //         }
-            //         return m;
-            //     },
-            // ],
-
-            messages: null,
-
-            voicesListTTS: [],
-
-            // sound: process.server ? null : new Audio(),
-
-            ttsTimeout: null,
-
-            statInterval: null,
 
             newMessageCount: 0,
             showGraph: false,
@@ -273,16 +157,24 @@ export default {
         };
     },
 
+    sockets: {
+        connect: function () {
+            console.log("I HAVE CONNECTED");
+        }
+    },
+
     methods: {
-
-        sendMessage() {
-
+        sendMessage(msg) {
+            //this.socket.emit("chatMessage", msg);
         },
 
-        connect(){
-            this.$ioclient.socketConnect(username, channel);
-        }
-        
+        connect() {
+            const chatUrl =
+                "http://produ-publi-1umq15gpn246p-1858097073.us-east-2.elb.amazonaws.com/";
+            const devUrl = "http://localhost:4000";
+
+            
+        },
     },
 
     computed: {
@@ -347,105 +239,13 @@ export default {
                 return "Global";
             }
         },
-
-        ignoreList: {
-            set(val) {
-                this.setIgnoreList(val);
-            },
-            get() {
-                return this.getIgnoreList;
-            },
-        },
-
-        ignoreChannelList: {
-            set(val) {
-                this.setIgnoreChannelList(val);
-            },
-            get() {
-                return this.getIgnoreChannelList;
-            },
-        },
-
-        hideTrolls: {
-            set(val) {
-                this.setHideTrolls(val);
-            },
-            get() {
-                return this.getHideTrolls;
-            },
-        },
-
-        cleanTts: {
-            set(val) {
-                this.setCleanTts(val);
-            },
-            get() {
-                return this.getCleanTts;
-            },
-        },
-
-        async liveStreamers() {
-            try {
-                const { data } = await this.$axios.get(
-                    "https://api.bitwave.tv/v1/channels/live"
-                );
-                if (data && data.success) {
-                    return data.streamers;
-                } else {
-                    console.log(`API Error:`, data);
-                }
-            } catch (error) {
-                console.error(
-                    `Failed to get live channels from API server: ${error.message}`
-                );
-                return [];
-            }
-            console.log(`Failed to get live channels from API server`);
-            return [];
-        },
     },
 
-    watch: {
-        async global(val, old) {
-            bitwaveChat.global = val;
-
-            // Forces chat to fully clear when toggling
-            // this.messages = [];
-
-            await this.hydrate();
-        },
-
-        // hydrate when turning trolls back on
-        async getHideTrolls(val) {
-            if (!val) await this.hydrate();
-        },
-
-        // hydrate when turning ignore off
-        async useIgnore(val) {
-            // It would probably be better to keep a "master" copy of messages
-            // so that we can avoid a hydration call and just re-filter from master
-            if (!val) await this.hydrate();
-            else this.applyChatFilters();
-        },
-
-        async getStatTickRate(val) {
-            if (this.statInterval) clearInterval(this.statInterval);
-            this.statInterval = window.setInterval(
-                () => this.onChatStatTick(),
-                val * 1000
-            );
-        },
-
-        async getStatHistogramSize(val) {
-            this.userStats.defaultHistogramSettings = {
-                create: true,
-                size: val,
-            };
-        },
-    },
+    watch: {},
 
     async mounted() {
-        // connect to chat
+        console.log("CHAT MOUNTED")
+        //this.connect();
     },
 
     beforeDestroy() {
