@@ -74,6 +74,8 @@
             @unignore="unignoreUser"
         />
 
+        <v-btn @click="connect"> join </v-btn>
+
         <!-- Chat Input -->
         <chat-input
             ref="chat-input"
@@ -85,7 +87,7 @@
         <chat-ignore-list v-model="showIgnoreList" />
 
         <!-- Fireworks overlay -->
-        <fireworks :absolute="true" ref="fireworks" />
+        <!-- <fireworks :absolute="true" ref="fireworks" /> -->
     </v-sheet>
 </template>
 
@@ -157,23 +159,43 @@ export default {
         };
     },
 
-    sockets: {
-        connect: function () {
-            console.log("I HAVE CONNECTED");
-        }
-    },
-
     methods: {
-        sendMessage(msg) {
-            //this.socket.emit("chatMessage", msg);
+        sendMessage() {
+            this.socket.emit("chatMessage", this.getMessage);
         },
 
         connect() {
-            const chatUrl =
-                "http://produ-publi-1umq15gpn246p-1858097073.us-east-2.elb.amazonaws.com/";
-            const devUrl = "http://localhost:4000";
+            this.loading = true;
+            this.socket = this.$nuxtSocket({
+                name: "test",
+                useCredentials: true,
+                // this is how we pass in auth
+                // as per https://github.com/richardeschloss/nuxt-socket-io/issues/96#issuecomment-613187607
+                // TODO: make this a signed jwt token
+                transportOptions: {
+                    polling: {
+                        extraHeaders: {
+                            auth: "coolsecret",
+                        },
+                    },
+                },
+            });
 
-            
+            // join the correct room after connection
+            this.socket.on("connect", () => {
+                this.socket.emit("joinRoom", this._username, this.chatChannel);
+                this.loading = false;
+            });
+
+            // add message when message happens
+            this.socket.on("chatMessage", (msg) => {
+                this.messages.push({
+                    message: msg,
+                    channel: this.chatChannel,
+                    username: this.username,
+                    showBadge: false,
+                });
+            });
         },
     },
 
@@ -223,6 +245,25 @@ export default {
             inputRateLimit: Chat.$states.inputRateLimit,
         }),
 
+        ...mapMutations(Chat.namespace, {
+            setRoom: Chat.$mutations.setRoom,
+            setGlobal: Chat.$mutations.setGlobal,
+            setIgnoreList: Chat.$mutations.setIgnoreList,
+            addIgnoreList: Chat.$mutations.addIgnoreList,
+            removeIgnoreList: Chat.$mutations.removeIgnoreList,
+            setMessage: Chat.$mutations.setMessage,
+            setHideTrolls: Chat.$mutations.setHideTrolls,
+            setCleanTts: Chat.$mutations.setCleanTts,
+            appendChatMessage: Chat.$mutations.appendMessage,
+            setPinnedMessage: Chat.$mutations.setPinnedMessage,
+            setChatBadge: Chat.$mutations.setShowBadge,
+            setIgnoreChannelList: Chat.$mutations.setIgnoreChannelList,
+            addIgnoreChannelList: Chat.$mutations.addIgnoreChannelList,
+            removeIgnoreChannelList: Chat.$mutations.removeIgnoreChannelList,
+            setInputRateLimit: Chat.$mutations.setInputRateLimit,
+            setInputRateLimitMs: Chat.$mutations.setInputRateLimitMs,
+        }),
+
         username() {
             return this.displayName || this._username || "user";
         },
@@ -244,8 +285,9 @@ export default {
     watch: {},
 
     async mounted() {
-        console.log("CHAT MOUNTED")
+        console.log("CHAT MOUNTED");
         //this.connect();
+        //this.sendMessage("lord help me");
     },
 
     beforeDestroy() {

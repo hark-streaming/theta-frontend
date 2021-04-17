@@ -53,33 +53,6 @@
 
       <chat-mod-tools v-if="false"/>
 
-      <!-- WaveCoin™ -->
-      <!-- <v-menu
-        v-if="true"
-        v-model="showChatCoins"
-        :close-on-content-click="false"
-        transition="slide-y-reverse-transition"
-        :max-width="320"
-        top
-        right
-        offset-y
-      >
-        <template #activator="{ on }">
-          <v-btn
-            v-on="on"
-            class="ml-2"
-            small
-            icon
-          >
-            <v-icon>attach_money</v-icon>
-          </v-btn>
-        </template>
-
-        <chat-coin
-          @close="showChatCoins = false"
-        />
-      </v-menu> -->
-
       <v-spacer/>
 
       <v-btn

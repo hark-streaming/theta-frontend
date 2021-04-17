@@ -280,26 +280,27 @@ module.exports = {
         '@nuxtjs/toast',
         '@nuxtjs/sentry',
         'cookie-universal-nuxt',
-        //'nuxt-socket-io',
+        'nuxt-socket-io',
         ['@nuxtjs/google-analytics', { id: 'UA-133753190-2' }],
         ['@nuxtjs/component-cache', { maxAge: 1000 * 60 * 2 }],
         ['nuxt-stripe-module', { publishableKey: process.env.STRIPE_PUBLISHABLE_KEY }],
 
     ],
 
-    // io: {
-    //     sockets: [ // Required
-    //         { // At least one entry is required
-    //             name: 'main',
-    //             url: "http://produ-publi-1umq15gpn246p-1858097073.us-east-2.elb.amazonaws.com/",
-    //             default: true,
-    //             vuex: { 
-
-    //             },
-    //         },
-    //         { name: 'test', url: 'http://localhost:4000' }
-    //     ]
-    // },
+    io: {
+        sockets: [ // Required
+            { 
+                name: 'main',
+                url: "http://produ-publi-1umq15gpn246p-1858097073.us-east-2.elb.amazonaws.com/",
+                default: true,
+                // vuex: { },
+            },
+            { 
+                name: 'test',
+                url: 'http://localhost:4000',
+            }
+        ]
+    },
 
     /*
     ** Build Modules
