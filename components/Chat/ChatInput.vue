@@ -69,7 +69,7 @@
     </div>
 
     <!-- Popup -->
-      <autocomplete-chat
+      <!-- <autocomplete-chat
         v-if="autocomplete && enableAutocomplete"
         :key="autocompleteKey"
         :data="autocompleteData"
@@ -79,7 +79,7 @@
         @update:index="val => this.autocompleteSelection = val"
         @update:value="val => this.autocompleteValue = val"
         @click="onTab"
-      />
+      /> -->
 
   </v-sheet>
 </template>
@@ -219,22 +219,22 @@
 
       sendMessage ( event ) {
         // Insert new line when shift-enter is pressed
-        if ( event.shiftKey ) {
-          // Insert at cursor selection
-          const msg =
-            this.getMessage.substring( 0, event.target.selectionStart )
-            + '\\n'
-            + this.getMessage.substring( event.target.selectionEnd, this.getMessage.length );
+        // if ( event.shiftKey ) {
+        //   // Insert at cursor selection
+        //   const msg =
+        //     this.getMessage.substring( 0, event.target.selectionStart )
+        //     + '\\n'
+        //     + this.getMessage.substring( event.target.selectionEnd, this.getMessage.length );
 
-          const position = event.target.selectionStart + 2;
+        //   const position = event.target.selectionStart + 2;
 
-          this.setChatMessage( msg );
+        //   this.setChatMessage( msg );
 
-          // Reset cursor position after insertion
-          this.$nextTick( () => event.target.setSelectionRange( position, position ) );
+        //   // Reset cursor position after insertion
+        //   this.$nextTick( () => event.target.setSelectionRange( position, position ) );
 
-          return;
-        }
+        //   return;
+        // }
 
         // Don't send a message if auto completing
         if ( this.autocomplete ) {
