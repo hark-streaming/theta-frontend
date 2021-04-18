@@ -14,54 +14,93 @@
             />
         </v-slide-y-transition>
 
+        <!--
+
+        <cv-header-name href="javascript:void(0)" prefix="IBM">
+            [Platform]
+        </cv-header-name>
+
+        <component :is="tagType" v-on="$listeners" v-bind="linkProps" :class="`cv-header-name bx--header__name`">
+            <span v-if="prefix" :class="`bx--header__name--prefix`">{{ prefix }}&nbsp;</span>
+            <slot />
+        </component>
+
+        <cv-header-nav aria-label="Carbon nav">
+             active for current or active location
+            <cv-header-menu-item href="javascript:void(0)" active>
+            Link 1
+            </cv-header-menu-item>
+            <cv-header-menu-item href="javascript:void(0)">
+            Link 2
+            </cv-header-menu-item>
+            <cv-header-menu-item href="javascript:void(0)">
+            Link 3
+            </cv-header-menu-item>
+            <cv-header-menu aria-label="Link 4">
+            <cv-header-menu-item href="javascript:void(0)">
+                Submenu Link 1
+            </cv-header-menu-item>
+            <cv-header-menu-item href="javascript:void(0)">
+                Submenu Link 2
+            </cv-header-menu-item>
+            <cv-header-menu-item href="javascript:void(0)">
+                Submenu Link 3
+            </cv-header-menu-item>
+            </cv-header-menu>
+        </cv-header-nav>
+        -->
+
         <!-- Toolbar -->
-        <v-app-bar app :clipped-left="true" dense fixed color="secondary">
-            <v-row no-gutters class="d-flex align-center justify-space-between">
-                <v-col class="d-flex justify-start" cols="3">
-                    <!-- Logo Button -->
-                    <v-toolbar-title class="pl-0 mt-2">
-                        <v-btn
-                            :v-if="!mobile"
-                            :ripple="false"
-                            href="/"
-                            depressed
-                            text
-                            exact
-                            id="logo_text"
-                            exact-active-class="app-title-active"
-                            class="text-none title px-2 .d-sm-none .d-md-flex"
-                            color="white"
-                        >
-                            <v-img src="/images/hark-logo.png" max-width="60"></v-img>
-                        </v-btn>
-                    </v-toolbar-title>
+        <v-app-bar app :clipped-left="true" dense fixed color="white">
+            <!-- Logo Button -->
+            <v-toolbar-title style="height:100%" pl-0>
+                <v-btn
+                    :v-if="!mobile"
+                    :ripple="false"
+                    href="/"
+                    depressed
+                    text
+                    exact
+                    id="logo_text"
+                    exact-active-class="app-title-active"
+                    class="logobtn text-none title px-2"
+                    style="height:100%;"
+                >
+                    <v-img src="/images/hark-logo.png" max-width="60"></v-img>
+                </v-btn>
+            </v-toolbar-title>
+            <location-drop-down style="padding-left:10px;height:100%;"></location-drop-down>
+            <pages-drop-down style="height:100%;"></pages-drop-down>
 
-                    <location-drop-down></location-drop-down>
-                    <pages-drop-down></pages-drop-down>
-                </v-col>
-                
-                <v-col cols="3">
-                    <v-text-field
-                        v-if="showSearchBar"
-                        v-model="searchValue"
-                        label="Search"
-                        background-color="neutral"
-                        clearable
-                        solo
-                        dense
-                        class="mb-n6"
-                        @keydown.enter="goToSearch"
-                    ></v-text-field>
-                </v-col>
+            <v-spacer />
 
-                <!-- Notifications Button -->
-                <!-- <notifications v-if="isAuth" /> -->
+            <v-text-field
+                v-if="showSearchBar"
+                v-model="searchValue"
+                label="Search"
+                background-color="neutral"
+                clearable
+                class="mb-n6"
+                @keydown.enter="goToSearch"
+                style="height:100%;"
+            >
+                <template v-slot:progress>
+                    <v-progress-linear
+                        v-if="custom"
+                        :value="progress"
+                        :color="secondary"
+                        absolute
+                        height="5"
+                    ></v-progress-linear>
+                </template>
+            </v-text-field>
 
-                <v-col cols="3" class="d-flex justify-end">
-                    <user-menu class="ml-2" />
-                </v-col>
-                
-            </v-row>
+            <v-spacer />
+
+            <!-- Notifications Button -->
+            <!-- <notifications v-if="isAuth" /> -->
+
+            <user-menu class="ml-2" />
         </v-app-bar>
 
         <!-- Content -->
@@ -252,6 +291,37 @@ export default {
     .v-tooltip {
         display: block !important;
     }
+}
+
+.logobtn::before {
+    color: transparent
+}
+.header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: z('header');
+    display: flex;
+    align-items: center;
+    height: mini-units(6);
+    background-color: black;
+    border-bottom: 1px solid white;
+}
+
+.header-name {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 mini-units(4) 0 mini-units(2);
+    font-weight: 600;
+    line-height: 1.25rem;
+    letter-spacing: 0.1px;
+    text-decoration: none;
+    border: rem(2px) solid transparent;
+    outline: none;
+    //transition: border-color $duration--fast-02;
+    user-select: none;
 }
 
 #app {
