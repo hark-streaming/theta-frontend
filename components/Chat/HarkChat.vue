@@ -19,6 +19,7 @@
             :streamerUid="streamerUid"
             @add-channel-tag="addUserTag(page)"
         />
+        <v-btn @click="connect"> join </v-btn>
 
         <!-- TODO: move structure and logic to subcomponent -->
         <!-- <add-ons style="position: relative"> -->
@@ -74,7 +75,7 @@
             @unignore="unignoreUser"
         />
 
-        <v-btn @click="connect"> join </v-btn>
+        
 
         <!-- Chat Input -->
         <chat-input
@@ -336,18 +337,18 @@ export default {
     &::-webkit-scrollbar-track {
         box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.25);
         border-radius: 0;
-        background-color: #0a0a0a;
+        background-color: #ffffff;
     }
 
     &::-webkit-scrollbar {
         width: 6px;
-        background-color: #0a0a0a;
+        background-color: #dfdfdf;
     }
 
     &::-webkit-scrollbar-thumb {
         border-radius: 0;
         box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.25);
-        background-color: #333;
+        background-color: rgb(177, 177, 177);
     }
 }
 
