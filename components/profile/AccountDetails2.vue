@@ -4,36 +4,40 @@
       <v-flex xs14 sm12 md10 lg8>
         <v-card class="mb-4 pa-3">
 
-          <div class="d-flex justify-space-around align-center">
-            <v-avatar color="grey darken-4" size="200" class="ma-3">
-              <img
-                :src="imageUrl || `https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png`"
-                alt="avatar"
-              />
-            </v-avatar>
-            <!-- <div class="flex-shrink-1 text-xs-center my-1">
-              <h3>My Profile</h3> -->
-              <!-- <p>send in complaints for $5 / issue.</p> -->
-              <!-- <v-btn
-                color="red"
-                href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JAN2HKQ9CTYZY&source=url"
-                target="_blank"
-              >COMPLAINTS</v-btn> -->
-            <!-- </div> -->
-          </div>
+          <v-card color="primary" outlined>
+            <div class="container">
+              <div class="d-flex justify-space-around align-center">
+                <v-avatar color="grey darken-4" size="200" class="justify-space-around ma-3">
+                  <img
+                    :src="imageUrl || `https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png`"
+                    alt="avatar"
+                  />
+                </v-avatar>
+                <!-- <div class="flex-shrink-1 text-xs-center my-1">
+                  <h3>My Profile</h3> -->
+                  <!-- <p>send in complaints for $5 / issue.</p> -->
+                  <!-- <v-btn
+                    color="red"
+                    href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JAN2HKQ9CTYZY&source=url"
+                    target="_blank"
+                  >COMPLAINTS</v-btn> -->
+                <!-- </div> -->
+              </div>
+            </div>
+          </v-card>
+
+          <h2 style="padding-top:10px;" class="container2 primary--text">Profile Information</h2>
 
           <div v-if="user" class="my-4">
 
-            <h2 class="mb-2">Profile</h2>
-
-            <div class="d-flex align-center ">
+            <div class="d-flex align-center">
               <v-file-input
                 ref="image"
                 accept="image/png, image/jpeg, image/bmp"
                 show-size
                 :rules="sizeRules"
-                color="blue"
-                label="Select new profile photo"
+                color="primary"
+                label="Upload a new profile photo."
                 solo
                 light
                 filled
@@ -42,24 +46,25 @@
                 background-color="white"
                 truncate-length="30"
                 @change="onFilePicked"
+                dense
               />
               <v-btn
-                large
+                medium
                 class="flex-shrink-1 ml-2 mb-7"
                 :loading="uploadingAvatar"
                 color="primary"
                 outlined
                 :disabled="!imageFile"
                 @click="uploadFile"
-              >SAVE</v-btn>
+              >UPDATE</v-btn>
             </div>
 
             <!-- username -->
             <v-text-field
               v-model="username"
-              messages="You cannot change your username"
+              messages="You cannot change your username."
               class="mb-2"
-              label="username"
+              label="Username"
               readonly
               outlined
             />
@@ -71,7 +76,7 @@
             >
               <v-text-field
                 v-model="email"
-                label="email"
+                label="Email"
                 autocomplete="email username"
                 id="username"
                 name="username"
@@ -87,7 +92,7 @@
 
               <v-text-field
                 v-model="currPassword"
-                :label="editProfile ? 'current password' : 'password'"
+                :label="editProfile ? 'Current Password' : 'Password'"
                 type="password"
                 autocomplete="current-password"
                 value="************"
@@ -105,7 +110,7 @@
 
                   <v-text-field
                     v-model="newPassword"
-                    label="new password"
+                    label="New Password"
                     hint="optional - only if you wish to change your password"
                     persistent-hint
                     type="password"
@@ -131,9 +136,10 @@
                     <v-spacer />
                     <v-btn
                       color="primary"
-                      class="mr-2 black--text"
+                      class="mr-2 primary--text"
                       :loading="savingProfile"
                       type="submit"
+                      outlined
                     >Save</v-btn>
                   </div>
 
@@ -157,14 +163,15 @@
               <v-spacer />
               <v-btn
                 :color="editProfile ? 'error' : 'primary'"
-                :class="{ 'black--text': !editProfile }"
+                :class="{ 'primary--text': !editProfile }"
                 class="mr-2"
                 @click="toggleEdit"
-              >{{ editProfile ? 'Cancel' : 'Edit' }}</v-btn>
+                outlined
+              >{{ editProfile ? 'Cancel' : 'Edit Password' }}</v-btn>
               <v-btn
                 color="primary"
                 @click="logout"
-                class="black--text"
+                class="white--text"
               >Logout</v-btn>
             </div>
 
@@ -190,7 +197,7 @@
         imageFile: null,
         imageName: null,
 
-        sizeRules:[value => !value || value.size < 1000000 || 'Avatar size should be less than 1 MB!'],
+        sizeRules:[value => !value || value.size < 1000000 || 'Avatar size must be less than 1 MB.'],
 
         editProfile: false,
 
@@ -375,6 +382,10 @@
   };
 </script>
 
-<style lang='scss'>
+<style scoped lang='scss'>
+
+.container {
+  justify-content: center;
+}
 
 </style>

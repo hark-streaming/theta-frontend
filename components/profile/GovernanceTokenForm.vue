@@ -116,7 +116,7 @@
                             color="primary"
                             outlined
                             @click="requestCustomToken"
-                            >{{ requestButtonMsg }}</v-btn
+                            >{{requestButtonMsg}}</v-btn
                         >
                     </v-row>
                 </div>
@@ -235,7 +235,7 @@ export default {
             // call api to drop a request for a token
             const token = await auth.currentUser.getIdToken(true);
             let res = await this.$axios.$put(
-                `${process.env.API_URL}/theta/request-governance-contract`,
+                `${process.env.API_URL}/theta/requesttoken`,
                 {
                     idToken: token,
                 }
@@ -244,20 +244,20 @@ export default {
 
             this.requestButtonLoading = false;
 
+            
             // call api to generate the token
             // this call requires admin approval but for now we're going to automate it
-            res = await this.$axios.$post(
-                `${process.env.API_URL}/deploy-governance-contract/${this.uid}`,
+            /*res = await this.$axios.$post(
+                `${process.env.API_URL}/deploy/${this.uid}`,
                 {
-                    headers: {
-                        auth: process.env.HARK_ADMIN_KEY,
-                    },
+                    auth: process.env.HARK_ADMIN_KEY,
                 }
             );
             if (res.success) {
                 this.tokenRequested = false;
                 this.tokenExists = true;
-            }
+            }*/
+            
         },
     },
     computed: {
@@ -268,11 +268,9 @@ export default {
             isStreamer: VStore.$getters.isStreamer,
         }),
 
-        requestButtonMsg: function () {
-            return this.tokenRequested
-                ? "Token Generating..."
-                : "Request Custom Token";
-        },
+        requestButtonMsg: function (){
+            return this.tokenRequested ? "Token Generating..." : "Request Custom Token";
+        }
     },
     async mounted() {
         //await this.getCardData();

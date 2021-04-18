@@ -7,7 +7,7 @@
                 v-for="(tag, index) in tags" 
                 :key="index"
                 small
-                color="green"
+                color=#54547C
                 text-color="white"
                 class="mr-2"
                 label
@@ -21,7 +21,7 @@
                 v-for="(tag, index) in shortenedTags()"
                 :key="index"
                 small
-                color="green"
+                color=#54547C
                 text-color="white"
                 class="mr-2"
                 label>
@@ -43,7 +43,7 @@
                     v-for="(tag, index) in leftoverTags()" 
                     :key="index"
                     small
-                    color="green"
+                    color=#54547C
                     text-color="white"
                     class="mr-2"
                     label

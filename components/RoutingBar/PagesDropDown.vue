@@ -2,11 +2,39 @@
 
 <template>
     <div class="dropdown">
-
-        <button class="dropbtn">Pages<img id="drop-arrow" src="/images/dropdown-arrow.png" /></button>
+        <!-- 
+        <button class="dropbtn">Pages  <img id="drop-arrow" src="/images/dropdown-arrow.png" /></button>
         <div class="dropdown-content">
             <nuxt-link v-for="(page, index) in pages" :key="index" :to="page.path">{{ page.name }}</nuxt-link>
         </div>
+        -->
+        <v-menu offset-y open-on-hover>
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                color="black"
+                dark
+                v-bind="attrs"
+                v-on="on"
+                :ripple="false"
+                text
+                exact
+                style="height:100%;"
+                tile
+                >
+                Pages
+                </v-btn>
+            </template>
+            <v-list>
+                <v-list-item
+                v-for="(page, index) in pages"
+                :key="index"
+                :to="page.path"
+                :ripple="false"
+                >
+                <v-list-item-title>{{ page.name }}</v-list-item-title>
+                </v-list-item>
+            </v-list>
+        </v-menu>
         
     </div>
 </template>
@@ -39,7 +67,7 @@ export default {
 
 <style scoped>
     .dropbtn {
-        color: white;
+        color: #54547c;
         padding: 16px 6px 16px 16px;
         font-size: 16px;
         border: none;

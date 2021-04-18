@@ -550,7 +550,7 @@ export default {
             // logged in, return auth token
             else {
                 const token = await auth.currentUser.getIdToken(true);
-                //console.log("USER LOGGED IN, TOKEN: ", token);
+                console.log("USER LOGGED IN, TOKEN: ", token);
                 return token;
             }
         },
