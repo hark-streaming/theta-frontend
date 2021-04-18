@@ -177,7 +177,8 @@ export default {
             this.messages = [];
 
             this.socket = this.$nuxtSocket({
-                name: "test",
+                //name: "test",
+                name: "main",
                 useCredentials: true,
                 // this is how we pass in auth
                 // as per https://github.com/richardeschloss/nuxt-socket-io/issues/96#issuecomment-613187607
@@ -185,7 +186,7 @@ export default {
                 transportOptions: {
                     polling: {
                         extraHeaders: {
-                            auth: "coolsecret",
+                            auth: "coolsecret"
                         },
                     },
                 },

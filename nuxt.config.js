@@ -291,7 +291,7 @@ module.exports = {
         sockets: [ // Required
             { 
                 name: 'main',
-                url: "http://produ-publi-1umq15gpn246p-1858097073.us-east-2.elb.amazonaws.com/",
+                url: "http://produ-publi-1jdfgpmfkuawt-1094864957.us-east-2.elb.amazonaws.com/",
                 default: true,
                 // vuex: { },
             },
