@@ -2,7 +2,7 @@
   <v-container>
     <v-layout justify-center class="text-xs-center">
       <v-flex class="my-3" xs14 sm12 md10 lg8>
-        <h1 class="ml-2 text-center secondary--text">Your Account</h1>
+        <h1 class="ml-2 text-center">Your Account</h1>
       </v-flex>
     </v-layout>
 
@@ -179,7 +179,7 @@
 
         <!-- Stream Info -->
         <v-layout justify-center>
-          <StreamInfoDashboard :username="username" />
+          <stream-info-dashboard :username="username" />
         </v-layout>
       </v-tab-item>
 

@@ -18,10 +18,14 @@
                             class="px-2 py-6"
                             >
                             <v-row>
-                                <v-col cols="3">
+                                <v-col cols="5">
+                                    <!-- <client-only> -->
+                                        <!-- <vue-poll /> -->
+                                    <!-- </client-only> -->
+                                    <Poll :poll="poll" :skipVote="true" />
                                 </v-col>
 
-                                <v-col cols="9">
+                                <v-col cols="7">
                                     <v-row no-gutters>
                                         <v-col class="flex-grow-1">
                                             <v-text-field 
@@ -34,7 +38,7 @@
                                             />
                                         </v-col>
 
-                                        <v-col class="d-flex align-center justify-center pl-3" cols="2">
+                                        <v-col class="d-flex align-center justify-center pl-3" cols="3">
                                             <v-btn 
                                                 rounded 
                                                 small 
@@ -52,7 +56,7 @@
                                         <v-col class="flex-grow-1">
                                             <v-text-field 
                                                 v-model="answer.text"
-                                                label="Text"
+                                                :label="answerLabel(answer.value)"
                                                 outlined
                                                 hide-details
                                                 dense
@@ -105,12 +109,14 @@
 import { auth, db } from "@/plugins/firebase.js";
 import { mapGetters, mapState } from "vuex";
 import { VStore } from "@/store";
-// import VuePoll from "@/plugins/vue-poll.js"
+// import VuePoll from "vue-poll";
+import Poll from "@/components/Polls/Poll";
 
 export default {
 
     components: {
         // VuePoll
+        Poll
     },
 
     props: {
@@ -148,6 +154,8 @@ export default {
             old: {
                 polls: []
             },
+
+            idTracker: 0, 
         }
     },
 
@@ -291,10 +299,15 @@ export default {
                 question: "", 
                 answers: [
                     { value: 1, text: "", votes: 0 }
-                ]
+                ], 
+                showResults: false, 
+                multiple: false, 
+                submitButtonTest: "Submit", 
+                customId: this.idTracker
             };
             this.streamData.polls.push(pollData);
 
+            this.idTracker++;
             this.showSave = true;
         }, 
 
@@ -319,13 +332,17 @@ export default {
             }
 
             this.showSave = true;
+        }, 
+        
+        answerLabel(value) {
+            return "Answer " + value;
         }
     }, 
 
     computed: {
         ...mapGetters({
             uid: VStore.$getters.getUID
-        })
+        }), 
     }, 
 
     mounted() {

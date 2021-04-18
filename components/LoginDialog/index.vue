@@ -3,10 +3,10 @@
         <!-- Header Bar -->
         <v-sheet
             tile
-            color="secondary"
-            class="d-flex align-center pa-2 white--text"
+            color="primary"
+            class="d-flex align-center pa-2 black--text"
         >
-            <v-icon class="mr-3" color="white">person</v-icon>
+            <v-icon class="mr-3" color="black">person</v-icon>
             <h2 class="title">
                 {{ signUp ? "Create Account" : "Login" }}
             </h2>
@@ -66,7 +66,7 @@
                     :type="showPassword ? 'text' : 'password'"
                     name="input-10-1"
                     label="Password"
-                    hint="At least 8 characters."
+                    hint="At least 8 characters"
                     autocomplete="password"
                     validate-on-blur
                     solo
@@ -106,8 +106,8 @@
                 <v-btn
                     v-if="!signUp"
                     block
-                    color="secondary"
-                    class="white--text"
+                    color="primary"
+                    class="black--text"
                     :loading="loading"
                     type="submit"
                     @click="signIn(user.email, user.password)"
@@ -121,9 +121,9 @@
                         v-if="!signUp"
                         id="remember-me"
                         v-model="shouldStayLoggedIn"
-                        label="Stay logged in"
+                        label="Stay logged in?"
                         hide-details
-                        color="secondary"
+                        color="primary"
                         class="pt-0 mb-3"
                         :disabled="loading"
                     />
@@ -134,19 +134,19 @@
                     v-if="signUp"
                     block
                     color="primary"
-                    class="white--text"
+                    class="black--text"
                     :loading="loading"
                     type="submit"
                     @click="createHcaptchaUser"
                     tabindex="6 "
-                    >Register
-                </v-btn>
+                    >Register</v-btn
+                >
 
                 <!-- Some Cover Your Ass Legal Text -->
                 <div v-if="signUp" class="my-2 overline grey--text">
                     <i
                         >by clicking register you agree to our
-                        <a href="/tos">tos</a>.</i
+                        <a href="/tos">tos</a></i
                     >
                 </div>
 
@@ -166,13 +166,12 @@
 
         <!-- Bottom Actions Buttons -->
         <v-card-actions class="flex-wrap-reverse justify-space-around">
-            <v-btn text color="secondary" @click="resetPassword(user.email)"
-                >Forgot Your Password?</v-btn
+            <v-btn text color="accent" @click="resetPassword(user.email)"
+                >Forgot Password?</v-btn
             >
-            <!--<v-btn color="secondary" text class="mr-2" @click="$emit('close')"
+            <v-btn color="red" text class="mr-2" @click="$emit('close')"
                 >CANCEL</v-btn
             >
-            -->
             <v-btn color="primary" text @click="switchForm">{{
                 signUp ? "Login" : "Sign Up"
             }}</v-btn>
@@ -218,14 +217,14 @@ export default {
             attempts: 0,
 
             rules: {
-                adultCheck: (val) => val || "You must be 18 to use this site.",
-                required: (value) => !!value || "Password is required.",
+                adultCheck: (val) => val || "You must be 18 to use this site!",
+                required: (value) => !!value || "Required.",
                 min: (value) =>
-                    (value && value.length >= 8) || "Min 8 characters.",
-                name: (v) => !!v || "Name is required.",
+                    (value && value.length >= 8) || "Min 8 characters",
+                name: (v) => !!v || "Name is required",
                 email: [
-                    (v) => !!v || "Email is required.",
-                    (v) => /.+@.+/.test(v) || "E-mail must be valid.",
+                    (v) => !!v || "Email is required",
+                    (v) => /.+@.+/.test(v) || "E-mail must be valid",
                 ],
             },
         };
@@ -525,7 +524,3 @@ export default {
     },
 };
 </script>
-
-<style>
-    /*font-family: helvetica, arial, sans-serif;*/
-</style>

@@ -24,11 +24,11 @@
                                 width="24px"
                                 height="24px"
                             />
-                            <span class="ml-1 primary--text" v-html="balance">
+                            <span class="ml-1 white--text" v-html="balance">
                             </span>
                         </v-row>
                     </template>
-                    <span> Earn TFUEL by watching streams. </span>
+                    <span> Earn TFUEL by watching streams! </span>
                 </v-tooltip>
 
                 <!-- profile icon -->
@@ -75,14 +75,13 @@
         </div>
 
         <div v-else>
-            <v-btn color="primary" outlined class="primary--text" small :to="registerTo">
+            <v-btn color="primary" class="black--text" small :to="registerTo">
                 Register
             </v-btn>
 
             <v-btn
                 color="primary"
-                outlined
-                class="primary--text"
+                class="black--text"
                 small
                 @click="showLogin = true"
             >

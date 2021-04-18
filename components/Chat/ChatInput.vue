@@ -12,7 +12,7 @@
     <v-text-field
       ref="chatmessageinput"
       :value="getMessage"
-      :label="`Chat ${global ? 'globally' : ''} as ` +  username.replace('troll', 'guest')"
+      :label="loading ? `Log in to chat!` : `Send a message...`"
       :loading="loading"
       :disabled="loading"
       class="mb-0"
@@ -49,36 +49,9 @@
     <!-- Bottom Buttons -->
     <div class="d-flex align-center">
       <!-- Chat Settings -->
-      <chat-settings/>
+      <!-- <chat-settings/> -->
 
       <chat-mod-tools v-if="false"/>
-
-      <!-- WaveCoin™ -->
-      <!-- <v-menu
-        v-if="true"
-        v-model="showChatCoins"
-        :close-on-content-click="false"
-        transition="slide-y-reverse-transition"
-        :max-width="320"
-        top
-        right
-        offset-y
-      >
-        <template #activator="{ on }">
-          <v-btn
-            v-on="on"
-            class="ml-2"
-            small
-            icon
-          >
-            <v-icon>attach_money</v-icon>
-          </v-btn>
-        </template>
-
-        <chat-coin
-          @close="showChatCoins = false"
-        />
-      </v-menu> -->
 
       <v-spacer/>
 
@@ -96,7 +69,7 @@
     </div>
 
     <!-- Popup -->
-      <autocomplete-chat
+      <!-- <autocomplete-chat
         v-if="autocomplete && enableAutocomplete"
         :key="autocompleteKey"
         :data="autocompleteData"
@@ -106,7 +79,7 @@
         @update:index="val => this.autocompleteSelection = val"
         @update:value="val => this.autocompleteValue = val"
         @click="onTab"
-      />
+      /> -->
 
   </v-sheet>
 </template>
@@ -246,22 +219,22 @@
 
       sendMessage ( event ) {
         // Insert new line when shift-enter is pressed
-        if ( event.shiftKey ) {
-          // Insert at cursor selection
-          const msg =
-            this.getMessage.substring( 0, event.target.selectionStart )
-            + '\\n'
-            + this.getMessage.substring( event.target.selectionEnd, this.getMessage.length );
+        // if ( event.shiftKey ) {
+        //   // Insert at cursor selection
+        //   const msg =
+        //     this.getMessage.substring( 0, event.target.selectionStart )
+        //     + '\\n'
+        //     + this.getMessage.substring( event.target.selectionEnd, this.getMessage.length );
 
-          const position = event.target.selectionStart + 2;
+        //   const position = event.target.selectionStart + 2;
 
-          this.setChatMessage( msg );
+        //   this.setChatMessage( msg );
 
-          // Reset cursor position after insertion
-          this.$nextTick( () => event.target.setSelectionRange( position, position ) );
+        //   // Reset cursor position after insertion
+        //   this.$nextTick( () => event.target.setSelectionRange( position, position ) );
 
-          return;
-        }
+        //   return;
+        // }
 
         // Don't send a message if auto completing
         if ( this.autocomplete ) {
