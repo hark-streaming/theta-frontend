@@ -15,7 +15,7 @@
                     <v-skeleton-loader
                         ref="skeleton"
                         :boilerplate="false"
-                        :type="`list-item-avatar, ${
+                        :type="`list-item, ${
                             i % 2 ? 'paragraph' : 'sentences'
                         }`"
                         class="d-flex"
@@ -334,7 +334,7 @@ export default {
     },
 
     updated(){     
-        // scroll to bottom if there is a new message and we are alreayd at the bottom
+        // scroll to bottom if there is a new message and we are already at the bottom
         // prevents a sudden jump if you were scrolling up
         // essentially, only auto-scroll if you are at bottom
         if(this.priorMessageCount < this.messages.length && this.atBottom){

@@ -12,7 +12,7 @@
     <v-text-field
       ref="chatmessageinput"
       :value="getMessage"
-      :label="`Chat ${global ? 'globally' : ''} as ` +  username.replace('troll', 'guest')"
+      :label="loading ? `Log in to chat!` : `Send a message...`"
       :loading="loading"
       :disabled="loading"
       class="mb-0"
@@ -49,7 +49,7 @@
     <!-- Bottom Buttons -->
     <div class="d-flex align-center">
       <!-- Chat Settings -->
-      <chat-settings/>
+      <!-- <chat-settings/> -->
 
       <chat-mod-tools v-if="false"/>
 

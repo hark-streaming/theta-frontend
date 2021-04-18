@@ -19,8 +19,9 @@
             :streamerUid="streamerUid"
             @add-channel-tag="addUserTag(page)"
         />
-        <v-btn @click="connect"> join </v-btn>
-
+        <!-- <v-btn v-if="!connected" @click="isAuth ? connect : showLogin=true" color="primary" class="mt-3">
+            {{isAuth ? "Join chat!" : "Log in to chat!"}}
+        </v-btn> -->
         <!-- TODO: move structure and logic to subcomponent -->
         <!-- <add-ons style="position: relative"> -->
         <!-- Chat Banner -->
@@ -75,8 +76,6 @@
             @unignore="unignoreUser"
         />
 
-        
-
         <!-- Chat Input -->
         <chat-input
             ref="chat-input"
@@ -85,10 +84,15 @@
             @send="sendMessage"
         />
 
-        <chat-ignore-list v-model="showIgnoreList" />
+        <!-- <chat-ignore-list v-model="showIgnoreList" /> -->
 
         <!-- Fireworks overlay -->
         <!-- <fireworks :absolute="true" ref="fireworks" /> -->
+
+        <!-- log in dialog for those not logged in -->
+        <!-- <v-dialog v-model="showLogin" width="420">
+            <lazy-login-dialog @close="showLogin = false" />
+        </v-dialog> -->
     </v-sheet>
 </template>
 
@@ -137,7 +141,9 @@ export default {
     data() {
         return {
             socket: null,
-            messages: [],
+            messages: null,
+            //connected: false,
+            showLogin: false,
 
             loading: true,
             connecting: true,
@@ -167,6 +173,9 @@ export default {
 
         connect() {
             this.loading = true;
+            //if (!this.isAuth) return;
+            this.messages = [];
+
             this.socket = this.$nuxtSocket({
                 name: "test",
                 useCredentials: true,
@@ -186,6 +195,7 @@ export default {
             this.socket.on("connect", () => {
                 this.socket.emit("joinRoom", this._username, this.chatChannel);
                 this.loading = false;
+                this.connected = true;
             });
 
             // add message when message happens
@@ -196,6 +206,11 @@ export default {
                     username: this.username,
                     showBadge: false,
                 });
+            });
+
+            this.socket.on("disconnect", () => {
+                console.log("Disconnected from chat");
+                this.connected = false;
             });
         },
     },
@@ -283,20 +298,49 @@ export default {
         },
     },
 
-    watch: {},
+    watch: {
+        // isAuth: () => {
+        //     console.log("i auth have changed");
+        //     //if(isAuth == true){
+        //         this.connect();
+        //     //}
+        // }
+    },
 
     async mounted() {
-        console.log("CHAT MOUNTED");
-        //this.connect();
-        //this.sendMessage("lord help me");
+        
+        auth.onAuthStateChanged( (user) => {
+            if(user){
+                // connect to chat if user logged in
+                setTimeout(()=> {
+                    this.connect();
+                }, 1000);
+                //this.connect();
+            }
+            else {
+                // don't otherwise
+                //console.log("not logged in");
+                this.socket.disconnect();
+                //this.messages = null;
+                this.loading = true;
+            }
+            
+        });
     },
 
     beforeDestroy() {
         // disconnect
+        if(this.socket){
+            this.socket.disconnect();
+        }
+        
     },
 
     destroyed() {
         // disconnect
+        if(this.socket){
+            this.socket.disconnect();
+        }
     },
 };
 </script>
