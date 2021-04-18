@@ -79,7 +79,7 @@
                 </v-sheet>
 
                 <!-- Video Overlay -->
-                <stickers />
+                <!-- <stickers /> -->
             </v-responsive>
 
             <!-- Theta Web Widget -->

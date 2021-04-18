@@ -2,7 +2,7 @@
     <div>
         <!-- Chat Header -->
         <div class="ma-6" align="center">
-            <h1 >Streamer Dashboard</h1>
+            <h1>Streamer Dashboard</h1>
         </div>
 
         <!-- Main Container -->
@@ -10,14 +10,18 @@
             <!-- Main dashboard -->
             <v-row no-gutters class="ma-0">
                 <v-sheet color="secondary" class="pl-3 flex-grow-1 mb-n6">
-                    <h1 :style="{color: 'white'}">Stream Preview</h1>
+                    <h1 :style="{ color: 'white' }">Stream Preview</h1>
                 </v-sheet>
             </v-row>
             <v-row>
                 <!-- Stream Preview? -->
-                <v-col>
-                    
-                    <v-responsive height="calc( 100% )" >
+                <v-col
+                    :style="{
+                        height: mobile ? '500px' : '555px',
+                        display: block,
+                    }"
+                >
+                    <v-responsive height="calc( 100% )">
                         <iframe
                             :src="`/embed/${username}`"
                             frameborder="none"
@@ -25,18 +29,11 @@
                             width="100%"
                             height="100%"
                         ></iframe>
-                    </v-responsive> 
-                    
+                    </v-responsive>
                 </v-col>
 
                 <!-- Chat -->
                 <v-col cols=4> 
-
-                    <!-- <div :style="{display:block}">
-                        <!- Chat Alerts? -->
-                        <!-- <dashboard-superchats /> -->
-                    <!-- </div> -->
-
                     <v-sheet
                         v-if="displayChat"
                         class="d-flex flex-shrink-1"
@@ -46,7 +43,7 @@
                         }"
                         light
                     >
-                        <chat :chat-channel="username" />
+                        <hark-chat :chat-channel="username" />
                     </v-sheet>
                 </v-col>
             </v-row>
@@ -161,9 +158,9 @@
                             </v-layout>
                         </v-card>
                     </v-flex> -->
-                
+
                     <v-col cols="5">
-                        <StreamInfoDashboard :username="username"/>
+                        <StreamInfoDashboard :username="username" />
                     </v-col>
                     <v-col cols="7">
                         <DashboardPolls :username="username" />
@@ -175,7 +172,6 @@
 </template>
 
 <script>
-
 import { auth, db } from "@/plugins/firebase.js";
 import { mapGetters, mapState } from "vuex";
 import { Chat as ChatStore } from "@/store/chat";
@@ -189,8 +185,8 @@ export default {
     middleware: "auth",
 
     components: {
-        StreamInfoDashboard, 
-        DashboardPolls
+        StreamInfoDashboard,
+        DashboardPolls,
     },
 
     data() {
@@ -227,9 +223,8 @@ export default {
             showStreamInfo: true,
             // showSave: false,
             // saveLoading: false,
-            
-            // description: "",
 
+            // description: "",
 
             // topic tags
             /* activeTags: [],
@@ -260,8 +255,8 @@ export default {
                 async (doc) => {
                     // await this.getAllTags();
                     this.showStreamInfo = doc.exists;
-                    // if (this.showStreamInfo) 
-                        // await this.streamDataChanged(doc.data());
+                    // if (this.showStreamInfo)
+                    // await this.streamDataChanged(doc.data());
                 },
                 () => (this.showStreamInfo = false)
             );
@@ -445,9 +440,7 @@ export default {
 </script>
 
 <style>
-
 /* .tags__shadow--tag-list-active{
     z-index: 5 !important;
 } */
-
 </style>
