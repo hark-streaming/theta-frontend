@@ -51,7 +51,7 @@
                                 </template>
                                 <span>
                                     <v-icon>warning</v-icon>
-                                    Temporarily Disabled Due to a Bug
+                                    Temporarily Disabled
                                 </span>
                             </v-tooltip>
                         </template>

@@ -6,7 +6,7 @@
     tile
   >
     <div class="overline">
-      Hark: Democracy Speaks
+      Hark.tv
       <span class="grey--text">{{ props.version }}</span>
     </div>
     <div class="d-flex overline">

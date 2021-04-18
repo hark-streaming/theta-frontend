@@ -57,6 +57,7 @@
               <v-col>
                 <ul class="mt-2">
                   <li>Custom Token API</li>
+                  <li>Custom Token DAOs</li>
                 </ul>
               </v-col>
             </v-row>
