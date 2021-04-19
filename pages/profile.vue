@@ -33,6 +33,9 @@
           <card-form />
         </v-layout>
         <v-layout :v-if="showStreamInfo" justify-center>
+          <relay-card />
+        </v-layout>
+        <v-layout :v-if="showStreamInfo" justify-center>
           <cash-out-card />
         </v-layout>
       </v-tab-item>
@@ -204,16 +207,13 @@ import AccountDetails2 from "@/components/profile/AccountDetails2";
 import ManageWebhooks from "@/components/profile/ManageWebhooks";
 import CardForm from "@/components/DonationCards/CardForm";
 
-import StreamInfoDashboard from "@/components/StreamInfoDashboard";
-
 export default {
   name: "profile",
 
   components: {
     ManageWebhooks,
     AccountDetails2,
-    CardForm,
-    StreamInfoDashboard,
+    CardForm
   },
 
   middleware: "auth",
