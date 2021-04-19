@@ -25,20 +25,20 @@
         <v-card>
           <v-sheet
             color="primary"
-            class="pa-2 mr-2 d-flex justify-space-end align-center"
+            class="pa-2 d-flex justify-space-end align-center"
           >
-            <v-icon color="black">notifications_active</v-icon>
-            <h4 class="black--text body-1 font-weight-bold ml-2">
+            <v-icon color="white">notifications_active</v-icon>
+            <h4 class="white--text body-1 ml-2">
               Enable Push Notifications?
             </h4>
           </v-sheet>
 
           <v-card-text class="pb-0">
-            <div class="subtitle-1 my-2 white--text">
+            <!--
+            <div class="subtitle-1 my-2 black--text">
               Notifications will still be sent to this device if bitwave is closed.
-            </div>
-
-            <div>
+            </div> -->
+            <div class="subtitle-1 my-2">
               You can always disable notifications by clicking the bell again.
             </div>
 
@@ -61,11 +61,6 @@
             </div>
           </v-card-text>
 
-          <hr
-            class="mt-3"
-            color="grey"
-          >
-
           <v-card-actions class="justify-end pa-3">
             <v-btn
               class="mr-2"
@@ -77,9 +72,10 @@
               Cancel
             </v-btn>
             <v-btn
-              color="green"
+              color="primary"
               small
               @click="confirm( true )"
+              class="white--text"
             >
               Enable
             </v-btn>

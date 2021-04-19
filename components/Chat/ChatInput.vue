@@ -3,7 +3,7 @@
   <v-sheet
     id="chat-input"
     class="pa-2 mt-1"
-    color="accentwave"
+    color="white"
   >
 
     <!-- Text Input Field -->
@@ -12,7 +12,7 @@
     <v-text-field
       ref="chatmessageinput"
       :value="getMessage"
-      :label="loading ? `Log in to chat!` : `Send a message...`"
+      :label="loading ? `Log in to chat` : `Send a message...`"
       :loading="loading"
       :disabled="loading"
       class="mb-0"
@@ -25,6 +25,7 @@
       single-line
       dense
       validate-on-blur
+      filled
       outlined
       clearable
       :error-messages="setInputRateLimit ? `${(setInputRateLimitMs / 1000).toFixed(0)}s before you can send a chat` : ''"

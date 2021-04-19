@@ -6,7 +6,7 @@
       :outlined="following || !streamerId"
       :loading="loading || disabled"
       :disabled="!isAuth"
-      color="primary black--text"
+      color="primary white--text"
       @click="onFollowClick"
     >
       {{ following

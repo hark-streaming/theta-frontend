@@ -8,7 +8,7 @@
         >
             <!-- Viewer List -->
             <div style="height: 32px">
-                <ViewerList :page="page" />
+                <ViewerList :page="page"/>
             </div>
 
             <!-- Chat Label -->

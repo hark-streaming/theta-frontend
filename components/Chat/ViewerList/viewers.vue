@@ -9,15 +9,18 @@
       color="primary"
       class="d-flex align-center justify-space-between pl-2"
     >
-      <h5 class="black--text body-2">Live Viewers</h5>
+      <h5 class="white--text body-2">Live Viewers</h5>
       <v-btn
-        color="black"
+        :ripple="false"
+        class="closebtn"
+        depressed
         text
+        color="white"
         icon
         pa-0
         @click="close"
       >
-        <v-icon color="black">close</v-icon>
+        <v-icon color="white">close</v-icon>
       </v-btn>
     </v-sheet>
 
@@ -200,3 +203,11 @@
 
   };
 </script>
+
+<style scoped lang="scss">
+
+  .closebtn::before {
+    color: transparent
+  }
+
+</style>

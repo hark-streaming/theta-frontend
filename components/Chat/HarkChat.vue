@@ -4,10 +4,11 @@
         class="d-flex flex-grow-1 flex-column"
         style="position: relative; display: inline"
         v-resize.quiet="onResize"
-        color="neutral"
+        color="white"
     >
         <!-- Chat Header -->
         <chat-header
+            color="white"
             :page="page"
             :is-channel-owner="isChannelOwner"
             :donateOn="donateOn"

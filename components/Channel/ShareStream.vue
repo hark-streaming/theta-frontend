@@ -32,8 +32,8 @@
           color="secondary"
           class="pa-2 d-flex justify-space-between align-center"
         >
-          <h4 class="body-1">
-            Share Stream
+          <h4 class="body-1 white--text">
+            Share
           </h4>
           <v-btn
             text
@@ -47,8 +47,8 @@
 
         <div class="pa-3">
           <div class="mb-3">
-            Share a link directly to this stream on twitter below!<br>
-            <span class="caption grey--text">(you will be able to edit the tweet before posting)</span>
+            Share a link directly to this stream on twitter below.<br>
+            <span class="caption grey--text">(You will be able to edit the tweet before posting.)</span>
           </div>
 
           <!-- Display canonical link -->
@@ -74,10 +74,11 @@
           <div class="d-flex">
             <!-- Share to twitter -->
             <v-btn
-              color="#1dcaff"
+              color="#1da1f2"
               :href="twitterLink"
               target="_blank"
               @click="shareToTwitter"
+              class="white--text"
             >twitter</v-btn>
 
             <!-- Copy button for phones -->
