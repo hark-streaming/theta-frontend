@@ -22,7 +22,7 @@
                                     <!-- <client-only> -->
                                         <!-- <vue-poll /> -->
                                     <!-- </client-only> -->
-                                    <Poll :poll="poll" :skipVote="true" />
+                                    <Poll :poll="poll" :skipVote="false" @voteAdded="addVote($event)"/>
                                 </v-col>
 
                                 <v-col cols="7">
@@ -69,6 +69,23 @@
                                         <v-btn small @click="addAnswer(index)">+ Add answer</v-btn>
                                     </v-row>
                                 </v-col>
+                            </v-row>
+
+                            <v-row no-gutters class="pl-3">
+                                <v-switch
+                                    label="Enable multiple-answer votes"
+                                    v-model="poll.multiple"
+                                    class="mb-n4 mt-0"
+                                    @click="showSave=true">
+                                </v-switch>
+                            </v-row>
+                            <v-row no-gutters class="pl-3 mt-0">
+                                <v-switch
+                                    label="Show results (close voting)"
+                                    v-model="poll.showResults"
+                                    class="mb-n4 mt-0"
+                                    @click="showSave=true">
+                                </v-switch>
                             </v-row>
                             
                         </v-card>
@@ -191,6 +208,7 @@ export default {
             this.streamDataLoading = false;
 
             this.setOld();
+            this.idTracker = this.streamData.polls.length;
         },
 
         async updateStreamData() {
@@ -258,16 +276,33 @@ export default {
             this.old.polls = [];
             // this.streamData.polls.forEach(x => this.old.polls.push(x));
 
-            var options = {
-                question: "", 
-                answers: []
-            };
+            
+            var options = null;
+            var currPoll = null;
             for (var p = 0; p < this.streamData.polls.length; p++) {
-                options.question = this.streamData.polls[p].question;
+                currPoll = null;
+                currPoll = this.streamData.polls[p];
 
-                for (var a = 0; a < this.streamData.polls[p].answers.length; a++) {
-                    options.answers.push(this.streamData.polls[p].answers[a]);
+                options = {
+                    question: "", 
+                    answers: [], 
+                    showResults: false, 
+                    multiple: false, 
+                    submitButtonText: "Submit", 
+                    customId: 0
+                };
+
+                options.question = currPoll.question;
+
+                options.answers = [];
+                for (var a = 0; a < currPoll.answers.length; a++) {
+                    options.answers.push(currPoll.answers[a]);
                 }
+
+                options.showResults = currPoll.showResults;
+                options.multiple = currPoll.multiple;
+                options.submitButtonText = currPoll.submitButtonText;
+                options.customId = currPoll.customId;
 
                 this.old.polls.push(options);
             }
@@ -277,16 +312,32 @@ export default {
             this.streamData.polls = [];
             // this.old.polls.forEach(x => this.streamData.polls.push(x));
 
-            var options = {
-                question: "", 
-                answers: []
-            };
+            var options = null;
+            var currPoll = null;
             for (var p = 0; p < this.old.polls.length; p++) {
-                options.question = this.old.polls[p].question;
+                currPoll = null;
+                currPoll = this.old.polls[p];
 
-                for (var a = 0; a < this.old.polls[p].answers.length; a++) {
-                    options.answers.push(this.old.polls[p].answers[a]);
+                options = {
+                    question: "", 
+                    answers: [], 
+                    showResults: false, 
+                    multiple: false, 
+                    submitButtonText: "Submit", 
+                    customId: 0
+                };
+
+                options.question = currPoll.question;
+
+                options.answers = [];
+                for (var a = 0; a < currPoll.answers.length; a++) {
+                    options.answers.push(currPoll.answers[a]);
                 }
+
+                options.showResults = currPoll.showResults;
+                options.multiple = currPoll.multiple;
+                options.submitButtonText = currPoll.submitButtonText;
+                options.customId = currPoll.customId;
 
                 this.streamData.polls.push(options);
             }
@@ -298,11 +349,11 @@ export default {
             const pollData = {
                 question: "", 
                 answers: [
-                    { value: 1, text: "", votes: 0 }
+                    { value: 0, text: "", votes: 0 }
                 ], 
                 showResults: false, 
                 multiple: false, 
-                submitButtonTest: "Submit", 
+                submitButtonText: "Submit", 
                 customId: this.idTracker
             };
             this.streamData.polls.push(pollData);
@@ -314,11 +365,16 @@ export default {
         deletePoll(index) {
             this.streamData.polls.splice(index, 1);
 
+            for (var i = index; i < this.streamData.polls.length; i++) {
+                this.streamData.polls[i].customId--;
+            }
+            this.idTracker--;
+
             this.showSave = true;
         }, 
 
         addAnswer(index) {
-            const answerData = { value: this.streamData.polls[index].answers.length + 1, text: "", votes: 0 };
+            const answerData = { value: this.streamData.polls[index].answers.length, text: "", votes: 0 };
             this.streamData.polls[index].answers.push(answerData);
 
             this.showSave = true;
@@ -335,8 +391,9 @@ export default {
         }, 
         
         answerLabel(value) {
-            return "Answer " + value;
-        }
+            return "Answer " + (value + 1);
+        }, 
+
     }, 
 
     computed: {
