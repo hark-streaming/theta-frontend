@@ -361,4 +361,8 @@
       opacity: 0;
     }
   }
+
+  .tn-overview-with-traffic-chart-widget {
+    background: #000 !important;
+  }
 </style>
