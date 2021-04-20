@@ -2,29 +2,32 @@
     <v-container>
 
         <!-- Display while voting is active -->
-        <v-card v-if="!skipVote && !poll.showResults" color="neutral">
+        <v-card v-if="!showPollResults" color="neutral">
             <v-sheet color="secondary" class="px-1">
                 <h5 :style="{color: 'white'}">{{ this.poll.question }}</h5>
             </v-sheet>
 
-            <v-list 
-                flat
-                class="pb-8"
+            <v-list-item
+                v-for="(answer) in poll.answers"
+                :key="answer.value"
+                class="mb-n8"
             >
-                <v-list-item
-                    v-for="(answer) in poll.answers"
-                    :key="answer.value"
-                    class="mb-n8"
-                >
-                    <v-checkbox
-                        :label="answer.text"
-                    ></v-checkbox>
-                </v-list-item>
-            </v-list>
+                <v-checkbox
+                    v-model="selected"
+                    :label="answer.text"
+                    :value="answer.value"
+                    @click="checkSelected(answer.value)"
+                ></v-checkbox>
+            </v-list-item>
+
+            <v-row no-gutters class="justify-center mt-6 pb-2">
+                <v-btn color="primary" small @click="addVote()">{{ poll.submitButtonText }}</v-btn>
+            </v-row>
+
         </v-card>
 
         <!-- Display results of poll -->
-        <v-card v-if="skipVote || poll.showResults" color="neutral">
+        <v-card v-if="showPollResults" color="neutral">
             <v-sheet color="secondary" class="px-1">
                 <h5 :style="{color: 'white'}">{{ this.poll.question }}</h5>
             </v-sheet>
@@ -56,7 +59,7 @@ export default {
             ], 
             showResults: false, 
             multiple: false, 
-            submitButtonTest: "Submit", 
+            submitButtonText: "Submit", 
             customId: 0
         */
         poll: {}, 
@@ -93,20 +96,46 @@ export default {
                 animation: false
             }, 
 
+            selected: []
+
         }
     }, 
 
     computed: {
         maximum() {
             // return Math.max(...this.chartdata.datasets[0].data) + 10;
+        }, 
+        showPollResults() {
+            if (!this.skipVote && !this.poll.showResults) {
+                return false;
+            } else {
+                return true;
+            }
         }
     },
 
     methods: {
-        addVote(answerVal) {
+        addVote() {
             const id = this.poll.customId;
-            this.$emit("voteAdded", {id, answerVal});
+            this.selected.forEach(x => {
+                this.poll.answers[x].votes++;
+                this.$emit("voteAdded", this.poll);
+            });
+            this.skipVote = true;
         }, 
+
+        checkSelected(answerVal) {
+            if ((!this.poll.multiple && this.selected.length > 1)) {
+                var k = 0;
+                for (var i = 0; i < this.selected.length; i++) {
+                    if (this.selected[i] != answerVal) {
+                        k = i;
+                    }
+                }
+
+                this.selected.splice(k, 1);
+            }
+        }
         
     }, 
 
