@@ -275,10 +275,10 @@ export default {
     methods: {
         async onEnded() {
             console.log(`Player source ended`);
-            this.setSource({
-                url: await this.getRandomBump(),
-                type: "video/mp4",
-            });
+            // this.setSource({
+            //     url: await this.getRandomBump(),
+            //     type: "video/mp4",
+            // });
         },
 
         trackWatchTime(stats) {
@@ -297,22 +297,22 @@ export default {
         },
 
         // This guy is the 15-30sec meme video bitwave slaps on before a stream loads
-        // Could probably replace this with an ad feature
-        // also plays when a streamer is offline
+        // let's just take it out for now
         async getRandomBump() {
-            const { data } = await this.$axios.get(
-                `https://api.bitwave.tv/api/bump`
-            );
-            // limit to checking 15 most recent bumps
-            if (this.recentBumps.length >= 15)
-                this.recentBumps = this.recentBumps.splice(-15);
-            // Recurse until we get a fresh bump
-            if (this.recentBumps.includes(data.url)) {
-                console.log(`Recently seen ${data.url}, getting a new bump`);
-                return await this.getRandomBump();
-            }
-            this.recentBumps.push(data.url);
-            return data.url;
+
+            // const { data } = await this.$axios.get(
+            //     `https://api.bitwave.tv/api/bump`
+            // );
+            // // limit to checking 15 most recent bumps
+            // if (this.recentBumps.length >= 15)
+            //     this.recentBumps = this.recentBumps.splice(-15);
+            // // Recurse until we get a fresh bump
+            // if (this.recentBumps.includes(data.url)) {
+            //     console.log(`Recently seen ${data.url}, getting a new bump`);
+            //     return await this.getRandomBump();
+            // }
+            // this.recentBumps.push(data.url);
+            // return data.url;
         },
 
         getStreamData() {
@@ -437,10 +437,10 @@ export default {
                     this.poster = data.cover;
 
                     this.setPoster(data.thumbnail);
-                    this.setSource({
-                        url: await this.getRandomBump(),
-                        type: "video/mp4",
-                    });
+                    // this.setSource({
+                    //     url: await this.getRandomBump(),
+                    //     type: "video/mp4",
+                    // });
                 };
 
                 // Keep timer ID so we can cancel early if stream recovers
