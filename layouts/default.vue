@@ -69,6 +69,11 @@
                     <v-img src="/images/hark-logo.png" max-width="60"></v-img>
                 </v-btn>
             </v-toolbar-title>
+            <v-divider
+                class="pl-4"
+                inset
+                vertical
+            ></v-divider>
             <location-drop-down style="padding-left:15px;height:100%;"></location-drop-down>
             <pages-drop-down style="height:100%;"></pages-drop-down>
 

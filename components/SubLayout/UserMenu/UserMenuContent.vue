@@ -1,5 +1,5 @@
 <template>
-  <v-card width="225">
+  <v-card tile width="160">
     <v-sheet tile color="secondary" class="px-2 py-1">
       <div class="d-flex align-center">
 
@@ -38,19 +38,16 @@
 
         <div>
           <div class="title white--text">{{ username }}</div>
-          <div class="body-2 white--text">{{ userType }}</div>
+          <div class="body-2 white--text mb-1">{{ userType }}</div>
         </div>
       </div>
     </v-sheet>
 
-    <v-divider/>
+    <v-divider></v-divider>
 
-    <v-sheet
-      
-    >
+    <v-sheet>
       <v-list
         dense
-        :style="{ background: 'transparent' }"
       >
         <!-- Profile -->
         <v-list-item to="/profile">
@@ -138,7 +135,8 @@
         <!-- <braintree-drop-in class="my-1" /> -->
 
         <!-- Sign OUt -->
-        <v-list-item @click="logout">
+        <v-divider></v-divider>
+        <v-list-item @click="logout" class="pt-1">
           <v-list-item-action>
             <v-icon>exit_to_app</v-icon>
           </v-list-item-action>
