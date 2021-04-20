@@ -25,7 +25,7 @@
 
     <div class="d-flex justify-end">
       <div class="pr-4 pb-3">
-        <v-btn color="primary" :href="link" target="_blank">{{
+        <v-btn outlined color="primary" :href="link" target="_blank">{{
           shortdesc
         }}</v-btn>
       </div>

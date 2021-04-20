@@ -74,19 +74,19 @@
                 inset
                 vertical
             ></v-divider>
-            <pages-drop-down style="height:100%;"></pages-drop-down>
+            <!-- <pages-drop-down style="height:100%;"></pages-drop-down> -->
 
             <v-btn
-                color="black"
-                dark
                 v-bind="attrs"
                 v-on="on"
                 :ripple="false"
                 text
                 exact
                 style="height: 100%"
-                tile
+                depressed
+                plain
                 to="/donations"
+                class="pl-6"
             >
                 Donations
             </v-btn>
@@ -364,6 +364,10 @@ export default {
 }*/
 
 #app {
+    background-color: #D0D0D0
+}
+
+/*#app {
   //background-image: linear-gradient(to top right, #54547c, #ebe8e8, #cc6464);
   background-image: linear-gradient(
     to top right,
@@ -372,5 +376,5 @@ export default {
     rgba(235, 232, 232, 1) 85%,
     rgb(207, 169, 169) 100%
   );
-}
+}*/
 </style>
