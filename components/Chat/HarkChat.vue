@@ -5,6 +5,7 @@
         style="position: relative; display: inline"
         color="white"
     >
+
         <!-- Chat Header -->
         <chat-header
             color="white"
@@ -17,7 +18,10 @@
             :avatar="streamerAvatar"
             :tokenName="streamerTokenName"
             :streamerUid="streamerUid"
+            :polls="polls"
+            :username="username"
             @add-channel-tag="addUserTag(page)"
+            @voteAdded="$emit('voteAdded', $event)"
         />
         <!-- <v-btn v-if="!connected" @click="isAuth ? connect : showLogin=true" color="primary" class="mt-3">
             {{isAuth ? "Join chat!" : "Log in to chat!"}}
@@ -105,6 +109,7 @@ import { VStore } from "@/store";
 
 import { UserStats } from "@/assets/js/Stats/UserStats";
 
+
 //import { io } from "socket.io-client";
 
 export default {
@@ -116,13 +121,16 @@ export default {
 
         // for the donate bar (probably move to vuex store)
         donateOn: { type: Boolean, default: false },
-        donateMsg: { type: String, default: "" },
+        donateMsg: { type: String, default: "Donate" },
         donateUrl: { type: String, default: "" },
 
         // for the tfuel donate dialog (probably move to vuex store)
         streamerAvatar: { type: String, default: "" },
         streamerTokenName: { type: String, default: "" },
         streamerUid: { type: String, default: "" },
+
+        polls: { type: [], default: [] }
+
     },
 
     components: {
@@ -183,7 +191,7 @@ export default {
                         extraHeaders: {
                             // this is just temporary mild deterrent for unwanted connections
                             // TODO: make this a signed jwt token
-                            auth: "coolsecret"
+                            auth: "coolsecret",
                         },
                     },
                 },
@@ -194,6 +202,7 @@ export default {
                 this.socket.emit("joinRoom", this._username, this.chatChannel);
                 this.loading = false;
                 this.connected = true;
+                //this.updateViewers;
             });
 
             // add message when message happens
@@ -211,6 +220,10 @@ export default {
                 this.connected = false;
             });
         },
+
+        addUserTag(x) {
+            console.log("Not yet implemented");
+        }
     },
 
     computed: {
@@ -259,6 +272,10 @@ export default {
             inputRateLimit: Chat.$states.inputRateLimit,
         }),
 
+        ...mapActions({
+            updateViewers: VStore.$actions.updateViewers,
+        }),
+
         ...mapMutations(Chat.namespace, {
             setRoom: Chat.$mutations.setRoom,
             setGlobal: Chat.$mutations.setGlobal,
@@ -294,6 +311,10 @@ export default {
                 return "Global";
             }
         },
+
+        showPoll(active) {
+
+        }
     },
 
     watch: {
@@ -306,36 +327,32 @@ export default {
     },
 
     async mounted() {
-        
-        auth.onAuthStateChanged( (user) => {
-            if(user){
+        auth.onAuthStateChanged((user) => {
+            if (user) {
                 // connect to chat if user logged in
-                setTimeout(()=> {
+                setTimeout(() => {
                     this.connect();
                 }, 1000);
-            }
-            else {
+            } else {
                 // don't otherwise
                 //console.log("not logged in");
                 this.socket.disconnect();
                 //this.messages = null;
                 this.loading = true;
             }
-            
         });
     },
 
     beforeDestroy() {
         // disconnect
-        if(this.socket){
+        if (this.socket) {
             this.socket.disconnect();
         }
-        
     },
 
     destroyed() {
         // disconnect
-        if(this.socket){
+        if (this.socket) {
             this.socket.disconnect();
         }
     },

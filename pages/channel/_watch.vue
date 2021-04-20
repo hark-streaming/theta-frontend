@@ -108,6 +108,10 @@
                 :streamerAvatar="avatar"
                 :streamerTokenName="streamerTokenName"
                 :streamerUid="streamerUid"
+
+                :polls="polls"
+
+                @voteAdded="addVote($event)"
             />
         </div>
 
@@ -254,12 +258,14 @@ export default {
             banned: false,
             tags: [],
 
-            donateOn: true,
-            donateMsg: "",
+            donateOn: false,
+            donateMsg: "Donate",
             donateUrl: "",
 
             streamerTokenName: "",
             streamerUid: "",
+
+            polls: [],
 
             banMessage:
                 "This channel has been banned for breaching our Terms of Service.",
@@ -269,10 +275,10 @@ export default {
     methods: {
         async onEnded() {
             console.log(`Player source ended`);
-            this.setSource({
-                url: await this.getRandomBump(),
-                type: "video/mp4",
-            });
+            // this.setSource({
+            //     url: await this.getRandomBump(),
+            //     type: "video/mp4",
+            // });
         },
 
         trackWatchTime(stats) {
@@ -291,22 +297,22 @@ export default {
         },
 
         // This guy is the 15-30sec meme video bitwave slaps on before a stream loads
-        // Could probably replace this with an ad feature
-        // also plays when a streamer is offline
+        // let's just take it out for now
         async getRandomBump() {
-            const { data } = await this.$axios.get(
-                `https://api.bitwave.tv/api/bump`
-            );
-            // limit to checking 15 most recent bumps
-            if (this.recentBumps.length >= 15)
-                this.recentBumps = this.recentBumps.splice(-15);
-            // Recurse until we get a fresh bump
-            if (this.recentBumps.includes(data.url)) {
-                console.log(`Recently seen ${data.url}, getting a new bump`);
-                return await this.getRandomBump();
-            }
-            this.recentBumps.push(data.url);
-            return data.url;
+
+            // const { data } = await this.$axios.get(
+            //     `https://api.bitwave.tv/api/bump`
+            // );
+            // // limit to checking 15 most recent bumps
+            // if (this.recentBumps.length >= 15)
+            //     this.recentBumps = this.recentBumps.splice(-15);
+            // // Recurse until we get a fresh bump
+            // if (this.recentBumps.includes(data.url)) {
+            //     console.log(`Recently seen ${data.url}, getting a new bump`);
+            //     return await this.getRandomBump();
+            // }
+            // this.recentBumps.push(data.url);
+            // return data.url;
         },
 
         getStreamData() {
@@ -349,6 +355,8 @@ export default {
             this.donateOn = data.donateOn;
             this.donateMsg = data.donateMsg;
             this.donateUrl = data.donateUrl;
+
+            this.polls = data.polls;
 
             this.tags = data.tags;
 
@@ -429,10 +437,10 @@ export default {
                     this.poster = data.cover;
 
                     this.setPoster(data.thumbnail);
-                    this.setSource({
-                        url: await this.getRandomBump(),
-                        type: "video/mp4",
-                    });
+                    // this.setSource({
+                    //     url: await this.getRandomBump(),
+                    //     type: "video/mp4",
+                    // });
                 };
 
                 // Keep timer ID so we can cancel early if stream recovers
@@ -448,6 +456,33 @@ export default {
             }
 
             this.live = live;
+        },
+
+        async updatePollData() {
+            this.$ga.event({
+                eventCategory: "profile",
+                eventAction: "update stream",
+                eventLabel: (this.name || channel).toLowerCase(),
+            });
+
+            const polls = [];
+            this.streamData.polls.forEach(x => polls.push(x));
+
+            const stream = (this.name || channel).toLowerCase();
+
+            const streamRef = db.collection("streams").doc(stream); // MAKE SURE THE FIRESTORE HAS THE CORRECT SECURITY RULES HERE
+            await streamRef.update({
+                polls
+            });
+        },
+
+        addVote(event) {
+            const id = event[0];
+            const val = event[1];
+
+            this.polls[id].answers[val].votes++;
+
+            this.updatePollData();
         },
 
         onIntersect(entries, observer) {
@@ -567,6 +602,7 @@ export default {
                         donateOn: data.donateOn,
                         donateMsg: data.donateMsg,
                         donateUrl: data.donateUrl,
+                        polls: data.polls
                     };
 
                     console.log(`Bypass should be successfull...`);
@@ -607,6 +643,8 @@ export default {
                 const donateOn = data.donateOn;
                 const donateMsg = data.donateMsg;
                 const donateUrl = data.donateUrl;
+
+                const polls = data.polls;
 
                 // Stream tags
                 const tags = data.tags;
@@ -666,6 +704,7 @@ export default {
                         donateOn,
                         donateMsg,
                         donateUrl,
+                        polls
                     },
                 };
             } catch (error) {

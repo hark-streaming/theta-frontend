@@ -514,7 +514,8 @@ export const actions = {
             const update = async () => {
                 const updateChannelViewers = async () => {
                     try {
-                        const { data } = await this.$axios.get('https://api.bitwave.tv/v1/chat/channels', { progress: false, skipAuth: true });
+                        /*'https://api.bitwave.tv/v1/chat/channels'*/
+                        const { data } = await this.$axios.get(`http://localhost:4000/users/all`);
                         if (data && data.success) {
                             commit($mutations.setChannelViewers, data.data);
                         }
@@ -525,10 +526,10 @@ export const actions = {
 
                 const updateUserList = async () => {
                     try {
-                        const { data } = await this.$axios.get('https://api.bitwave.tv/v1/chat/users', { progress: false, skipAuth: true });
-                        if (data && data.success) {
-                            commit($mutations.setUserList, data.data);
-                        }
+                        // const { data } = await this.$axios.get('https://api.bitwave.tv/v1/chat/users', { progress: false, skipAuth: true });
+                        // if (data && data.success) {
+                        //     commit($mutations.setUserList, data.data);
+                        // }
                     } catch (error) {
                         console.error(`Failed to hydrate userlist.`, error.message);
                     }
