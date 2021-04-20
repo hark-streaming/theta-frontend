@@ -7,6 +7,7 @@
           dense
           :style="{ background: 'transparent' }"
         >
+          <!--
           <div>
             <div class="overline text-center grey--text">
               work in progress
@@ -30,6 +31,7 @@
               <v-list-item-title>Pop Out Chat</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          -->
 
           <v-list-item @click="closeChat">
             <v-list-item-action class="mr-1">
