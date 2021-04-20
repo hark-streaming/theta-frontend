@@ -423,7 +423,7 @@ export default {
 
             try {
                 // all usernames will be valid for now
-                const checkUsername = await this.$axios.$post(
+                const checkUsername = await this.$axios.$get(
                     `${process.env.API_URL}/users/check-username/${username}`
                 );
                 if (checkUsername.valid) {
