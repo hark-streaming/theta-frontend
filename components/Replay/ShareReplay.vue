@@ -13,7 +13,7 @@
           <v-icon small class="ml-1">share</v-icon>
         </v-btn>
       </template>
-      <span>Share this replay!</span>
+      <span>Share this replay.</span>
     </v-tooltip>
 
     <v-dialog
@@ -47,7 +47,7 @@
 
         <div class="pa-3">
           <div class="mb-3">
-            Share a link directly to this stream replay on twitter below!<br>
+            Share a link directly to this stream replay on Twitter below!<br>
             <span class="caption grey--text">(you will be able to edit the tweet before posting)</span>
           </div>
 

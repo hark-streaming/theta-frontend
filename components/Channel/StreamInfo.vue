@@ -29,7 +29,7 @@
           </v-chip>
 
           <!-- Stream Title -->
-          <h3 class="mx-2 flex-grow-1 subtitle-1 font-weight-medium text-truncate" :title="title">
+          <h3 class="mx-2 pl-2 flex-grow-1 subtitle-1 font-weight-medium text-truncate" :title="title">
             {{ title }}
           </h3>
 
@@ -149,7 +149,7 @@
         touchless
       >
         <!-- Description -->
-        <v-tab-item>
+        <v-tab-item color="#DCDCDC">
           <div
             id="description"
             ref="description"

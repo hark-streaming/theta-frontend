@@ -32,8 +32,8 @@
           color="secondary"
           class="pa-2 d-flex justify-space-between align-center"
         >
-          <h4 class="body-1 white--text">
-            Share
+          <h4 class="pl-1 body-1 white--text">
+            Share this Stream
           </h4>
           <v-btn
             text
@@ -46,8 +46,8 @@
         </v-sheet>
 
         <div class="pa-3">
-          <div class="mb-3">
-            Share a link directly to this stream on twitter below.<br>
+          <div class="pl-1 mb-3">
+            Share a link directly to this stream on Twitter below.<br>
             <span class="caption grey--text">(You will be able to edit the tweet before posting.)</span>
           </div>
 
@@ -63,7 +63,7 @@
           >
             <template #append v-if="!$vuetify.breakpoint.xsOnly">
               <v-btn
-                color="secondary"
+                color="primary"
                 depressed
                 small
                 @click="copyShareLink"
@@ -74,7 +74,7 @@
           <div class="d-flex">
             <!-- Share to twitter -->
             <v-btn
-              color="#1da1f2"
+              color="secondary"
               :href="twitterLink"
               target="_blank"
               @click="shareToTwitter"

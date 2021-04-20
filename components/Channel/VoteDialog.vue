@@ -13,6 +13,7 @@
             :max-width="$vuetify.breakpoint.mdAndDown ? '95%' : '68%'"
             @click:outside="close"
             persistent
+            transition="fade-transition"
         >
 
             <!-- Voting Dialog -->
@@ -20,11 +21,11 @@
 
                 <!-- Title Bar -->
                 <v-sheet 
-                    tile 
+                    tile
                     color="secondary" 
                     class="pa-2 d-flex justify-space-between align-center white--text"
                 >
-                    <h4 class="body-1">
+                    <h4 class="pl-1 body-1">
                         Vote
                     </h4>
 

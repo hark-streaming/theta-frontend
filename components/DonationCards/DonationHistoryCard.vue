@@ -99,7 +99,7 @@ export default {
     return {
       chartdata: {
         //labels: yourLabels,
-        labels: ['Oil', 'Animal Cruelty', 'Global Warming', 'Education'],
+        labels: ['Oil', 'Animal Cruelty', 'Global Warming', 'Education', 'Hunger'],
         datasets: [
           {
             label: "Data One",
@@ -114,7 +114,7 @@ export default {
         ],
       },
       chartdata2: {
-        labels: ['Fuelman', 'Gorgot', 'Ben Shapeero', 'Joe mama'],
+        labels: ['Fuelman', 'Gorgot', 'Davidson', 'Pollit','Demographica'],
         datasets: [
           {
             label: "Data One",
