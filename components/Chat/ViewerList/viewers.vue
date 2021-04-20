@@ -9,7 +9,7 @@
       color="primary"
       class="d-flex align-center justify-space-between pl-2"
     >
-      <h5 class="white--text body-2">Live Viewers</h5>
+      <h5 class="white--text body-2 pl-1">Live Viewers</h5>
       <v-btn
         :ripple="false"
         class="closebtn"
@@ -30,10 +30,11 @@
         label="Filter..."
         color="primary"
         single-line
-        outlined
+        solo
         hide-details
         dense
         clearable
+        class="custom"
         @input="filterViewerList"
       />
 
@@ -204,7 +205,22 @@
   };
 </script>
 
-<style scoped lang="scss">
+<style scoped>
+
+  .v-switch >>> label {
+    font-size: 5px;
+  }
+
+  h5 {
+    font-size: 5em;
+  }
+
+  .custom.v-text-field input {
+    font-size: 0.4em;
+  }
+  .custom.v-text-field label {
+    font-size: 0.4em;
+  }
 
   .closebtn::before {
     color: transparent

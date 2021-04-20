@@ -101,7 +101,7 @@
             <v-btn
                 v-if="donateOn"
                 color="primary"
-                class="black--text"
+                class="white--text"
                 target="_blank"
                 :href="donateUrl"
                 small
@@ -119,7 +119,7 @@
         </v-sheet>
 
         <!-- tfuel donate dialog -->
-        <v-dialog v-model="showDonate" width="500">
+        <v-dialog v-model="showDonate" width="500" transition="fade-transition">
             <lazy-tfuel-dialog
                 :avatar="avatar"
                 :streamer="page"
@@ -130,7 +130,7 @@
         </v-dialog>
 
         <!-- log in dialog for those not logged in -->
-        <v-dialog v-model="showLogin" width="420">
+        <v-dialog v-model="showLogin" width="420" transition="fade-transition">
             <lazy-login-dialog @close="showLogin = false" />
         </v-dialog>
     </div>
