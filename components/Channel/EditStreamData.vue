@@ -36,7 +36,7 @@
           color="primary"
           class="pa-2 d-flex justify-space-between align-center black--text"
         >
-          <h4 class="body-1">
+          <h4 class="pl-2 body-1 white--text">
             Edit Channel
             <v-fade-transition>
               <span v-show="enableSave">(unsaved changes)</span>

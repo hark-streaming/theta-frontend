@@ -1,13 +1,13 @@
 <template>
     <div>
 
-      <v-sheet
+      <!-- <v-sheet
         class="py-2 px-3 hide-scrollbar bw-channel-topbar"
         color="accentwave"
-        tile
-      >
+      > -->
+      <v-sheet class="py-2 px-3 hide-scrollbar" color="#DCDCDC">
         <div class="d-flex align-center justify-space-between">
-          <div class="d-flex align-center grey--text">
+          <div class="d-flex align-center black--text">
             <v-avatar size="32">
               <img
                 v-if="avatar"

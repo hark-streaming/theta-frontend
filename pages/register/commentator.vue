@@ -2,7 +2,7 @@
     <v-card tile flat color="secondary" style="height:100%;">
         <v-container>
             <v-row>
-                <v-col cols="2">
+                <v-col cols="3">
                     <v-card outlined color="#E0DAE7" style="height:100%;">
                         <v-card flat color="#E0DAE7" class="sticky-card" style="width:100%;">
                             <h2 class="pt-2 mt-3" style="text-align:center;">
@@ -49,7 +49,7 @@
                         </v-card>
                     </v-card>
                 </v-col>
-                <v-col cols="10">
+                <v-col cols="9">
                     <v-form ref="form" v-model="valid" lazy-validation>
                         <v-card flat style="height:100%;" class="px-8 pb-4 mb-6" color="#E0DAE7">
                             <h2 class="pt-4"> Entity Selection </h2>

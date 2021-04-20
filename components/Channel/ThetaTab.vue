@@ -1,12 +1,15 @@
 <template>
-    <!-- Theta Web Widget -->
-    <div
-        id="theta-section"
-        ref="theta-section"
-        class="pa-3"
-        style="min-height: 300px"
-    >
-        <div id="MY_THETA_WEB_WIDGET_ID"></div>
+    <div>
+        <!-- Theta Web Widget -->
+        <h2 class="pl-3 pt-2">Theta Network Statistics</h2>
+        <div
+            id="theta-section"
+            ref="theta-section"
+            class="pa-3"
+            style="min-height: 300px"
+        >
+            <div id="MY_THETA_WEB_WIDGET_ID"></div>
+        </div>
     </div>
 </template>
 
@@ -21,10 +24,9 @@ export default {
         // theta web widget
         if (process.browser) {
             console.log("connecting the theta widget");
-            
             var widget = new ThetaWebWidgets.OverviewWithTrafficChartWidget();
             widget.setTheme(ThetaWebWidgets.Themes.Light);
-            widget.setMainMessage("Theta Network Stats");
+            widget.setMainMessage(" ");
             widget.setUserAvatarURL(`https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png`);
             widget.render("MY_THETA_WEB_WIDGET_ID");
 
@@ -32,3 +34,8 @@ export default {
     },
 };
 </script>
+<style scoped>
+    h2 {
+        font-size:1.5em;
+    }
+</style>
