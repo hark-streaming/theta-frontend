@@ -157,7 +157,7 @@ import { Player } from "@/store/player";
 
 import { db } from "@/plugins/firebase.js";
 
-import Chat from "@/components/Chat/Chat";
+//import Chat from "@/components/Chat/Chat";
 import StreamTopBar from "@/components/Channel/StreamTopBar";
 import StreamInfo from "@/components/Channel/StreamInfo";
 import BitwaveVideoPlayer from "@/components/BitPlayer/BitwaveVideoPlayer";
@@ -224,7 +224,7 @@ export default {
         Stickers,
         StreamTopBar,
         StreamInfo,
-        Chat,
+        //Chat,
         //BitwaveVideoPlayer,
         ThetaVideoPlayer,
     },

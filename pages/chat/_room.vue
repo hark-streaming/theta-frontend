@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import Chat from '~/components/Chat/Chat'
+  //import Chat from '~/components/Chat/Chat'
 
   export default {
     name: 'chat-room',
@@ -17,7 +17,7 @@
     layout: 'barebones',
 
     components: {
-      Chat,
+      //Chat,
     },
 
     data() {

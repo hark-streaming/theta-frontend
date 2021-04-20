@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import Chat from '@/components/Chat/Chat'
+  //import Chat from '@/components/Chat/Chat'
 
   export default {
     name: 'chat',
@@ -13,7 +13,7 @@
     layout: 'barebones',
 
     components: {
-      embedChat: Chat,
+      //embedChat: Chat,
     },
 
     data() {

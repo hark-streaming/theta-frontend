@@ -31,8 +31,6 @@ import hls from "hls.js";
 import { mapState, mapMutations } from "vuex";
 import { Chat as ChatStore } from "@/store/chat";
 
-import Chat from "@/components/Chat/Chat";
-
 const preroll = "https://cdn.bitwave.tv/static/REWIND.mp4";
 
 export default {
@@ -62,10 +60,6 @@ export default {
         name: { type: String },
         mobile: { type: Boolean, default: false },
         offline: { type: Boolean, default: false },
-    },
-
-    components: {
-        Chat,
     },
 
     data() {
