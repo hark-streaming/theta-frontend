@@ -209,11 +209,13 @@ export default {
             this.requestButtonLoading = true;
 
             // check if the token has been requested
-            const reqDoc = await db.collection("requests").doc(this.uid).get();
-            if (reqDoc.exists) {
+            const reqRef = await db.collection("requests").doc(this.uid);
+            if (reqRef.exists) {
                 this.tokenRequested = true;
             } else {
                 this.tokenRequested = false;
+                this.requestButtonLoading = false;
+                return;
             }
 
             // check if the token exists and save the name
@@ -225,7 +227,7 @@ export default {
                 this.tokenData.symbol = tokenName;
             }
 
-            // get the token holders
+            // TODO: get the token holders
 
             this.requestButtonLoading = false;
         },
@@ -245,19 +247,19 @@ export default {
             this.requestButtonLoading = false;
 
             // call api to generate the token
-            // this call requires admin approval but for now we're going to automate it
-            res = await this.$axios.$post(
-                `${process.env.API_URL}/deploy-governance-contract/${this.uid}`,
-                {
-                    headers: {
-                        auth: process.env.HARK_ADMIN_KEY,
-                    },
-                }
-            );
-            if (res.success) {
-                this.tokenRequested = false;
-                this.tokenExists = true;
-            }
+            // this call requires admin approval
+            // res = await this.$axios.$post(
+            //     `${process.env.API_URL}/deploy-governance-contract/${this.uid}`,
+            //     {
+            //         headers: {
+            //             auth: process.env.HARK_ADMIN_KEY,
+            //         },
+            //     }
+            // );
+            // if (res.success) {
+            //     this.tokenRequested = false;
+            //     this.tokenExists = true;
+            // }
         },
     },
     computed: {

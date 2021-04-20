@@ -237,20 +237,20 @@ export default {
         async getCardData() {
             this.cardDataLoading = true;
 
-            let cardDoc = await db.collection("dcards").doc(this.uid).get();
-            let data = cardDoc.data();
-
-            // if they have previous data load it
-            if (data != null) {     
-                this.cardData.title = data.title;
-                this.cardData.link = data.link;
-                this.cardData.shortdesc = data.shortdesc;
-                this.cardData.longdesc = data.longdesc;
+            let cardRef = db.collection("dcards").doc(this.uid);       
+            if (cardRef.exists) {
+                let cardDoc = await cardRef.get();
+                let data = await cardDoc.data();
+                // if they have previous data load it
+                if (data != null) {
+                    this.cardData.title = data.title;
+                    this.cardData.link = data.link;
+                    this.cardData.shortdesc = data.shortdesc;
+                    this.cardData.longdesc = data.longdesc;
+                }
             }
-
             // set the old data so we can use reset button
             this.setOld();
-
             this.cardDataLoading = false;
         },
         resetData() {
@@ -266,7 +266,7 @@ export default {
                 shortdesc: this.cardData.shortdesc,
                 longdesc: this.cardData.longdesc,
                 link: this.cardData.link,
-                owner: this.uid
+                owner: this.uid,
             });
 
             this.saveLoading = false;
@@ -293,9 +293,8 @@ export default {
 </script>
 
 <style scoped>
-    h2 {
-        font-weight: 600;
-        font-size: 20px;
-    }
-
+h2 {
+    font-weight: 600;
+    font-size: 20px;
+}
 </style>
