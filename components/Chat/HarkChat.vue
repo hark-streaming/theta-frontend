@@ -110,7 +110,7 @@ import { VStore } from "@/store";
 
 import { UserStats } from "@/assets/js/Stats/UserStats";
 
-import { io } from "socket.io-client";
+//import { io } from "socket.io-client";
 
 export default {
     name: "Chat",

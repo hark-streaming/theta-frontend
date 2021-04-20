@@ -179,7 +179,7 @@
   import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
   import { db } from '@/plugins/firebase.js';
 
-  import Chat from '~/components/Chat/Chat';
+  //import Chat from '~/components/Chat/Chat';
   import FollowButton from '@/components/Channel/FollowButton';
   import ReplayInfo from '@/components/Replay/ReplayInfo';
 
@@ -221,7 +221,7 @@
       Stickers,
       ReplayInfo,
       FollowButton,
-      Chat,
+      //Chat,
     },
 
     data () {

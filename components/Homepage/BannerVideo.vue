@@ -68,7 +68,7 @@
   import { mapState, mapMutations } from 'vuex';
   import { Chat as ChatStore } from '@/store/chat';
 
-  import Chat from '@/components/Chat/Chat';
+  //import Chat from '@/components/Chat/Chat';
 
   const preroll = 'https://cdn.bitwave.tv/static/REWIND.mp4';
 
