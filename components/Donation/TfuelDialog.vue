@@ -249,11 +249,11 @@ export default {
     async mounted() {
         const uid = await auth.currentUser.uid;
 
-        // call api for the p2p wallet balance
+        // call api for the vault wallet balance
         let result = await this.$axios.get(`${process.env.API_URL}/theta/address/${uid}`);
 
         //return balance
-        this.balance = result.data.vaultBalance;
+        this.balance = result.data.vaultBalance == null ? 0 : result.data.vaultBalance;
     },
 };
 </script>
