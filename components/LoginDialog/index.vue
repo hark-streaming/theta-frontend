@@ -421,29 +421,13 @@ export default {
             try {
                 // all usernames will be valid for now
                 // TODO: add our own username checking
-                return true;
-                // const userRef = db.collection("users");
-
-
-                // // Verify Username is valid & not taken
-                // // TODO: update to hark endpoint
-                // const endpoint = "https://api.bitwave.tv/api/check-username";
-                // const payload = { username: username };
-                // const config = { progress: false };
-                // const checkUsername = await this.$axios.$post(
-                //     endpoint,
-                //     payload,
-                //     config
-                // );
-
-                // // Validate API response
-                // if (checkUsername.valid) {
-                //     this.usernameSuccess = "Username Available";
-                //     return true;
-                // } else {
-                //     this.usernameError = checkUsername.error;
-                //     return false;
-                // }
+                const checkUsername = await this.$axios.$post(`${process.env.API_URL}/users/check-username/${username}`);
+                if(checkUsername.valid){
+                    return true;
+                }
+                else {
+                    return false;
+                }
 
                 // Failed to check username
             } catch {

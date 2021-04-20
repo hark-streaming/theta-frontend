@@ -262,6 +262,7 @@ export default {
                 shortdesc: this.cardData.shortdesc,
                 longdesc: this.cardData.longdesc,
                 link: this.cardData.link,
+                owner: this.uid
             });
 
             this.saveLoading = false;

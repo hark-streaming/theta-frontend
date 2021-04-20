@@ -1,20 +1,20 @@
 <template>
-    <v-app :class="{ ssr: ssr, systemAlert: !!showSystemAlert }" light>
-        <!-- System Bar -->
-        <v-slide-y-transition>
-            <system-alert
-                v-if="showSystemAlert"
-                :id="systemAlert.id"
-                :scroll="systemAlert.scroll"
-                :message="systemAlert.message"
-                :icon="systemAlert.icon"
-                :color="systemAlert.color"
-                :text-color="systemAlert.textColor"
-                @hide="hideSystemAlert"
-            />
-        </v-slide-y-transition>
+  <v-app :class="{ ssr: ssr, systemAlert: !!showSystemAlert }" light>
+    <!-- System Bar -->
+    <v-slide-y-transition>
+      <system-alert
+        v-if="showSystemAlert"
+        :id="systemAlert.id"
+        :scroll="systemAlert.scroll"
+        :message="systemAlert.message"
+        :icon="systemAlert.icon"
+        :color="systemAlert.color"
+        :text-color="systemAlert.textColor"
+        @hide="hideSystemAlert"
+      />
+    </v-slide-y-transition>
 
-        <!--
+    <!--
 
         <cv-header-name href="javascript:void(0)" prefix="IBM">
             [Platform]
@@ -74,8 +74,22 @@
                 inset
                 vertical
             ></v-divider>
-            <location-drop-down style="padding-left:15px;height:100%;"></location-drop-down>
             <pages-drop-down style="height:100%;"></pages-drop-down>
+
+            <v-btn
+                color="black"
+                dark
+                v-bind="attrs"
+                v-on="on"
+                :ripple="false"
+                text
+                exact
+                style="height: 100%"
+                tile
+                to="/donations"
+            >
+                Donations
+            </v-btn>
 
             <v-spacer />
 
@@ -139,148 +153,147 @@ import { mapGetters, mapMutations } from "vuex";
 import { VStore } from "@/store";
 
 export default {
-    components: {
-        SystemAlert,
-        UserMenu,
-        sidebar,
-        Notifications,
-        StreamHereBtn,
-        Fireworks,
-        PagesDropDown,
-        LocationDropDown,
+  components: {
+    SystemAlert,
+    UserMenu,
+    sidebar,
+    Notifications,
+    StreamHereBtn,
+    Fireworks,
+    PagesDropDown,
+    LocationDropDown,
+  },
+
+  data() {
+    PagesDropDown;
+    return {
+      bwLogo: "/images/icon-2.png",
+      title: "HARK",
+      drawer: null,
+      ssr: true,
+      systemAlertHidden: null,
+
+      searchValue: "",
+      showSearchBar: true,
+    };
+  },
+
+  methods: {
+    ...mapMutations({
+      setPwaPrompt: VStore.$mutations.setPwaPrompt,
+    }),
+
+    hideSystemAlert() {
+      try {
+        this.systemAlertHidden = this.systemAlert.id;
+        localStorage.setItem("hide-system-alert", this.systemAlert.id);
+      } catch (error) {
+        console.warn(
+          `Failed to save 'hide-system-alert' to localStorage!`,
+          error
+        );
+      }
     },
 
-    data() {
-        PagesDropDown;
-        return {
-            bwLogo: "/images/icon-2.png",
-            title: "HARK",
-            drawer: null,
-            ssr: true,
-            systemAlertHidden: null,
-
-            searchValue: "",
-            showSearchBar: true,
-        };
+    async newVersionAvailable(info) {
+      console.log(`New service worker available`, info);
     },
 
-    methods: {
-        ...mapMutations({
-            setPwaPrompt: VStore.$mutations.setPwaPrompt,
-        }),
-
-        hideSystemAlert() {
-            try {
-                this.systemAlertHidden = this.systemAlert.id;
-                localStorage.setItem("hide-system-alert", this.systemAlert.id);
-            } catch (error) {
-                console.warn(
-                    `Failed to save 'hide-system-alert' to localStorage!`,
-                    error
-                );
-            }
-        },
-
-        async newVersionAvailable(info) {
-            console.log(`New service worker available`, info);
-        },
-
-        onBeforeInstallPrompt(prompt) {
-            if (process.env.APP_DEBUG)
-                console.log(`Listening for PWA prompt...`);
-            console.debug(`PWA Prompt:`, prompt);
-            prompt.preventDefault();
-            this.setPwaPrompt(prompt);
-        },
-
-        goToSearch() {
-            if (this.searchValue == null || this.searchValue == "") return;
-
-            // this.setSearchValue(this.searchValue.toString());
-            this.$store.commit("setSearchValue", this.searchValue);
-            this.$router.push("/search");
-        },
+    onBeforeInstallPrompt(prompt) {
+      if (process.env.APP_DEBUG) console.log(`Listening for PWA prompt...`);
+      console.debug(`PWA Prompt:`, prompt);
+      prompt.preventDefault();
+      this.setPwaPrompt(prompt);
     },
 
-    computed: {
-        ...mapGetters({
-            isUpdateAvailable: VStore.$getters.isUpdateAvailable,
-            getAlerts: VStore.$getters.getAlerts,
-            isAuth: VStore.$getters.isAuth,
-        }),
+    goToSearch() {
+      if (this.searchValue == null || this.searchValue == "") return;
 
-        systemAlert() {
-            return this.getAlerts.hasOwnProperty("systemAlert")
-                ? this.getAlerts.systemAlert
-                : false;
-        },
+      // this.setSearchValue(this.searchValue.toString());
+      this.$store.commit("setSearchValue", this.searchValue);
+      this.$router.push("/search");
+    },
+  },
 
-        showSystemAlert() {
-            return (
-                this.systemAlert &&
-                this.systemAlert.display &&
-                this.systemAlertHidden !== this.systemAlert.id
-            );
-        },
+  computed: {
+    ...mapGetters({
+      isUpdateAvailable: VStore.$getters.isUpdateAvailable,
+      getAlerts: VStore.$getters.getAlerts,
+      isAuth: VStore.$getters.isAuth,
+    }),
 
-        fireworks() {
-            return this.getAlerts.hasOwnProperty("fireworks")
-                ? this.getAlerts.fireworks
-                : false;
-        },
-
-        showFireworks() {
-            return this.fireworks && this.fireworks.display;
-        },
-
-        mobile() {
-            return this.mounted
-                ? this.$vuetify.breakpoint.smAndDown
-                : !this.$device.isDesktopOrTablet;
-        },
+    systemAlert() {
+      return this.getAlerts.hasOwnProperty("systemAlert")
+        ? this.getAlerts.systemAlert
+        : false;
     },
 
-    watch: {
-        showFireworks(val) {
-            if (val)
-                this.$refs["fireworks"].start(
-                    this.fireworks.message,
-                    this.fireworks.subtext
-                );
-        },
+    showSystemAlert() {
+      return (
+        this.systemAlert &&
+        this.systemAlert.display &&
+        this.systemAlertHidden !== this.systemAlert.id
+      );
     },
 
-    async mounted() {
-        this.ssr = false;
-
-        try {
-            this.systemAlertHidden = localStorage.getItem("hide-system-alert");
-        } catch (error) {
-            this.systemAlertHidden = false;
-            console.warn(
-                `Failed to read 'hide-system-alert from localStorage'`,
-                error.message
-            );
-        }
-
-        const workbox = await window.$workbox;
-        if (workbox) {
-            workbox.addEventListener("waiting", async (event) => {
-                console.log(event);
-                await this.newVersionAvailable({ version: "SW" });
-            });
-        }
+    fireworks() {
+      return this.getAlerts.hasOwnProperty("fireworks")
+        ? this.getAlerts.fireworks
+        : false;
     },
 
-    created() {
-        this.$nuxt.$on("searchLoaded", () => {
-            this.showSearchBar = false;
-        });
-
-        this.$nuxt.$on("searchDestroyed", () => {
-            this.showSearchBar = true;
-        });
+    showFireworks() {
+      return this.fireworks && this.fireworks.display;
     },
+
+    mobile() {
+      return this.mounted
+        ? this.$vuetify.breakpoint.smAndDown
+        : !this.$device.isDesktopOrTablet;
+    },
+  },
+
+  watch: {
+    showFireworks(val) {
+      if (val)
+        this.$refs["fireworks"].start(
+          this.fireworks.message,
+          this.fireworks.subtext
+        );
+    },
+  },
+
+  async mounted() {
+    this.ssr = false;
+
+    try {
+      this.systemAlertHidden = localStorage.getItem("hide-system-alert");
+    } catch (error) {
+      this.systemAlertHidden = false;
+      console.warn(
+        `Failed to read 'hide-system-alert from localStorage'`,
+        error.message
+      );
+    }
+
+    const workbox = await window.$workbox;
+    if (workbox) {
+      workbox.addEventListener("waiting", async (event) => {
+        console.log(event);
+        await this.newVersionAvailable({ version: "SW" });
+      });
+    }
+  },
+
+  created() {
+    this.$nuxt.$on("searchLoaded", () => {
+      this.showSearchBar = false;
+    });
+
+    this.$nuxt.$on("searchDestroyed", () => {
+      this.showSearchBar = true;
+    });
+  },
 };
 </script>
 
@@ -312,37 +325,52 @@ export default {
 }
 
 #app.ssr {
-    .v-menu,
-    .v-tooltip {
-        display: block !important;
-    }
+  .v-menu,
+  .v-tooltip {
+    display: block !important;
+  }
 }
 
 .logobtn::before {
-    color: transparent
+  color: transparent;
 }
 
 .header {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: z('header');
-    display: flex;
-    align-items: center;
-    height: mini-units(6);
-    background-color: black;
-    border-bottom: 1px solid white;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: z("header");
+  display: flex;
+  align-items: center;
+  height: mini-units(6);
+  background-color: black;
+  border-bottom: 1px solid white;
 }
 
+/*.header-name {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 mini-units(4) 0 mini-units(2);
+  font-weight: 600;
+  line-height: 1.25rem;
+  letter-spacing: 0.1px;
+  text-decoration: none;
+  border: rem(2px) solid transparent;
+  outline: none;
+  //transition: border-color $duration--fast-02;
+  user-select: none;
+}*/
+
 #app {
-    //background-image: linear-gradient(to top right, #54547c, #ebe8e8, #cc6464);
-    background-image: linear-gradient(
-        to top right,
-        rgb(109, 109, 126) 0%,
-        rgba(235, 232, 232, 1) 15%,
-        rgba(235, 232, 232, 1) 85%,
-        rgb(207, 169, 169) 100%
-    );
+  //background-image: linear-gradient(to top right, #54547c, #ebe8e8, #cc6464);
+  background-image: linear-gradient(
+    to top right,
+    rgb(109, 109, 126) 0%,
+    rgba(235, 232, 232, 1) 15%,
+    rgba(235, 232, 232, 1) 85%,
+    rgb(207, 169, 169) 100%
+  );
 }
 </style>

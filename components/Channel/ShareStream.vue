@@ -162,7 +162,7 @@
       },
 
       streamlink () {
-        return `https://demo.hark.tv/channel/${this.user}`;
+        return `https://alpha.hark.tv/channel/${this.user}`;
       },
 
       shareLink () {

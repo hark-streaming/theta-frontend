@@ -15,7 +15,7 @@
 
       <div class="mt-8 px-3">
         <h3>{{ title }}</h3>
-        <TempTags :tags="tags" :shortenList="true" :maxNumTags="2"/>
+        <TempTags :tags="tags" :shortenList="true" :maxNumTags="2" />
       </div>
     </div>
 
@@ -25,22 +25,45 @@
 
     <div class="d-flex justify-end">
       <div class="pr-4 pb-3">
-        <v-btn color="primary" :href="link">{{ shortdesc }}</v-btn>
+        <v-btn color="primary" :href="link" target="_blank">{{
+          shortdesc
+        }}</v-btn>
       </div>
       <div class="pr-4 pb-3">
-        <v-btn color="primary" :href="walletLink">DONATE</v-btn>
+        <v-btn
+          color="primary"
+          :href="walletLink"
+          @click="isAuth ? (showDonate = true) : (showLogin = true)"
+          >DONATE</v-btn
+        >
       </div>
     </div>
+
+    <v-dialog v-model="showDonate" width="500">
+      <lazy-tfuel-dialog
+        :avatar="mainimage"
+        :streamer="title"
+        tokenName="BROG-HARK"
+        :streamerUid="owner"
+        @close="showDonate = false"
+      />
+    </v-dialog>
+
+    <!-- log in dialog for those not logged in -->
+    <v-dialog v-model="showLogin" width="420">
+      <lazy-login-dialog @close="showLogin = false" />
+    </v-dialog>
   </v-card>
 </template>
 
 <script>
-import TempTags from '@/components/TempTags';
+import TempTags from "@/components/TempTags";
+import { mapGetters } from 'vuex';
+import { VStore } from '@/store';
 
 export default {
-  // name: DonationCard,
   components: {
-      TempTags
+    TempTags,
   },
 
   props: {
@@ -51,7 +74,23 @@ export default {
     shortdesc: { type: String, default: "" },
     title: { type: String, default: "" },
     tags: { type: Array },
-    walletLink: { type: String, default: "" }
+    walletLink: { type: String, default: "" },
+    owner: { type: String, default: "" },
   },
+
+  methods: {
+    onClick: () => {},
+  },
+
+  data: () => {
+    return {
+      showDonate: false,
+      showLogin: false,
+    };
+  },
+
+  ...mapGetters({
+    isAuth: VStore.$getters.isAuth
+  }),
 };
 </script>
