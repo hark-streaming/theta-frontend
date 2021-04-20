@@ -142,9 +142,9 @@
                 </v-btn>
 
                 <!-- Some Cover Your Ass Legal Text -->
-                <div v-if="signUp" class="my-2 grey--text">
+                <div v-if="signUp" class="my-2 grey--text" style="font-size:0.9em;">
                         By clicking register you agree to our
-                        <a stylehref="/tos">TOS</a>.
+                        <a stylehref="/tos">Terms of Service</a>.
                 </div>
 
                 <!-- General Success / Error Alert -->
@@ -507,6 +507,9 @@ export default {
 </script>
 
 <style>
+    .v-input--checkbox .v-label {
+        font-size: 14px;
+    }
     h2 {
         font-weight:500;
         font-size: 1em;

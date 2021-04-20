@@ -133,7 +133,7 @@
             </v-card>
           </v-col>
         </v-row>
-        <v-dialog v-model="showLogin" width="420">
+        <v-dialog v-model="showLogin" width="420" transition="fade-transition">
           <lazy-login-dialog @close="showLogin = false" initialSignUp />
         </v-dialog>
     </v-container>
