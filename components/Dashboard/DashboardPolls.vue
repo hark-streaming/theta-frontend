@@ -19,13 +19,16 @@
                             >
                             <v-row>
                                 <v-col cols="5">
-                                    <!-- <client-only> -->
-                                        <!-- <vue-poll /> -->
-                                    <!-- </client-only> -->
-                                    <Poll :poll="poll" :skipVote="false" @voteAdded="addVote($event)"/>
+                                    <!-- Display poll visual -->
+                                    <Poll 
+                                        :poll="poll" 
+                                        :skipVote="true" 
+                                        @voteAdded="addVote($event)"
+                                    />
                                 </v-col>
 
                                 <v-col cols="7">
+                                    <!-- Poll prompt -->
                                     <v-row no-gutters>
                                         <v-col class="flex-grow-1">
                                             <v-text-field 
@@ -48,6 +51,7 @@
                                         </v-col>
                                     </v-row>
 
+                                    <!-- Poll answer options -->
                                     <v-row no-gutters v-for="(answer, aIndex) in poll.answers" :key="aIndex">
                                         <v-col cols="1" class="d-flex align-center justify-center">
                                             <v-btn fab x-small color="red" @click="deleteAnswer(index, aIndex)">X</v-btn>
@@ -68,24 +72,36 @@
                                     <v-row v-if="poll.answers.length < 4" class="pl-16" no-gutters>
                                         <v-btn small @click="addAnswer(index)">+ Add answer</v-btn>
                                     </v-row>
-                                </v-col>
-                            </v-row>
 
-                            <v-row no-gutters class="pl-3">
-                                <v-switch
-                                    label="Enable multiple-answer votes"
-                                    v-model="poll.multiple"
-                                    class="mb-n4 mt-0"
-                                    @click="showSave=true">
-                                </v-switch>
-                            </v-row>
-                            <v-row no-gutters class="pl-3 mt-0">
-                                <v-switch
-                                    label="Show results (close voting)"
-                                    v-model="poll.showResults"
-                                    class="mb-n4 mt-0"
-                                    @click="showSave=true">
-                                </v-switch>
+                                    <!-- Control switches -->
+                                    <v-row no-gutters class="pl-3">
+                                        <v-switch
+                                            label="Enable multiple-answer votes"
+                                            v-model="poll.multiple"
+                                            class="mb-n4 mt-0"
+                                            color="secondary"
+                                            @click="showSave=true">
+                                        </v-switch>
+                                    </v-row>
+                                    <v-row no-gutters class="pl-3 mt-0">
+                                        <v-switch
+                                            label="Show results (close voting)"
+                                            v-model="poll.showResults"
+                                            class="mb-n4 mt-0"
+                                            color="secondary"
+                                            @click="showSave=true">
+                                        </v-switch>
+                                    </v-row>
+                                    <v-row no-gutters class="pl-3 mt-0">
+                                        <v-switch
+                                            label="Active"
+                                            v-model="poll.active"
+                                            class="mb-n4 mt-0"
+                                            color="primary"
+                                            @click="showSave=true">
+                                        </v-switch>
+                                    </v-row>
+                                </v-col>
                             </v-row>
                             
                         </v-card>
@@ -289,7 +305,8 @@ export default {
                     showResults: false, 
                     multiple: false, 
                     submitButtonText: "Submit", 
-                    customId: 0
+                    customId: 0, 
+                    active: false
                 };
 
                 options.question = currPoll.question;
@@ -303,6 +320,7 @@ export default {
                 options.multiple = currPoll.multiple;
                 options.submitButtonText = currPoll.submitButtonText;
                 options.customId = currPoll.customId;
+                options.active = currPoll.active;
 
                 this.old.polls.push(options);
             }
@@ -324,7 +342,8 @@ export default {
                     showResults: false, 
                     multiple: false, 
                     submitButtonText: "Submit", 
-                    customId: 0
+                    customId: 0, 
+                    active: false
                 };
 
                 options.question = currPoll.question;
@@ -338,6 +357,7 @@ export default {
                 options.multiple = currPoll.multiple;
                 options.submitButtonText = currPoll.submitButtonText;
                 options.customId = currPoll.customId;
+                options.active = currPoll.active;
 
                 this.streamData.polls.push(options);
             }
@@ -354,7 +374,8 @@ export default {
                 showResults: false, 
                 multiple: false, 
                 submitButtonText: "Submit", 
-                customId: this.idTracker
+                customId: this.idTracker, 
+                active: false                           // TEMPORARY
             };
             this.streamData.polls.push(pollData);
 

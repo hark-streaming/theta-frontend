@@ -23,7 +23,7 @@
             <div class="d-flex">
                 <!-- TODO: Move this to it's own component during poll refactor -->
                 <!-- Create Poll Button -->
-                <div v-if="isChannelOwner">
+                <!-- <div v-if="isChannelOwner">
                     <v-menu
                         v-model="showPoll"
                         :close-on-content-click="false"
@@ -56,14 +56,14 @@
                             </v-tooltip>
                         </template>
 
-                        <!-- Create Poll Dialog -->
+                        Create Poll Dialog
                         <chat-poll
                             id="chat-poll"
                             @close="showPoll = false"
                             @create="createPoll"
                         />
                     </v-menu>
-                </div>
+                </div>  -->
 
                 <!-- Chat Admin Menu -->
                 <lazy-chat-admin-menu-button
@@ -108,6 +108,14 @@
             >
                 {{ donateMsg }}
             </v-btn>
+
+            <!-- Poll voting dialog -->
+            <VoteDialog 
+                v-if="showPolls" 
+                :polls="polls" 
+                :username="username"
+                @voteAdded="$emit('voteAdded', $event)"
+            />
         </v-sheet>
 
         <!-- tfuel donate dialog -->
@@ -133,6 +141,7 @@ import ViewerList from "@/components/Chat/ViewerList";
 import ChatOverflowMenu from "@/components/Chat/ChatOverflowMenu";
 import { mapGetters } from "vuex";
 import { VStore } from "@/store";
+import VoteDialog from "@/components/Channel/VoteDialog";
 
 const ChatPoll = async () => await import("@/components/Chat/ChatPoll");
 
@@ -143,14 +152,17 @@ export default {
         ViewerList,
         ChatOverflowMenu,
         ChatPoll,
+        VoteDialog
     },
 
     props: {
         page: { type: String }, // this is the streamer's name pretty much
         isChannelOwner: { type: Boolean },
 
+        username: "",
+
         donateOn: { type: Boolean, default: false },
-        donateMsg: { type: String, default: "" },
+        donateMsg: { type: String, default: "Donate" },
         donateUrl: { type: String, default: "" },
 
         // props for the tfuel button
@@ -160,6 +172,8 @@ export default {
         avatar: { type: String },
         tokenName: { type: String },
         streamerUid: { type: String },
+
+        polls: []
     },
 
     data() {
@@ -184,6 +198,13 @@ export default {
         ...mapGetters({
             isAdmin: VStore.$getters.isAdmin,
         }),
+
+        showPolls() {
+            var bool = false;
+            this.polls.forEach(x => bool = bool || x.active);
+
+            return bool;
+        }
     },
 };
 </script>

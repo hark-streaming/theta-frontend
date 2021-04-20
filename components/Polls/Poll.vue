@@ -60,11 +60,12 @@ export default {
             showResults: false, 
             multiple: false, 
             submitButtonText: "Submit", 
-            customId: 0
+            customId: 0, 
+            active: false
         */
         poll: {}, 
 
-        skipVote: false
+        skipVote: false, 
     }, 
 
     data() {
@@ -106,21 +107,23 @@ export default {
             // return Math.max(...this.chartdata.datasets[0].data) + 10;
         }, 
         showPollResults() {
-            if (!this.skipVote && !this.poll.showResults) {
-                return false;
-            } else {
+            if (this.skipVote || this.poll.showResults) {
                 return true;
+            } else {
+                return false;
             }
         }
     },
 
     methods: {
+
         addVote() {
-            const id = this.poll.customId;
             this.selected.forEach(x => {
-                this.poll.answers[x].votes++;
-                this.$emit("voteAdded", this.poll);
+                this.$emit("voteAdded", {id: this.poll.customId, val: x});
+                this.chartdata.datasets[0].data[x]++;
             });
+
+
             this.skipVote = true;
         }, 
 
@@ -152,6 +155,7 @@ export default {
         });
 
         this.options.scales.yAxes[0].ticks.suggestedMax = Math.max(...this.chartdata.datasets[0].data) + 5;
+
     }
 }
 </script>
