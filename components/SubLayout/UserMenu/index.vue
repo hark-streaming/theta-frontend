@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="isAuth">
-            <v-row class="d-flex mr-1" style="flex-wrap:nowrap;">
+            <v-row class="d-flex mr-1" style="flex-wrap: nowrap">
                 <!-- Tfuel amount -->
                 <!--
                 <v-tooltip bottom>
@@ -41,7 +41,7 @@
                 ></v-progress-circular>
                 <v-row
                     class="mt-3 mr-4"
-                    style="flex-wrap:nowrap;"
+                    style="flex-wrap: nowrap"
                     v-bind="attrs"
                     v-on="on"
                     v-show="!balanceLoading"
@@ -51,8 +51,7 @@
                         width="24px"
                         height="24px"
                     />
-                    <span class="ml-1 primary--text" v-html="balance">
-                    </span>
+                    <span class="ml-1 primary--text" v-html="balance"> </span>
                 </v-row>
 
                 <!-- profile icon -->
@@ -93,14 +92,20 @@
                             </picture>
                         </v-btn>
                     </template>
-                    
+
                     <lazy-user-menu-content />
                 </v-menu>
             </v-row>
         </div>
 
         <div v-else>
-            <v-btn color="primary" outlined class="primary--text" small :to="registerTo">
+            <v-btn
+                color="primary"
+                outlined
+                class="primary--text"
+                small
+                :to="registerTo"
+            >
                 Register
             </v-btn>
 
@@ -124,6 +129,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { VStore } from "@/store";
+import { auth } from "@/plugins/firebase.js";
 
 export default {
     name: "UserMenuButton",
@@ -149,22 +155,39 @@ export default {
                     `${process.env.API_URL}/theta/address/${this.uid}`
                 );
 
-                this.balance = result.vaultBalance == null ? 0 : result.vaultBalance;
+                this.balance =
+                    result.vaultBalance == null
+                        ? 0
+                        : parseFloat(result.vaultBalance).toFixed(2);
             } catch (err) {
                 this.balance = 0;
             }
         },
     },
 
-    mounted() {
+    async mounted() {
         // Temporary until someone thinks of a smarter way
-        this.balanceLoading = true;
-        setTimeout(async () => {
-            if (this.auth) {
-                await this.setTfuelBalance();
-                this.balanceLoading = false;
+        // this.balanceLoading = true;
+        // setTimeout(async () => {
+        //     if (this.isAuth) {
+        //         await this.setTfuelBalance();
+        //         this.balanceLoading = false;
+        //     }
+        // }, 2000);
+
+        // this seems to be more consistent?
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // if logged in show tfuel
+                setTimeout(async () => {
+                    this.balanceLoading = true;
+                    await this.setTfuelBalance();
+                    this.balanceLoading = false;
+                }, 1000);
+            } else {
+                // don't otherwise
             }
-        }, 2000);
+        });
     },
 
     computed: {

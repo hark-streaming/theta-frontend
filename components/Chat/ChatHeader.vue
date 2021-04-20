@@ -154,7 +154,7 @@ export default {
         donateUrl: { type: String, default: "" },
 
         // props for the tfuel button
-        // TODO: pass these puppies in
+        // TODO: probably put these values in the store
         // if the user is not logged in donate TFUEL button will prompt log in
         loggedIn: { type: Boolean, default: false },
         avatar: { type: String },

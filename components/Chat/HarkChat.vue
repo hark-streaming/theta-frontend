@@ -3,7 +3,6 @@
         id="sidechat"
         class="d-flex flex-grow-1 flex-column"
         style="position: relative; display: inline"
-        v-resize.quiet="onResize"
         color="white"
     >
         <!-- Chat Header -->
@@ -71,10 +70,6 @@
             :global="global"
             :channel="page"
             :is-channel-owner="isChannelOwner"
-            @reply="addUserTag"
-            @whisper="addWhisper"
-            @ignore="ignoreUser"
-            @unignore="unignoreUser"
         />
 
         <!-- Chat Input -->
@@ -183,10 +178,11 @@ export default {
                 useCredentials: true,
                 // this is how we pass in auth
                 // as per https://github.com/richardeschloss/nuxt-socket-io/issues/96#issuecomment-613187607
-                // TODO: make this a signed jwt token
                 transportOptions: {
                     polling: {
                         extraHeaders: {
+                            // this is just temporary mild deterrent for unwanted connections
+                            // TODO: make this a signed jwt token
                             auth: "coolsecret"
                         },
                     },
@@ -317,7 +313,6 @@ export default {
                 setTimeout(()=> {
                     this.connect();
                 }, 1000);
-                //this.connect();
             }
             else {
                 // don't otherwise
