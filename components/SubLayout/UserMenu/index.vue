@@ -118,7 +118,7 @@ export default {
 
     methods: {
         async setTfuelBalance() {
-            // call api for the p2p wallet balance
+            // call api for the vault wallet balance
             try {
                 let result = await this.$axios.$get(
                     `${process.env.API_URL}/theta/address/${this.uid}`
