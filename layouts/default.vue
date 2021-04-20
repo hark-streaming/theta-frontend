@@ -364,7 +364,7 @@ export default {
 }*/
 
 #app {
-    background-color: #D0D0D0
+    background-color: #DCDCDC;
 }
 
 /*#app {

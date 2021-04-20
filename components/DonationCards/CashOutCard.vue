@@ -141,8 +141,12 @@ export default {
 </script>
 
 <style>
-.custom-token-image {
-  width: 275px;
-  height: 200px;
-}
+  h2 {
+    font-weight: 600;
+    font-size: 20px;
+  }
+  .custom-token-image {
+    width: 275px;
+    height: 200px;
+  }
 </style>
