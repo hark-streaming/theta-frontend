@@ -124,7 +124,7 @@ export default {
                     `${process.env.API_URL}/theta/address/${this.uid}`
                 );
 
-                this.balance = result.p2pBalance;
+                this.balance = result.vaultBalance == null ? 0 : result.vaultBalance;
             } catch (err) {
                 this.balance = 0;
             }

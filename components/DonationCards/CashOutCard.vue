@@ -132,7 +132,7 @@ export default {
     const result = await this.$axios.$get(endpoint);
     console.log(result);
 
-    this.tfuelAmount = result.p2pBalance;
+    this.tfuelAmount = result.vaultBalance;
 
     const cashoutDoc = await db.collection("cashout").doc(this.uid).get();
     this.alreadyRequested = cashoutDoc.exists;

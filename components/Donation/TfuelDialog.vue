@@ -253,7 +253,7 @@ export default {
         let result = await this.$axios.get(`${process.env.API_URL}/theta/address/${uid}`);
 
         //return balance
-        this.balance = result.data.p2pBalance;
+        this.balance = result.data.vaultBalance;
     },
 };
 </script>
