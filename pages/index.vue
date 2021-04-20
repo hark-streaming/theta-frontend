@@ -1,77 +1,71 @@
 <template>
-  <div>
     <div>
-      <!-- Goal Progress -->
-      <goal-progress v-if="false" />
+        <div>
+            <!-- Goal Progress -->
+            <!-- <goal-progress v-if="false" /> -->
 
-      <v-container>
-        <!-- Site Banner -->
-        <!-- <message-of-the-day /> -->
+            <v-container v-if="(streamers.length > 0)">
+                <!-- Site Banner -->
+                <!-- <message-of-the-day /> -->
 
-        <!-- <v-row class="pt-8">
-          <v-text-field
-            v-model="searchValue"
-            label="Search"
-            background-color="neutral"
-            clearable
-            solo
-            @keydown.enter="goToSearch"
-          ></v-text-field>
-        </v-row> -->
+                <!-- <v-row class="pt-8">
+                <v-text-field
+                    v-model="searchValue"
+                    label="Search"
+                    background-color="neutral"
+                    clearable
+                    solo
+                    @keydown.enter="goToSearch"
+                ></v-text-field>
+                </v-row> -->
 
-        <v-row class="justify-center mb-8">
-          <v-col cols="12" md="8" xl="8" class="pr-0">
-            <!-- Banner Stream -->
-            <!-- <banner-video
-              v-if="mostViewed"
-              :src="mostViewed.url"
-              :type="mostViewed.type"
-              :poster="poster"
-              :name="mostViewed.name"
-              :mobile="mobile"
-              :offline="offline"
-            />  -->
-            <theta-banner
-              v-if="mostViewed"
-              :src="mostViewed.url"
-              :type="mostViewed.type"
-              :poster="poster"
-              :name="mostViewed.name"
-              :mobile="mobile"
-              :offline="offline"
-            />
-          </v-col>
-          <v-col class="grow pl-0">
-            <v-sheet color="neutral" class="fill-height pa-5">
-              <h2>{{ mostViewed.name }}</h2>
-              <h4>Viewers: {{ mostViewed.viewCount }}</h4>
-              <TempTags :tags="mostViewed.tags" class="my-2" />
-              <p>{{ mostViewed.description }}</p>
-            </v-sheet>
-          </v-col>
-        </v-row>
+                <v-row class="justify-center mb-8">
+                    <v-col cols="12" md="8" xl="8" class="pr-0">
+                        <theta-banner
+                            v-if="mostViewed"
+                            :src="mostViewed.url"
+                            :type="mostViewed.type"
+                            :poster="poster"
+                            :name="mostViewed.name"
+                            :mobile="mobile"
+                            :offline="offline"
+                        />
+                    </v-col>
+                    <v-col class="grow pl-0">
+                        <v-sheet color="neutral" class="fill-height pa-5">
+                            <h2>{{ mostViewed.name }}</h2>
+                            <h4>Viewers: {{ mostViewed.viewCount }}</h4>
+                            <TempTags :tags="mostViewed.tags" class="my-2" />
+                            <p>{{ mostViewed.description }}</p>
+                        </v-sheet>
+                    </v-col>
+                </v-row>
 
-        <!-- Live Now Header -->
-        <!-- Livestream Grid -->
-        <stream-grid
-          :streamers="streamers"
-          :blur-nsfw="blurNSFW"
-          :cols="12"
-          :sm="6"
-          :md="4"
-          :lg="3"
-          :xl="2"
-          @getHighestViews="mostViewedStream($event)"
-          @getHighestViewCount="highestViewCount($event)"
-        />
+                <!-- Live Now Header -->
+                <!-- Livestream Grid -->
+                <stream-grid
+                    v-if="streamers.length > 0"
+                    :streamers="streamers"
+                    :blur-nsfw="blurNSFW"
+                    :cols="12"
+                    :sm="6"
+                    :md="4"
+                    :lg="3"
+                    :xl="2"
+                    @getHighestViews="mostViewedStream($event)"
+                    @getHighestViewCount="highestViewCount($event)"
+                />
 
-        <!-- fuckin index.vue.txt -->
-      </v-container>
+                <!-- fuckin index.vue.txt -->
+            </v-container>
+            <div v-else>
+                no streams here :(
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <!-- <simple-footer :version="version" /> -->
     </div>
-
-    <!-- Footer -->
-    <!-- <simple-footer :version="version" /> -->
-  </div>
 </template>
 
 <script>
@@ -80,71 +74,71 @@ import { VStore } from "@/store";
 import TempTags from "../components/TempTags";
 
 export default {
-  scrollToTop: true,
+    scrollToTop: true,
 
-  components: {
-    TempTags,
-  },
-
-  head() {},
-
-  data() {
-    return {
-      mounted: false,
-      player: null,
-      poster: "/bitwave_cover.png",
-      chatMessages: null,
-      offline: true,
-
-      mostViewed: {},
-
-      searchValue: "",
-    };
-  },
-
-  methods: {
-    mostViewedStream(stream) {
-      // console.log(this);
-      this.mostViewed = stream;
+    components: {
+        TempTags,
     },
 
-    highestViewCount(viewCount) {
-      this.viewCount = viewCount;
+    head() {},
+
+    data() {
+        return {
+            mounted: false,
+            player: null,
+            poster: "/bitwave_cover.png",
+            chatMessages: null,
+            offline: true,
+
+            mostViewed: {},
+
+            searchValue: "",
+        };
     },
 
-    ...mapMutations({
-      setBlurNsfw: VStore.$mutations.setBlurNsfw,
-      setSearchValue: VStore.$mutations.setSearchValue,
-    }),
+    methods: {
+        mostViewedStream(stream) {
+            // console.log(this);
+            this.mostViewed = stream;
+        },
 
-    ...mapActions({
-      loadSettings: VStore.$actions.loadSettings,
-    }),
+        highestViewCount(viewCount) {
+            this.viewCount = viewCount;
+        },
 
-    goToSearch() {
-      if (this.searchValue == null || this.searchValue == "") return;
+        ...mapMutations({
+            setBlurNsfw: VStore.$mutations.setBlurNsfw,
+            setSearchValue: VStore.$mutations.setSearchValue,
+        }),
 
-      // this.setSearchValue(this.searchValue.toString());
-      this.$store.commit("setSearchValue", this.searchValue);
-      this.$router.push("/search");
+        ...mapActions({
+            loadSettings: VStore.$actions.loadSettings,
+        }),
+
+        goToSearch() {
+            if (this.searchValue == null || this.searchValue == "") return;
+
+            // this.setSearchValue(this.searchValue.toString());
+            this.$store.commit("setSearchValue", this.searchValue);
+            this.$router.push("/search");
+        },
     },
-  },
 
-  async asyncData({ $axios }) {
-    const defaultLive = [
-      {
-        src: "https://cdn.bitwave.tv/static/bumps/2a3un.mp4",
-        name: "offline",
-        type: "video/mp4",
-      },
-    ];
+    async asyncData({ $axios }) {
+        const defaultLive = [
+            {
+                src: "https://cdn.bitwave.tv/static/bumps/2a3un.mp4",
+                name: "offline",
+                type: "video/mp4",
+            },
+        ];
 
-    // Timeout to prevent SSR from locking up
-    const timeout = process.server ? process.env.SSR_TIMEOUT : 0;
+        // Timeout to prevent SSR from locking up
+        const timeout = process.server ? process.env.SSR_TIMEOUT : 0;
 
-    // This is where the stream data is retrieved
-    // MODIFY THIS API CALL FOR HARK
-    /* FORMAT
+        // This is where the stream data is retrieved
+        // MODIFY THIS API CALL FOR HARK
+        /* FORMAT
     {
     "success": true,
         "live": [
@@ -195,31 +189,31 @@ export default {
         ]
     }
     */
-    const getStreams = async () => {
-      try {
-        /*const { data } = await $axios.getSSR(
+        const getStreams = async () => {
+            try {
+                /*const { data } = await $axios.getSSR(
           "https://api.bitwave.tv/v1/channels/live",
           {
             timeout,
           }
         );*/
 
-        const { data } = await $axios.getSSR(
-          //"https://us-central1-hark-e2efe.cloudfunctions.net/api/utils/live",
-          `${process.env.API_URL}/utils/live`,
-          {
-            timeout,
-          }
-        );
+                const { data } = await $axios.getSSR(
+                    //"https://us-central1-hark-e2efe.cloudfunctions.net/api/utils/live",
+                    `${process.env.API_URL}/utils/live`,
+                    {
+                        timeout,
+                    }
+                );
 
-        if (data && data.success) {
-          //console.log("live data good", data);
-          return {
-            live: data.live,
-            streamers: data.streamers,
+                if (data && data.success) {
+                    //console.log("live data good", data);
+                    return {
+                        live: data.live,
+                        streamers: data.streamers,
 
-            // just make it display britbong only as a test
-            /*live: [
+                        // just make it display britbong only as a test
+                        /*live: [
               {
                 viewCount: 209,
                 src: "https://cdn.stream.bitwave.tv/hls/britbong/index.m3u8",
@@ -246,75 +240,75 @@ export default {
                 banned: false,
               },
             ],*/
-          };
-        } else {
-          console.log(`API Error:`, data);
-        }
-      } catch (error) {
-        console.error(
-          `Failed to get live channels from API server: ${error.message}`
-        );
-        return {
-          live: defaultLive,
-          streamers: [],
+                    };
+                } else {
+                    console.log(`API Error:`, data);
+                }
+            } catch (error) {
+                console.error(
+                    `Failed to get live channels from API server: ${error.message}`
+                );
+                return {
+                    live: defaultLive,
+                    streamers: [],
+                };
+            }
+            console.log(`Failed to get live channels from API server`);
+            return {
+                live: defaultLive,
+                streamers: [],
+            };
         };
-      }
-      console.log(`Failed to get live channels from API server`);
-      return {
-        live: defaultLive,
-        streamers: [],
-      };
-    };
 
-    const streams = await getStreams();
+        const streams = await getStreams();
 
-    return {
-      live: streams.live,
-      streamers: streams.streamers,
-      offline: false,
-    };
-  },
-
-  computed: {
-    ...mapState({
-      getBlurNsfw: VStore.$states.blurNsfw,
-    }),
-
-    blurNSFW: {
-      get() {
-        return this.getBlurNsfw;
-      },
-      set(data) {
-        this.setBlurNsfw(data);
-      },
+        return {
+            live: streams.live,
+            streamers: streams.streamers,
+            offline: false,
+        };
     },
 
-    mobile() {
-      return this.mounted
-        ? this.$vuetify.breakpoint.smAndDown
-        : !this.$device.isDesktopOrTablet;
+    computed: {
+        ...mapState({
+            getBlurNsfw: VStore.$states.blurNsfw,
+        }),
+
+        blurNSFW: {
+            get() {
+                return this.getBlurNsfw;
+            },
+            set(data) {
+                this.setBlurNsfw(data);
+            },
+        },
+
+        mobile() {
+            return this.mounted
+                ? this.$vuetify.breakpoint.smAndDown
+                : !this.$device.isDesktopOrTablet;
+        },
+
+        version() {
+            return `v${process.env.version}`;
+        },
     },
 
-    version() {
-      return `v${process.env.version}`;
+    mounted() {
+        this.mounted = true;
+        if (this.offline)
+            this.$toast.error("API Error: SSR Hydration failed", {
+                duration: 5000,
+                icon: "error",
+                position: "top-center",
+            });
+        this.loadSettings();
     },
-  },
-
-  mounted() {
-    this.mounted = true;
-    if (this.offline)
-      this.$toast.error("API Error: SSR Hydration failed", {
-        duration: 5000,
-        icon: "error",
-        position: "top-center",
-      });
-    this.loadSettings();
-  },
 };
 </script>
 
 <style scoped>
 banner-video {
-  max-width: 200px;
+    max-width: 200px;
 }
 </style>

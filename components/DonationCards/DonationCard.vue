@@ -1,96 +1,99 @@
 <template>
-  <v-card color="neutral" style="height: 388px" class="d-flex flex-column">
-    <v-img :src="bgimage" height="80" class="mb-n6"> </v-img>
+    <v-card color="neutral" style="height: 388px" class="d-flex flex-column">
+        <v-img :src="bgimage" height="80" class="mb-n6"> </v-img>
 
-    <div class="d-flex justify-start px-4 pb-1">
-      <v-avatar size="80">
-        <v-img
-          :src="mainimage"
-          :aspect-ratio="1"
-          :width="150"
-          :height="150"
-          contain
-        />
-      </v-avatar>
+        <div class="d-flex justify-start px-4 pb-1">
+            <v-avatar size="80">
+                <v-img
+                    :src="mainimage"
+                    :aspect-ratio="1"
+                    :width="150"
+                    :height="150"
+                    contain
+                />
+            </v-avatar>
 
-      <div class="mt-8 px-3">
-        <h3>{{ title }}</h3>
-        <TempTags :tags="tags" :shortenList="true" :maxNumTags="2" />
-      </div>
-    </div>
+            <div class="mt-8 px-3">
+                <h3>{{ title }}</h3>
+                <TempTags :tags="tags" :shortenList="true" :maxNumTags="2" />
+            </div>
+        </div>
 
-    <div class="px-4 my-2 overflow-y-auto" style="height: 150px">
-      <p>{{ longdesc }}</p>
-    </div>
+        <div class="px-4 my-2 overflow-y-auto" style="height: 150px">
+            <p>{{ longdesc }}</p>
+        </div>
 
-    <div class="d-flex justify-end">
-      <div class="pr-4 pb-3">
-        <v-btn outlined color="primary" :href="link" target="_blank">{{
-          shortdesc
-        }}</v-btn>
-      </div>
-      <div class="pr-4 pb-3">
-        <v-btn
-          color="primary"
-          :href="walletLink"
-          @click="isAuth ? (showDonate = true) : (showLogin = true)"
-          >DONATE</v-btn
-        >
-      </div>
-    </div>
+        <div class="d-flex justify-end">
+            <div class="pr-4 pb-3">
+                <v-btn outlined color="primary" :href="link" target="_blank">{{
+                    shortdesc
+                }}</v-btn>
+            </div>
+            <div class="pr-4 pb-3">
+                <v-btn
+                    color="primary"
+                    :href="walletLink"
+                    @click="isAuth ? (showDonate = true) : (showLogin = true)"
+                    >DONATE</v-btn
+                >
+            </div>
+        </div>
 
-    <v-dialog v-model="showDonate" width="500">
-      <lazy-tfuel-dialog
-        :avatar="mainimage"
-        :streamer="title"
-        tokenName="BROG-HARK"
-        :streamerUid="owner"
-        @close="showDonate = false"
-      />
-    </v-dialog>
+        <!-- tfuel donate dialog -->
+        <v-dialog v-model="showDonate" width="500">
+            <lazy-tfuel-dialog
+                :avatar="avatar"
+                :streamer="page"
+                :tokenName="tokenName"
+                :streamerUid="streamerUid"
+                @close="showDonate = false"
+            />
+        </v-dialog>
 
-    <!-- log in dialog for those not logged in -->
-    <v-dialog v-model="showLogin" width="420">
-      <lazy-login-dialog @close="showLogin = false" />
-    </v-dialog>
-  </v-card>
+        <!-- log in dialog for those not logged in -->
+        <v-dialog v-model="showLogin" width="420">
+            <lazy-login-dialog @close="showLogin = false" />
+        </v-dialog>
+    </v-card>
 </template>
 
 <script>
 import TempTags from "@/components/TempTags";
-import { mapGetters } from 'vuex';
-import { VStore } from '@/store';
+import { mapGetters } from "vuex";
+import { VStore } from "@/store";
 
 export default {
-  components: {
-    TempTags,
-  },
+    components: {
+        TempTags,
+    },
 
-  props: {
-    bgimage: { type: String, default: "" },
-    link: { type: String, default: "" },
-    longdesc: { type: String, default: "" },
-    mainimage: { type: String, default: "" },
-    shortdesc: { type: String, default: "" },
-    title: { type: String, default: "" },
-    tags: { type: Array },
-    walletLink: { type: String, default: "" },
-    owner: { type: String, default: "" },
-  },
+    props: {
+        bgimage: { type: String, default: "" },
+        link: { type: String, default: "" },
+        longdesc: { type: String, default: "" },
+        mainimage: { type: String, default: "" },
+        shortdesc: { type: String, default: "" },
+        title: { type: String, default: "" },
+        tags: { type: Array },
+        walletLink: { type: String, default: "" },
+        owner: { type: String, default: "" },
+    },
 
-  methods: {
-    onClick: () => {},
-  },
+    methods: {
+        onClick: () => {},
+    },
 
-  data: () => {
-    return {
-      showDonate: false,
-      showLogin: false,
-    };
-  },
+    data: () => {
+        return {
+            showDonate: false,
+            showLogin: false,
+        };
+    },
 
-  ...mapGetters({
-    isAuth: VStore.$getters.isAuth
-  }),
+    computed: {
+        ...mapGetters({
+            isAuth: VStore.$getters.isAuth,
+        }),
+    },
 };
 </script>

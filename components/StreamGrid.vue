@@ -79,7 +79,7 @@ export default {
 
   methods: {
     getData() {
-      console.log("im in getData");
+      //console.log("im in getData");
       const streamRef = db
         .collection("streams")
         .where("live", "==", true)
@@ -92,7 +92,7 @@ export default {
     },
 
     async dataChanged(docs) {
-      console.log("in streamgrid data changed");
+      //console.log("in streamgrid data changed");
       //docs = await $axios.get("http://localhost:3000/v1/channels/live");
       //docs = await $axios.get("http://us-central1-hark-e2efe.cloudfunctions.net/api/utils/live");
       docs = await $axios.get(`${process.env.API_URL}/utils/live`);

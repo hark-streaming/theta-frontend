@@ -420,7 +420,6 @@ export default {
 
             try {
                 // all usernames will be valid for now
-                // TODO: add our own username checking
                 const checkUsername = await this.$axios.$post(`${process.env.API_URL}/users/check-username/${username}`);
                 if(checkUsername.valid){
                     return true;
