@@ -7,8 +7,8 @@
             class="d-flex align-center pa-2 white--text"
         >
             <v-icon class="mr-3" color="white">person</v-icon>
-            <h2 class="title">
-                {{ signUp ? "Create Account" : "Login" }}
+            <h2>
+                {{ signUp ? "Create Account" : "Log in to Hark.tv" }}
             </h2>
         </v-sheet>
 
@@ -107,7 +107,6 @@
                     v-if="!signUp"
                     block
                     color="secondary"
-                    class="white--text"
                     :loading="loading"
                     type="submit"
                     @click="signIn(user.email, user.password)"
@@ -143,11 +142,9 @@
                 </v-btn>
 
                 <!-- Some Cover Your Ass Legal Text -->
-                <div v-if="signUp" class="my-2 overline grey--text">
-                    <i
-                        >by clicking register you agree to our
-                        <a href="/tos">tos</a>.</i
-                    >
+                <div v-if="signUp" class="my-2 grey--text">
+                        By clicking register you agree to our
+                        <a stylehref="/tos">TOS</a>.
                 </div>
 
                 <!-- General Success / Error Alert -->
@@ -166,15 +163,15 @@
 
         <!-- Bottom Actions Buttons -->
         <v-card-actions class="flex-wrap-reverse justify-space-around">
-            <v-btn text color="secondary" @click="resetPassword(user.email)"
+            <v-btn small :ripple="false" text depressed color="secondary" @click="resetPassword(user.email)"
                 >Forgot Your Password?</v-btn
             >
             <!--<v-btn color="secondary" text class="mr-2" @click="$emit('close')"
                 >CANCEL</v-btn
             >
             -->
-            <v-btn color="primary" text @click="switchForm">{{
-                signUp ? "Login" : "Sign Up"
+            <v-btn small :ripple="false" color="primary" text @click="switchForm">{{
+                signUp ? "Login Instead" : "Sign Up Instead"
             }}</v-btn>
         </v-card-actions>
     </v-card>
@@ -510,5 +507,9 @@ export default {
 </script>
 
 <style>
+    h2 {
+        font-weight:500;
+        font-size: 1em;
+    }
     /*font-family: helvetica, arial, sans-serif;*/
 </style>

@@ -1,176 +1,181 @@
 <template>
-    <v-container>
-        <v-row>
-            <v-col cols="4">
-                <v-card elevation="2" class="pa-6 sticky-card">
-                    <v-card-title class="mt-2 justify-center">
-                        Streamer Registration
-                    </v-card-title>
-                    <v-img
-                        src="https://cdn.discordapp.com/attachments/814278920168931382/819051567634317402/speaker.png"
-                        class="center-img"
-                    />
-                    <v-card-subtitle class="text-center"
-                        >Creators, Commentators, Activists</v-card-subtitle
-                    >
-                    <v-timeline dense>
-                        <v-timeline-item
-                            small
-                            :color="
-                                selectedEntityType != ''
-                                    ? 'primary'
-                                    : 'secondaryneutral'
-                            "
-                        >
-                            Entity Type
-                        </v-timeline-item>
-                        <v-timeline-item
-                            small
-                            :color="false ? 'primary' : 'secondaryneutral'"
-                            >Categorization</v-timeline-item
-                        >
-                        <v-timeline-item
-                            small
-                            :color="
-                                entityInformationFilled()
-                                    ? 'primary'
-                                    : 'secondaryneutral'
-                            "
-                            >Entity Information</v-timeline-item
-                        >
-                    </v-timeline>
-                </v-card>
-            </v-col>
-            <v-col cols="8">
-                <v-form ref="form" v-model="valid" lazy-validation>
-                    <v-card elevation="2" class="px-8 pb-4 mb-6">
-                        <v-card-title> Entity Selection </v-card-title>
-                        <v-card-subtitle>
-                            Select which type of entity you're signing up as. If
-                            unsure, select "Sole Proprietor".
-                        </v-card-subtitle>
-                        <v-select
-                            :items="entityTypes"
-                            :rules="[(v) => !!v || 'Item is required']"
-                            :disabled="loading"
-                            label="Entity Type"
-                            required
-                            @change="onEntityTypeChange"
-                        />
-                        <v-text-field
-                            v-if="
-                                selectedEntityType !=
-                                'Sole Proprietor / Partnership'
-                            "
-                            :rules="einRules"
-                            :disabled="loading"
-                            label="EIN (Not Required, Helpful for Validation)"
-                        />
-                    </v-card>
-                    <v-card elevation="2" class="px-8 pb-4 mb-6">
-                        <v-card-title> Categorization </v-card-title>
-                        <v-card-subtitle>
-                            Categories for your channel. Can be changed later.
-                        </v-card-subtitle>
-                        <vue-tags
-                            :active="activeTags"
-                            :all="allTags"
-                            :element-count-for-start-arrow-scrolling="4"
-                            :tab-index="1"
-                            :tag-creation-enabled="false"
-                            :colors-enabled="false"
-                            :tag-color-default="'green'"
-                            :tag-list-label="'Channel Topics'"
-                            :placeholder="'Select some channel topics....'"
-                            @on-tag-added="onTagAdded"
-                            @on-tag-removed="onTagRemoved"
-                        />
-                    </v-card>
-                    <v-card elevation="2" class="px-8 pb-4 mb-6">
-                        <v-card-title> Entity Information </v-card-title>
-                        <v-card-subtitle>
-                            Information in regards to your account and your
-                            entity.
-                        </v-card-subtitle>
-                        <v-text-field
-                            v-model="name"
-                            :counter="100"
-                            :rules="nameRules"
-                            :disabled="loading"
-                            label="Entity Name"
-                            required
-                        />
-                        <v-text-field
-                            v-model="username"
-                            :counter="100"
-                            :rules="nameRules"
-                            :disabled="loading"
-                            label="Account Username"
-                            required
-                        />
-                        <v-text-field
-                            v-model="email"
-                            :rules="emailRules"
-                            :disabled="loading"
-                            label="E-mail"
-                            required
-                        />
-                        <v-text-field
-                            v-model="phone"
-                            :rules="phoneRules"
-                            :disabled="loading"
-                            label="US Phone Number"
-                        />
-                        <!-- Password Field -->
-                        <v-text-field
-                            id="password"
-                            key="password"
-                            v-model="password"
-                            :append-icon="
-                                showPassword ? 'visibility' : 'visibility_off'
-                            "
-                            :rules="passwordRules"
-                            :type="showPassword ? 'text' : 'password'"
-                            name="input-10-1"
-                            label="Password"
-                            hint="At least 8 characters"
-                            autocomplete="password"
-                            validate-on-blur
-                            solo
-                            light
-                            :disabled="loading"
-                            @click:append="showPassword = !showPassword"
-                            tabindex="3"
-                            :persistent-hint="signUp"
-                        />
-                    </v-card>
-                    <v-card elevation="2" class="px-8 pb-4 mb-6">
-                        <v-card-title> Submission </v-card-title>
-                        <v-card-subtitle>
-                            Solve the h-captcha and submit to finish
-                            registering!
-                        </v-card-subtitle>
-                        <v-hcaptcha
-                            tabindex="5"
-                            :key="attempts"
-                            @verify="onCaptchaVerify"
-                            @expired=""
-                            @error="onCaptchaError"
-                        />
-                        <v-btn
-                            color="primary"
-                            class="black--text"
-                            small
-                            @click="createHcaptchaUser"
-                            :loading="loading"
-                        >
-                            Submit
-                        </v-btn>
-                    </v-card>
-                </v-form>
-            </v-col>
-        </v-row>
-    </v-container>
+    <v-card tile flat color="secondary" style="height:100%;">
+        <v-container>
+            <v-row>
+                <v-col cols="3">
+                    <v-sheet color="#282031" style="height:100%;">
+                        <v-card tile class="pa-1 pb-5 sticky-card">
+                                <v-card-title class="mt-2 justify-center">
+                                    Streamer Registration
+                                </v-card-title>
+                            <v-img
+                                src="https://cdn.discordapp.com/attachments/778040889359466546/833981252746084362/Asset_1.png"
+                                class="mt-3 center"
+                                style="max-width:40%;height:auto;margin:auto;"
+                            />
+                            <v-card-subtitle class="text-center"
+                                >Creators, Commentators, Activists</v-card-subtitle
+                            >
+                            <v-timeline dense>
+                                <v-timeline-item
+                                    small
+                                    :color="
+                                        selectedEntityType != ''
+                                            ? 'primary'
+                                            : 'secondaryneutral'
+                                    "
+                                >
+                                    Entity Type
+                                </v-timeline-item>
+                                <v-timeline-item
+                                    small
+                                    :color="false ? 'primary' : 'secondaryneutral'"
+                                    >Categorization</v-timeline-item
+                                >
+                                <v-timeline-item
+                                    small
+                                    :color="
+                                        entityInformationFilled()
+                                            ? 'primary'
+                                            : 'secondaryneutral'
+                                    "
+                                    >Entity Information</v-timeline-item
+                                >
+                            </v-timeline>
+                        </v-card>
+                    </v-sheet>
+                </v-col>
+                <v-col cols="8">
+                    <v-form ref="form" v-model="valid" lazy-validation>
+                        <v-card elevation="2" class="px-8 pb-4 mb-6">
+                            <v-card-title> Entity Selection </v-card-title>
+                            <v-card-subtitle>
+                                Select which type of entity you're signing up as. If
+                                unsure, select "Sole Proprietor".
+                            </v-card-subtitle>
+                            <v-select
+                                :items="entityTypes"
+                                :rules="[(v) => !!v || 'Item is required']"
+                                :disabled="loading"
+                                label="Entity Type"
+                                required
+                                @change="onEntityTypeChange"
+                            />
+                            <v-text-field
+                                v-if="
+                                    selectedEntityType !=
+                                    'Sole Proprietor / Partnership'
+                                "
+                                :rules="einRules"
+                                :disabled="loading"
+                                label="EIN (Not Required, Helpful for Validation)"
+                            />
+                        </v-card>
+                        <v-card elevation="2" class="px-8 pb-4 mb-6">
+                            <v-card-title> Categorization </v-card-title>
+                            <v-card-subtitle>
+                                Categories for your channel. Can be changed later.
+                            </v-card-subtitle>
+                            <vue-tags
+                                :active="activeTags"
+                                :all="allTags"
+                                :element-count-for-start-arrow-scrolling="4"
+                                :tab-index="1"
+                                :tag-creation-enabled="false"
+                                :colors-enabled="false"
+                                :tag-color-default="'green'"
+                                :tag-list-label="'Channel Topics'"
+                                :placeholder="'Select some channel topics....'"
+                                @on-tag-added="onTagAdded"
+                                @on-tag-removed="onTagRemoved"
+                            />
+                        </v-card>
+                        <v-card elevation="2" class="px-8 pb-4 mb-6">
+                            <v-card-title> Entity Information </v-card-title>
+                            <v-card-subtitle>
+                                Information in regards to your account and your
+                                entity.
+                            </v-card-subtitle>
+                            <v-text-field
+                                v-model="name"
+                                :counter="100"
+                                :rules="nameRules"
+                                :disabled="loading"
+                                label="Entity Name"
+                                required
+                            />
+                            <v-text-field
+                                v-model="username"
+                                :counter="100"
+                                :rules="nameRules"
+                                :disabled="loading"
+                                label="Account Username"
+                                required
+                            />
+                            <v-text-field
+                                v-model="email"
+                                :rules="emailRules"
+                                :disabled="loading"
+                                label="E-mail"
+                                required
+                            />
+                            <v-text-field
+                                v-model="phone"
+                                :rules="phoneRules"
+                                :disabled="loading"
+                                label="US Phone Number"
+                            />
+                            <!-- Password Field -->
+                            <v-text-field
+                                id="password"
+                                key="password"
+                                v-model="password"
+                                :append-icon="
+                                    showPassword ? 'visibility' : 'visibility_off'
+                                "
+                                :rules="passwordRules"
+                                :type="showPassword ? 'text' : 'password'"
+                                name="input-10-1"
+                                label="Password"
+                                hint="At least 8 characters"
+                                autocomplete="password"
+                                validate-on-blur
+                                solo
+                                light
+                                :disabled="loading"
+                                @click:append="showPassword = !showPassword"
+                                tabindex="3"
+                                :persistent-hint="signUp"
+                            />
+                        </v-card>
+                        <v-card elevation="2" class="px-8 pb-4 mb-6">
+                            <v-card-title> Submission </v-card-title>
+                            <v-card-subtitle>
+                                Solve the h-captcha and submit to finish
+                                registering!
+                            </v-card-subtitle>
+                            <v-hcaptcha
+                                tabindex="5"
+                                :key="attempts"
+                                @verify="onCaptchaVerify"
+                                @expired=""
+                                @error="onCaptchaError"
+                            />
+                            <v-btn
+                                color="primary"
+                                class="black--text"
+                                small
+                                @click="createHcaptchaUser"
+                                :loading="loading"
+                            >
+                                Submit
+                            </v-btn>
+                        </v-card>
+                    </v-form>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-card>
 </template>
 
 <script>
