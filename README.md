@@ -29,7 +29,7 @@ $ npm run start
 
 # depending on your setup, you may want to run it as separate
 # (instead of npm run start)
-$ pm2 start npm --start
+$ pm2 start npm -- start
 
 ```
 
