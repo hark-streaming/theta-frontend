@@ -41,7 +41,7 @@ const createFunctions = ( _store, _store_state, _store_commit, _store_action, _g
       ];
     }
 
-    if( who.toLowerCase() === '[bitwave.tv]' ) {
+    if( who.toLowerCase() === 'hark.tv' ) {
       return [
         { insertMessage: "I'm afraid I can't let you do that, Dave." }
       ];

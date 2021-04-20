@@ -51,15 +51,15 @@
         heroDelay: 2.5,
         duration: 10,
         transitionDuration: 0.5,
-        message: 'Open Platform Livestreaming',
-        subtext: '[bitwave.tv]',
+        message: 'Livestreaming',
+        subtext: 'hark.tv',
       };
     },
 
     methods: {
       start ( msg, subtxt ) {
         this.message = msg || 'dlive is the future';
-        this.subtext = subtxt || '[bitwave.tv]';
+        this.subtext = subtxt || 'hark.tv';
 
         fireworks = new Fireworks( this.$refs[ 'canvas' ] );
 

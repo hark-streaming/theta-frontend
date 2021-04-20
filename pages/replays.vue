@@ -68,7 +68,7 @@
   import { mapState, mapMutations, mapActions } from 'vuex';
   import { VStore } from "@/store";
 
-  const title = `Stream Replays - [bitwave.tv]`;
+  const title = `Stream Replays - hark.tv`;
   const description = `Browse the most recent stream replays available.`;
   const image = `https://cdn.discordapp.com/attachments/814278920168931382/823092021753413633/hark-title.png`;
 

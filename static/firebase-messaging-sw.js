@@ -43,7 +43,7 @@ messaging.setBackgroundMessageHandler( ( payload ) => {
   console.log( '[firebase-messaging-sw.js] Received background message ', payload );
 
   // Customize notification here
-  const notificationTitle = '[bitwave.tv]';
+  const notificationTitle = 'hark.tv';
   const notificationOptions = {
     body: 'Test notification',
     icon: '/images/icon-2.png',
