@@ -1,3 +1,12 @@
+# Hark Frontend
+This is the frontend for HarkTV. It is based off of Bitwave, but with a replacement of the backend and of course extra pages for THETA & Hark functionality.
+
+### Hark Credits
+Kevin Xu
+Jeremy Boetticher
+Ian Koh
+Raymond Cao
+
 ## Dev Setup
 
 ``` bash
@@ -16,7 +25,12 @@ $ npm ci
 
 # build for production and launch server
 $ npm run build
-$ npm start
+$ npm run start
+
+# depending on your setup, you may want to run it as separate
+# (instead of npm run start)
+$ pm2 start npm --start
+
 ```
 
 ---
