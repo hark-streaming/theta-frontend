@@ -18,16 +18,15 @@
         <h3 class="mt-3 text-center">Support {{ streamer }} with TFUEL!</h3>
 
         <!-- Tfuel balance -->
-        <v-card-subtitle class="my-2">
-            <div>Your Balance:</div>
-            <v-row class="mt-2">
-                <img
-                    src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
-                    width="24px"
-                    height="24px"
-                />
-                <span class="ml-1">{{ balance }} TFUEL </span>
-            </v-row>
+        <v-card-subtitle class="my-2 d-flex justify-center">
+            <div class="mr-1">Your Balance:</div>
+            <img
+                src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
+                width="24px"
+                height="24px"
+                class="tfuel-balance-img"
+            />
+            <span class="ml-1">{{ balance }}</span>
         </v-card-subtitle>
 
         <!-- 1,5,10 tfuel buttons-->
@@ -261,5 +260,9 @@ export default {
 <style scoped>
 .v-text-field {
     max-width: 50%;
+}
+.tfuel-balance-img {
+    position: relative;
+    top: -2px;
 }
 </style>
