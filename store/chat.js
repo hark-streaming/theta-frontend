@@ -516,13 +516,13 @@ export const actions = {
     if ( state[$states.emoteMap] && state[$states.emoteMap].size > 0 ) return;
 
     // Load emote autocompletes
-    try {
-      const { data } = await this.$axios.get( 'https://api.bitwave.tv/v1/emotes', { progress: false } );
-      commit( $mutations.setEmoteMap,  data.data );
-    } catch ( error ) {
-      console.error( `Failed to load emote map!` );
-      console.error( error.message );
-    }
+    // try {
+    //   const { data } = await this.$axios.get( 'https://api.bitwave.tv/v1/emotes', { progress: false } );
+    //   commit( $mutations.setEmoteMap,  data.data );
+    // } catch ( error ) {
+    //   console.error( `Failed to load emote map!` );
+    //   console.error( error.message );
+    // }
   },
 
   async [$actions.updateChatToken] ( { commit }, data ) {
