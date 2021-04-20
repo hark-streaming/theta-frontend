@@ -5,6 +5,7 @@
         style="position: relative; display: inline"
         color="white"
     >
+
         <!-- Chat Header -->
         <chat-header
             color="white"
@@ -17,7 +18,10 @@
             :avatar="streamerAvatar"
             :tokenName="streamerTokenName"
             :streamerUid="streamerUid"
+            :polls="polls"
+            :username="username"
             @add-channel-tag="addUserTag(page)"
+            @voteAdded="$emit('voteAdded', $event)"
         />
         <!-- <v-btn v-if="!connected" @click="isAuth ? connect : showLogin=true" color="primary" class="mt-3">
             {{isAuth ? "Join chat!" : "Log in to chat!"}}
@@ -105,6 +109,7 @@ import { VStore } from "@/store";
 
 import { UserStats } from "@/assets/js/Stats/UserStats";
 
+
 //import { io } from "socket.io-client";
 
 export default {
@@ -116,13 +121,16 @@ export default {
 
         // for the donate bar (probably move to vuex store)
         donateOn: { type: Boolean, default: false },
-        donateMsg: { type: String, default: "" },
+        donateMsg: { type: String, default: "Donate" },
         donateUrl: { type: String, default: "" },
 
         // for the tfuel donate dialog (probably move to vuex store)
         streamerAvatar: { type: String, default: "" },
         streamerTokenName: { type: String, default: "" },
         streamerUid: { type: String, default: "" },
+
+        polls: { type: [], default: [] }
+
     },
 
     components: {
@@ -212,6 +220,10 @@ export default {
                 this.connected = false;
             });
         },
+
+        addUserTag(x) {
+            console.log("Not yet implemented");
+        }
     },
 
     computed: {
@@ -299,6 +311,10 @@ export default {
                 return "Global";
             }
         },
+
+        showPoll(active) {
+
+        }
     },
 
     watch: {
