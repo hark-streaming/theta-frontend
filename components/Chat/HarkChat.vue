@@ -173,8 +173,8 @@ export default {
             this.messages = [];
 
             this.socket = this.$nuxtSocket({
-                //name: "test",
-                name: "main",
+                name: "test",
+                //name: "main",
                 useCredentials: true,
                 // this is how we pass in auth
                 // as per https://github.com/richardeschloss/nuxt-socket-io/issues/96#issuecomment-613187607
@@ -183,7 +183,7 @@ export default {
                         extraHeaders: {
                             // this is just temporary mild deterrent for unwanted connections
                             // TODO: make this a signed jwt token
-                            auth: "coolsecret"
+                            auth: "coolsecret",
                         },
                     },
                 },
@@ -194,6 +194,7 @@ export default {
                 this.socket.emit("joinRoom", this._username, this.chatChannel);
                 this.loading = false;
                 this.connected = true;
+                //this.updateViewers;
             });
 
             // add message when message happens
@@ -259,6 +260,10 @@ export default {
             inputRateLimit: Chat.$states.inputRateLimit,
         }),
 
+        ...mapActions({
+            updateViewers: VStore.$actions.updateViewers,
+        }),
+
         ...mapMutations(Chat.namespace, {
             setRoom: Chat.$mutations.setRoom,
             setGlobal: Chat.$mutations.setGlobal,
@@ -306,36 +311,32 @@ export default {
     },
 
     async mounted() {
-        
-        auth.onAuthStateChanged( (user) => {
-            if(user){
+        auth.onAuthStateChanged((user) => {
+            if (user) {
                 // connect to chat if user logged in
-                setTimeout(()=> {
+                setTimeout(() => {
                     this.connect();
                 }, 1000);
-            }
-            else {
+            } else {
                 // don't otherwise
                 //console.log("not logged in");
                 this.socket.disconnect();
                 //this.messages = null;
                 this.loading = true;
             }
-            
         });
     },
 
     beforeDestroy() {
         // disconnect
-        if(this.socket){
+        if (this.socket) {
             this.socket.disconnect();
         }
-        
     },
 
     destroyed() {
         // disconnect
-        if(this.socket){
+        if (this.socket) {
             this.socket.disconnect();
         }
     },
