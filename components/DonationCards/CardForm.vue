@@ -5,14 +5,16 @@
 
             <!-- title -->
             <v-flex class="mb-3">
-                <h2>Donation Card</h2>
+                <h2 class="pl-3">Donation Card</h2>
             </v-flex>
 
             <!-- main image form -->
             <div class="d-flex align-center">
                 <v-file-input
                     @change="onMainPicked"
-                    outlined
+                    solo
+                    light
+                    filled
                     accept="image/png, image/jpeg, image/bmp"
                     show-size
                     :rules="sizeRules"
@@ -34,7 +36,9 @@
             <div class="d-flex align-center">
                 <v-file-input
                     @change="onBgPicked"
-                    outlined
+                    solo
+                    light
+                    filled
                     accept="image/png, image/jpeg, image/bmp"
                     show-size
                     :rules="sizeRules"
@@ -288,5 +292,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+    h2 {
+        font-weight: 600;
+        font-size: 20px;
+    }
+
 </style>

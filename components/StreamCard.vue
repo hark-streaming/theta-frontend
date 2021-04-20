@@ -4,7 +4,7 @@
       class="stream-card"
       :to="to"
       no-prefetch
-      color="accentwave"
+      color="#F0F0F0"
     >
       <!-- Thumbnail -->
       <v-img
@@ -19,12 +19,12 @@
       <!-- View Counter -->
       <div class="view-counter">
         <v-chip
-          color="grey darken-4"
+          color="#DCDCDC"
           small
           tile
         >
           <div v-if="live" class="d-flex align-center">
-            <div class="white--text">{{ viewers <= 1 ? '🌊' : viewers }}</div>
+            <div class="black--text">{{ viewers <= 1 ? '0' : viewers }} viewers</div>
             <v-icon v-show="viewers > 1" color="secondary" class="ml-2" small>visibility</v-icon>
           </div>
           <div v-else class="d-flex align-center">
@@ -37,12 +37,12 @@
       <!-- Card Data -->
       <div class="pa-2">
         <!-- Stream Data -->
-        <div class="body-1 font-weight-bold text-truncate text-no-wrap mb-0">
+        <div class="body-1 text-truncate text-no-wrap mb-0 secondary--text">
           {{ title }}
         </div>
         <div class="caption d-flex align-center">
 
-          <div class="d-block text-truncate grey--text">{{ name }}</div>
+          <div class="d-block text-truncate secondary--text">{{ name }}</div>
 
           <!-- NSFW Indicator -->
           <template v-if="nsfw">

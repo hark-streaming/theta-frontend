@@ -26,7 +26,7 @@
             </div>
           </v-card>
 
-          <h2 style="padding-top:10px;" class="container2 primary--text">Profile Information</h2>
+          <h2 style="padding-top:10px;font-weight:500;" class="container2 secondary--text">Profile Information</h2>
 
           <div v-if="user" class="my-4">
 

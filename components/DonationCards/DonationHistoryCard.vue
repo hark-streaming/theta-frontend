@@ -1,8 +1,8 @@
 <template>
   <v-card class="d-flex flex-column outside mb-4">
-    <v-card class="secondary--text">
+    <v-card>
       <v-card-actions>
-        <v-card-title><h2>DONATION HISTORY</h2></v-card-title>
+        <h2 class="pl-3">Donation History</h2>
         <v-spacer></v-spacer>
         <v-btn
           icon
@@ -156,8 +156,7 @@ export default {
 }
 
 h2 {
-  font-weight: 400;
-  font-family: 'Inter', sans-serif;
+  font-weight: 600;
   font-size: 20px;
 }
 
