@@ -37,7 +37,7 @@
 
 <style scoped>
   .footfont {
-    color: #282130;
+    color: #DCDCDC;
     text-decoration: none;
   }
 </style>
