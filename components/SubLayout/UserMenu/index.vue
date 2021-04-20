@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="isAuth">
-            <v-row class="mr-1">
+            <v-row class="d-flex mr-1" style="flex-wrap:nowrap;">
                 <!-- Tfuel amount -->
                 <!--
                 <v-tooltip bottom>
@@ -39,8 +39,9 @@
                     :width="1.5"
                     v-show="balanceLoading"
                 ></v-progress-circular>
-                <div
+                <v-row
                     class="mt-3 mr-4"
+                    style="flex-wrap:nowrap;"
                     v-bind="attrs"
                     v-on="on"
                     v-show="!balanceLoading"
@@ -50,9 +51,9 @@
                         width="24px"
                         height="24px"
                     />
-                    <span class="ml-1 primary--text" v-html="balance">aaa
+                    <span class="ml-1 primary--text" v-html="balance">
                     </span>
-                </div>
+                </v-row>
 
                 <!-- profile icon -->
                 <v-menu

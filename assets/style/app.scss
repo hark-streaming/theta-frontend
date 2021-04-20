@@ -1,10 +1,16 @@
 // Global Styling
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=PT+Sans&display=swap');
-html {
-  font-family: "Roboto", sans-serif;
-}
 
+$body-font-family: 'Inter';
+$title-font: 'Inter';
+
+.v-application {
+  font-family: $body-font-family, sans-serif !important;
+   .title { // To pin point specific classes of some components
+      font-family: $title-font, sans-serif !important;
+   }
+}
 .v-application {
   .bw-channel-topbar {
     border-right: solid 1px $hk-blue !important;
@@ -20,12 +26,12 @@ $c4: #251237;
 $c5: #0e1b28;
 $c6: #113a5a;*/
 
-.v-application .gradient-background {
+/*.v-application .gradient-background {
   //background: linear-gradient(-45deg, 0c2a41, 0a0a19, 262639, 251237, 0e1b28, 113a5a);
   background: linear-gradient(-45deg, #0e3955, #0a0a19, #053e5a, #251237, #0e1b28, #113a5a);
   background-size: 400% 400%;
   animation: gradient 30s ease infinite;
-}
+}*/
 
 .v-application .solid-background {
     background: whitesmoke;

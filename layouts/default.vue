@@ -111,8 +111,7 @@
 
             <!-- Notifications Button -->
             <!-- <notifications v-if="isAuth" /> -->
-            <user-menu />
-            <!-- <user-menu class="ml-2" /> -->
+            <user-menu class="ml-2" />
         </v-app-bar>
 
         <!-- Content -->

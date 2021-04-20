@@ -60,7 +60,8 @@
 
   .#{$prefix}--navigation-item--active > a.#{$prefix}--navigation-link {
     color: $ibm-color__white-0;
-    font-weight: 600;
+    //600
+    font-weight: 400;
   }
 
   .#{$prefix}--navigation-item--active::after {
@@ -179,12 +180,14 @@
   .#{$prefix}--navigation__category-item--active
     > a.#{$prefix}--navigation-link {
     color: $ibm-color__white-0;
-    font-weight: 600;
+    //600
+    font-weight: 400;
   }
 
   .#{$prefix}--navigation__category--expanded
     .#{$prefix}--navigation__category-title {
-    font-weight: 600;
+      //600
+    font-weight: 400;
   }
 
   .#{$prefix}--navigation__category--expanded

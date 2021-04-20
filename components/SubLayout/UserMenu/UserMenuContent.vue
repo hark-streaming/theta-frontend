@@ -1,5 +1,5 @@
 <template>
-  <v-card tile width="160">
+  <v-card tile width="210">
     <v-sheet tile color="secondary" class="px-2 py-1">
       <div class="d-flex align-center">
 
