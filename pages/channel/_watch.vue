@@ -175,7 +175,7 @@ export default {
 
     head() {
         return {
-            title: `${this.name} - [bitwave.tv]`,
+            title: `${this.name} - hark.tv`,
             link: [
                 { rel: "canonical", href: `https://bitwave.tv/${this.name}` },
             ],
@@ -183,7 +183,7 @@ export default {
                 {
                     property: "og:title",
                     hid: "og:title",
-                    content: `${this.title} - [bitwave.tv]`,
+                    content: `${this.title} - hark.tv`,
                 },
                 {
                     property: "og:url",

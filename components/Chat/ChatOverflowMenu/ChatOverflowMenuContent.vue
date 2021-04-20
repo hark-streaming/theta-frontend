@@ -114,7 +114,7 @@
         const leftPos = outerWidth - width;
 
         const url = `/chat/${this.channel}`;
-        const title = `${this.channel} - [bitwave.tv]`;
+        const title = `${this.channel} - hark.tv`;
         const optionsStr = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,personalbar=no,width=${width},height=720,left=${leftPos},top=100`;
 
         return open( url, title, optionsStr );

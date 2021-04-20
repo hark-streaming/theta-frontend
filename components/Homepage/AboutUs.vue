@@ -12,7 +12,7 @@
             alt="Cool blobby with sunglasses"
             crossorigin
           />
-          <h6 class="headline" style="width:100%">Welcome to [bitwave.tv]</h6>
+          <h6 class="headline" style="width:100%">Welcome to hark.tv</h6>
         </div>
         <div class="subheading font-weight-light grey--text" style="word-break: break-word;">
           An open platform live streaming service for creators to freely express themselves.
@@ -141,7 +141,7 @@
       <div class="mb-1">
         Thank you for helping
         <v-chip color="red" outlined small class="mx-1">ALPHA</v-chip>
-        test [bitwave.tv] and I look forward to bringing more exciting features in the future.
+        test hark.tv and I look forward to bringing more exciting features in the future.
       </div>
 
       <!-- Warrant canary -->

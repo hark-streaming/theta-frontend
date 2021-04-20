@@ -196,12 +196,12 @@
 
     head () {
       return {
-        title: `${this.name} - [bitwave.tv]`,
+        title: `${this.name} - hark.tv`,
         link: [
           { rel: 'canonical', href: `https://bitwave.tv/${this.name}/replay/${this.archiveId}` },
         ],
         meta: [
-          { property: 'og:title',            hid: 'og:title',       content: `${this.title} - [bitwave.tv]` },
+          { property: 'og:title',            hid: 'og:title',       content: `${this.title} - hark.tv` },
           { property: 'og:url',              hid: 'og:url',         content: `https://bitwave.tv/${this.name}/replay/${this.archiveId}` },
           { property: 'og:description',      hid: 'og:description', content: ( this.description || `${this.name ? this.name : 'Unknown streamer'}'s stream replay.` ).substring( 0, 200 ) },
           { property: 'og:image',            hid:'og:image',        content: this.poster},

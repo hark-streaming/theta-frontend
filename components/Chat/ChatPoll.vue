@@ -22,7 +22,7 @@
         class="mb-3"
         v-model="title"
         label="Poll Title"
-        placeholder="[bitwave.tv]"
+        placeholder="hark.tv"
         color="primary"
         hide-details
         clearable
