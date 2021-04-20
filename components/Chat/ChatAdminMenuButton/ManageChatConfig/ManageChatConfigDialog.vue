@@ -1,10 +1,12 @@
 <template>
   <div>
     <v-btn
-      class="d-flex mb-3"
-      color="primary black--text"
+      class="d-flex mb-2"
+      style="font-size:0.7em;"
       block
       small
+      text
+      color="black"
       @click.prevent="showDialog = true"
     >
       Manage Chat Config
@@ -24,7 +26,7 @@
           color="primary"
           class="pa-2 d-flex justify-space-between align-center"
         >
-          <h4 class="black--text body-1">
+          <h4 class="white--text body-1">
             Manage Chat Config
           </h4>
           <v-btn

@@ -122,13 +122,12 @@
                 color="primary"
                 fixed
                 fab
-                dark
                 bottom
                 right
                 class="v-btn--example"
                 @click="showChat"
             >
-                <v-icon color="black">question_answer</v-icon>
+                <v-icon color="white">question_answer</v-icon>
             </v-btn>
         </v-fab-transition>
 

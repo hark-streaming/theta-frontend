@@ -2,8 +2,9 @@
     <div class="text-center">
         <v-btn
             small
-            color="secondary"
             @click="displayWindow=true"
+            outlined
+            color="white"
         >
             Vote
         </v-btn>

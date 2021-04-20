@@ -1,34 +1,41 @@
 <template>
     <div>
-      <v-card class="mt-2">
+      <v-card width="200px">
         <!-- Title Bar -->
         <v-sheet
-          tile
-          color="primary"
-          class="d-flex align-center justify-space-between pl-2"
+          class="justify-space-between"
+          style="height:100%"
         >
-          <h5 class="black--text body-2">Chat Configuration</h5>
 
-          <v-btn
-            color="black"
-            text
-            icon
-            pa-0
-            @click="closeMenu"
+          <div
+            class="d-flex align-center justify-space-between pl-2"
           >
-            <v-icon color="black">close</v-icon>
-          </v-btn>
+            <h2 class="ml-1">Chat Settings</h2>
+            <v-btn
+              text
+              icon
+              @click="closeMenu"
+              depressed
+              :ripple="false"
+              class="closebtn"
+            >
+              <v-icon>close</v-icon>
+            </v-btn>
+
+          </div>
+
+          <v-divider></v-divider>
+
+          <div class="px-2 py-1">
+
+            <!-- View Muted Users -->
+            <lazy-view-muted-users-dialog />
+
+            <!-- Modify Chat Configuration -->
+            <lazy-manage-chat-config-dialog />
+
+          </div>
         </v-sheet>
-
-        <div class="px-3 py-1">
-
-          <!-- View Muted Users -->
-          <lazy-view-muted-users-dialog />
-
-          <!-- Modify Chat Configuration -->
-          <lazy-manage-chat-config-dialog />
-
-        </div>
       </v-card>
     </div>
 </template>
@@ -50,3 +57,15 @@
     },
   };
 </script>
+
+<style>
+
+  .closebtn::before {
+      color: transparent
+  }
+  h2 {
+    font-weight:500;
+    color: black;
+    font-size:0.9em;
+  }
+</style>

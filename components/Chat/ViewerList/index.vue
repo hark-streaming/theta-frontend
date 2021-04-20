@@ -10,7 +10,7 @@
       <v-chip
         v-on="on"
         outlined
-        color="primary primary--text"
+        color="secondary"
       >
         {{ channelViewCount }}
         <v-icon right>account_circle</v-icon>

@@ -2,9 +2,10 @@
     <div>
       <v-btn
         class="d-flex my-3"
-        color="primary black--text"
+        style="font-size:0.7em;"
         block
         small
+        text
         @click.prevent="showDialog = true"
       >
         View Muted Users
@@ -20,8 +21,6 @@
         >
           <!-- Title Bar -->
           <v-sheet
-            tile
-            color="primary"
             class="pa-2 d-flex justify-space-between align-center"
           >
             <h4 class="black--text body-1">

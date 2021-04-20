@@ -1,30 +1,29 @@
 <template>
   <v-card
-    width="350px"
-    class="mt-2"
+    width="250px"
   >
     <!-- Header -->
-    <v-sheet
-      tile
-      color="primary"
+    <div
       class="d-flex align-center justify-space-between pl-2"
     >
-      <h5 class="white--text body-2 pl-1">Live Viewers</h5>
+      <h5 class="pl-1">Live Viewers</h5>
       <v-btn
         :ripple="false"
         class="closebtn"
         depressed
         text
-        color="white"
+        light
         icon
         pa-0
         @click="close"
       >
-        <v-icon color="white">close</v-icon>
+        <v-icon>close</v-icon>
       </v-btn>
-    </v-sheet>
+    </div>
 
-    <div class="elevation-3 pa-3">
+    <v-divider></v-divider>
+
+    <div class="pa-3">
       <!-- Filter viewers -->
       <v-text-field
         label="Filter..."
@@ -51,7 +50,7 @@
       />
     </div>
 
-    <hr class="primary">
+    <!-- <hr class="primary"> -->
 
     <!-- removed -> will-change: transform; -->
     <div style="max-height: 65vh; overflow: auto; overscroll-behavior: contain;">
@@ -207,12 +206,10 @@
 
 <style scoped>
 
-  .v-switch >>> label {
-    font-size: 5px;
-  }
-
   h5 {
-    font-size: 5em;
+    font-weight:500;
+    color: black;
+    font-size:0.9em;
   }
 
   .custom.v-text-field input {

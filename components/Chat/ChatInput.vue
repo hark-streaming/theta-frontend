@@ -60,7 +60,7 @@
         :disabled="loading"
         :light="!loading"
         small
-        color="primary"
+        color="secondary"
         class="px-2"
         @click="sendMessage"
       >

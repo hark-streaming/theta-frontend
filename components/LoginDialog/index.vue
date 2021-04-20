@@ -147,6 +147,8 @@
                         <a stylehref="/tos">Terms of Service</a>.
                 </div>
 
+                <br>
+
                 <!-- General Success / Error Alert -->
                 <v-alert
                     v-model="alert"

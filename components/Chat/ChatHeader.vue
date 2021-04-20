@@ -78,14 +78,14 @@
         <v-divider></v-divider>
         <!-- Donate Button row -->
         <v-sheet
-            color="accentwave"
+            color="secondary"
             class="d-flex align-center justify-space-around pa-2"
         >
             <!-- Donate TFUEL Button -->
             <v-btn
-                color="secondary"
                 class="white--text"
                 small
+                outlined
                 @click="loggedIn ? showDonate = true : showLogin = true"
             >
                 <img
@@ -100,7 +100,7 @@
             <!-- Custom Donate Button -->
             <v-btn
                 v-if="donateOn"
-                color="primary"
+                outlined
                 class="white--text"
                 target="_blank"
                 :href="donateUrl"

@@ -1,6 +1,6 @@
 <template>
-  <v-card class="mt-3">
-    <div style="border-top: solid 3px #ac4efe;">
+  <v-card>
+    <div style="border-top: solid 3px #cc6464;">
 
       <v-sheet>
         <v-list
