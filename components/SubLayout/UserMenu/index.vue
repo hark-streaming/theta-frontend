@@ -3,33 +3,28 @@
         <div v-if="isAuth">
             <v-row class="mr-1">
                 <!-- Tfuel amount -->
-                <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-progress-circular
-                            indeterminate
-                            color="primary"
-                            class="mt-2 mr-6"
-                            :size="20"
-                            :width="4"
-                            v-show="balanceLoading"
-                        ></v-progress-circular>
-                        <v-row
-                            class="mt-2 mr-6"
-                            v-bind="attrs"
-                            v-on="on"
-                            v-show="!balanceLoading"
-                        >
-                            <img
-                                src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
-                                width="24px"
-                                height="24px"
-                            />
-                            <span class="ml-1 primary--text" v-html="balance">
-                            </span>
-                        </v-row>
-                    </template>
-                    <span> Earn TFUEL by watching streams. </span>
-                </v-tooltip>
+                <v-progress-circular
+                    indeterminate
+                    color="primary"
+                    class="mt-2 mr-6"
+                    :size="20"
+                    :width="1.5"
+                    v-show="balanceLoading"
+                ></v-progress-circular>
+                <div
+                    class="mt-2 mr-6"
+                    v-bind="attrs"
+                    v-on="on"
+                    v-show="!balanceLoading"
+                >
+                    <img
+                        src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
+                        width="24px"
+                        height="24px"
+                    />
+                    <span class="ml-1 primary--text" v-html="balance">aaa
+                    </span>
+                </div>
 
                 <!-- profile icon -->
                 <v-menu
@@ -38,16 +33,17 @@
                     bottom
                     offset-y
                     left
-                    transition="slide-y-transition"
+                    transition="fade-transition"
                 >
                     <template #activator="{ on }">
                         <v-btn
                             v-on="on"
                             color="transparent"
-                            class="black--text"
+                            class="black--text mt-1"
                             rounded
                             small
-                            fab
+                            icon
+                            flat
                         >
                             <!-- Avatar with webp support -->
                             <picture
@@ -68,7 +64,7 @@
                             </picture>
                         </v-btn>
                     </template>
-
+                    
                     <lazy-user-menu-content />
                 </v-menu>
             </v-row>

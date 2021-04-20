@@ -26,7 +26,7 @@
       dense
       validate-on-blur
       filled
-      outlined
+      solo
       clearable
       :error-messages="setInputRateLimit ? `${(setInputRateLimitMs / 1000).toFixed(0)}s before you can send a chat` : ''"
 

@@ -164,7 +164,7 @@ h2 {
 h3 {
   font-weight: 400;
   font-family: 'Inter', sans-serif;
-  color: #54547c;
+  color: #65547c;
   font-size: 15px;
 }
 p {

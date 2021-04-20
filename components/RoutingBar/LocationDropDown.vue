@@ -8,23 +8,22 @@
             <nuxt-link v-for="(page, index) in pages" :key="index" :to="page.path">{{ page.name }}</nuxt-link>
         </div>
         -->
-        <v-menu offset-y open-on-hover>
+        <v-menu offset-y bottom open-on-hover tile transition="fade-transition">
             <template v-slot:activator="{ on, attrs }">
                 <v-btn
-                color="black"
-                dark
                 v-bind="attrs"
                 v-on="on"
                 :ripple="false"
                 text
                 exact
                 style="height:100%;"
-                tile
+                depressed
+                plain
                 >
                 Locations
                 </v-btn>
             </template>
-            <v-list>
+            <v-list dark nav tile dense rounded flat>
                 <v-list-item
                 v-for="(page, index) in pages"
                 :key="index"
@@ -57,9 +56,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+
+    .theme--dark.v-list{
+        background: #65547c;
+    }
+
     .dropbtn {
-        color: #54547c;
+        color: #65547c;
         padding: 16px 6px;
         font-size: 16px;
         border: none;

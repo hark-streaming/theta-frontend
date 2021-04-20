@@ -51,7 +51,7 @@
         -->
 
         <!-- Toolbar -->
-        <v-app-bar app :clipped-left="true" dense fixed color="white">
+        <v-app-bar app :clipped-left="true" dense fixed color="#E8E8E8">
             <!-- Logo Button -->
             <v-toolbar-title style="height:100%" pl-0>
                 <v-btn
@@ -69,7 +69,7 @@
                     <v-img src="/images/hark-logo.png" max-width="60"></v-img>
                 </v-btn>
             </v-toolbar-title>
-            <location-drop-down style="padding-left:10px;height:100%;"></location-drop-down>
+            <location-drop-down style="padding-left:15px;height:100%;"></location-drop-down>
             <pages-drop-down style="height:100%;"></pages-drop-down>
 
             <v-spacer />
@@ -77,13 +77,20 @@
             <v-text-field
                 v-if="showSearchBar"
                 v-model="searchValue"
-                label="Search"
-                background-color="neutral"
+                background-color="#C8C8C8"
                 clearable
-                class="mb-n6"
+                class="custom mb-n6"
                 @keydown.enter="goToSearch"
-                style="height:100%;"
+                style="height:135%;"
+                filled
+                dense
+                color="gray"
+                solo
+                flat
             >
+                <template v-slot:prepend-inner>
+                    <v-icon class="mr-3">mdi-magnify</v-icon>
+                </template>
                 <template v-slot:progress>
                     <v-progress-linear
                         v-if="custom"
@@ -99,8 +106,8 @@
 
             <!-- Notifications Button -->
             <!-- <notifications v-if="isAuth" /> -->
-
-            <user-menu class="ml-2" />
+            <user-menu />
+            <!-- <user-menu class="ml-2" /> -->
         </v-app-bar>
 
         <!-- Content -->
@@ -276,11 +283,25 @@ export default {
 <style lang="scss">
 @import "~assets/style/bitwave-toast";
 
+.custom.v-text-field input {
+    font-size: 0.9em;
+}
+.custom.v-text-field label {
+    font-size: 0.8em;
+}
+
+/*
+.custom.v-text-field>.v-input__control>.v-input__slot:before {
+    border-style: none;
+}
+.custom.v-text-field>.v-input__control>.v-input__slot:after {
+    border-style: none;
+}*/
+
 #app .app-title-active {
     &:hover::before {
         opacity: 0.24;
     }
-
     &::before {
         opacity: 0;
     }
@@ -296,6 +317,7 @@ export default {
 .logobtn::before {
     color: transparent
 }
+
 .header {
     position: fixed;
     top: 0;
@@ -307,21 +329,6 @@ export default {
     height: mini-units(6);
     background-color: black;
     border-bottom: 1px solid white;
-}
-
-.header-name {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    padding: 0 mini-units(4) 0 mini-units(2);
-    font-weight: 600;
-    line-height: 1.25rem;
-    letter-spacing: 0.1px;
-    text-decoration: none;
-    border: rem(2px) solid transparent;
-    outline: none;
-    //transition: border-color $duration--fast-02;
-    user-select: none;
 }
 
 #app {
