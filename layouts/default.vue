@@ -96,7 +96,7 @@
             <v-text-field
                 v-if="showSearchBar"
                 v-model="searchValue"
-                background-color="#C8C8C8"
+                background-color="#D0D0D0"
                 clearable
                 class="custom mb-n6"
                 @keydown.enter="goToSearch"

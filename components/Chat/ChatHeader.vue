@@ -3,8 +3,8 @@
         <!-- Chat Header -->
         <v-sheet
             id="chat-header"
-            class="d-flex align-center justify-space-between pa-2"
-            color="accentwave"
+            class="d-flex align-center justify-space-between pa-2 py-3"
+            color="#F2F2F2"
         >
             <!-- Viewer List -->
             <div style="height: 32px">

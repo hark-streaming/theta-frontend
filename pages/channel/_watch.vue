@@ -14,7 +14,7 @@
         />
 
         <!-- Video JS -->
-        <div class="d-flex justify-space-around">
+        <div class="d-flex justify-space-around" style="background-color:black;">
             <v-responsive :aspect-ratio="16 / 9" max-width="calc(150vh - 98px)">
                 <v-sheet
                     color="grey darken-4"
@@ -87,13 +87,14 @@
         </div>
 
         <!-- Chat -->
+        <!-- maxHeight: mobile && !landscape ? '390px' : '90%', -->
         <div
             v-if="displayChat"
             :key="1"
-            class="d-flex"
+            
             :class="{ 'chat-desktop': !mobile || (mobile && landscape) }"
             :style="{
-                maxHeight: mobile && !landscape ? '390px' : '90%',
+                maxHeight: mobile && !landscape ? '390px' : '100%',
                 width: mobile && landscape ? '50%' : null,
             }"
         >

@@ -2,8 +2,8 @@
   <div>
     <!-- Stream Title, Status -->
     <v-toolbar
-      class="elevation-2"
-      color="accentwave" 
+      class="elevation-0"
+      color="neutral" 
       dense 
       prominent
     >
@@ -32,6 +32,8 @@
           <h3 class="mx-2 pl-2 flex-grow-1 subtitle-1 font-weight-medium text-truncate" :title="title">
             {{ title }}
           </h3>
+
+          <share-stream :user="name" />
 
         </v-row>
     
@@ -85,7 +87,7 @@
 
     </v-toolbar>
 
-    <v-sheet color="neutral">
+    <v-sheet color="#F2F2F2">
 
       <!-- Stream Actions -->
       <div class="d-flex flex-shrink-0 align-center flex-wrap px-3 py-2">
@@ -137,7 +139,6 @@
         </div>
 
         <!-- Share Stream Dialog -->
-        <share-stream :user="name" />
       </div>
 
       <v-divider />

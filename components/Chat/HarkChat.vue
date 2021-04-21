@@ -1,99 +1,104 @@
 <template>
-    <v-sheet
-        id="sidechat"
-        class="d-flex flex-grow-1 flex-column"
-        style="position: relative; display: inline"
-        color="white"
-    >
-
-        <!-- Chat Header -->
-        <chat-header
+    <div class="d-flex" style="position:relative;height:100%;display:inline;">
+        <v-divider style="height:100%;" vertical></v-divider>
+        <v-sheet
+            id="sidechat"
+            class="d-flex flex-grow-1 flex-column"
+            style="height:100%;"
             color="white"
-            :page="page"
-            :is-channel-owner="isChannelOwner"
-            :donateOn="donateOn"
-            :donateMsg="donateMsg"
-            :donateUrl="donateUrl"
-            :loggedIn="isAuth"
-            :avatar="streamerAvatar"
-            :tokenName="streamerTokenName"
-            :streamerUid="streamerUid"
-            :polls="polls"
-            :username="username"
-            @add-channel-tag="addUserTag(page)"
-            @voteAdded="$emit('voteAdded', $event)"
-        />
-        <!-- <v-btn v-if="!connected" @click="isAuth ? connect : showLogin=true" color="primary" class="mt-3">
-            {{isAuth ? "Join chat!" : "Log in to chat!"}}
-        </v-btn> -->
-        <!-- TODO: move structure and logic to subcomponent -->
-        <!-- <add-ons style="position: relative"> -->
-        <!-- Chat Banner -->
-        <!-- <div
-                :style="{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    zIndex: 1,
-                }"
-            >
-                <v-slide-x-reverse-transition>
-                    <v-sheet
-                        v-if="connecting"
-                        color="error"
-                        elevation="0"
-                        tile
-                        class="flex-grow-1"
-                    >
-                        <div class="px-3 py-2">connecting...</div>
-                        <v-progress-linear
-                            color="error darken-4"
-                            indeterminate
-                        />
-                    </v-sheet>
-                </v-slide-x-reverse-transition>
-            </div> -->
-        <!-- </add-ons> -->
+        >
 
-        <!-- Chat Stat Graph -->
-        <!-- <v-slide-y-transition mode="out-in">
-            <chat-graph
-                v-if="showGraph"
-                :values="graphValues"
-                :period="getStatTickRate"
-                :statName="graphStat.stat"
+            <!-- Chat Header -->
+            <chat-header
+                color="white"
+                :page="page"
+                :is-channel-owner="isChannelOwner"
+                :donateOn="donateOn"
+                :donateMsg="donateMsg"
+                :donateUrl="donateUrl"
+                :loggedIn="isAuth"
+                :avatar="streamerAvatar"
+                :tokenName="streamerTokenName"
+                :streamerUid="streamerUid"
+                :polls="polls"
+                :username="username"
+                @add-channel-tag="addUserTag(page)"
+                @voteAdded="$emit('voteAdded', $event)"
             />
-        </v-slide-y-transition> -->
+            <!-- <v-btn v-if="!connected" @click="isAuth ? connect : showLogin=true" color="primary" class="mt-3">
+                {{isAuth ? "Join chat!" : "Log in to chat!"}}
+            </v-btn> -->
+            <!-- TODO: move structure and logic to subcomponent -->
+            <!-- <add-ons style="position: relative"> -->
+            <!-- Chat Banner -->
+            <!-- <div
+                    :style="{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        zIndex: 1,
+                    }"
+                >
+                    <v-slide-x-reverse-transition>
+                        <v-sheet
+                            v-if="connecting"
+                            color="error"
+                            elevation="0"
+                            tile
+                            class="flex-grow-1"
+                        >
+                            <div class="px-3 py-2">connecting...</div>
+                            <v-progress-linear
+                                color="error darken-4"
+                                indeterminate
+                            />
+                        </v-sheet>
+                    </v-slide-x-reverse-transition>
+                </div> -->
+            <!-- </add-ons> -->
 
-        <!-- Chat Messages -->
-        <chat-messages
-            ref="chatmessages"
-            :messages="messages"
-            :show-timestamps="showTimestamps"
-            :global="global"
-            :channel="page"
-            :is-channel-owner="isChannelOwner"
-        />
+            <!-- Chat Stat Graph -->
+            <!-- <v-slide-y-transition mode="out-in">
+                <chat-graph
+                    v-if="showGraph"
+                    :values="graphValues"
+                    :period="getStatTickRate"
+                    :statName="graphStat.stat"
+                />
+            </v-slide-y-transition> -->
 
-        <!-- Chat Input -->
-        <chat-input
-            ref="chat-input"
-            :username="username"
-            :loading="loading"
-            @send="sendMessage"
-        />
+            <!-- Chat Messages -->
+            <chat-messages
+                ref="chatmessages"
+                :messages="messages"
+                :show-timestamps="showTimestamps"
+                :global="global"
+                :channel="page"
+                :is-channel-owner="isChannelOwner"
+            />
 
-        <!-- <chat-ignore-list v-model="showIgnoreList" /> -->
+            <v-divider></v-divider>
 
-        <!-- Fireworks overlay -->
-        <!-- <fireworks :absolute="true" ref="fireworks" /> -->
+            <!-- Chat Input -->
+            <chat-input
+                ref="chat-input"
+                :username="username"
+                :loading="loading"
+                @send="sendMessage"
+            />
 
-        <!-- log in dialog for those not logged in -->
-        <!-- <v-dialog v-model="showLogin" width="420">
-            <lazy-login-dialog @close="showLogin = false" />
-        </v-dialog> -->
-    </v-sheet>
+            <!-- <chat-ignore-list v-model="showIgnoreList" /> -->
+
+            <!-- Fireworks overlay -->
+            <!-- <fireworks :absolute="true" ref="fireworks" /> -->
+
+            <!-- log in dialog for those not logged in -->
+            <!-- <v-dialog v-model="showLogin" width="420">
+                <lazy-login-dialog @close="showLogin = false" />
+            </v-dialog> -->
+        </v-sheet>
+    </div>
 </template>
 
 <script>
@@ -389,7 +394,6 @@ export default {
 
 #chat-scroll {
     height: 100%;
-    margin-right: 1px;
     overscroll-behavior: contain;
 
     &::-webkit-scrollbar-track {

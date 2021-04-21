@@ -33,7 +33,7 @@
                 >
                     <!-- Chat Message -->
                     <template>
-                        <div class="ml-1">
+                        <div class="ml-1" style="font-size:1em;">
                             {{msg.message}}
                         </div>
                     </template>
@@ -48,7 +48,7 @@
                     v-show="showFAB"
                     fab
                     small
-                    color="accent"
+                    color="secondary"
                     @click="scrollToBottom(true)"
                     class="white--text mb-4"
                 >

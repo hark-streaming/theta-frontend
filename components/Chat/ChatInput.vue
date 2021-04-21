@@ -15,7 +15,7 @@
       :label="loading ? `Log in to chat` : `Send a message...`"
       :loading="loading"
       :disabled="loading"
-      class="mb-0"
+      class="custom"
       autocomplete="new-chat-message"
       autocorrect="off"
       autocapitalize="off"
@@ -25,7 +25,6 @@
       single-line
       dense
       validate-on-blur
-      filled
       solo
       clearable
       :error-messages="setInputRateLimit ? `${(setInputRateLimitMs / 1000).toFixed(0)}s before you can send a chat` : ''"
@@ -45,6 +44,7 @@
 
       @click:clear="setChatMessage( '' )"
       @drop="onDrop"
+      @click:append="sendMessage"
     />
 
     <!-- Bottom Buttons -->
@@ -455,7 +455,14 @@
 </script>
 
 <style lang="scss">
-  #chat-input {
-    position: relative;
-  }
+
+.custom.v-text-field input {
+    font-size: 0.9em;
+}
+.custom.v-text-field label {
+    font-size: 0.9em;
+}
+#chat-input {
+  position: relative;
+}
 </style>

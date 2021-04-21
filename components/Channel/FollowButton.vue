@@ -6,8 +6,8 @@
       :outlined="following || !streamerId"
       :loading="loading || disabled"
       :disabled="!isAuth"
-      color="primary white--text"
       @click="onFollowClick"
+      color="white"
     >
       {{ following
       ? `following (${followCount})`
@@ -15,7 +15,8 @@
     </v-btn>
     <div
       v-else
-      class="body-2 primary--text text-uppercase font-weight-bold"
+      class="pr-4 primary--text text-uppercase"
+      style="font-weight:500;font-size:0.9em;"
     >
       {{ `${followCount} Followers` }}
     </div>

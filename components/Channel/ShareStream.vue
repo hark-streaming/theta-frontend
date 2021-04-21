@@ -23,7 +23,7 @@
       left
       :close-on-content-click="false"
       width="450px"
-      transition="slide-x-transition"
+      transition="fade-transition"
     >
       <!-- Share stream dialog -->
       <v-card>
@@ -36,6 +36,7 @@
             Share this Stream
           </h4>
           <v-btn
+            color="white"
             text
             icon
             small

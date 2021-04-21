@@ -8,7 +8,7 @@
         icon
         @click="verifyPushNotifications"
       >
-        <v-icon v-if="following">
+        <v-icon color="white" v-if="following">
           {{ pushNotifications
           ? 'notifications_active'
           : 'notifications' }}
