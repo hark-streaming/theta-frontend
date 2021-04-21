@@ -1,11 +1,10 @@
 <template>
     <div>
         <!-- Theta Web Widget -->
-        <h2 class="pl-3 pt-2">Theta Network Statistics</h2>
+        <v-banner color="secondary"><h2>Theta Network Statistics</h2></v-banner>
         <div
             id="theta-section"
             ref="theta-section"
-            class="pa-3"
             style="min-height: 300px"
         >
             <div id="MY_THETA_WEB_WIDGET_ID"></div>
@@ -37,5 +36,7 @@ export default {
 <style scoped>
     h2 {
         font-size:1.5em;
+        color:white;
+        font-weight:300;
     }
 </style>

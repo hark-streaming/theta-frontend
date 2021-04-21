@@ -23,7 +23,7 @@
     >
       <!-- Edit Dialog -->
       <v-card
-        color="accentwave"
+        color="primary"
         :loading="saveLoading || showExitConfirm"
       >
         <!-- Title Bar -->
@@ -55,16 +55,17 @@
 
             <!-- Edit / Preview Button -->
             <v-btn
-              color="accent"
+              color="white"
               outlined
               small
               @click="previewData = !previewData"
             >
-              {{ previewData ? 'Edit' : 'preview' }}
+              {{ previewData ? 'Return to Editing' : 'Preview Description' }}
             </v-btn>
           </div>
 
-          <v-slide-x-transition mode="out-in">
+          <!-- <v-slide-x-transition mode="out-in"> -->
+          <v-fade-transition/>
             <div
               v-if="!previewData"
               class="px-3"
@@ -176,9 +177,21 @@
                 :source="streamData.description"
               />
             </v-sheet>
-          </v-slide-x-transition>
+          
+          <!-- </v-slide-x-transition> -->
 
           <div class="d-flex justify-end mt-3 px-3">
+            <div>
+              <!-- Edit / Preview Button -->
+              <v-btn
+                color="accent"
+                outlined
+                small
+                @click="previewData = !previewData"
+              >
+                {{ previewData ? 'Return to Editing' : 'Preview Description' }}
+              </v-btn>
+            </div>
             <!-- Reset Button -->
             <!-- <v-btn
               class="mr-2"
