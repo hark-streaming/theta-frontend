@@ -31,7 +31,6 @@
           <img
             src="https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png"
             alt="hark user"
-            crossorigin
           >
           <!--<v-icon v-else>person</v-icon>-->
         </v-avatar>
