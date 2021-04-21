@@ -23,7 +23,6 @@
                 :polls="polls"
                 :username="username"
                 @add-channel-tag="addUserTag(page)"
-                @voteAdded="$emit('voteAdded', $event)"
             />
             <!-- <v-btn v-if="!connected" @click="isAuth ? connect : showLogin=true" color="primary" class="mt-3">
                 {{isAuth ? "Join chat!" : "Log in to chat!"}}
