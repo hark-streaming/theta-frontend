@@ -44,15 +44,9 @@ export default {
 };
 </script>
 <style scoped>
-<<<<<<< HEAD
-h2 {
-  font-size: 1.5em;
-}
-=======
     h2 {
         font-size:1.5em;
         color:white;
         font-weight:300;
     }
->>>>>>> f764b07f1b5b9d7ee3354f82f802e55efec66f46
 </style>
