@@ -146,6 +146,7 @@
             :description="description"
             :timestamp="timestamp"
             :tags="tags"
+            :streamerId="owner"
         />
     </div>
 </template>
