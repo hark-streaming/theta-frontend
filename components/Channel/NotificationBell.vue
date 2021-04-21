@@ -18,8 +18,9 @@
 
       <!-- Push Notification Confirmation Dialog -->
       <v-dialog
+        transition="fade-transition"
         v-model="showConfirmNotifications"
-        width="500"
+        width="30%"
         @click:outside="confirm( false )"
       >
         <v-card>
@@ -38,7 +39,7 @@
             <div class="subtitle-1 my-2 black--text">
               Notifications will still be sent to this device if bitwave is closed.
             </div> -->
-            <div class="subtitle-1 my-2">
+            <div class="subtitle-1 my-2 black--text">
               You can always disable notifications by clicking the bell again.
             </div>
 

@@ -6,7 +6,7 @@
     bottom
     left
     offset-y
-    transition="slide-y-transition"
+    transition="fade-transition"
   >
     <template #activator="{ on }">
       <v-btn

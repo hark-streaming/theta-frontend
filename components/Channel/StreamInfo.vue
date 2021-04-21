@@ -73,6 +73,7 @@
         <v-tabs
           v-model="tabData"
           background-color="transparent"
+          color="secondary"
           class="no-focus"
           show-arrows
         >
