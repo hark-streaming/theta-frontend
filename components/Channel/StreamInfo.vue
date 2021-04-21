@@ -178,19 +178,7 @@
         <!-- Theta -->
         <v-tab-item>
           <theta-tab>
-            
           </theta-tab>
-          <!-- Theta Web Widget -->
-          <div
-            id="theta-section"
-            ref="theta-section"
-            class="pa-3"
-            style="min-height: 300px"
-          >
-            <!-- Stream Description -->
-            <!-- This is where the theta rewards stats would be shown, but it's not showing up. -->
-            <div id="MY_THETA_WEB_WIDGET_ID"></div>
-          </div>
         </v-tab-item>
 
         <!-- Debug Stream -->
