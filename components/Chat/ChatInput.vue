@@ -61,6 +61,7 @@
         :light="!loading"
         small
         color="secondary"
+        outlined
         class="px-2"
         @click="sendMessage"
       >

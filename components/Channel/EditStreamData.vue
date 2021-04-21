@@ -7,6 +7,7 @@
         color="secondary"
         flat
         depressed
+        outlined
         @click="editStreamData = true"
       >
         <!--<template v-if="$vuetify.breakpoint.smAndDown"><v-icon small class="ml-1">edit</v-icon></template>-->
