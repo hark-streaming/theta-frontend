@@ -1,6 +1,6 @@
 <template>
   <div v-if="streamerHasToken">
-
+    
   </div>
   <div v-else>
     <div style="text-align: center; text-justify: center;" class="no-token">
