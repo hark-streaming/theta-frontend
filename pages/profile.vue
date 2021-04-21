@@ -29,13 +29,13 @@
             <donation-history-card />
           </v-flex>
         </v-layout>
-        <v-layout :v-if="showStreamInfo" justify-center>
-          <card-form />
+        <v-layout v-show="showStreamInfo" justify-center>
+          <card-form :v-show="false" />
         </v-layout>
-        <v-layout :v-if="showStreamInfo" justify-center>
+        <v-layout v-show="showStreamInfo" justify-center>
           <relay-card />
         </v-layout>
-        <v-layout :v-if="showStreamInfo" justify-center>
+        <v-layout v-show="showStreamInfo" justify-center>
           <cash-out-card />
         </v-layout>
       </v-tab-item>
