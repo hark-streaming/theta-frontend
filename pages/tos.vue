@@ -258,7 +258,6 @@
     </v-container>
 
     <!-- Footer -->
-    <simple-footer :version="version" />
 
   </div>
 </template>

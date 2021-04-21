@@ -10,7 +10,7 @@
           <!-- Page Header -->
           <div id="topheader">
             <div data-custom-class="title"><strong>PRIVACY POLICY</strong></div>
-            <p><strong><span data-custom-class="subtitle">Last updated June 14, 2020</span></strong></p>
+            <p><strong><span data-custom-class="subtitle">Last updated Febuary 27, 2021</span></strong></p>
             <p><span data-custom-class="body_text">Thank you for choosing to be part of our community at Hark (&ldquo;<strong>Company</strong>&rdquo;, &ldquo;<strong>we</strong>&rdquo;, &ldquo;<strong>us</strong>&rdquo;, or &ldquo;<strong>our</strong>&rdquo;). We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our <span data-custom-class="body_text"><span data-custom-class="body_text">policy</span></span>, or our practices with regards to your personal information, please contact us at support@hark.tv.</span></p>
             <p><span data-custom-class="body_text">When you visit our website <a href="https://hark.tv" target="_blank" rel="noopener" data-custom-class="link">https://hark.tv</a>, mobile application, and use our services, you trust us with your personal information. We take your privacy very seriously. In this <span data-custom-class="body_text"><span data-custom-class="body_text">privacy policy</span></span>, we seek to explain to you in the clearest way possible what information we collect, how we use it and what rights you have in relation to it. We hope you take some time to read through it carefully, as it is important. If there are any terms in this <span data-custom-class="body_text"><span data-custom-class="body_text">privacy policy</span></span>&nbsp;that you do not agree with, please discontinue use of our Sites or Apps and our services.</span></p>
             <p><span data-custom-class="body_text">This <span data-custom-class="body_text"><span data-custom-class="body_text">privacy policy</span></span>&nbsp;applies to all information collected through our website (such as <a href="https://hark.tv" target="_blank" rel="noopener" data-custom-class="link">https://hark.tv</a>), mobile application,&nbsp;</span><span data-custom-class="body_text">("<strong>Apps</strong>"), and/or any related services, sales, marketing or events (we refer to them collectively in this <span data-custom-class="body_text"><span data-custom-class="body_text">privacy policy</span></span>&nbsp;as the "<strong>Services</strong>").</span></p>
@@ -212,7 +212,6 @@
     </div>
 
     <!-- Footer -->
-    <simple-footer :version="version" />
 
   </div>
 </template>
