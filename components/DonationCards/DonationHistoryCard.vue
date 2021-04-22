@@ -114,13 +114,13 @@ export default {
         }
       },
       chartdata: {
-        labels: yourTokens,
+        labels: this.yourTokens,
         datasets: [
           {
             label: "Tokens",
             backgroundColor: ["#DAF7A6 ", "#FFC300 ", "#FF5733", "#C70039","#900C3F","#581845","#33b5ff", "#ff3399"],
             //data: [345, 200, 742, 400, 532],
-            data: numTokens,
+            data: this.numTokens,
           },
           /*{
             label: "Data Two",
@@ -148,11 +148,12 @@ export default {
   methods: {
     async getChartData () {
       const { data } = await this.$axios.get(
-      `${process.env.API_URL}/theta/tokens/${this.uid}`
+      //`${process.env.API_URL}/theta/tokens/${this.uid}`
+      `${process.env.API_URL}/theta/tokens/WbQpVz9J6FYSUFgtvn8XPQvyeD03`
       );
+      console.log("HELP",data);
       this.yourTokens = Object.keys(data.tokens);
       this.numTokens = Object.values(data.tokens);
-      console.log(this.yourTokens);
     },
   },
   computed: {
