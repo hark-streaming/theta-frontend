@@ -201,7 +201,12 @@ export const getters = {
 
     // Get Channel Viewer Data
     [$getters.getChannelViews](state) {
+
         return channel => {
+            // kevin test
+            // console.log(channel);
+            // //const{ data } = this.$axios.$get(`http://localhost:4000/users/all`);
+            // return 5;
             if (!channel && state[$states.channelsViewers]) return 0;
             try {
                 const c = state[$states.channelsViewers].find(c => c.channel.toLowerCase() === channel.toLowerCase());
@@ -506,46 +511,60 @@ export const actions = {
     },
 
     async [$actions.updateViewers]({ commit }) {
-        if (!throttledUpdateViewers) {
-            // How long (in seconds) to wait between subsequent API requests
-            const throttleDelay = 15;
+        // if (!throttledUpdateViewers) {
+        //     // How long (in seconds) to wait between subsequent API requests
+        //     const throttleDelay = 15;
 
-            // Combines update methods
-            const update = async () => {
-                const updateChannelViewers = async () => {
-                    try {
-                        /*'https://api.bitwave.tv/v1/chat/channels'*/
-                        const { data } = await this.$axios.get(`http://localhost:4000/users/all`);
-                        if (data && data.success) {
-                            commit($mutations.setChannelViewers, data.data);
-                        }
-                    } catch (error) {
-                        console.error(`Failed to hydrate channels`, error.message);
-                    }
-                };
+        //     // Combines update methods
+        //     const update = async () => {
+        //         const updateChannelViewers = async () => {
+        //             try {
+        //                 /*'https://api.bitwave.tv/v1/chat/channels'*/
+        //                 const { data } = await this.$axios.get(`http://localhost:4000/users/all`);
+        //                 if (data && data.success) {
+        //                     console.log("VIEWER DATA", data)
+        //                     commit($mutations.setChannelViewers, data.data);
+        //                 }
+        //             } catch (error) {
+        //                 console.error(`Failed to hydrate channels`, error.message);
+        //             }
+        //         };
 
-                const updateUserList = async () => {
-                    try {
-                        // const { data } = await this.$axios.get('https://api.bitwave.tv/v1/chat/users', { progress: false, skipAuth: true });
-                        // if (data && data.success) {
-                        //     commit($mutations.setUserList, data.data);
-                        // }
-                    } catch (error) {
-                        console.error(`Failed to hydrate userlist.`, error.message);
-                    }
-                };
+        //         // const updateUserList = async () => {
+        //         //     try {
+        //         //         // const { data } = await this.$axios.get('https://api.bitwave.tv/v1/chat/users', { progress: false, skipAuth: true });
+        //         //         // if (data && data.success) {
+        //         //         //     commit($mutations.setUserList, data.data);
+        //         //         // }
+        //         //     } catch (error) {
+        //         //         console.error(`Failed to hydrate userlist.`, error.message);
+        //         //     }
+        //         // };
 
-                await Promise.all([
-                    updateChannelViewers(),
-                    updateUserList(),
-                ]);
+        //         await Promise.all([
+        //             updateChannelViewers(),
+        //             //updateUserList(),
+        //         ]);
+        //     }
+        //     throttledUpdateViewers = throttle(update, throttleDelay * 1000);
+        //     return;
+        // }
+        // const throttled = throttledUpdateViewers();
+        // // logger( `Throttled $actions.updateViewers`, throttled );
+        // console.debug(`Throttled $actions.updateViewers`, throttled);
+
+        // this is probably kind of janked but it works
+        try {
+            //`http://localhost:4000/users/all`
+            //`https://chat.hark.tv/`
+            const { data } = await this.$axios.get(`https://chat.hark.tv/users/all`);
+            if (data && data.success) {
+                console.log("VIEWER DATA", data)
+                commit($mutations.setChannelViewers, data.data);
             }
-            throttledUpdateViewers = throttle(update, throttleDelay * 1000);
-            return;
+        } catch (error) {
+            console.error(`Failed to hydrate channels`, error.message);
         }
-        const throttled = throttledUpdateViewers();
-        // logger( `Throttled $actions.updateViewers`, throttled );
-        console.debug(`Throttled $actions.updateViewers`, throttled);
     },
 
     async [$actions.loadSettings]({ commit }) {

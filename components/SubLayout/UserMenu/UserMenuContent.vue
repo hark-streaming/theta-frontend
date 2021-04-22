@@ -61,7 +61,7 @@
         <!-- My Channel -->
         <v-list-item
           v-if="userType === 'Streamer'"
-          :to="`/channel/${username}`"
+          :to="`/channel/${username.toLowerCase()}`"
         >
           <v-list-item-action>
             <v-icon>live_tv</v-icon>

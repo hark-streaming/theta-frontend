@@ -202,11 +202,12 @@ export default {
             });
 
             // join the correct room after connection
-            this.socket.on("connect", () => {
+            this.socket.on("connect", async () => {
                 this.socket.emit("joinRoom", this._username, this.chatChannel);
                 this.loading = false;
                 //this.connected = true;
-                //this.updateViewers;
+                const test = await this.updateViewers();
+                console.log("VIEWERS", test);
             });
 
             // add message when message happens

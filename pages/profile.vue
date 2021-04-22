@@ -14,7 +14,7 @@
     >
       <v-tab>Account</v-tab>
       <v-tab>Donations</v-tab>
-      <v-tab :disabled="!showStreamInfo">Streaming</v-tab>
+      <v-tab>Streaming</v-tab>
       <v-tab :disabled="!showStreamInfo">Token</v-tab>
 
       <!-- ACCOUNT TAB -->
@@ -42,6 +42,19 @@
 
       <!-- STREAM TAB -->
       <v-tab-item eager>
+        <!-- Upgrade Account -->
+        <v-layout justify-center>
+          <v-flex v-if="!showStreamInfo" xs14 sm12 md10 lg8>
+            <v-card class="mb-4 pa-3">
+              <h2>Upgrade To Streaming Account</h2>
+              <div class="mb-2">
+                We get it. You want to stream on Hark! I mean, who doesn't? You're going to have to fill out the form below to get a streamkey.
+              </div>
+              <upgrade-account-form />
+            </v-card>
+          </v-flex>
+        </v-layout>
+
         <!-- Stream Key -->
         <v-layout justify-center>
           <v-flex v-if="showStreamInfo" xs14 sm12 md10 lg8>
@@ -183,7 +196,7 @@
         <!-- Stream Info -->
         <v-layout justify-center>
           <v-flex v-if="showStreamInfo" xs14 sm12 md10 lg8>
-            <stream-info-dashboard :username="username" />
+            <stream-info-dashboard :username="username.toLowerCase()" />
           </v-flex>
         </v-layout>
       </v-tab-item>
@@ -280,9 +293,10 @@ export default {
 
       const stream = this.username.toLowerCase();
       const streamRef = db.collection("streams").doc(stream);
+      this.showStreamInfo = this.user.hasOwnProperty( 'streamkey' ) && this.user.streamkey != "";
       return streamRef.onSnapshot(
         async (doc) => {
-          this.showStreamInfo = doc.exists;
+          //this.showStreamInfo = doc.exists;
           if (this.showStreamInfo) await this.streamDataChanged(doc.data());
         },
         () => (this.showStreamInfo = false)
