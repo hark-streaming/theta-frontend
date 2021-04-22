@@ -11,7 +11,7 @@
                 <v-row no-gutters>
                     <v-col>
                         <v-sheet
-                            v-for="(poll, index) in this.streamData.polls"
+                            v-for="(poll, index) in this.pollData.polls"
                             :key="index"
                             >
                             <v-row>
@@ -106,7 +106,7 @@
                             
                         </v-sheet>
 
-                        <v-row v-if="streamData.polls.length < 8" class="d-flex align-center justify-center pt-4" no-gutters>
+                        <v-row v-if="pollData.polls.length < 8" class="d-flex align-center justify-center pt-4" no-gutters>
                             <v-btn @click="addPoll">+ Add poll</v-btn>
                         </v-row>
                     </v-col>
@@ -129,7 +129,7 @@
                     :loading="saveLoading"
                     color="primary"
                     outlined
-                    @click="updateStreamData"
+                    @click="updatePollData"
                     >save</v-btn
                 >
             </v-layout>
@@ -174,14 +174,14 @@ export default {
                 message: "",
             },
 
-            streamDocListener: null,
+            pollDocListener: null,
 
-            streamData: {
+            pollData: {
                 polls: []
             },
 
-            streamDataLoading: true,
-            showStreamInfo: true,
+            pollDataLoading: true,
+            showPollInfo: true,
             showSave: false,
             saveLoading: false,
 
@@ -202,56 +202,48 @@ export default {
             }
         },
 
-        getStreamData() {
+        getPollData() {
             
-            this.streamDataLoading = true;
+            this.pollDataLoading = true;
 
-            // const stream = this.username.toLowerCase();
-            // const streamRef = db.collection("streams").doc(stream);
+            const pollRef = db.collection("polls").doc(this.uid)
 
-            const stream = this.uid;
-            const streamRef = db.collection("polls").doc(stream)
-
-            return streamRef.onSnapshot(
+            return pollRef.onSnapshot(
                 async (doc) => {
-                    this.showStreamInfo = doc.exists;
-                    if (this.showStreamInfo) 
-                        await this.streamDataChanged(doc.data());
+                    this.showPollInfo = doc.exists;
+                    if (this.showPollInfo) 
+                        await this.pollDataChanged(doc.data());
                 },
-                () => (this.showStreamInfo = false)
+                () => (this.showPollInfo = false)
             );
         },
 
-        async streamDataChanged(data) {
-            this.streamData.polls = [];
-            data.polls.forEach(x => this.streamData.polls.push(x));
+        async pollDataChanged(data) {
+            this.pollData.polls = [];
+            data.polls.forEach(x => this.pollData.polls.push(x));
 
-            this.streamDataLoading = false;
+            this.pollDataLoading = false;
 
             this.setOld();
-            this.idTracker = this.streamData.polls.length;
+            this.idTracker = this.pollData.polls.length;
         },
 
-        async updateStreamData() {
+        async updatePollData() {
             this.$ga.event({
                 eventCategory: "profile",
-                eventAction: "update stream",
+                eventAction: "update poll",
                 eventLabel: this.uid,
             });
             this.saveLoading = true;
 
             const polls = [];
-            this.streamData.polls.forEach(x => polls.push(x));
+            this.pollData.polls.forEach(x => polls.push(x));
 
             this.setOld();
 
-            // const stream = this.username.toLowerCase();
-            // const streamRef = db.collection("streams").doc(stream); // MAKE SURE THE FIRESTORE HAS THE CORRECT SECURITY RULES HERE
+            const pollRef = db.collection("polls").doc(this.uid);
 
-            const stream = this.uid;
-            const streamRef = db.collection("polls").doc(stream);
-
-            await streamRef.update({
+            await pollRef.update({
                 polls
             });
             this.saveLoading = false;
@@ -270,7 +262,7 @@ export default {
 
         copyToClipboard() {
             const initialState = this.showKey;
-            this.$copyText(this.streamData.key).then(
+            this.$copyText(this.pollData.key).then(
                 () => {
                     this.keyMessage = ["Copied to clipboard"];
                     this.$toast.success("Copied to clipboard", {
@@ -298,14 +290,14 @@ export default {
 
         setOld() {
             this.old.polls = [];
-            // this.streamData.polls.forEach(x => this.old.polls.push(x));
+            // this.pollData.polls.forEach(x => this.old.polls.push(x));
 
             
             var options = null;
             var currPoll = null;
-            for (var p = 0; p < this.streamData.polls.length; p++) {
+            for (var p = 0; p < this.pollData.polls.length; p++) {
                 currPoll = null;
-                currPoll = this.streamData.polls[p];
+                currPoll = this.pollData.polls[p];
 
                 options = {
                     question: "", 
@@ -335,8 +327,8 @@ export default {
         }, 
 
         resetData() {
-            this.streamData.polls = [];
-            // this.old.polls.forEach(x => this.streamData.polls.push(x));
+            this.pollData.polls = [];
+            // this.old.polls.forEach(x => this.pollData.polls.push(x));
 
             var options = null;
             var currPoll = null;
@@ -367,7 +359,7 @@ export default {
                 options.customId = currPoll.customId;
                 options.active = currPoll.active;
 
-                this.streamData.polls.push(options);
+                this.pollData.polls.push(options);
             }
 
             this.showSave = false;
@@ -385,17 +377,17 @@ export default {
                 customId: this.idTracker, 
                 active: false                           // TEMPORARY
             };
-            this.streamData.polls.push(pollData);
+            this.pollData.polls.push(pollData);
 
             this.idTracker++;
             this.showSave = true;
         }, 
 
         deletePoll(index) {
-            this.streamData.polls.splice(index, 1);
+            this.pollData.polls.splice(index, 1);
 
-            for (var i = index; i < this.streamData.polls.length; i++) {
-                this.streamData.polls[i].customId--;
+            for (var i = index; i < this.pollData.polls.length; i++) {
+                this.pollData.polls[i].customId--;
             }
             this.idTracker--;
 
@@ -403,17 +395,17 @@ export default {
         }, 
 
         addAnswer(index) {
-            const answerData = { value: this.streamData.polls[index].answers.length, text: "", votes: 0 };
-            this.streamData.polls[index].answers.push(answerData);
+            const answerData = { value: this.pollData.polls[index].answers.length, text: "", votes: 0 };
+            this.pollData.polls[index].answers.push(answerData);
 
             this.showSave = true;
         }, 
 
         deleteAnswer(index, aIndex) {
-            this.streamData.polls[index].answers.splice(aIndex, 1);
+            this.pollData.polls[index].answers.splice(aIndex, 1);
 
-            for (var i = aIndex; i < this.streamData.polls[index].answers.length; i++) {
-                this.streamData.polls[index].answers[i].value--;
+            for (var i = aIndex; i < this.pollData.polls[index].answers.length; i++) {
+                this.pollData.polls[index].answers[i].value--;
             }
 
             this.showSave = true;
@@ -436,7 +428,7 @@ export default {
         this.unsubAuthChanged = auth.onAuthStateChanged((user) =>
             this.authenticated(user)
         );
-        this.streamDocListener = this.getStreamData();
+        this.pollDocListener = this.getPollData();
     },
 
     beforeDestroy() {
@@ -448,7 +440,7 @@ export default {
                 ""
             );
         }
-        if (this.streamDocListener) this.streamDocListener();
+        if (this.pollDocListener) this.pollDocListener();
     },
     
 }

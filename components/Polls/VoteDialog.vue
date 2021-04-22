@@ -113,19 +113,6 @@ export default {
                 polls
             });
 
-            /* const stream = this.username.toLowerCase();
-            const streamRef = db.collection("streams").doc(stream); // MAKE SURE THE FIRESTORE HAS THE CORRECT SECURITY RULES HERE
-            await streamRef.set({
-                polls: {
-                    [eventObj.id]: {
-                        [answers]: {
-                            [eventObj.val]: {
-                                [votes]: firestore.FieldValue.increment(1)
-                            }
-                        }
-                    }
-                }
-            }, {merge: true}); */
         },
 
         close() {

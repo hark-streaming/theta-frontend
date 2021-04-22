@@ -331,7 +331,7 @@ export default {
         async kickStream() {
             const token = await auth.currentUser.getIdToken(true);
             const user = this.username;
-            const server = "api.bitwave.tv";
+            const server = "api.hark.tv";
             const apiVer = "v1";
             const endpoint = "/streamer/stream/kick";
             const url = `https://${server}/${apiVer}${endpoint}?token=${token}&reset=${false}`;

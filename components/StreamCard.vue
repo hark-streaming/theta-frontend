@@ -75,7 +75,6 @@
 
     data () {
       return {
-        // lazyImg: 'https://cdn.bitwave.tv/static/img/Bitwave_Banner-256.jpg',
         lazyImg: "https://cdn.discordapp.com/attachments/814278920168931382/823092021753413633/hark-title.png",
       }
     },

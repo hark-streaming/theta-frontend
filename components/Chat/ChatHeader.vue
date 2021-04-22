@@ -140,7 +140,7 @@ import ViewerList from "@/components/Chat/ViewerList";
 import ChatOverflowMenu from "@/components/Chat/ChatOverflowMenu";
 import { mapGetters } from "vuex";
 import { VStore } from "@/store";
-import VoteDialog from "@/components/Channel/VoteDialog";
+import VoteDialog from "@/components/Polls/VoteDialog";
 
 const ChatPoll = async () => await import("@/components/Chat/ChatPoll");
 
