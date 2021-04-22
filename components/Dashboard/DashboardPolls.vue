@@ -1,15 +1,24 @@
 <template>
+    <!-- Section of Dashboard for displaying and editing polls -->
+
+
     <v-flex xs12 sm10 md10 lg12>
         <v-card class="mb-4">
             <v-container class="ma-0 pa-0">
+
+                <!-- Title -->
                 <v-row no-gutters>
                     <v-flex class="my-3 ml-3">
                         <h2>Polls</h2>
                     </v-flex>
                 </v-row>
+
                 <v-divider class="mb-3"></v-divider>
+
                 <v-row no-gutters>
                     <v-col>
+
+                        <!-- Display/edit interface for each poll -->
                         <v-sheet
                             v-for="(poll, index) in this.pollData.polls"
                             :key="index"
@@ -25,9 +34,10 @@
                                 </v-col>
 
                                 <v-col cols="7">
-                                    <!-- Poll prompt -->
                                     <v-row no-gutters class="mt-3">
+
                                         <v-col cols="8" class="flex-grow-1">
+                                            <!-- Poll prompt text field -->
                                             <v-text-field 
                                                 v-model="poll.question"
                                                 label="Prompt"
@@ -39,6 +49,7 @@
                                         </v-col>
 
                                         <v-col class="d-flex justify-end mt-1 ml-0 pr-4">
+                                            <!-- Delete Poll button -->
                                             <v-btn 
                                                 rounded
                                                 flat
@@ -52,11 +63,20 @@
 
                                     <!-- Poll answer options -->
                                     <v-row no-gutters v-for="(answer, aIndex) in poll.answers" :key="aIndex">
+                                        
                                         <v-col cols="1" class="d-flex align-center justify-center mr-1">
-                                            <v-btn depressed fab x-small color="primary white--text" @click="deleteAnswer(index, aIndex)">X</v-btn>
+                                            <!-- Delete Answer button -->
+                                            <v-btn 
+                                                depressed 
+                                                fab 
+                                                x-small 
+                                                color="primary white--text" 
+                                                @click="deleteAnswer(index, aIndex)"
+                                            ><v-icon>close</v-icon></v-btn>
                                         </v-col>
 
                                         <v-col class="flex-grow-1 mr-3">
+                                            <!-- Answer text field -->
                                             <v-text-field 
                                                 v-model="answer.text"
                                                 :label="answerLabel(answer.value)"
@@ -68,6 +88,7 @@
                                         </v-col>
                                     </v-row>
 
+                                    <!-- Add Answer button (if max of 4 hasn't been reached yet) -->
                                     <v-row v-if="poll.answers.length < 4" class="pl-10" no-gutters>
                                         <v-btn small @click="addAnswer(index)">+ Add answer</v-btn>
                                     </v-row>
@@ -102,10 +123,12 @@
                                     </v-row>
                                 </v-col>
                             </v-row>
+
                             <v-row class="mb-3" no-gutters><v-divider></v-divider></v-row>
                             
                         </v-sheet>
 
+                        <!-- Add Poll button (if max of 8 hasn't been reached yet) -->
                         <v-row v-if="pollData.polls.length < 8" class="d-flex align-center justify-center pt-4" no-gutters>
                             <v-btn @click="addPoll">+ Add poll</v-btn>
                         </v-row>
@@ -115,6 +138,8 @@
 
             <v-layout>
                 <v-spacer />
+
+                <!-- Reset and Save buttons -->
                 <v-btn
                     color="cyan"
                     outlined
@@ -142,18 +167,15 @@
 import { auth, db } from "@/plugins/firebase.js";
 import { mapGetters, mapState } from "vuex";
 import { VStore } from "@/store";
-// import VuePoll from "vue-poll";
 import Poll from "@/components/Polls/Poll";
 
 export default {
 
     components: {
-        // VuePoll
         Poll
     },
 
     props: {
-        // username: { type: String, default: "" }, 
         uid: ""
     }, 
 
@@ -176,20 +198,39 @@ export default {
 
             pollDocListener: null,
 
+            // data pulled from Firebase, edited by user interface, and 
+            // re-uploaded to Firebase
             pollData: {
                 polls: []
             },
+
+            /*  poll data format:
+                    question: "",                           
+                    answers: [                              // array containing answer options
+                        {                                   // object containing data fields for each answer
+                            value: 0,                           // answer "value" that doubles as index in array
+                            text: "",                           
+                            votes: 0                            // total accumulated votes
+                        }        
+                    ], 
+                    showResults: false,                     // if true, automatically skip voting and display results
+                    multiple: false,                        // enables multiple-choice selection
+                    submitButtonText: "Submit",             
+                    customId: 0,                            // poll "id" that doubles as index in array
+                    active: false                           // if true, poll displayed to public 
+            */
 
             pollDataLoading: true,
             showPollInfo: true,
             showSave: false,
             saveLoading: false,
 
+            // instance of data from most recent save/Firebase pull
+            // used to reset data to state before any edits
             old: {
                 polls: []
             },
 
-            idTracker: 0, 
         }
     },
 
@@ -202,6 +243,7 @@ export default {
             }
         },
 
+        // Retrieve data from "polls" in Firebase using uid as the key
         getPollData() {
             
             this.pollDataLoading = true;
@@ -218,16 +260,18 @@ export default {
             );
         },
 
+        // Copy polls array in Firebase to local array
         async pollDataChanged(data) {
             this.pollData.polls = [];
             data.polls.forEach(x => this.pollData.polls.push(x));
 
             this.pollDataLoading = false;
 
+            // Update local trackers
             this.setOld();
-            this.idTracker = this.pollData.polls.length;
         },
 
+        // Overwrite Firebase polls array with local array
         async updatePollData() {
             this.$ga.event({
                 eventCategory: "profile",
@@ -236,16 +280,17 @@ export default {
             });
             this.saveLoading = true;
 
-            const polls = [];
-            this.pollData.polls.forEach(x => polls.push(x));
-
             this.setOld();
 
+            // create temp copy of local polls array
+            // then update polls array in Firebase with temp copy
+            const polls = [];
+            this.pollData.polls.forEach(x => polls.push(x));
             const pollRef = db.collection("polls").doc(this.uid);
-
             await pollRef.update({
                 polls
             });
+
             this.saveLoading = false;
             this.showSave = false;
         },
@@ -288,11 +333,11 @@ export default {
             }, 3000);
         },
 
+        // save unedited instance of data
         setOld() {
             this.old.polls = [];
-            // this.pollData.polls.forEach(x => this.old.polls.push(x));
-
             
+            // iterate through local data, copy and push fields
             var options = null;
             var currPoll = null;
             for (var p = 0; p < this.pollData.polls.length; p++) {
@@ -326,9 +371,9 @@ export default {
             }
         }, 
 
+        // reset current data to instance before any edits were made
         resetData() {
             this.pollData.polls = [];
-            // this.old.polls.forEach(x => this.pollData.polls.push(x));
 
             var options = null;
             var currPoll = null;
@@ -366,6 +411,7 @@ export default {
         }, 
 
         addPoll() {
+            // create blank/default poll and push to local array
             const pollData = {
                 question: "", 
                 answers: [
@@ -374,22 +420,22 @@ export default {
                 showResults: false, 
                 multiple: false, 
                 submitButtonText: "Submit", 
-                customId: this.idTracker, 
-                active: false                           // TEMPORARY
+                customId: this.pollData.polls.length, 
+                active: false                           
             };
             this.pollData.polls.push(pollData);
 
-            this.idTracker++;
+            // update trackers
             this.showSave = true;
         }, 
 
         deletePoll(index) {
             this.pollData.polls.splice(index, 1);
 
+            // update trackers
             for (var i = index; i < this.pollData.polls.length; i++) {
                 this.pollData.polls[i].customId--;
             }
-            this.idTracker--;
 
             this.showSave = true;
         }, 
@@ -424,7 +470,6 @@ export default {
     }, 
 
     mounted() {
-        // this.mounted = true;
         this.unsubAuthChanged = auth.onAuthStateChanged((user) =>
             this.authenticated(user)
         );

@@ -109,7 +109,7 @@
 
             <v-divider v-if="showPolls" vertical></v-divider>
 
-            <!-- Poll voting dialog -->
+            <!-- Poll voting dialog; display only if there is at least one active poll -->
             <VoteDialog 
                 v-if="showPolls" 
                 :polls="polls" 

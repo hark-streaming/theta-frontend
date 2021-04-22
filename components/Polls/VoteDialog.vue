@@ -1,5 +1,9 @@
 <template>
+    <!-- Dialog window for voting in and viewing polls -->
+
     <div class="text-center">
+
+        <!-- Button to display window -->
         <v-btn
             small
             @click="displayWindow=true"
@@ -12,7 +16,7 @@
         <v-dialog
             v-model="displayWindow"
             :max-width="$vuetify.breakpoint.mdAndDown ? '95%' : '68%'"
-            @click:outside="close"
+            @click:outside="displayWindow=false"
             persistent
             transition="fade-transition"
         >
@@ -35,7 +39,7 @@
                         text
                         icon
                         small
-                        @click="close"
+                        @click="displayWindow=false"
                     >
                         <v-icon>close</v-icon>
                     </v-btn>
@@ -49,6 +53,8 @@
                             :key="poll.customId"
                             cols="3"
                         >
+
+                            <!-- Poll visual -->
                             <Poll 
                                 :poll="poll" 
                                 :skipVote="submittedPolls[poll.customId]" 
@@ -81,11 +87,13 @@ export default {
     data() {
         return {
             displayWindow: false, 
-            submittedPolls: []
+            submittedPolls: []      // array to track which polls user has already voted in
         }
     }, 
 
     computed: {
+
+        // only display polls that are marked as "active"
         activePolls() {
             var activePolls = [];
             this.polls.forEach(x => {
@@ -97,37 +105,37 @@ export default {
     },
 
     methods: {
-        async updateStreamData() {
+        // Overwrite Firebase polls array with local array
+        async updatePollData() {
             this.$ga.event({
                 eventCategory: "profile",
                 eventAction: "update stream",
                 eventLabel: this.uid,
             });
 
+            // create temp copy of local polls array
+            // then replace polls array in Firebase with temp copy
             const polls = [];
             this.polls.forEach(x => polls.push(x));
-
-            const stream = this.uid;
-            const streamRef = db.collection("polls").doc(stream); // MAKE SURE THE FIRESTORE HAS THE CORRECT SECURITY RULES HERE
+            const streamRef = db.collection("polls").doc(this.uid); // use uid as key
             await streamRef.update({
                 polls
             });
-
         },
 
-        close() {
-            this.displayWindow = false;
-        }, 
-
         addVote(eventObj) {
+            // increment votes field of corresponding answer in local polls array
             this.polls[eventObj.id].answers[eventObj.val].votes++;
-            this.updateStreamData();
 
+            this.updatePollData();
+
+            // update tracker
             this.submittedPolls[eventObj.id] = true;
         }, 
     }, 
 
     mounted() {
+        // initialize submitted polls tracker as false
         for (var i = 0; i < this.polls.length; i++) {
             this.submittedPolls.push(false);
         }
