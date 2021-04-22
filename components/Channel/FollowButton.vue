@@ -15,7 +15,7 @@
     </v-btn>
     <div
       v-else
-      class="pr-4 primary--text text-uppercase"
+      class="pr-4 white--text text-uppercase"
       style="font-weight:500;font-size:0.9em;"
     >
       {{ `${followCount} Followers` }}

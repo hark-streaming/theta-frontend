@@ -13,7 +13,7 @@
           ? 'notifications_active'
           : 'notifications' }}
         </v-icon>
-        <v-icon v-else>notifications_none</v-icon>
+        <v-icon v-else>mdi-bell-off</v-icon>
       </v-btn>
 
       <!-- Push Notification Confirmation Dialog -->
