@@ -8,115 +8,125 @@
                 <h2 class="pl-3">Donation Card</h2>
             </v-flex>
 
-            <!-- main image form -->
-            <div class="d-flex align-center">
-                <v-file-input
-                    @change="onMainPicked"
-                    solo
-                    light
-                    filled
-                    accept="image/png, image/jpeg, image/bmp"
-                    show-size
-                    :rules="sizeRules"
-                    label="Add a new main image"
+            <div v-if="!noCard">
+                <!-- main image form -->
+                <div class="d-flex align-center">
+                    <v-file-input
+                        @change="onMainPicked"
+                        solo
+                        light
+                        filled
+                        accept="image/png, image/jpeg, image/bmp"
+                        show-size
+                        :rules="sizeRules"
+                        label="Add a new main image"
+                    />
+                    <v-btn
+                        large
+                        class="flex-shrink-1 ml-2 mb-7"
+                        :loading="uploadingMain"
+                        color="primary"
+                        outlined
+                        :disabled="!mainimage"
+                        @click="uploadMain"
+                        >SAVE</v-btn
+                    >
+                </div>
+
+                <!-- bg image form -->
+                <div class="d-flex align-center">
+                    <v-file-input
+                        @change="onBgPicked"
+                        solo
+                        light
+                        filled
+                        accept="image/png, image/jpeg, image/bmp"
+                        show-size
+                        :rules="sizeRules"
+                        label="Add a new background image"
+                    />
+                    <v-btn
+                        large
+                        class="flex-shrink-1 ml-2 mb-7"
+                        :loading="uploadingBg"
+                        color="primary"
+                        outlined
+                        :disabled="!bgimage"
+                        @click="uploadBg"
+                        >SAVE</v-btn
+                    >
+                </div>
+
+                <v-divider></v-divider>
+
+                <!-- title -->
+                <v-text-field
+                    v-model="cardData.title"
+                    class="mt-4"
+                    outlined
+                    label="Donation Title"
+                    @input="enableSave"
+                >
+                </v-text-field>
+
+                <!-- url -->
+                <v-text-field
+                    v-model="cardData.link"
+                    outlined
+                    @input="enableSave"
+                    label="Donation URL"
+                >
+                </v-text-field>
+
+                <!-- short desc -->
+                <v-text-field
+                    v-model="cardData.shortdesc"
+                    outlined
+                    label="Quick Description"
+                    @input="enableSave"
+                    :counter="10"
+                >
+                </v-text-field>
+
+                <!-- long desc -->
+                <v-textarea
+                    v-model="cardData.longdesc"
+                    outlined
+                    color="secondary"
+                    label="Detailed Description"
+                    auto-grow
+                    @input="enableSave"
                 />
-                <v-btn
-                    large
-                    class="flex-shrink-1 ml-2 mb-7"
-                    :loading="uploadingMain"
-                    color="primary"
-                    outlined
-                    :disabled="!mainimage"
-                    @click="uploadMain"
-                    >SAVE</v-btn
-                >
+
+                <!-- submission buttons -->
+                <v-layout>
+                    <v-spacer />
+                    <v-btn
+                        color="cyan"
+                        outlined
+                        class="mr-2"
+                        :disabled="!showSave"
+                        @click="resetData"
+                    >
+                        reset
+                    </v-btn>
+                    <v-btn
+                        :disabled="!showSave"
+                        :loading="saveLoading"
+                        color="primary"
+                        outlined
+                        @click="updateCardData"
+                        >save</v-btn
+                    >
+                </v-layout>
             </div>
-
-            <!-- bg image form -->
-            <div class="d-flex align-center">
-                <v-file-input
-                    @change="onBgPicked"
-                    solo
-                    light
-                    filled
-                    accept="image/png, image/jpeg, image/bmp"
-                    show-size
-                    :rules="sizeRules"
-                    label="Add a new background image"
-                />
+            <div v-else>
                 <v-btn
-                    large
-                    class="flex-shrink-1 ml-2 mb-7"
-                    :loading="uploadingBg"
-                    color="primary"
-                    outlined
-                    :disabled="!bgimage"
-                    @click="uploadBg"
-                    >SAVE</v-btn
-                >
-            </div>
-
-            <v-divider></v-divider>
-
-            <!-- title -->
-            <v-text-field
-                v-model="cardData.title"
-                class="mt-4"
-                outlined
-                label="Donation Title"
-                @input="enableSave"
-            >
-            </v-text-field>
-
-            <!-- url -->
-            <v-text-field
-                v-model="cardData.link"
-                outlined
-                @input="enableSave"
-                label="Donation URL"
-            >
-            </v-text-field>
-
-            <!-- short desc -->
-            <v-text-field
-                v-model="cardData.shortdesc"
-                outlined
-                label="Quick Description"
-                @input="enableSave"
-            >
-            </v-text-field>
-
-            <!-- long desc -->
-            <v-textarea
-                v-model="cardData.longdesc"
-                outlined
-                color="secondary"
-                label="Detailed Description"
-                auto-grow
-                @input="enableSave"
-            />
-
-            <!-- submission buttons -->
-            <v-layout>
-                <v-spacer />
-                <v-btn
-                    color="cyan"
-                    outlined
-                    class="mr-2"
-                    :disabled="!showSave"
-                    @click="resetData"
-                >
-                    reset
+                    @click="makeTemplate"
+                > 
+                    Create a donation card 
                 </v-btn>
-                <v-btn
-                    :disabled="!showSave"
-                    :loading="saveLoading"
-                    color="primary"
-                    outlined
-                    @click="updateCardData"
-                    >save</v-btn
-                >
-            </v-layout>
+            </div>
         </v-card>
     </v-flex>
 </template>
@@ -143,6 +153,7 @@ export default {
             uploadingMain: false,
             uploadingBg: false,
 
+            noCard: true,
             showSave: false,
             saveLoading: false,
             cardDataLoading: false,
@@ -237,17 +248,19 @@ export default {
         async getCardData() {
             this.cardDataLoading = true;
 
-            let cardRef = db.collection("dcards").doc(this.uid);       
-            if (cardRef.exists) {
-                let cardDoc = await cardRef.get();
+            let cardDoc = await db.collection("dcards").doc(this.uid).get();
+            if (cardDoc.exists) {
+                this.noCard = false;
                 let data = await cardDoc.data();
                 // if they have previous data load it
-                if (data != null) {
+                if (data) {
                     this.cardData.title = data.title;
                     this.cardData.link = data.link;
                     this.cardData.shortdesc = data.shortdesc;
                     this.cardData.longdesc = data.longdesc;
                 }
+            } else {
+                this.noCard = true;
             }
             // set the old data so we can use reset button
             this.setOld();
@@ -261,13 +274,30 @@ export default {
         },
         async updateCardData() {
             this.saveLoading = true;
-            await db.collection("dcards").doc(this.uid).update({
-                title: this.cardData.title,
-                shortdesc: this.cardData.shortdesc,
-                longdesc: this.cardData.longdesc,
-                link: this.cardData.link,
-                owner: this.uid,
-            });
+            const userDoc = await db.collection("users").doc(this.uid).get();
+            const userData = await userDoc.data();
+            const tokenName = userData?.tokenName;
+
+            const streamerDoc = await db
+                .collection("streams")
+                .doc(this.username)
+                .get();
+            const streamerData = await streamerDoc.data();
+            const tags = streamerData?.tags;
+            await db
+                .collection("dcards")
+                .doc(this.uid)
+                .update({
+                    title: this.cardData.title,
+                    shortdesc: this.cardData.shortdesc,
+                    longdesc: this.cardData.longdesc,
+                    link: this.cardData.link,
+                    //owner: this.uid,
+                    tags: tags ? tags : "",
+                    tokenName: tokenName ? tokenName : "",
+                    //mainimage: "",
+                    //bgimage: "",
+                });
 
             this.saveLoading = false;
         },
@@ -277,6 +307,22 @@ export default {
             this.old.shortdesc = this.cardData.shortdesc;
             this.old.longdesc = this.cardData.longdesc;
         },
+        async makeTemplate(){
+            // call backend to make a card template
+            const idToken = await auth.currentUser.getIdToken(true);
+
+            let result = await this.$axios.$post(`${process.env.API_URL}/dcards/make-template`,
+                { idToken: idToken }
+            );
+
+            if(result.success){
+                await this.getCardData();
+                this.noCard = false;
+            }
+            else {
+                // handle error
+            }
+        }
     },
     computed: {
         ...mapGetters({
