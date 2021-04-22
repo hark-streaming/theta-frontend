@@ -1,6 +1,6 @@
 <template>
   <v-card class="d-flex flex-column outside mb-4">
-    <v-card>
+    <v-card tile>
       <v-card-actions>
         <h2 class="pl-3">Donation History</h2>
         <v-spacer></v-spacer>
@@ -59,16 +59,6 @@
             </div>
         </v-card>
       </div>
-      <div class="space">
-        <v-card class="d-flex flex-column mb-4 pa-3">
-            <h3>DONATIONS OVER TIME</h3>
-            <div class="d-flex">
-              <div class="container">
-                <DoughnutChart :chartdata="chartdata2" :options="options" class="small-graph" />
-              </div>
-            </div>
-        </v-card>
-      </div>
     </v-flex>
   </v-card>
 </template>
@@ -82,24 +72,30 @@ import DoughnutChart from "../Chart/DoughnutChart.vue";
 export default {
   props: {
     //
+    yourTokens: [
+      {
+        "tokenname": {type: String},
+        "amount": {type: Number}
+      }
+    ],
     yourTags: [
       { "name": {type: String},
         "amount": {type: Number}
       }
     ],
     //numLabelsL: [{ type: Number }],
-    yourTokens: [
+    /*yourTokens: [
       { "name": {type: String},
         "amount": {type: Number}
       }
-    ],
+    ],*/
     //numLabelsS: [{ type: Number }],
   },
   data() {
     return {
       chartdata: {
         //labels: yourLabels,
-        labels: ['Oil', 'Animal Cruelty', 'Global Warming', 'Education', 'Hunger'],
+        labels: ['Fuelman', 'Gorgot', 'Davidson', 'Pollit','Demographica'],
         datasets: [
           {
             label: "Data One",

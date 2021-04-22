@@ -20,8 +20,8 @@
 
     const domainRe = /https?:\/\/((?:[\w\d-]+\.)+[\w\d]{2,})/i;
     const approvedDomains = [
-      'bitwave.tv',
-      'cdn.bitwave.tv',
+      'hark.tv',
+      'cdn.hark.tv',
       'cdn.discordapp.com',
       'imgur.com',
       'i.imgur.com',

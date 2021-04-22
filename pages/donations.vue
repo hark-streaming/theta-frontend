@@ -14,6 +14,7 @@
                         :link="card.link"
                         :tags="card.tags"
                         :owner="card.owner"
+                        :tokenName="card.tokenName"
                     />
                 </v-col>
 

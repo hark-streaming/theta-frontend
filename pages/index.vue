@@ -1,67 +1,67 @@
 <template>
     <div>
-        <div>
-            <!-- Goal Progress -->
-            <!-- <goal-progress v-if="false" /> -->
+        <!-- Goal Progress -->
+        <!-- <goal-progress v-if="false" /> -->
+        <v-card tile flat color="white" v-if="(streamers.length > 0)">
+            <v-card tile flat color="secondary accentwave--text" style="font-size:0.8em;height:35px;">
+                <h2 class="pl-6 pt-2">ALPHA BUILD</h2>
+            </v-card>
+            <!-- Site Banner -->
+            <!-- <message-of-the-day /> -->
 
-            <v-container class="pa-0 ma-0" v-if="(streamers.length > 0)">
-                <!-- Site Banner -->
-                <!-- <message-of-the-day /> -->
+            <!-- <v-row class="pt-8">
+            <v-text-field
+                v-model="searchValue"
+                label="Search"
+                background-color="neutral"
+                clearable
+                solo
+                @keydown.enter="goToSearch"
+            ></v-text-field>
+            </v-row> -->
 
-                <!-- <v-row class="pt-8">
-                <v-text-field
-                    v-model="searchValue"
-                    label="Search"
-                    background-color="neutral"
-                    clearable
-                    solo
-                    @keydown.enter="goToSearch"
-                ></v-text-field>
-                </v-row> -->
+            <v-row class="justify-center mb-8">
+                <v-col cols="12" md="8" xl="10" class="pr-0">
+                    <theta-banner
+                        v-if="mostViewed"
+                        :src="mostViewed.url"
+                        :type="mostViewed.type"
+                        :poster="poster"
+                        :name="mostViewed.name"
+                        :mobile="mobile"
+                        :offline="offline"
+                    />
+                </v-col>
+                <v-col class="grow pl-0 pr-0">
+                    <v-sheet color="#F5F5F5" class="fill-height pa-5">
+                        <h2>{{ mostViewed.name }}</h2>
+                        <h4>Viewers: {{ mostViewed.viewCount }}</h4>
+                        <TempTags :tags="mostViewed.tags" class="my-2" />
+                        <p>{{ mostViewed.description }}</p>
+                    </v-sheet>
+                </v-col>
+            </v-row>
 
-                <v-row class="justify-center mb-8">
-                    <v-col cols="12" md="8" xl="8" class="pr-0">
-                        <theta-banner
-                            v-if="mostViewed"
-                            :src="mostViewed.url"
-                            :type="mostViewed.type"
-                            :poster="poster"
-                            :name="mostViewed.name"
-                            :mobile="mobile"
-                            :offline="offline"
-                        />
-                    </v-col>
-                    <v-col class="grow pl-0">
-                        <v-sheet color="#F5F5F5" class="fill-height pa-5">
-                            <h2>{{ mostViewed.name }}</h2>
-                            <h4>Viewers: {{ mostViewed.viewCount }}</h4>
-                            <TempTags :tags="mostViewed.tags" class="my-2" />
-                            <p>{{ mostViewed.description }}</p>
-                        </v-sheet>
-                    </v-col>
-                </v-row>
+            <!-- Live Now Header -->
+            <!-- Livestream Grid -->
+            <v-divider></v-divider>
+            <stream-grid
+                v-if="streamers.length > 0"
+                :streamers="streamers"
+                :blur-nsfw="blurNSFW"
+                :cols="12"
+                :sm="6"
+                :md="4"
+                :lg="3"
+                :xl="2"
+                @getHighestViews="mostViewedStream($event)"
+                @getHighestViewCount="highestViewCount($event)"
+            />
 
-                <!-- Live Now Header -->
-                <!-- Livestream Grid -->
-                <v-divider></v-divider>
-                <stream-grid
-                    v-if="streamers.length > 0"
-                    :streamers="streamers"
-                    :blur-nsfw="blurNSFW"
-                    :cols="12"
-                    :sm="6"
-                    :md="4"
-                    :lg="3"
-                    :xl="2"
-                    @getHighestViews="mostViewedStream($event)"
-                    @getHighestViewCount="highestViewCount($event)"
-                />
-
-                <!-- fuckin index.vue.txt -->
-            </v-container>
-            <div v-else>
-                no streams here :(
-            </div>
+            <!-- fuckin index.vue.txt -->
+        </v-card>
+        <div v-else>
+            no streams here :(
         </div>
 
         <!-- Footer -->

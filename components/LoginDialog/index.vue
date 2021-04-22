@@ -418,6 +418,10 @@ export default {
                 this.usernameError = "Name is required";
                 return false;
             }
+            else if(/\s/.test(username)) {
+                this.usernameError = "No spaces allowed";
+                return false;
+            }
 
             try {
                 // all usernames will be valid for now

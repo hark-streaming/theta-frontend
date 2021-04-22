@@ -149,7 +149,7 @@ export default {
             // Create video.js player
             this.player = videojs("streamplayer", {
                 //#region Theta stuff
-                techOrder: ["theta_hlsjs" , "html5"], // disable html5 fallback so we know when theta broken
+                techOrder: ["theta_hlsjs" /*, "html5"*/], // disable html5 fallback so we know when theta broken
                 theta_hlsjs: {
                     videoId: this.streamer,
                     // TODO: make sure firebase auth is loaded by this point

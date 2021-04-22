@@ -4,7 +4,7 @@
             <v-container class="ma-0 pa-0">
                 <v-row no-gutters>
                     <v-flex class="my-3 ml-3">
-                        <h2>Stream Info</h2>
+                        <h2 style="font-weight:500;font-size:1.1em;">Stream Info</h2>
                     </v-flex>
                 </v-row>
                 <v-divider class="mb-4"></v-divider>
@@ -331,7 +331,7 @@ export default {
         async kickStream() {
             const token = await auth.currentUser.getIdToken(true);
             const user = this.username;
-            const server = "api.bitwave.tv";
+            const server = "api.hark.tv";
             const apiVer = "v1";
             const endpoint = "/streamer/stream/kick";
             const url = `https://${server}/${apiVer}${endpoint}?token=${token}&reset=${false}`;
