@@ -2,7 +2,7 @@
     <v-card flat tile color="#F5F5F5">
         <!-- Chat Header -->
         <v-card tile color="secondary">
-            <h1 class="pl-4 pt-3 pb-2 accentwave--text" style="font-weight:500;font-size:2em;">YOUR DASHBOARD</h1>
+            <h1 class="pl-4 pt-4 pb-3 accentwave--text" style="font-weight:500;font-size:1.7em;">YOUR DASHBOARD</h1>
         </v-card>
 
         <!-- Main Container -->

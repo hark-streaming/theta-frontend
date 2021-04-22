@@ -4,7 +4,7 @@
             <v-container class="ma-0 pa-0">
                 <v-row no-gutters>
                     <v-flex class="my-3 ml-3">
-                        <h2>Polls</h2>
+                        <h2 style="font-weight:500;font-size:1.1em;">Polls</h2>
                     </v-flex>
                 </v-row>
                 <v-divider class="mb-3"></v-divider>
