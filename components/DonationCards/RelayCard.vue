@@ -17,10 +17,48 @@
             nonprofit or streamer. This is good if you want to support a cause,
             and let your fanbase know that you are!
           </div>
+
+          <!-- List destinations and percentages -->
           <div class="d-flex">
             <div class="ma-3">
-                <h4>Platform Pool</h4>
-                <v-input value="4%" />
+
+              <v-row no-gutters>
+                <v-col cols="8">
+                  <h4>Platform Pool:</h4>
+                </v-col>
+                <v-col cols="4">
+                  <h4>1%</h4>
+                </v-col>
+              </v-row>
+              <v-row no-gutters>
+                <v-col cols="8">
+                  <h4>You:</h4>
+                </v-col>
+                <v-col cols="4">
+                  <h4>99%</h4>
+                </v-col>
+              </v-row>
+              <v-row
+                v-for="(username, index) in destUsernames"
+                :key="index"
+                no-gutters
+              >
+                <v-col cols="8">
+                  <h4>{{ username }}:</h4>
+                </v-col>
+                <v-col cols="4">
+                  <v-text-field
+                    label="Relay %"
+                    v-model="destPercentages[index]"
+                    small
+                    solo
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+
+              <v-row v-if="showDialog" no-gutters>
+                <RelaySelectDialog @userFound="addRelay($event)" />
+              </v-row>
             </div>
           </div>
 
@@ -46,8 +84,14 @@
 import { auth, db, storage } from "@/plugins/firebase";
 import { mapGetters, mapState } from "vuex";
 import { VStore } from "@/store";
+import RelaySelectDialog from "@/components/DonationCards/RelaySelectDialog";
 
 export default {
+
+  components: {
+    RelaySelectDialog
+  },
+
   data() {
     return {
       // token generation
@@ -60,9 +104,36 @@ export default {
 
       alreadyRequested: false,
       requestLoading: false,
+
+      showDialog: true, 
+
+      // destination usernames and uids for donation relay
+      destUsernames: [],
+      destUids: [], 
+      destPercentages: []
     };
   },
   methods: {
+    getUserData() {
+      const userRef = db.collection("users").doc(this.uid);
+
+      return userRef.onSnapshot(
+        async (doc) => {
+          if (doc.exists) {
+            await this.userDataChanged(doc.data());
+          } else {
+            this.displayError = true;
+          }
+        }
+      );
+    },
+
+    // copy uid from data object
+    async userDataChanged(data) {
+      this.destUids = [];
+      data.payees.forEach(x => this.destUids.push(x));
+    },
+
     async requestPayout() {
       this.requestLoading = true;
 
@@ -88,6 +159,15 @@ export default {
 
       this.requestLoading = false;
     },
+
+    // add relay destination; eventObj contains username and uid
+    addRelay(eventObj) {
+      this.destUsernames.push(eventObj.username);
+      this.destUids.push(eventObj.uid);
+      this.destPercentages.push("");
+
+      this.showDialog = false;    // disable dialog
+    }
   },
   computed: {
     ...mapGetters({

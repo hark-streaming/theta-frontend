@@ -1,6 +1,10 @@
 <template>
-  <!-- Viewer List -->
-  <v-menu
+    <!-- Viewer List -->
+    <v-chip active outlined color="secondary">
+        {{ channelViewCount }}
+        <v-icon right>account_circle</v-icon>
+    </v-chip>
+    <!-- <v-menu
     v-model="showViewers"
     :close-on-content-click="false"
     offset-y
@@ -25,42 +29,42 @@
       />
     </v-fade-transition>
 
-  </v-menu>
+  </v-menu> -->
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-  import { VStore } from '@/store';
+import { mapGetters } from "vuex";
+import { VStore } from "@/store";
 
-  import Viewers from '@/components/Chat/ViewerList/viewers';
+import Viewers from "@/components/Chat/ViewerList/viewers";
 
-  export default {
-    name: 'ViewerList',
+export default {
+    name: "ViewerList",
 
     components: {
-      viewers: Viewers
+        viewers: Viewers,
     },
 
     props: {
-      page : { type : String },
+        page: { type: String },
     },
 
     data() {
-      return {
-        showViewers : false,
-      }
+        return {
+            showViewers: false,
+        };
     },
 
     methods: {},
 
     computed: {
-      ...mapGetters({
-        getChannelViews: VStore.$getters.getChannelViews,
-      }),
+        ...mapGetters({
+            getChannelViews: VStore.$getters.getChannelViews,
+        }),
 
-      channelViewCount () {
-        return this.getChannelViews( this.page ) || 0;
-      },
+        channelViewCount() {
+            return this.getChannelViews(this.page) || 0;
+        },
     },
-  }
+};
 </script>
