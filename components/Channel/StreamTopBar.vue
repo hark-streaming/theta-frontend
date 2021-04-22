@@ -5,7 +5,7 @@
         class="py-2 px-3 hide-scrollbar bw-channel-topbar"
         color="accentwave"
       > -->
-      <v-sheet class="py-2 px-3 hide-scrollbar" color="black">
+      <v-sheet class="py-2 px-3 hide-scrollbar" color="secondary">
         <div class="d-flex align-center justify-space-between">
           <div class="d-flex align-center white--text">
             <v-avatar size="32">

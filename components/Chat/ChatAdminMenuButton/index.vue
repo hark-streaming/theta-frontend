@@ -14,6 +14,8 @@
         small
         icon
         class="px-0 mr-2"
+        :ripple="false"
+        color="secondary"
       >
         <v-icon>verified_user</v-icon>
       </v-btn>

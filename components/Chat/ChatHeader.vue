@@ -13,9 +13,8 @@
 
             <!-- Chat Label -->
             <h4
-                @click="addChannelTag"
-                class="mx-2 text-truncate"
-                style="cursor: pointer"
+                class="mx-2 text-truncate secondary--text"
+                style="font-weight:500;font-size:1em;"
             >
                 {{ page }}
             </h4>
@@ -78,15 +77,15 @@
         <v-divider></v-divider>
         <!-- Donate Button row -->
         <v-sheet
-            color="secondary"
+            color="#E8E8E8"
             class="d-flex align-center justify-space-around pa-2"
         >
             <!-- Donate TFUEL Button -->
             <v-btn
-                class="white--text"
+                color="secondary white--text"
                 small
-                outlined
                 @click="loggedIn ? showDonate = true : showLogin = true"
+                depressed
             >
                 <img
                     src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
@@ -100,11 +99,11 @@
             <!-- Custom Donate Button -->
             <v-btn
                 v-if="donateOn"
-                outlined
-                class="white--text"
+                color="secondary white--text"
                 target="_blank"
                 :href="donateUrl"
                 small
+                depressed
             >
                 {{ donateMsg }}
             </v-btn>

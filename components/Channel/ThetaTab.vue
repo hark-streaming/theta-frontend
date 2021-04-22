@@ -35,7 +35,7 @@ export default {
 </script>
 <style scoped>
     h2 {
-        font-size:1.5em;
+        font-size:1.1em;
         color:white;
         font-weight:300;
     }

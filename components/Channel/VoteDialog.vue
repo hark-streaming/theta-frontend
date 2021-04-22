@@ -3,8 +3,8 @@
         <v-btn
             small
             @click="displayWindow=true"
-            outlined
-            color="white"
+            color="secondary white--text"
+            depressed
         >
             Vote
         </v-btn>

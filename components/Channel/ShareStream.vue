@@ -1,20 +1,15 @@
 <template>
   <div class="text-center">
-    <v-tooltip bottom>
-      <template v-slot:activator="{ on }">
-        <v-btn
-          v-on="on"
-          small
-          color="primary"
-          outlined
-          @click="openShare"
-        >
-          share
-          <v-icon small class="ml-1">share</v-icon>
-        </v-btn>
-      </template>
-      <span>Share this stream!</span>
-    </v-tooltip>
+    <v-btn
+      v-on="on"
+      small
+      color="primary"
+      outlined
+      @click="openShare"
+    >
+      share
+      <v-icon small class="ml-1">share</v-icon>
+    </v-btn>
 
     <v-dialog
       v-model="showShare"
@@ -26,17 +21,13 @@
       transition="fade-transition"
     >
       <!-- Share stream dialog -->
-      <v-card>
-        <v-sheet
-          tile
-          color="secondary"
-          class="pa-2 d-flex justify-space-between align-center"
-        >
-          <h4 class="pl-1 body-1 white--text">
+      <v-card class="justify-space-between align-center">
+        <div class="d-flex align-center justify-space-between py-2 px-3">
+          <h4 class="pl-1 body-1 black--text">
             Share this Stream
           </h4>
           <v-btn
-            color="white"
+            color="black"
             text
             icon
             small
@@ -44,10 +35,10 @@
           >
             <v-icon>close</v-icon>
           </v-btn>
-        </v-sheet>
-
+        </div>
+        <v-divider></v-divider>
         <div class="pa-3">
-          <div class="pl-1 mb-3">
+          <div class="pl-1 mb-3" style="font-size:0.9em;">
             Share a link directly to this stream on Twitter below.<br>
             <span class="caption grey--text">(You will be able to edit the tweet before posting.)</span>
           </div>
@@ -64,7 +55,7 @@
           >
             <template #append v-if="!$vuetify.breakpoint.xsOnly">
               <v-btn
-                color="primary"
+                color="secondary"
                 depressed
                 small
                 @click="copyShareLink"
@@ -76,10 +67,10 @@
             <!-- Share to twitter -->
             <v-btn
               color="secondary"
+              outlined
               :href="twitterLink"
               target="_blank"
               @click="shareToTwitter"
-              class="white--text"
             >twitter</v-btn>
 
             <!-- Copy button for phones -->

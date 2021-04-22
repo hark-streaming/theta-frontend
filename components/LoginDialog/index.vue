@@ -3,14 +3,16 @@
         <!-- Header Bar -->
         <v-sheet
             tile
-            color="secondary"
-            class="d-flex align-center pa-2 white--text"
+            color="white"
+            class="d-flex align-center pa-2 secondary--text"
         >
-            <v-icon class="mr-3" color="white">person</v-icon>
+            <v-icon class="mr-2" color="secondary">person</v-icon>
             <h2>
-                {{ signUp ? "Create Account" : "Log in to Hark.tv" }}
+                {{ signUp ? "Create an Account" : "Log in to Hark.tv" }}
             </h2>
         </v-sheet>
+
+        <v-divider></v-divider>
 
         <!-- Body Content -->
         <v-card-text class="px-4 py-0">
@@ -120,7 +122,7 @@
                         v-if="!signUp"
                         id="remember-me"
                         v-model="shouldStayLoggedIn"
-                        label="Stay logged in"
+                        label="Stay logged in."
                         hide-details
                         color="secondary"
                         class="pt-0 mb-3"

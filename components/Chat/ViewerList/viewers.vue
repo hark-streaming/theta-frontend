@@ -41,13 +41,13 @@
       <v-switch
         v-model="showAll"
         :label="`Show all viewers (${showAll ? getUserList.length : getChannelViews( page )})`"
-        color="primary"
+        color="secondary"
         hide-details
         dense
         inset
-        class="px-2"
         @change="filterViewerList"
-      />
+      >
+      </v-switch>
     </div>
 
     <!-- <hr class="primary"> -->

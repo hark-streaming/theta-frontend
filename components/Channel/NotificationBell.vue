@@ -20,26 +20,26 @@
       <v-dialog
         transition="fade-transition"
         v-model="showConfirmNotifications"
-        width="30%"
+        width="20%"
         @click:outside="confirm( false )"
       >
-        <v-card>
-          <v-sheet
-            color="primary"
-            class="pa-2 d-flex justify-space-end align-center"
+        <v-card class="justify-space-between align-center">
+          <div class="d-flex align-center py-2 px-3"
           >
-            <v-icon color="white">notifications_active</v-icon>
-            <h4 class="white--text body-1 ml-2">
+            <v-icon color="black">notifications_active</v-icon>
+            <h4 class="pl-3 pt-1 body-1">
               Enable Push Notifications?
             </h4>
-          </v-sheet>
+          </div>
 
-          <v-card-text class="pb-0">
+          <v-divider></v-divider>
+
+          <div class="pa-3">
             <!--
             <div class="subtitle-1 my-2 black--text">
               Notifications will still be sent to this device if bitwave is closed.
             </div> -->
-            <div class="subtitle-1 my-2 black--text">
+            <div class="pl-1 mb-3" style="font-size:0.9em;">
               You can always disable notifications by clicking the bell again.
             </div>
 
@@ -60,12 +60,12 @@
               </v-alert>
               <v-img src="/images/brave-push_notifications.png"/>
             </div>
-          </v-card-text>
+          </div>
 
           <v-card-actions class="justify-end pa-3">
             <v-btn
               class="mr-2"
-              color="error"
+              color="secondary"
               outlined
               small
               @click="confirm( false )"
@@ -73,7 +73,7 @@
               Cancel
             </v-btn>
             <v-btn
-              color="primary"
+              color="secondary"
               small
               @click="confirm( true )"
               class="white--text"

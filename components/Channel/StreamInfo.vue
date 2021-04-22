@@ -2,13 +2,13 @@
   <div>
     <!-- Stream Title, Status -->
     <v-toolbar
-      class="elevation-0"
-      color="neutral" 
-      dense 
+      color="neutral"
+      dense
       prominent
+      flat
     >
 
-      <v-container style="{height:'100%'}" align="stretch">
+      <v-container style="{height:'100%';}" align="stretch" class="ma-0 pa-0 pt-3">
         <v-row class="ma-0 pb-2">
           <!-- Live / Replay / Offline Indicator -->
           <v-chip
@@ -29,7 +29,7 @@
           </v-chip>
 
           <!-- Stream Title -->
-          <h3 class="mx-2 pl-2 flex-grow-1 subtitle-1 font-weight-medium text-truncate" :title="title">
+          <h3 class="mx-2 pl-3 flex-grow-1 subtitle-1 font-weight-medium text-truncate" :title="title">
             {{ title }}
           </h3>
 

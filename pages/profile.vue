@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-card tile flat color="accentwave">
     <v-layout justify-center class="text-xs-center">
       <v-flex class="my-3" xs14 sm12 md10 lg8>
         <h1 class="ml-2 text-center secondary--text">Your Account</h1>
@@ -193,7 +193,7 @@
         </v-layout>
       </v-tab-item>
     </v-tabs>
-  </v-container>
+  </v-card>
 </template>
 
 <script>

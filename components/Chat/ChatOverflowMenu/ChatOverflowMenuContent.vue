@@ -1,10 +1,10 @@
 <template>
   <v-card>
-    <div style="border-top: solid 3px #cc6464;">
-
+    <div>
       <v-sheet>
         <v-list
           dense
+          flat
           :style="{ background: 'transparent' }"
         >
           <!--
@@ -33,10 +33,7 @@
           </v-list-item>
           -->
 
-          <v-list-item @click="closeChat">
-            <v-list-item-action class="mr-1">
-              <v-icon small>block</v-icon>
-            </v-list-item-action>
+          <v-list-item @click="closeChat" :ripple="false">
             <v-list-item-content>
               <v-list-item-title>Close Chat</v-list-item-title>
             </v-list-item-content>
