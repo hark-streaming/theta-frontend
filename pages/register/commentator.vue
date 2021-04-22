@@ -74,6 +74,7 @@
                                 "
                                 :rules="einRules"
                                 :disabled="loading"
+                                value=""
                                 label="EIN (Not Required, Helpful for Validation)"
                                 solo
                                 flat
@@ -293,7 +294,6 @@ export default {
             // Send off our data!
             try {
                 const endpoint =
-                    //"https://us-central1-hark-e2efe.cloudfunctions.net/api/users/register";
                     `${process.env.API_URL}/users/register`;
                 const payload = {
                     username: this.username,
