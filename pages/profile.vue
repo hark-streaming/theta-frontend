@@ -182,7 +182,9 @@
 
         <!-- Stream Info -->
         <v-layout justify-center>
-          <stream-info-dashboard :username="username" />
+          <v-flex v-if="showStreamInfo" xs14 sm12 md10 lg8>
+            <stream-info-dashboard :username="username" />
+          </v-flex>
         </v-layout>
       </v-tab-item>
 
