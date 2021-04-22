@@ -2,12 +2,10 @@
   <!-- Footer -->
   <v-sheet
     class="pa-2 d-flex justify-space-between align-center flex-wrap"
-    color= "#65547c"
-    tile
   >
     <div class="overline footfont">
       Hark.tv
-      <span >{{ props.version }}</span>
+      <span>{{ props.version }}</span>
     </div>
     <div class="d-flex overline">
       <a href="tokens" target="_blank" class="footfont">Token</a>
@@ -35,9 +33,8 @@
   };
 </script>
 
-<style scoped>
+<style>
   .footfont {
-    color: #DCDCDC;
     text-decoration: none;
   }
 </style>
