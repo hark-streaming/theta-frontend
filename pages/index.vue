@@ -18,9 +18,9 @@
             </v-row> -->
             <v-sheet tile class="background9">
                 <v-container class="d-flex py-8">
-                    <v-row>
-                        <v-col class="d-flex pr-0 mr-0">
-                            <v-responsive :aspect-ratio="16 / 9" width="calc(80vh - 98px)">
+                    <v-row class="d-flex justify-center" style="max-height:600px;">
+                        <v-col xl="6" lg="9" md="12" sm="12" class="d-flex">
+                            <v-responsive :aspect-ratio="16 / 9" max-width="calc(100vh - 98px)" style="max-height:550px;">
                                 <theta-banner
                                     v-if="mostViewed"
                                     :src="mostViewed.url"
@@ -32,14 +32,14 @@
                                 />
                             </v-responsive>
                         </v-col>
-                        <v-col cols="3" class="d-flex pl-0 ml-0" style="flex-direction:column;flex-wrap:wrap;">
-                            <v-sheet tile class="pb-3" height="100%">
-                                <h2 class="px-3 pt-2">{{ mostViewed.name }}</h2>
-                                <h4 class="pl-3 pb-4">{{ mostViewed.viewCount }} Watching</h4>
-                                <v-divider class="mb-6"></v-divider>
-                                <TempTags :tags="mostViewed.tags" class="my-3 px-3"/>
-                                <p class="d-flex px-3">{{ mostViewed.description }}</p>
-                            </v-sheet>
+                        <v-col xl="2" lg="3" md="12" sm="12" class="d-flex" style="flex-direction:column;flex-wrap:wrap;">
+                        <v-sheet tile class="pb-3" height="100%">
+                            <h2 class="px-3 pt-2">{{ mostViewed.name }}</h2>
+                            <h4 class="pl-3 pb-4">{{ mostViewed.viewCount }} Watching</h4>
+                            <v-divider class="mb-6"></v-divider>
+                            <TempTags :tags="mostViewed.tags" class="my-3 px-3"/>
+                            <p class="d-flex px-3">{{ mostViewed.description }}</p>
+                        </v-sheet>
                         </v-col>
                     </v-row>
                 </v-container>
