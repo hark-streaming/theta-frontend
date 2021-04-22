@@ -258,7 +258,7 @@ export default {
         getStreamData() {
             this.streamDataLoading = true;
 
-            const stream = this.username.toLowerCase();
+            const stream = this.username;
             const streamRef = db.collection("streams").doc(stream);
             return streamRef.onSnapshot(
                 async (doc) => {
