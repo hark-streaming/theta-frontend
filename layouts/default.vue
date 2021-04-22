@@ -51,7 +51,7 @@
         -->
 
         <!-- Toolbar -->
-        <v-app-bar app :clipped-left="true" dense fixed color="##F0F0F0">
+        <v-app-bar app :clipped-left="true" dense fixed color="#F0F0F0">
             <!-- Logo Button -->
             <v-toolbar-title style="height:100%" pl-0>
                 <v-btn
@@ -364,7 +364,7 @@ export default {
 }*/
 
 #app {
-    background-color: #DCDCDC;
+    background-color: #F5F5F5;
 }
 
 /*#app {

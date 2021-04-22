@@ -72,19 +72,19 @@ import DoughnutChart from "../Chart/DoughnutChart.vue";
 export default {
   props: {
     //token names
-    /*yourTokens: {
+    yourTokens: {
       type: Array,
       default() {
         return ["T1","T2","T3","T4","T5"];
       },  
-    },*/
+    },
     //number of each token
-    /*numTokens: {
+    numTokens: {
       type: Array,
       default() {
         return [3,8,5,6,7];
       }
-    },*/
+    },
     /*yourTokens: [
       { 
         {type: String},
@@ -101,26 +101,14 @@ export default {
   },
   data() {
     return {
-      yourTokens: {
-        type: Array,
-        default() {
-          return ["T1","T2","T3","T4","T5"];
-        },
-      },
-      numTokens: {
-        type: Array,
-        default() {
-          return [3,8,5,6,7];
-        }
-      },
       chartdata: {
-        labels: yourTokens,
+        labels: this.yourTokens,
         datasets: [
           {
             label: "Tokens",
-            backgroundColor: ["#DAF7A6 ", "#FFC300 ", "#FF5733", "#C70039","#900C3F","#581845","#33b5ff", "#ff3399"],
+            backgroundColor: ["#DAF7A6", "#FFC300", "#FF5733", "#C70039","#900C3F","#581845","#33b5ff", "#ff3399"],
             //data: [345, 200, 742, 400, 532],
-            data: numTokens,
+            data: this.numTokens,
           },
           /*{
             label: "Data Two",
@@ -146,14 +134,17 @@ export default {
   components: { DoughnutChart, },
 
   methods: {
-    async getChartData () {
-      const { data } = await this.$axios.get(
-      `${process.env.API_URL}/theta/tokens/${this.uid}`
-      );
-      this.yourTokens = Object.keys(data.tokens);
-      this.numTokens = Object.values(data.tokens);
-      console.log(this.yourTokens);
-    },
+    /*async getChartData () {
+      try {
+        const { data } = await this.$axios.get(
+        `${process.env.API_URL}/theta/tokens/WbQpVz9J6FYSUFgtvn8XPQvyeD03`
+        );
+      } catch (error) {
+        this.yourTokens = Object.keys(data.tokens);
+        this.numTokens = Object.values(data.tokens);
+        console.error( error.message )
+      }
+    },*/
   },
   computed: {
     ...mapGetters({
@@ -164,7 +155,7 @@ export default {
     }),
   },
   async mounted() {
-    await this.getChartData();
+    //await this.getChartData();
   },
 };
 </script>

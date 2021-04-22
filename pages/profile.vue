@@ -26,7 +26,7 @@
       <v-tab-item eager>
         <v-layout justify-center>
           <v-flex xs14 sm12 md10 lg8>
-            <donation-history-card />
+            <donation-history-card :yourTokens="yourTokens" :numTokens="numTokens"/>
           </v-flex>
         </v-layout>
         <v-layout v-show="showStreamInfo" justify-center>
@@ -222,6 +222,10 @@ export default {
 
   data() {
     return {
+
+      yourTokens: [],
+      numTokens: [],
+
       unsubAuthChanged: null,
       currentTab: 0,
 
@@ -361,6 +365,19 @@ export default {
       await this.$axios.$post(url, { streamer: user });
     },
 
+    //Donation History Card Data
+    async getChartData () {
+
+      const { data } = await this.$axios.get(
+      `${process.env.API_URL}/theta/tokens/WbQpVz9J6FYSUFgtvn8XPQvyeD03`
+      );
+
+      this.yourTokens = Object.keys(data.tokens);
+      this.numTokens = Object.values(data.tokens);
+      console.log(this.yourTokens)
+      console.log(this.numTokens)
+    },
+
     copyToClipboard() {
       const initialState = this.showKey;
       this.$copyText(this.streamData.key).then(
@@ -404,6 +421,10 @@ export default {
     );
     this.streamDocListener = this.getStreamData();
     this.profileDocListener = this.getProfileData();
+  },
+
+  async mounted() {
+    await this.getChartData();
   },
 
   beforeDestroy() {

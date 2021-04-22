@@ -2,10 +2,7 @@
     <div>
         <!-- Goal Progress -->
         <!-- <goal-progress v-if="false" /> -->
-        <v-card tile flat color="white" v-if="(streamers.length > 0)">
-            <v-card tile flat color="secondary accentwave--text" style="font-size:0.8em;height:35px;">
-                <h2 class="pl-6 pt-2">ALPHA BUILD</h2>
-            </v-card>
+        <div v-if="(streamers.length > 0)">
             <!-- Site Banner -->
             <!-- <message-of-the-day /> -->
 
@@ -19,32 +16,40 @@
                 @keydown.enter="goToSearch"
             ></v-text-field>
             </v-row> -->
-
-            <v-row class="justify-center mb-8">
-                <v-col cols="12" md="8" xl="10" class="pr-0">
-                    <theta-banner
-                        v-if="mostViewed"
-                        :src="mostViewed.url"
-                        :type="mostViewed.type"
-                        :poster="poster"
-                        :name="mostViewed.name"
-                        :mobile="mobile"
-                        :offline="offline"
-                    />
-                </v-col>
-                <v-col class="grow pl-0 pr-0">
-                    <v-sheet color="#F5F5F5" class="fill-height pa-5">
-                        <h2>{{ mostViewed.name }}</h2>
-                        <h4>Viewers: {{ mostViewed.viewCount }}</h4>
-                        <TempTags :tags="mostViewed.tags" class="my-2" />
-                        <p>{{ mostViewed.description }}</p>
-                    </v-sheet>
-                </v-col>
-            </v-row>
+            <v-sheet tile class="background9">
+                <v-container class="d-flex py-8">
+                    <v-row>
+                        <v-col class="d-flex pr-0 mr-0">
+                            <v-responsive :aspect-ratio="16 / 9" width="calc(80vh - 98px)">
+                                <theta-banner
+                                    v-if="mostViewed"
+                                    :src="mostViewed.url"
+                                    :type="mostViewed.type"
+                                    :poster="poster"
+                                    :name="mostViewed.name"
+                                    :mobile="mobile"
+                                    :offline="offline"
+                                />
+                            </v-responsive>
+                        </v-col>
+                        <v-col cols="3" class="d-flex pl-0 ml-0" style="flex-direction:column;flex-wrap:wrap;">
+                            <v-sheet tile class="pb-3" height="100%">
+                                <h2 class="px-3 pt-2">{{ mostViewed.name }}</h2>
+                                <h4 class="pl-3 pb-4">{{ mostViewed.viewCount }} Watching</h4>
+                                <v-divider class="mb-6"></v-divider>
+                                <TempTags :tags="mostViewed.tags" class="my-3 px-3"/>
+                                <p class="d-flex px-3">{{ mostViewed.description }}</p>
+                            </v-sheet>
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </v-sheet>
 
             <!-- Live Now Header -->
             <!-- Livestream Grid -->
-            <v-divider></v-divider>
+            <v-card tile class="pa-3 mb-3" color="white">
+                <h2 style="font-size:1em;" class="black--text">Currently Live</h2>
+            </v-card>
             <stream-grid
                 v-if="streamers.length > 0"
                 :streamers="streamers"
@@ -56,10 +61,14 @@
                 :xl="2"
                 @getHighestViews="mostViewedStream($event)"
                 @getHighestViewCount="highestViewCount($event)"
+                class="ml-3"
             />
+            <v-card tile class="pa-3 mt-5" color="white">
+                <h2 style="font-size:1em;" class="black--text">Trending</h2>
+            </v-card>
 
             <!-- fuckin index.vue.txt -->
-        </v-card>
+        </div>
         <div v-else>
             no streams here :(
         </div>
@@ -309,6 +318,35 @@ export default {
 </script>
 
 <style scoped>
+h2 {
+    font-size:1.5em;
+    color: secondary;
+}
+
+h4 {
+    font-size:0.8em;
+    font-weight:400;
+    color: secondary;
+}
+p {
+    font-size:0.9em;
+    color: secondary;
+}
+
+.background9 {
+    background: rgb(40,40,87);
+    background: linear-gradient(45deg, rgba(40,40,87,1) 0%, rgba(177,87,87,1) 100%); 
+}
+
+.videoback {
+    color: linear-gradient(
+    to top right,
+    rgb(109, 109, 126) 0%,
+    rgba(235, 232, 232, 1) 15%,
+    rgba(235, 232, 232, 1) 85%,
+    rgb(207, 169, 169) 100%
+  );
+}
 banner-video {
     max-width: 200px;
 }
