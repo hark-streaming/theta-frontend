@@ -111,8 +111,6 @@
                 :streamerUid="streamerUid"
 
                 :polls="polls"
-
-                @voteAdded="addVote($event)"
             />
         </div>
 
@@ -148,6 +146,7 @@
             :description="description"
             :timestamp="timestamp"
             :tags="tags"
+            :streamerId="owner"
         />
     </div>
 </template>
@@ -269,6 +268,8 @@ export default {
 
             banMessage:
                 "This channel has been banned for breaching our Terms of Service.",
+
+            docExists: false
         };
     },
 
@@ -355,8 +356,6 @@ export default {
             this.donateOn = data.donateOn;
             this.donateMsg = data.donateMsg;
             this.donateUrl = data.donateUrl;
-
-            this.polls = data.polls;
 
             this.tags = data.tags;
 
@@ -458,31 +457,23 @@ export default {
             this.live = live;
         },
 
-        async updatePollData() {
-            this.$ga.event({
-                eventCategory: "profile",
-                eventAction: "update stream",
-                eventLabel: (this.name || channel).toLowerCase(),
-            });
+        getPollData() {
+            // const stream = this.streamerUid;
+            const streamRef = db.collection("polls").doc(this.owner);
 
-            const polls = [];
-            this.streamData.polls.forEach(x => polls.push(x));
-
-            const stream = (this.name || channel).toLowerCase();
-
-            const streamRef = db.collection("streams").doc(stream); // MAKE SURE THE FIRESTORE HAS THE CORRECT SECURITY RULES HERE
-            await streamRef.update({
-                polls
-            });
+            return streamRef.onSnapshot(
+                async (doc) => {
+                    this.docExists = doc.exists;
+                    if (this.docExists) 
+                        await this.pollDataChanged(doc.data());
+                },
+                () => (this.docExists = false)
+            );
         },
 
-        addVote(event) {
-            const id = event[0];
-            const val = event[1];
-
-            this.polls[id].answers[val].votes++;
-
-            this.updatePollData();
+        async pollDataChanged(data) {
+            this.polls = [];
+            data.polls.forEach(x => this.polls.push(x));
         },
 
         onIntersect(entries, observer) {
@@ -602,7 +593,6 @@ export default {
                         donateOn: data.donateOn,
                         donateMsg: data.donateMsg,
                         donateUrl: data.donateUrl,
-                        polls: data.polls
                     };
 
                     console.log(`Bypass should be successfull...`);
@@ -643,8 +633,6 @@ export default {
                 const donateOn = data.donateOn;
                 const donateMsg = data.donateMsg;
                 const donateUrl = data.donateUrl;
-
-                const polls = data.polls;
 
                 // Stream tags
                 const tags = data.tags;
@@ -704,7 +692,6 @@ export default {
                         donateOn,
                         donateMsg,
                         donateUrl,
-                        polls
                     },
                 };
             } catch (error) {
@@ -818,6 +805,7 @@ export default {
     async mounted() {
         // this.setSource({ url: this.url, type: this.type });
         this.getStreamData(); // Get stream data
+        this.getPollData();
 
         // theta web widget
         //var widget = new ThetaWebWidgets.OverviewWithTrafficChartWidget(null);

@@ -163,7 +163,8 @@
                         <StreamInfoDashboard :username="username" />
                     </v-col>
                     <v-col cols="7">
-                        <DashboardPolls :username="username" />
+                        <!-- <DashboardPolls :username="username" /> -->
+                        <DashboardPolls :uid="uid" />
                     </v-col>
                 </v-layout>
             </v-row>
@@ -402,7 +403,7 @@ export default {
     computed: {
         ...mapGetters({
             username: VStore.$getters.getUsername,
-            // uid: VStore.$getters.getUID,
+            uid: VStore.$getters.getUID,
             user: VStore.$getters.getUser,
         }),
 

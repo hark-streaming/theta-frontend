@@ -153,7 +153,8 @@ export default {
     },
 
     props: {
-        username: { type: String, default: "" }
+        // username: { type: String, default: "" }, 
+        uid: ""
     }, 
 
     data() {
@@ -205,8 +206,12 @@ export default {
             
             this.streamDataLoading = true;
 
-            const stream = this.username.toLowerCase();
-            const streamRef = db.collection("streams").doc(stream);
+            // const stream = this.username.toLowerCase();
+            // const streamRef = db.collection("streams").doc(stream);
+
+            const stream = this.uid;
+            const streamRef = db.collection("polls").doc(stream)
+
             return streamRef.onSnapshot(
                 async (doc) => {
                     this.showStreamInfo = doc.exists;
@@ -231,18 +236,21 @@ export default {
             this.$ga.event({
                 eventCategory: "profile",
                 eventAction: "update stream",
-                eventLabel: this.username.toLowerCase(),
+                eventLabel: this.uid,
             });
             this.saveLoading = true;
 
             const polls = [];
             this.streamData.polls.forEach(x => polls.push(x));
 
-            const stream = this.username.toLowerCase();
-
             this.setOld();
 
-            const streamRef = db.collection("streams").doc(stream); // MAKE SURE THE FIRESTORE HAS THE CORRECT SECURITY RULES HERE
+            // const stream = this.username.toLowerCase();
+            // const streamRef = db.collection("streams").doc(stream); // MAKE SURE THE FIRESTORE HAS THE CORRECT SECURITY RULES HERE
+
+            const stream = this.uid;
+            const streamRef = db.collection("polls").doc(stream);
+
             await streamRef.update({
                 polls
             });

@@ -81,6 +81,8 @@
           <!-- <v-tab>Replays</v-tab> -->
           <v-tab>Theta</v-tab>
 
+          <v-tab>Custom Token</v-tab>
+
           <!-- Removed the Stream Stats -->
           <!-- <v-tab v-if="!replay">Stream Stats</v-tab> -->
         </v-tabs>
@@ -178,23 +180,16 @@
 
         <!-- Theta -->
         <v-tab-item>
-          <theta-tab>
-            
-          </theta-tab>
-          <!-- Theta Web Widget -->
-          <div
-            id="theta-section"
-            ref="theta-section"
-            class="pa-3"
-            style="min-height: 300px"
-          >
-            <!-- Stream Description -->
-            <!-- This is where the theta rewards stats would be shown, but it's not showing up. -->
-            <div id="MY_THETA_WEB_WIDGET_ID"></div>
-          </div>
+          <theta-tab />
+        </v-tab-item>
+
+        <!-- Custom Token -->
+        <v-tab-item>
+          <custom-token-tab :streamerId="streamerId" />
         </v-tab-item>
 
         <!-- Debug Stream -->
+        <!--
         <v-tab-item
           v-if="!replay"
         >
@@ -205,6 +200,7 @@
             />
           </div>
         </v-tab-item>
+        -->
       </v-tabs-items>
     
     </v-sheet>
@@ -252,7 +248,8 @@
       description: { type: String },
       timestamp: { type: Date },
       replay: { type: Boolean },
-      tags: { type: Array }
+      tags: { type: Array },
+      streamerId: { type: String }
     },
 
     data () {

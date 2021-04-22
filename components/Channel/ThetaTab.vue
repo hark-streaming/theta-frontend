@@ -13,24 +13,34 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { VStore } from "@/store";
+
 export default {
-    
-    methods: {
-        
-    },
+  methods: {},
 
-    async mounted() {
-        // theta web widget
-        if (process.browser) {
-            console.log("connecting the theta widget");
-            var widget = new ThetaWebWidgets.OverviewWithTrafficChartWidget();
-            widget.setTheme(ThetaWebWidgets.Themes.Light);
-            widget.setMainMessage(" ");
-            widget.setUserAvatarURL(`https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png`);
-            widget.render("MY_THETA_WEB_WIDGET_ID");
+  async mounted() {
+    let defaultAvatar = `https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png`; 
+    // theta web widget
+    if (process.browser) {
+      console.log("connecting the theta widget");
+      var widget = new ThetaWebWidgets.OverviewWithTrafficChartWidget();
+      widget.setTheme(ThetaWebWidgets.Themes.Light);
+      widget.setMainMessage(" ");
+      widget.setUserAvatarURL(
+        this.user != null
+          ? this.user.avatar || defaultAvatar
+          : defaultAvatar
+      );
+      widget.render("MY_THETA_WEB_WIDGET_ID");
+    }
+  },
 
-        }
-    },
+  computed: {
+    ...mapGetters({
+      user: VStore.$getters.getUser,
+    }),
+  },
 };
 </script>
 <style scoped>

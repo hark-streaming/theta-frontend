@@ -75,7 +75,7 @@ export default {
 
     props: {
         polls: [], 
-        username: ""
+        uid: ""
     },
 
     data() {
@@ -101,15 +101,14 @@ export default {
             this.$ga.event({
                 eventCategory: "profile",
                 eventAction: "update stream",
-                eventLabel: this.username.toLowerCase(),
+                eventLabel: this.uid,
             });
 
             const polls = [];
             this.polls.forEach(x => polls.push(x));
 
-            const stream = this.username.toLowerCase();
-
-            const streamRef = db.collection("streams").doc(stream); // MAKE SURE THE FIRESTORE HAS THE CORRECT SECURITY RULES HERE
+            const stream = this.uid;
+            const streamRef = db.collection("polls").doc(stream); // MAKE SURE THE FIRESTORE HAS THE CORRECT SECURITY RULES HERE
             await streamRef.update({
                 polls
             });

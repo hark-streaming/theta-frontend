@@ -112,8 +112,7 @@
             <VoteDialog 
                 v-if="showPolls" 
                 :polls="polls" 
-                :username="username"
-                @voteAdded="$emit('voteAdded', $event)"
+                :uid="streamerUid"
             />
         </v-sheet>
 

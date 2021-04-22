@@ -23,7 +23,6 @@
                 :polls="polls"
                 :username="username"
                 @add-channel-tag="addUserTag(page)"
-                @voteAdded="$emit('voteAdded', $event)"
             />
             <!-- <v-btn v-if="!connected" @click="isAuth ? connect : showLogin=true" color="primary" class="mt-3">
                 {{isAuth ? "Join chat!" : "Log in to chat!"}}
@@ -206,7 +205,7 @@ export default {
             this.socket.on("connect", () => {
                 this.socket.emit("joinRoom", this._username, this.chatChannel);
                 this.loading = false;
-                this.connected = true;
+                //this.connected = true;
                 //this.updateViewers;
             });
 
@@ -222,7 +221,8 @@ export default {
 
             this.socket.on("disconnect", () => {
                 console.log("Disconnected from chat");
-                this.connected = false;
+                //this.loading = true;
+                //this.connected = false;
             });
         },
 
