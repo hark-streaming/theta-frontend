@@ -77,11 +77,11 @@
           class="no-focus"
           show-arrows
         >
-          <v-tab>{{ replay ? 'Summary' : 'Description' }}</v-tab>
+          <v-tab :ripple="false" style="font-size:0.8em;">{{ replay ? 'Summary' : 'Description' }}</v-tab>
           <!-- <v-tab>Replays</v-tab> -->
-          <v-tab>Theta</v-tab>
+          <v-tab :ripple="false" style="font-size:0.8em;">Theta</v-tab>
 
-          <v-tab>Custom Token</v-tab>
+          <v-tab :ripple="false" style="font-size:0.8em;">Custom Token</v-tab>
 
           <!-- Removed the Stream Stats -->
           <!-- <v-tab v-if="!replay">Stream Stats</v-tab> -->

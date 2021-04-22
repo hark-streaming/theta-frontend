@@ -41,7 +41,7 @@
     <v-flex class="d-flex flex-wrap wrap pa-3">
       <div class="space">
         <v-card class="d-flex flex-column mb-4 pa-3">
-            <h3>CAUSES</h3>
+            <h3>TOKENS</h3>
             <div class="d-flex">
               <div class="container">
                 <DoughnutChart :chartdata="chartdata" :options="options" class="small-graph" />
@@ -71,18 +71,26 @@ import DoughnutChart from "../Chart/DoughnutChart.vue";
 
 export default {
   props: {
-    //
-    yourTokens: [
-      {
-        "tokenname": {type: String},
-        "amount": {type: Number}
+    //token names
+    /*yourTokens: {
+      type: Array,
+      default() {
+        return ["T1","T2","T3","T4","T5"];
+      },  
+    },*/
+    //number of each token
+    /*numTokens: {
+      type: Array,
+      default() {
+        return [3,8,5,6,7];
       }
-    ],
-    yourTags: [
-      { "name": {type: String},
-        "amount": {type: Number}
+    },*/
+    /*yourTokens: [
+      { 
+        {type: String},
+        {type: Number}
       }
-    ],
+    ],*/
     //numLabelsL: [{ type: Number }],
     /*yourTokens: [
       { "name": {type: String},
@@ -93,14 +101,26 @@ export default {
   },
   data() {
     return {
+      yourTokens: {
+        type: Array,
+        default() {
+          return ["T1","T2","T3","T4","T5"];
+        },
+      },
+      numTokens: {
+        type: Array,
+        default() {
+          return [3,8,5,6,7];
+        }
+      },
       chartdata: {
-        //labels: yourLabels,
-        labels: ['Fuelman', 'Gorgot', 'Davidson', 'Pollit','Demographica'],
+        labels: yourTokens,
         datasets: [
           {
-            label: "Data One",
-            backgroundColor: ["green", "blue", "purple", "pink"," orange"],
-            data: [345, 200, 742, 400, 532],
+            label: "Tokens",
+            backgroundColor: ["#DAF7A6 ", "#FFC300 ", "#FF5733", "#C70039","#900C3F","#581845","#33b5ff", "#ff3399"],
+            //data: [345, 200, 742, 400, 532],
+            data: numTokens,
           },
           /*{
             label: "Data Two",
@@ -123,8 +143,18 @@ export default {
       show: false,
     };
   },
-  components: { DoughnutChart },
-  methods: {},
+  components: { DoughnutChart, },
+
+  methods: {
+    async getChartData () {
+      const { data } = await this.$axios.get(
+      `${process.env.API_URL}/theta/tokens/${this.uid}`
+      );
+      this.yourTokens = Object.keys(data.tokens);
+      this.numTokens = Object.values(data.tokens);
+      console.log(this.yourTokens);
+    },
+  },
   computed: {
     ...mapGetters({
       uid: VStore.$getters.getUID,
@@ -133,7 +163,9 @@ export default {
       isStreamer: VStore.$getters.isStreamer,
     }),
   },
-  async mounted() {},
+  async mounted() {
+    await this.getChartData();
+  },
 };
 </script>
 

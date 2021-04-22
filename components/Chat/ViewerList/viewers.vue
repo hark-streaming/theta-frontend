@@ -38,16 +38,20 @@
       />
 
       <!-- Show all viewers toggle -->
-      <v-switch
-        v-model="showAll"
-        :label="`Show all viewers (${showAll ? getUserList.length : getChannelViews( page )})`"
-        color="secondary"
-        hide-details
-        dense
-        inset
-        @change="filterViewerList"
-      >
-      </v-switch>
+      <div class="d-flex">
+        <v-switch
+          v-model="showAll"
+          color="secondary"
+          hide-details
+          dense
+          inset
+          @change="filterViewerList"
+        >
+        </v-switch>
+        <h2 class="mt-5" style="font-weight:400;color:gray;">
+          Show all viewers ({{showAll ? getUserList.length : getChannelViews( page )}})
+        </h2>
+      </div>
     </div>
 
     <!-- <hr class="primary"> -->
