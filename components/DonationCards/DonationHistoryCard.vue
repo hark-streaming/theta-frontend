@@ -135,15 +135,13 @@ export default {
 
   methods: {
     /*async getChartData () {
-      try {
-        const { data } = await this.$axios.get(
-        `${process.env.API_URL}/theta/tokens/WbQpVz9J6FYSUFgtvn8XPQvyeD03`
-        );
-      } catch (error) {
-        this.yourTokens = Object.keys(data.tokens);
-        this.numTokens = Object.values(data.tokens);
-        console.error( error.message )
-      }
+      const { data } = await this.$axios.get(
+      //`${process.env.API_URL}/theta/tokens/${this.uid}`
+      `${process.env.API_URL}/theta/tokens/WbQpVz9J6FYSUFgtvn8XPQvyeD03`
+      );
+      console.log("HELP",data);
+      this.yourTokens = Object.keys(data.tokens);
+      this.numTokens = Object.values(data.tokens);
     },*/
   },
   computed: {
