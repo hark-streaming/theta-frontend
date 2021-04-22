@@ -25,9 +25,9 @@
 
         <div class="d-flex justify-end">
             <div class="pr-4 pb-3">
-                <v-btn outlined color="primary" :href="link" target="_blank">{{
-                    shortdesc
-                }}</v-btn>
+                <v-btn outlined color="primary" :href="link" to="/">
+                    {{limitedShortDesc}}
+                </v-btn>
             </div>
             <div class="pr-4 pb-3">
                 <v-btn
@@ -42,10 +42,10 @@
         <!-- tfuel donate dialog -->
         <v-dialog v-model="showDonate" width="500">
             <lazy-tfuel-dialog
-                :avatar="avatar"
-                :streamer="page"
+                :avatar="mainimage"
+                :streamer="title"
                 :tokenName="tokenName"
-                :streamerUid="streamerUid"
+                :streamerUid="owner"
                 @close="showDonate = false"
             />
         </v-dialog>
@@ -77,6 +77,7 @@ export default {
         tags: { type: Array },
         walletLink: { type: String, default: "" },
         owner: { type: String, default: "" },
+        tokenName: { type: String, default: "" },
     },
 
     methods: {
@@ -91,6 +92,9 @@ export default {
     },
 
     computed: {
+        limitedShortDesc(){
+            return this.shortdesc.slice(0,10);
+        },
         ...mapGetters({
             isAuth: VStore.$getters.isAuth,
         }),
