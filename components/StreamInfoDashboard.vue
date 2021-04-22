@@ -1,18 +1,18 @@
 <template>
     <v-flex v-if="showStreamInfo" xs14 sm12 md10 lg12>
-        <v-card class="mb-4 pa-3">
-            <v-container>
+        <v-card class="mb-4">
+            <v-container class="ma-0 pa-0">
                 <v-row no-gutters>
-                    <v-flex class="mb-3">
+                    <v-flex class="my-3 ml-3">
                         <h2>Stream Info</h2>
                     </v-flex>
                 </v-row>
-
+                <v-divider class="mb-4"></v-divider>
                 <v-row no-gutters>
-                    <v-col class="pr-2">
+                    <v-col class="">
                     <!-- <v-layout column> -->
                         
-                        <v-flex class="mb-3">
+                        <v-flex class="mb-5 ma-3">
                             <v-text-field
                                 v-model="streamData.title"
                                 label="Stream Title"
@@ -23,7 +23,7 @@
                                 @input="enableSave"
                             />
                         </v-flex>
-                        <v-flex>
+                        <v-flex class="mb-5 ma-3">
                             <v-textarea
                                 v-model="description"
                                 name="input-7-1"
@@ -35,7 +35,7 @@
                                 @input="enableSave"
                             />
                         </v-flex>
-                        <v-flex class="mt-2">
+                        <v-flex class="mb-14 ma-3">
                             <vue-tags
                                 :active="activeTags"
                                 :all="allTags"
@@ -51,8 +51,10 @@
                                 @on-tag-created="onTagCreated"
                             />
                         </v-flex>
+
+                        <v-divider></v-divider>
                         
-                        <v-flex shrink class="mt-4">
+                        <v-flex class="mt-3 mx-3">
                             <v-switch 
                                 v-model="streamData.donateOn"
                                 label="Donate Button"
@@ -109,6 +111,25 @@
                         </v-flex> -->
                         
                     <!-- </v-layout> -->
+                        <v-flex class="d-flex mx-3 mb-3" style="flex-direction:row-reverse">
+                            <v-btn
+                                class="ml-2"
+                                :disabled="!showSave"
+                                :loading="saveLoading"
+                                color="primary white--text"
+                                @click="updateStreamData"
+                                small
+                                >save
+                                </v-btn>
+                            <v-btn
+                                color="primary"
+                                outlined
+                                :disabled="!showSave"
+                                @click="resetData"
+                                small
+                                >reset
+                            </v-btn>
+                        </v-flex>
                     </v-col>
 
                     <!-- <v-col cols="4" class="pl-2">
@@ -148,26 +169,6 @@
                 </v-row>
             </v-container>
 
-            <v-layout>
-                <v-spacer />
-                <v-btn
-                    color="cyan"
-                    outlined
-                    class="mr-2"
-                    :disabled="!showSave"
-                    @click="resetData"
-                    >
-                    reset
-                </v-btn>
-                <v-btn
-                    :disabled="!showSave"
-                    :loading="saveLoading"
-                    color="primary"
-                    outlined
-                    @click="updateStreamData"
-                    >save</v-btn
-                >
-            </v-layout>
         </v-card>
     </v-flex>
 </template>

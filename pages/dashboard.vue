@@ -1,53 +1,55 @@
 <template>
-    <div>
+    <v-card flat tile color="#F5F5F5">
         <!-- Chat Header -->
-        <div class="ma-6" align="center">
-            <h1>Streamer Dashboard</h1>
-        </div>
+        <v-card tile color="secondary">
+            <h1 class="pl-4 pt-3 pb-2 accentwave--text" style="font-weight:500;font-size:2em;">YOUR DASHBOARD</h1>
+        </v-card>
 
         <!-- Main Container -->
         <v-container fluid>
             <!-- Main dashboard -->
-            <v-row no-gutters class="ma-0">
-                <v-sheet color="secondary" class="pl-3 flex-grow-1 mb-n6">
-                    <h1 :style="{ color: 'white' }">Stream Preview</h1>
-                </v-sheet>
-            </v-row>
-            <v-row>
-                <!-- Stream Preview? -->
-                <v-col
-                    :style="{
-                        height: mobile ? '500px' : '555px',
-                        display: block,
-                    }"
-                >
-                    <v-responsive height="calc( 100% )">
-                        <iframe
-                            :src="`/embed/${username}`"
-                            frameborder="none"
-                            scrolling="no"
-                            width="100%"
-                            height="100%"
-                        ></iframe>
-                    </v-responsive>
-                </v-col>
-
-                <!-- Chat -->
-                <v-col cols=4> 
-                    <v-sheet
-                        v-if="displayChat"
-                        class="d-flex flex-shrink-1"
+            <v-card outlined flat style="width:100%;">
+                <v-row no-gutters>
+                    <v-sheet class="flex-grow-1 mb-n6">
+                        <h1 class="pl-3 my-3" style="font-weight:500;color:black;font-size:1em;">Stream Preview</h1>
+                        <v-divider></v-divider>
+                    </v-sheet>
+                </v-row>
+                <v-row>
+                    <!-- Stream Preview? -->
+                    <v-col
                         :style="{
                             height: mobile ? '500px' : '555px',
-                            display:block
+                            display: block,
                         }"
-                        light
                     >
-                        <hark-chat :chat-channel="username" />
-                    </v-sheet>
-                </v-col>
-            </v-row>
+                        <v-responsive height="calc( 100% )">
+                            <iframe
+                                :src="`/embed/${username}`"
+                                frameborder="none"
+                                scrolling="no"
+                                width="100%"
+                                height="100%"
+                            ></iframe>
+                        </v-responsive>
+                    </v-col>
 
+                    <!-- Chat -->
+                    <v-col cols=4> 
+                        <v-sheet
+                            v-if="displayChat"
+                            class="d-flex flex-shrink-1"
+                            :style="{
+                                height: mobile ? '500px' : '555px',
+                                display:block
+                            }"
+                            light
+                        >
+                            <hark-chat :chat-channel="username" />
+                        </v-sheet>
+                    </v-col>
+                </v-row>
+            </v-card>
             <!-- Configuration -->
 
             <v-row>
@@ -169,7 +171,7 @@
                 </v-layout>
             </v-row>
         </v-container>
-    </div>
+    </v-card>
 </template>
 
 <script>
@@ -440,7 +442,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* .tags__shadow--tag-list-active{
     z-index: 5 !important;
 } */

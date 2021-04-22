@@ -4,7 +4,7 @@
             small
             @click="displayWindow=true"
             color="secondary white--text"
-            depressed
+            class="px-10 flex-grow"
         >
             Vote
         </v-btn>

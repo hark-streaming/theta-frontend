@@ -4,10 +4,7 @@
         v-on="on"
         class="mr-3"
         small
-        color="secondary"
-        flat
-        depressed
-        outlined
+        color="#F9F9F9 secondary--text"
         @click="editStreamData = true"
       >
         <!--<template v-if="$vuetify.breakpoint.smAndDown"><v-icon small class="ml-1">edit</v-icon></template>-->

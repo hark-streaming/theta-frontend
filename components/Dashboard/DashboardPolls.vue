@@ -1,21 +1,18 @@
 <template>
     <v-flex xs12 sm10 md10 lg12>
-        <v-card class="mb-4 pa-3">
-            <v-container>
+        <v-card class="mb-4">
+            <v-container class="ma-0 pa-0">
                 <v-row no-gutters>
-                    <v-flex class="mb-3">
+                    <v-flex class="my-3 ml-3">
                         <h2>Polls</h2>
                     </v-flex>
                 </v-row>
-
+                <v-divider class="mb-3"></v-divider>
                 <v-row no-gutters>
-                    <v-col class="pl-2">
-
-                        <v-card 
+                    <v-col>
+                        <v-sheet
                             v-for="(poll, index) in this.streamData.polls"
                             :key="index"
-                            outlined
-                            class="px-2 py-6"
                             >
                             <v-row>
                                 <v-col cols="5">
@@ -29,8 +26,8 @@
 
                                 <v-col cols="7">
                                     <!-- Poll prompt -->
-                                    <v-row no-gutters>
-                                        <v-col class="flex-grow-1">
+                                    <v-row no-gutters class="mt-3">
+                                        <v-col cols="8" class="flex-grow-1">
                                             <v-text-field 
                                                 v-model="poll.question"
                                                 label="Prompt"
@@ -41,23 +38,25 @@
                                             />
                                         </v-col>
 
-                                        <v-col class="d-flex align-center justify-center pl-3" cols="3">
+                                        <v-col class="d-flex justify-end mt-1 ml-0 pr-4">
                                             <v-btn 
-                                                rounded 
+                                                rounded
+                                                flat
+                                                depressed
                                                 small 
-                                                color="red"
+                                                color="primary white--text"
                                                 @click="deletePoll(index)"
-                                            >Delete<br>poll</v-btn>
+                                            >Delete Poll</v-btn>
                                         </v-col>
                                     </v-row>
 
                                     <!-- Poll answer options -->
                                     <v-row no-gutters v-for="(answer, aIndex) in poll.answers" :key="aIndex">
-                                        <v-col cols="1" class="d-flex align-center justify-center">
-                                            <v-btn fab x-small color="red" @click="deleteAnswer(index, aIndex)">X</v-btn>
+                                        <v-col cols="1" class="d-flex align-center justify-center mr-1">
+                                            <v-btn depressed fab x-small color="primary white--text" @click="deleteAnswer(index, aIndex)">X</v-btn>
                                         </v-col>
 
-                                        <v-col class="flex-grow-1">
+                                        <v-col class="flex-grow-1 mr-3">
                                             <v-text-field 
                                                 v-model="answer.text"
                                                 :label="answerLabel(answer.value)"
@@ -69,12 +68,12 @@
                                         </v-col>
                                     </v-row>
 
-                                    <v-row v-if="poll.answers.length < 4" class="pl-16" no-gutters>
+                                    <v-row v-if="poll.answers.length < 4" class="pl-10" no-gutters>
                                         <v-btn small @click="addAnswer(index)">+ Add answer</v-btn>
                                     </v-row>
 
                                     <!-- Control switches -->
-                                    <v-row no-gutters class="pl-3">
+                                    <v-row no-gutters>
                                         <v-switch
                                             label="Enable multiple-answer votes"
                                             v-model="poll.multiple"
@@ -83,7 +82,7 @@
                                             @click="showSave=true">
                                         </v-switch>
                                     </v-row>
-                                    <v-row no-gutters class="pl-3 mt-0">
+                                    <v-row no-gutters class="mt-0">
                                         <v-switch
                                             label="Show results (close voting)"
                                             v-model="poll.showResults"
@@ -92,7 +91,7 @@
                                             @click="showSave=true">
                                         </v-switch>
                                     </v-row>
-                                    <v-row no-gutters class="pl-3 mt-0">
+                                    <v-row no-gutters class="mt-0">
                                         <v-switch
                                             label="Active"
                                             v-model="poll.active"
@@ -103,8 +102,9 @@
                                     </v-row>
                                 </v-col>
                             </v-row>
+                            <v-row class="mb-3" no-gutters><v-divider></v-divider></v-row>
                             
-                        </v-card>
+                        </v-sheet>
 
                         <v-row v-if="streamData.polls.length < 8" class="d-flex align-center justify-center pt-4" no-gutters>
                             <v-btn @click="addPoll">+ Add poll</v-btn>

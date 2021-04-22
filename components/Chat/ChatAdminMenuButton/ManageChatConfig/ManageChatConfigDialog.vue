@@ -2,7 +2,7 @@
   <div>
     <v-btn
       class="d-flex mb-2"
-      style="font-size:0.7em;"
+      style="font-size:0.75em;text-transform:none;"
       block
       small
       text

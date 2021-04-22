@@ -82,10 +82,9 @@
         >
             <!-- Donate TFUEL Button -->
             <v-btn
-                color="secondary white--text"
+                color="white primary--text"
                 small
                 @click="loggedIn ? showDonate = true : showLogin = true"
-                depressed
             >
                 <img
                     src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
@@ -99,14 +98,16 @@
             <!-- Custom Donate Button -->
             <v-btn
                 v-if="donateOn"
-                color="secondary white--text"
+                color="white secondary--text"
                 target="_blank"
                 :href="donateUrl"
                 small
-                depressed
+                style="font-weight:500;"
             >
                 {{ donateMsg }}
             </v-btn>
+
+            <v-divider v-if="showPolls" vertical></v-divider>
 
             <!-- Poll voting dialog -->
             <VoteDialog 

@@ -4,7 +4,7 @@
             <!-- Goal Progress -->
             <!-- <goal-progress v-if="false" /> -->
 
-            <v-container v-if="(streamers.length > 0)">
+            <v-container class="pa-0 ma-0" v-if="(streamers.length > 0)">
                 <!-- Site Banner -->
                 <!-- <message-of-the-day /> -->
 
@@ -32,7 +32,7 @@
                         />
                     </v-col>
                     <v-col class="grow pl-0">
-                        <v-sheet color="neutral" class="fill-height pa-5">
+                        <v-sheet color="#F5F5F5" class="fill-height pa-5">
                             <h2>{{ mostViewed.name }}</h2>
                             <h4>Viewers: {{ mostViewed.viewCount }}</h4>
                             <TempTags :tags="mostViewed.tags" class="my-2" />
@@ -43,6 +43,7 @@
 
                 <!-- Live Now Header -->
                 <!-- Livestream Grid -->
+                <v-divider></v-divider>
                 <stream-grid
                     v-if="streamers.length > 0"
                     :streamers="streamers"
