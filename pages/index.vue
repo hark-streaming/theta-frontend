@@ -44,7 +44,7 @@
                         <v-col
                             xl="2"
                             lg="3"
-                            md="3"
+                            md="10"
                             sm="10"
                             class="d-flex elevation-5"
                             style="flex-direction: column; flex-wrap: wrap"
