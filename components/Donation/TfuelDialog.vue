@@ -3,7 +3,7 @@
         <!-- Header Bar -->
         <v-sheet
             tile
-            color="secondary"
+            color="white"
             class="d-flex align-center pa-2 black--text"
         >
             <!-- avatar and name -->
@@ -11,26 +11,29 @@
                 <img :src="avatar" :alt="streamer" />
             </v-avatar>
 
-            <h2 class="white--text">{{ streamer }}</h2>
+            <h2 style="font-weight:400;font-size:1.2em;">{{ streamer }}</h2>
         </v-sheet>
 
+        <v-divider></v-divider>
+        <v-sheet class="pt-4 barground">
         <!-- Donate header -->
-        <h3 class="mt-3 text-center">Support {{ streamer }} with TFUEL!</h3>
+            <h3 style="font-size:1.2em;font-weight:400;" class="white--text text-center">Support {{ streamer }} with Tfuel.</h3>
 
-        <!-- Tfuel balance -->
-        <v-card-subtitle class="my-2 d-flex justify-center">
-            <div class="mr-1">Your Balance:</div>
-            <img
-                src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
-                width="24px"
-                height="24px"
-                class="tfuel-balance-img"
-            />
-            <span class="ml-1">{{ balance }}</span>
-        </v-card-subtitle>
+            <!-- Tfuel balance -->
+            <v-card-subtitle class="my-2 pt-3 d-flex justify-center">
+                <div style="font-size:1.2em;font-weight:400;" class="mr-3 white--text">Your Balance:</div>
+                <img
+                    src="https://cdn.discordapp.com/attachments/814278920168931382/826294941768482876/tfuel.png"
+                    width="24px"
+                    height="24px"
+                    class="tfuel-balance-img"
+                />
+                <span style="font-size:1.1em;font-weight:400;" class="ml-2 white--text">{{ balance }}</span>
+            </v-card-subtitle>
+        </v-sheet>
 
         <!-- 1,5,10 tfuel buttons-->
-        <v-layout justify-center>
+        <v-layout class="py-3" justify-center>
             <v-btn-toggle class="mb-3" v-model="donateAmount" borderless>
                 <v-btn value="1" outlined @click="resetCustom">
                     <v-col>
@@ -90,19 +93,19 @@
         <!-- governance token info -->
         <!-- will not show if tokenname is null or not provided -->
         <v-layout v-show="tokenExists()" justify-center class="my-5">
-            <span> You will receive </span>
+            <span style="font-size:1em;font-weight:400;"> You will receive  </span>
             <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
-                    <a href="tokens" v-bind="attrs" v-on="on" class="mx-1">
+                    <a href="tokens" v-bind="attrs" v-on="on" class="mx-1 px-1">
                         {{ tokenAmount }} {{ tokenName }}
                     </a>
                 </template>
-                <span>
-                    This is {{ streamer }}'s custom token! It is rewarded for
+                <span black--text>
+                    This is {{ streamer }}'s custom token. It is rewarded for
                     donating TFUEL.</span
                 >
             </v-tooltip>
-            <span> for this donation. </span>
+            <span>  for this donation. </span>
         </v-layout>
 
         <!-- General Success / Error Alert -->
@@ -118,6 +121,7 @@
 
         <!-- donate button -->
         <v-layout justify-center>
+            <v-btn class="mr-15" plain large @click="closeForm"> Cancel </v-btn>
             <v-btn
                 color="secondary"
                 class="white--text mb-3"
@@ -128,7 +132,6 @@
             >
                 Donate
             </v-btn>
-            <v-btn color="grey" plain large @click="closeForm"> Cancel </v-btn>
         </v-layout>
 
         <!-- loader line for extra visual -->
@@ -262,16 +265,20 @@ export default {
 </script>
 
 <style scoped>
-h3 {
-    color:black;
-    font-weight:400;
-    font-size:1em;
-}
-.v-text-field {
-    max-width: 50%;
-}
-.tfuel-balance-img {
-    position: relative;
-    top: -2px;
-}
+    .barground {
+        background: rgb(40,38,80);
+        background: linear-gradient(60deg, rgba(40,38,80,1) 0%, rgba(94,59,87,1) 100%); 
+    }
+    h3 {
+        color:black;
+        font-weight:400;
+        font-size:1em;
+    }
+    .v-text-field {
+        max-width: 50%;
+    }
+    .tfuel-balance-img {
+        position: relative;
+        top: -2px;
+    }
 </style>
