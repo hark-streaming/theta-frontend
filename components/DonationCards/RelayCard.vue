@@ -1,14 +1,14 @@
 <template>
     <v-flex>
-        <v-card class="mb-4 pa-3">
+        <v-card tile flat>
             <!-- title -->
-            <v-flex class="mb-3">
+            <v-flex class="pa-3">
                 <h2>TFuel Donation Redistribution</h2>
             </v-flex>
-
-            <div class="d-flex">
+            <v-divider></v-divider>
+            <div style="background:#F8F8F8" class="d-flex pt-4 px-3 pb-4">
                 <img
-                    class="custom-token-image mr-4"
+                    class="custom-token-image mr-2"
                     src="https://cdn.discordapp.com/attachments/814278920168931382/833263878115819580/relay_custom_token.png"
                 />
                 <div>

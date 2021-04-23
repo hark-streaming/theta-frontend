@@ -41,7 +41,7 @@
                         <!-- Upgrade Account -->
                         <v-layout justify-center>
                             <v-flex v-if="!showStreamInfo">
-                                <v-card class="mb-4 pa-3">
+                                <v-card tile flat class="mb-4 pa-3">
                                     <h2>Upgrade to a Streaming Account</h2>
                                     <div class="mb-2">
                                         We get it. You want to stream on Hark! I mean,
@@ -56,14 +56,15 @@
                         <!-- Stream Key -->
                         <v-layout justify-center>
                             <v-flex v-if="showStreamInfo">
-                                <v-card class="mb-4 pa-3">
+                                <v-card tile flat class="mb-4">
                                     <v-layout column>
                                         <v-flex class="mb-3">
-                                            <h2>Stream Server Configuration</h2>
+                                            <h2 class="pa-3">Stream Server Configuration</h2>
+                                            <v-divider></v-divider>
 
-                                            <div class="my-3">
+                                            <div class="my-3 mx-3">
                                                 <v-btn
-                                                    color="accent"
+                                                    color="primary"
                                                     outlined
                                                     small
                                                     @click="
@@ -173,7 +174,7 @@
                                                 </v-expand-transition>
                                             </div>
                                         </v-flex>
-                                        <v-flex>
+                                        <v-flex class="pa-3">
                                             <v-text-field
                                                 class="mb-3"
                                                 value="rtmp://13.59.151.129:1935/live"
@@ -185,7 +186,7 @@
                                                 :loading="streamDataLoading"
                                             />
                                         </v-flex>
-                                        <v-flex>
+                                        <v-flex class="pa-3">
                                             <v-text-field
                                                 v-model="streamData.key"
                                                 ref="streamkeyinput"
@@ -208,7 +209,7 @@
                                                 @focus="showKey = !showKey"
                                             />
                                         </v-flex>
-                                        <v-layout>
+                                        <v-layout class="pa-3">
                                             <v-spacer />
                                             <v-btn
                                                 color="primary"
@@ -220,7 +221,7 @@
                                             >
                                             <v-btn
                                                 color="primary"
-                                                class="black--text"
+                                                class="white--text"
                                                 :loading="keyLoading"
                                                 @click="copyToClipboard"
                                                 >Copy</v-btn

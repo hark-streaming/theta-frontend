@@ -1,18 +1,20 @@
 <template>
     <v-flex>
         <!-- Token Info -->
-        <v-card class="mb-4 pa-3">
+        <v-card tile flat class="mb-4">
             <!-- title -->
-            <v-flex class="mb-3">
+            <v-flex class="pa-3">
                 <h2>Custom Token Management</h2>
             </v-flex>
+
+            <v-divider></v-divider>
 
             <div v-if="tokenExists">
                 <governance-token-stats
                     :uid="uid"
                 />
             </div>
-            <div v-else-if="!tokenExists" class="d-flex">
+            <div v-else-if="!tokenExists" class="d-flex pa-3">
                 <img
                     class="custom-token-image mr-4"
                     src="https://cdn.discordapp.com/attachments/814278920168931382/827009394113642496/custom_token.png"
