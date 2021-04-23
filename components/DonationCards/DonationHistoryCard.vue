@@ -56,6 +56,30 @@
             </div>
             <div class="space">
                 <v-card class="d-flex flex-column mb-4 pa-3">
+                    <h3>RECENT TFUEL DONATED</h3>
+                    <div v-if="!hasDonations"> No recent donations :(</div>
+                    <div
+                        class="d-flex"
+                        v-for="(transaction, index) in transactions"
+                        :key="index"
+                    >             
+                        <div class="my-1">
+                            <span> {{ transactions[index].tfuelPaid }} TFUEL </span>
+                            <span>
+                                to {{ transactions[index].recipient }}
+                            </span>
+                            <a
+                                :href="`https://beta-explorer.thetatoken.org/txs/${transactions[index].hash}`"
+                                target="_blank"
+                            >
+                                <v-icon small> mdi-link </v-icon>
+                            </a>
+                        </div>
+                    </div>
+                </v-card>
+            </div>
+            <!-- <div class="space">
+                <v-card class="d-flex flex-column mb-4 pa-3">
                     <h3>STREAMER COMMUNITIES</h3>
                     <div class="d-flex">
                         <div class="container">
@@ -67,7 +91,7 @@
                         </div>
                     </div>
                 </v-card>
-            </div>
+            </div> -->
         </v-flex>
     </v-card>
 </template>
@@ -83,6 +107,8 @@ export default {
     props: {},
     data() {
         return {
+            transactions: [],
+            hasDonations: false,
             loaded: false,
             chartdata: null,
             chartdata2: {
@@ -142,8 +168,7 @@ export default {
                     ],
                 };
                 this.hasTokens = true;
-            }
-            else {
+            } else {
                 this.hasTokens = false;
                 this.chartdata = {
                     labels: ["No custom tokens owned :("],
@@ -159,6 +184,24 @@ export default {
 
             this.loaded = true;
         },
+        async getDonationData() {
+            const { data } = await this.$axios.get(
+                `${process.env.API_URL}/theta/recent-donations/${this.uid}`
+            );
+            if (data.success) {
+                const timestamps = Object.keys(data.transactions);
+                console.log(timestamps);
+
+                timestamps.forEach((ts) => {
+                    this.transactions.push(data.transactions[ts]);
+                });
+                this.hasDonations = true;
+            }
+            else {
+                this.hasDonations = false;
+            }
+
+        },
     },
     computed: {
         ...mapGetters({
@@ -170,6 +213,7 @@ export default {
     },
     async mounted() {
         await this.getChartData();
+        await this.getDonationData();
     },
 };
 </script>

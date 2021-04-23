@@ -53,7 +53,6 @@
                                             <v-btn 
                                                 rounded
                                                 flat
-                                                depressed
                                                 small 
                                                 color="primary white--text"
                                                 @click="deletePoll(index)"
@@ -66,8 +65,7 @@
                                         
                                         <v-col cols="1" class="d-flex align-center justify-center mr-1">
                                             <!-- Delete Answer button -->
-                                            <v-btn 
-                                                depressed 
+                                            <v-btn  
                                                 fab 
                                                 x-small 
                                                 color="primary white--text" 
