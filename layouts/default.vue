@@ -364,7 +364,8 @@ export default {
 }*/
 
 #app {
-    background-color: #F5F5F5;
+  background: rgb(40,40,87);
+  background: linear-gradient(45deg, rgba(40,40,87,1) 0%, rgba(177,87,87,1) 100%); 
 }
 
 /*#app {

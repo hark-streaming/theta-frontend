@@ -17,7 +17,7 @@
             ></v-text-field>
             </v-row> -->
             <v-sheet tile class="background9">
-                <v-container class="d-flex py-8">
+                <v-container class="d-flex pt-8 pb-7">
                     <v-row no-gutters class="d-flex justify-center" style="max-height:600px;">
                         <v-col xl="6" lg="9" md="10" sm="10" class="d-flex elevation-5">
                             <v-responsive :aspect-ratio="16 / 9" max-width="calc(100vh - 98px)" style="max-height:550px;">
@@ -43,29 +43,43 @@
                         </v-col>
                     </v-row>
                 </v-container>
+                <h3 style="font-size:0.9em;font-weight:500;" class="white--text pl-3 pb-1">CURRENTLY LIVE</h3>
+                    <v-divider class="pb-3" style="border-color:white;"></v-divider>
+                    <stream-grid
+                        v-if="streamers.length > 0"
+                        :streamers="streamers"
+                        :blur-nsfw="blurNSFW"
+                        :cols="12"
+                        :sm="6"
+                        :md="4"
+                        :lg="3"
+                        :xl="2"
+                        @getHighestViews="mostViewedStream($event)"
+                        @getHighestViewCount="highestViewCount($event)"
+                        class="ml-3"
+                    />
             </v-sheet>
 
             <!-- Live Now Header -->
             <!-- Livestream Grid -->
-            <v-card tile class="pa-3 mb-3" color="#f0f0f0">
-                <h3 style="font-size:0.9em;font-weight:500;" class="black--text">CURRENTLY LIVE</h3>
-            </v-card>
-            <stream-grid
-                v-if="streamers.length > 0"
-                :streamers="streamers"
-                :blur-nsfw="blurNSFW"
-                :cols="12"
-                :sm="6"
-                :md="4"
-                :lg="3"
-                :xl="2"
-                @getHighestViews="mostViewedStream($event)"
-                @getHighestViewCount="highestViewCount($event)"
-                class="ml-3"
-            />
             <v-card tile class="pa-3 mt-5" color="white">
-                <h2 style="font-size:0.9em;font-weight:500;" class="black--text">TRENDING</h2>
+                <h2 style="font-size:0.9em;font-weight:500;" class="black--text">Trending</h2>
             </v-card>
+            <v-sheet class="py-3" color="#E0E0E0">
+                <stream-grid
+                    v-if="streamers.length > 0"
+                    :streamers="streamers"
+                    :blur-nsfw="blurNSFW"
+                    :cols="12"
+                    :sm="6"
+                    :md="4"
+                    :lg="3"
+                    :xl="2"
+                    @getHighestViews="mostViewedStream($event)"
+                    @getHighestViewCount="highestViewCount($event)"
+                    class="ml-3"
+                />
+            </v-sheet>
 
             <!-- fuckin index.vue.txt -->
         </div>
