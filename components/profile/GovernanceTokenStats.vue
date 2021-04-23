@@ -95,8 +95,8 @@ export default {
     methods: {
         async getContractData() {
             const { data } = await this.$axios.get(
-                //`${process.env.API_URL}/theta/gov-contract/${this.uid}`
-                `http://localhost:5001/hark-e2efe/us-central1/api/theta/gov-contract/testuid2`
+                `${process.env.API_URL}/theta/gov-contract/${this.uid}`
+                //`http://localhost:5001/hark-e2efe/us-central1/api/theta/gov-contract/testuid2`
             );
             if (data.success) {
                 this.contractData = data.data;
