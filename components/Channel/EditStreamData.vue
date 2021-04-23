@@ -1,16 +1,16 @@
 <template>
   <div class="text-center">
-      <v-btn
-        v-on="on"
-        class="mr-1"
-        small
-        color="#F9F9F9 secondary--text"
-        @click="editStreamData = true"
-      >
-        <!--<template v-if="$vuetify.breakpoint.smAndDown"><v-icon small class="ml-1">edit</v-icon></template>-->
-        <!--<template v-else>Edit</template>-->
-        Edit your channel
-      </v-btn>
+    <v-btn
+      v-on="on"
+      class="mr-1"
+      small
+      color="#F9F9F9 secondary--text"
+      @click="editStreamData = true"
+    >
+      <!--<template v-if="$vuetify.breakpoint.smAndDown"><v-icon small class="ml-1">edit</v-icon></template>-->
+      <!--<template v-else>Edit</template>-->
+      Edit your channel
+    </v-btn>
 
     <v-dialog
       v-model="editStreamData"
@@ -21,13 +21,14 @@
     >
       <!-- Edit Dialog -->
       <v-card
-        color="primary"
+        class="background1"
+        flat
         :loading="saveLoading || showExitConfirm"
       >
         <!-- Title Bar -->
         <v-sheet
           tile
-          color="primary"
+          color="transparent"
           class="pa-2 d-flex justify-space-between align-center black--text"
         >
           <h4 class="pl-2 body-1 white--text">
@@ -37,7 +38,7 @@
             </v-fade-transition>
           </h4>
           <v-btn
-            color="black"
+            color="white"
             text
             icon
             small
@@ -47,20 +48,10 @@
           </v-btn>
         </v-sheet>
 
+        <v-divider style="border-color:white;"></v-divider>
+
         <!-- Content -->
         <div class="py-3">
-          <div class="d-flex justify-space-between align-center mb-3  px-3">
-
-            <!-- Edit / Preview Button -->
-            <v-btn
-              color="white"
-              outlined
-              small
-              @click="previewData = !previewData"
-            >
-              {{ previewData ? 'Return to Editing' : 'Preview Description' }}
-            </v-btn>
-          </div>
 
           <!-- <v-slide-x-transition mode="out-in"> -->
           <v-fade-transition/>
@@ -178,11 +169,11 @@
           
           <!-- </v-slide-x-transition> -->
 
-          <div class="d-flex justify-end mt-3 px-3">
+          <div class="d-flex justify-end mt-3 px-3 pb-2 pt-2">
             <div>
               <!-- Edit / Preview Button -->
               <v-btn
-                color="accent"
+                color="white"
                 outlined
                 small
                 @click="previewData = !previewData"
@@ -206,7 +197,8 @@
             <!-- Cancel Button -->
             <v-btn
               class="mr-2"
-              color="error"
+              outlined
+              color="white"
               small
               :disabled="saveLoading"
               @click="cancel"
@@ -528,6 +520,14 @@
 </script>
 
 <style lang="scss">
+  .background1 {
+    background: rgb(40, 40, 87);
+    background: linear-gradient(
+        45deg,
+        rgba(40, 40, 87, 1) 0%,
+        rgba(177, 87, 87, 1) 100%
+    );
+  }
   .markdown-content {
     text-overflow: ellipsis;
     word-break: break-word;
