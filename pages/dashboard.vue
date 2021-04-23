@@ -167,7 +167,7 @@
                     </v-col>
                     <v-col cols="7">
                         <!-- <DashboardPolls :username="username" /> -->
-                        <DashboardPolls :uid="uid" />
+                        <!-- <DashboardPolls :uid="uid" /> -->
                     </v-col>
                 </v-layout>
             </v-row>
