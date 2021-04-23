@@ -6,13 +6,14 @@
         <v-sheet style="width:100%;" class="mb-4 pa-3">
           <v-card class="bigbackground">
             <div class="container">
-              <div class="d-flex justify-space-around align-center mb-5">
+              <div style="flex-direction:column;" class="d-flex justify-space-around align-center mb-5">
                 <v-avatar color="grey darken-4" size="200" class="justify-space-around ma-3">
                   <img
                     :src="imageUrl || `https://cdn.discordapp.com/attachments/778040889359466546/834964837922635796/defaultviewer.jpg`"
                     alt="avatar"
                   />
                 </v-avatar>
+                <h2 class="mt-2 white--text">{{ username }}</h2>
                 <!-- <div class="flex-shrink-1 text-xs-center my-1">
                   <h3>My Profile</h3> -->
                   <!-- <p>send in complaints for $5 / issue.</p> -->
