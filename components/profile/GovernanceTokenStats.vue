@@ -120,8 +120,12 @@ export default {
             }
         },
         async genChartData() {
-            const holders = Object.keys(this.contractData.holders);
-            const amounts = Object.values(this.contractData.holders);
+            let holders = Object.keys(this.contractData.holders);
+            let amounts = Object.values(this.contractData.holders);
+            if(holders.length == 0){
+                holders = [`No one owns any ${this.contractData.symbol} :(`];
+                amounts = [100];
+            } 
             this.holderChartData = {
                 labels: holders,
                 datasets: [
