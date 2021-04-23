@@ -5,7 +5,7 @@
         class="py-2 px-3 hide-scrollbar bw-channel-topbar"
         color="accentwave"
       > -->
-      <v-sheet class="py-2 px-3 hide-scrollbar" color="secondary">
+      <v-sheet class="barground py-2 px-3 hide-scrollbar">
         <div class="d-flex align-center justify-space-between">
           <div class="d-flex align-center white--text">
             <v-avatar size="32">
@@ -90,3 +90,14 @@
     }
   };
 </script>
+
+<style scoped>
+  /*.barground {
+    background: rgb(40,40,87);
+    background: linear-gradient(45deg, rgba(40,40,87,1) 0%, rgba(177,87,87,1) 100%); 
+  }*/
+  .barground {
+    background: rgb(40,38,80);
+    background: linear-gradient(60deg, rgba(40,38,80,1) 0%, rgba(94,59,87,1) 100%); 
+  }
+</style>

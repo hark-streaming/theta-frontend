@@ -37,12 +37,12 @@
       <!-- Card Data -->
       <div class="pa-2">
         <!-- Stream Data -->
-        <div class="body-1 text-truncate text-no-wrap mb-0 secondary--text">
+        <div class="body-1 text-truncate text-no-wrap mb-0 black--text">
           {{ title }}
         </div>
         <div class="caption d-flex align-center">
 
-          <div class="d-block text-truncate secondary--text">{{ name }}</div>
+          <div class="d-block text-truncate black--text">{{ name }}</div>
 
           <!-- NSFW Indicator -->
           <template v-if="nsfw">

@@ -3,7 +3,7 @@
         <!-- Chat Header -->
         <v-sheet
             id="chat-header"
-            class="d-flex align-center justify-space-between pa-2 py-3"
+            class="d-flex justify-start pa-2 py-3"
             color="#F2F2F2"
         >
             <!-- Viewer List -->
@@ -12,14 +12,14 @@
             </div>
 
             <!-- Chat Label -->
-
-            <h4
-                class="mx-2 text-truncate secondary--text"
-                style="font-weight:500;font-size:1em;"
-            >
-                | {{ page }}
-            </h4>
-            <v-spacer></v-spacer>
+            <div class="d-flex" style="justify-content:center;width:70%;">
+                <h4
+                    class="pl-2 mx-2 text-truncate secondary--text"
+                    style="font-weight:500;font-size:1em;align-self:center;"
+                >
+                    {{ page }}
+                </h4>
+            </div>
         </v-sheet>
         <v-divider></v-divider>
         <!-- Donate Button row -->

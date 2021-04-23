@@ -63,7 +63,7 @@
             <!-- Live Now Header -->
             <!-- Livestream Grid -->
             <v-card tile class="pa-3 mt-5" color="white">
-                <h2 style="font-size:0.9em;font-weight:500;" class="black--text">Trending</h2>
+                <h2 style="font-size:0.9em;font-weight:500;" class="black--text">TRENDING</h2>
             </v-card>
             <v-sheet class="py-3" color="#E0E0E0">
                 <stream-grid
