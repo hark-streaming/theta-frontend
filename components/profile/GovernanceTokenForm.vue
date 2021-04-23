@@ -131,7 +131,7 @@
         </v-card>
 
         <!-- Polls -->
-        <GovPollForm v-if="tokenExists" />
+        <!-- <GovPollForm v-if="tokenExists" /> -->
     </v-flex>
 </template>
 

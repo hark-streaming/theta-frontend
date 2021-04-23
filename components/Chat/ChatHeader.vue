@@ -57,11 +57,11 @@
             <v-divider v-if="showPolls" vertical></v-divider>
 
             <!-- Poll voting dialog; display only if there is at least one active poll -->
-            <VoteDialog 
+            <!-- <VoteDialog 
                 v-if="showPolls" 
                 :polls="polls" 
                 :uid="streamerUid"
-            />
+            /> -->
         </v-sheet>
 
         <!-- tfuel donate dialog -->

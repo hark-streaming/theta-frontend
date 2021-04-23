@@ -131,41 +131,6 @@
                             </v-btn>
                         </v-flex>
                     </v-col>
-
-                    <!-- <v-col cols="4" class="pl-2">
-                        <h3>Polls</h3>
-
-                        <v-card 
-                            v-for="(poll, index) in this.streamData.polls"
-                            :key="index"
-                            outlined
-                            class="pa-2"
-                            >
-                            <v-row no-gutters>
-                                <v-col cols="9">
-                                    <v-text-field 
-                                        v-model="poll.question"
-                                        label="Prompt"
-                                        solo
-                                        hide-details
-                                        dense
-                                        @input="enableSave"
-                                    />
-                                </v-col>
-
-                                <v-col class="d-flex align-center pl-3" cols="3">
-                                    <v-btn 
-                                        rounded 
-                                        small 
-                                        color="primary"
-                                    >Delete<br>poll</v-btn>
-                                </v-col>
-                            </v-row>
-                            
-                        </v-card>
-
-                        <v-btn @click="addPoll">Add poll</v-btn>
-                    </v-col> -->
                 </v-row>
             </v-container>
 
@@ -214,7 +179,6 @@ export default {
                 donateMsg: "",
                 donateOn: false,
                 donateUrl: "", 
-                // polls: []
             },
 
             streamDataLoading: true,
@@ -241,7 +205,6 @@ export default {
                 donateUrl: "",
                 description: "", 
                 activeTags: [], 
-                // polls: []
             },
         };
     },
@@ -281,9 +244,6 @@ export default {
             this.description = data.description;
             this.activeTags = this.parseTags(data.tags);
 
-            // this.streamData.polls = [];
-            // data.polls.forEach(x => this.streamData.polls.push(x));
-
             this.streamDataLoading = false;
 
             this.setOld();
@@ -308,9 +268,6 @@ export default {
             const tags = [];
             this.activeTags.forEach(x => tags.push(x.name));
 
-            // const polls = [];
-            // this.streamData.polls.forEach(x => polls.push(x));
-
             this.setOld();
 
             const streamRef = db.collection("streams").doc(stream); // MAKE SURE THE FIRESTORE HAS THE CORRECT SECURITY RULES HERE
@@ -322,7 +279,6 @@ export default {
                 donateUrl,
                 description,
                 tags, 
-                // polls
             });
             this.saveLoading = false;
             this.disableSave();
@@ -437,9 +393,6 @@ export default {
             this.old.donateMsg = this.streamData.donateMsg;
             this.old.donateUrl = this.streamData.donateUrl;
             this.old.archive = this.streamData.archive;
-            
-            // this.old.polls = [];
-            // this.streamData.polls.forEach(x => this.old.polls.push(x));
 
             this.old.activeTags = [];
             this.activeTags.forEach(x => this.old.activeTags.push(x));
@@ -452,27 +405,12 @@ export default {
             this.streamData.donateMsg = this.old.donateMsg;
             this.streamData.donateUrl = this.old.donateUrl;
             this.streamData.archive = this.old.archive;
-            
-            // this.streamData.polls = [];
-            // this.old.polls.forEach(x => this.activeTags.push(x));
 
             this.activeTags = [];
             this.old.activeTags.forEach(x => this.activeTags.push(x));
 
             this.disableSave();
         }, 
-
-        /* addPoll() {
-            const pollData = {
-                question: "", 
-                answers: [
-                    { value: 1, text: "", votes: 0 }
-                ]
-            };
-            this.streamData.polls.push(pollData);
-
-            this.enableSave();
-        } */
     },
 
     computed: {

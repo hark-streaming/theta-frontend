@@ -317,10 +317,6 @@ export default {
                 return "Global";
             }
         },
-
-        showPoll(active) {
-
-        }
     },
 
     watch: {
