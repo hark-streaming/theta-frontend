@@ -26,7 +26,7 @@
                         <v-col xl="6" lg="9" md="10" sm="10" class="d-flex">
                             <v-responsive
                                 :aspect-ratio="16 / 9"
-                                min-width="413px"
+                                min-width="410px"
                                 max-width="calc(100vh - 98px)"
                                 style="max-height: 550px"
                             >
