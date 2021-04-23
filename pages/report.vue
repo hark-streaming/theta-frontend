@@ -11,14 +11,16 @@
           class="my-3"
         >
           <v-sheet
-            color="red"
-            class="pa-3"
+            color="white"
+            class="d-flex pa-3"
           >
-            <h3>
-              <v-icon>warning</v-icon>
+            <v-icon color="red">warning</v-icon>
+            <h3 style="font-weight:400" class="pl-3">
               Report Content
             </h3>
           </v-sheet>
+
+          <v-divider></v-divider>
 
           <v-card-text>
             <v-form ref="report">
@@ -27,8 +29,9 @@
 
                   <div class="mb-2">Who are you?</div>
                   <v-text-field
+                    class="custom"
                     v-model="name"
-                    label="name"
+                    label="Name"
                     name="name"
                     color="primary"
                     required
@@ -41,8 +44,9 @@
 
                   <div class="mb-2">If we need to reply, how do we contact you?</div>
                   <v-text-field
+                    class="custom"
                     v-model="email"
-                    label="email"
+                    label="Email"
                     name="_replyto"
                     type="email"
                     color="primary"
@@ -54,8 +58,9 @@
                     outlined
                   ></v-text-field>
 
-                  <div class="mb-2">What are you writing this report about? OR <b>WHO</b> is this report about?</div>
+                  <div class="mb-2">What are you writing this report about? <b>Who</b> is this report about?</div>
                   <v-text-field
+                    class="custom"
                     v-model="subject"
                     label="Streamer URL / Username / Topic"
                     name="subject"
@@ -69,10 +74,11 @@
                   ></v-text-field>
 
                   <v-textarea
+                    class="custom"
                     v-model="report"
                     name="report"
                     outlined
-                    label="message"
+                    label="Message"
                     color="primary"
                     required
                     :rules="[ rules.required ]"
@@ -96,7 +102,7 @@
                   </div>
                 </v-flex>
                 <v-btn
-                  color="red"
+                  color="red white--text"
                   :loading="submitting"
                   :disabled="submitting || submitted"
                   @click="createReport"
@@ -203,3 +209,13 @@
     },
   }
 </script>
+
+<style scoped>
+
+  .custom.v-text-field input {
+    font-size: 1em;
+}
+  .custom.v-text-field label {
+    font-size: 1em;
+}
+</style>

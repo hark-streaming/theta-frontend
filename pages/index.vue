@@ -65,7 +65,7 @@
             <v-card tile class="pa-3 mt-5" color="white">
                 <h2 style="font-size:0.9em;font-weight:500;" class="black--text">TRENDING</h2>
             </v-card>
-            <v-sheet class="py-3" color="#E0E0E0">
+            <v-sheet class="py-3" color="#F0F0F0">
                 <stream-grid
                     v-if="streamers.length > 0"
                     :streamers="streamers"

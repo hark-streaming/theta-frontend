@@ -134,28 +134,30 @@
                 </v-row>
             </v-container>
 
-            <v-layout>
-                <v-spacer />
+            <v-flex class="d-flex pa-3" style="flex-direction:row-reverse">
 
                 <!-- Reset and Save buttons -->
+
                 <v-btn
-                    color="cyan"
+                    class="ml-2"
+                    :disabled="!showSave"
+                    :loading="saveLoading"
+                    color="primary white--text"
+                    @click="updatePollData"
+                    small
+                    >save</v-btn
+                >
+                <v-btn
+                    color="primary"
                     outlined
-                    class="mr-2"
                     :disabled="!showSave"
                     @click="resetData"
+                    small
                     >
                     reset
                 </v-btn>
-                <v-btn
-                    :disabled="!showSave"
-                    :loading="saveLoading"
-                    color="primary"
-                    outlined
-                    @click="updatePollData"
-                    >save</v-btn
-                >
-            </v-layout>
+
+            </v-flex>
         </v-card>
     </v-flex>
 </template>

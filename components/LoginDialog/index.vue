@@ -20,6 +20,7 @@
                 <div class="mt-4" />
                 <!-- Username Field -->
                 <v-text-field
+                    class="custom"
                     v-if="signUp"
                     id="username"
                     key="username"
@@ -41,6 +42,7 @@
 
                 <!-- Email Field -->
                 <v-text-field
+                    class="custom"
                     id="email"
                     key="email"
                     v-model="user.email"
@@ -58,6 +60,7 @@
 
                 <!-- Password Field -->
                 <v-text-field
+                    class="custom"
                     id="password"
                     key="password"
                     v-model="user.password"
@@ -515,6 +518,14 @@ export default {
 </script>
 
 <style>
+
+    .custom.v-text-field input {
+        font-size: 0.9em;
+    }
+    .custom.v-text-field label {
+        font-size: 0.9em;
+    }
+
     .v-input--checkbox .v-label {
         font-size: 14px;
     }

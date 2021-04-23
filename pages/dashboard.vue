@@ -11,7 +11,7 @@
             <v-card outlined flat style="width:100%;">
                 <v-row no-gutters>
                     <v-sheet class="flex-grow-1 mb-n6">
-                        <h1 class="pl-3 my-3" style="font-weight:500;color:black;font-size:1em;">Stream Preview</h1>
+                        <h1 class="pl-3 my-3" style="font-weight:500;color:black;font-size:1.1em;">Stream Preview</h1>
                         <v-divider></v-divider>
                     </v-sheet>
                 </v-row>
