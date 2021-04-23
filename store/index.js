@@ -32,6 +32,7 @@ const $states = {
     pwaPrompt: 'PWA_PROMPT',
 
     searchValue: '',
+    tfuelBalance: 0,
 };
 
 const $getters = {
@@ -112,7 +113,8 @@ export const state = () => ({
 
     [$states.pwaPrompt]: null,
 
-    searchValue: ""
+    searchValue: "",
+    tfuelBalance: 0
 });
 
 
@@ -250,6 +252,10 @@ export const getters = {
 
     getSearchValue(state) {
         return state.searchValue;
+    },
+
+    getTfuelBalance(state) {
+        return state.tfuelBalance;
     }
 
 };
@@ -317,6 +323,10 @@ export const mutations = {
 
     setSearchValue(state, data) {
         state.searchValue = data;
+    },
+
+    setTfuelBalance(state, data){
+        state.tfuelBalance = data;
     }
 };
 

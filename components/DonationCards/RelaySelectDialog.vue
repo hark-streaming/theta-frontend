@@ -50,9 +50,9 @@
                     <v-text-field
                         label="Username"
                         v-model="destUsername"
-                        @keydown.enter="submit()"
+                        @keydown.enter="submit"
                     ></v-text-field>
-                    <v-btn @click="submit()">Submit</v-btn>
+                    <v-btn @click="submit">Submit</v-btn>
                     <p v-if="displayError" class="mt-4 red--text">Invalid username</p>
                 </div>
             </v-card>
