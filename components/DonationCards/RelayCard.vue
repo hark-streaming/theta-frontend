@@ -82,10 +82,10 @@
                             </template>
 
                             <v-row
-                                v-if="showDialog && destUsernames.length < 3"
+                                v-if="showDialog && destUsernames.length < 3 && tfuelAmount > 10"
                                 no-gutters
                             >
-                                <RelaySelectDialog
+                                <RelaySelectDialog 
                                     @userFound="addRelay($event)"
                                 />
                             </v-row>
@@ -93,13 +93,20 @@
                     </div>
 
                     <!-- submission buttons -->
-                    <div class="red--text" style="font-size: 15px">
-                        (Your wallet must hold at least 10 TFUEL to edit shares)
+                    <div class="red--text" style="font-size: 13px">
+                        (Your wallet must hold at least 10 TFUEL to edit shares or payout)
                     </div>
                     <v-row class="mt-2 pa-3">
+                        <v-btn
+                            :disabled="tfuelAmount < 10"
+                            color="secondary"
+                            outlined
+                            @click="releaseTfuel"
+                            >Payout TFUEL</v-btn
+                        >
                         <v-spacer />
                         <v-btn
-                            :disabled="!editSharesEnabled"
+                            :disabled="!editSharesEnabled || tfuelAmount < 10"
                             color="primary"
                             outlined
                             @click="saveEditShares"
@@ -131,7 +138,7 @@ export default {
             alertType: "info",
 
             showDialog: true,
-            balance: 0,
+            tfuelAmount: 0,
 
             editSharesEnabled: false,
             editSharesLoading: false,
@@ -184,13 +191,22 @@ export default {
                     percentShares: this.destPercents,
                 }
             );
-            if (response.success) {
-                console.log("yay");
-            } else {
-                console.log("woops");
-            }
             console.log(this.balance);
             this.editSharesLoading = false;
+        },
+
+        async releaseTfuel() {
+            const userDoc = await db.collection("users").doc(this.uid).get();
+            const userData = userDoc.data();
+            const payeesAdds = userData.governanceShares.payees;
+            const authToken = await auth.currentUser.getIdToken();
+            const response = await this.$axios.$post(
+                `${process.env.API_URL}/theta/gov-release`,
+                {
+                    idToken: authToken,
+                    payeeAddresses: payeesAdds,
+                }
+            );
         },
 
         // add relay destination; eventObj contains username and uid
@@ -281,19 +297,18 @@ export default {
         // add self to arrays
         //this.balance = this.$store.getters.getTfuelBalance;
 
+        // change this to be in the vstore later
+        const endpoint = `${process.env.API_URL}/theta/address/${this.uid}`;
+        const result = await this.$axios.$get(endpoint);
+        //console.log(result);
+
+        this.tfuelAmount =
+            result.vaultBalance == null ? 0 : result.vaultBalance;
+
         this.destUsernames.push(this.username);
         this.destUids.push(this.uid);
         this.destPercents.push(this.convertTo9900(0.99));
         this.dispPercents.push("99");
-
-        // const endpoint = `${process.env.API_URL}/theta/address/${this.uid}`;
-        // const result = await this.$axios.$get(endpoint);
-        // console.log(result);
-
-        // this.tfuelAmount = result.vaultBalance;
-
-        // const cashoutDoc = await db.collection("cashout").doc(this.uid).get();
-        // this.alreadyRequested = cashoutDoc.exists;
     },
 };
 </script>
