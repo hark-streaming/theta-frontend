@@ -1,7 +1,7 @@
 <template>
-  <v-card tile flat class="pt-10" color="secondary" style="margin:auto;height:100%;">
+  <v-card tile flat class="barground" color="secondary" style="margin:auto;height:100%;">
     <v-container grid-list-md>
-        <h1 class="d-flex white--text">REGISTER AS A</h1>
+        <h1 class="d-flex pt-10 white--text">REGISTER AS A</h1>
 
         <!-- 3 card layout -->
         <v-row>
@@ -37,8 +37,8 @@
             </v-sheet> -->
             <v-card outlined @click="showLogin = true" style="height:100%;">
               <v-sheet
-                color="secondary"
-                class="white--text"
+                
+                class="barground2 white--text"
               >
                 <v-card-title class="justify-center white--text"> Viewer </v-card-title>
                 <v-card-subtitle class="text-center white--text">
@@ -71,8 +71,8 @@
           <v-col>
             <v-card outlined to="/register/commentator" style="height:100%;">
               <v-sheet
-                color="secondary"
-                class="white--text"
+                
+                class="barground2 white--text"
               >
                 <v-card-title class="justify-center"> Voice </v-card-title>
                 <v-card-subtitle class="text-center white--text">
@@ -102,8 +102,8 @@
           <v-col>
             <v-card outlined to="/register/politician" style="height:100%;">
               <v-sheet
-                color="secondary"
-                class="white--text"
+                
+                class="barground2 white--text"
               >
                 <v-card-title class="justify-center"> Civic Servant </v-card-title>
                 <v-card-subtitle class="text-center white--text">
@@ -165,6 +165,16 @@ export default {
 </script>
 
 <style scoped>
+
+.barground {
+  background: rgb(40,40,87);
+  background: linear-gradient(45deg, rgba(40,40,87,1) 0%, rgba(177,87,87,1) 100%); 
+}
+
+.barground2 {
+  background: rgb(40,38,80);
+  background: linear-gradient(60deg, rgba(40,38,80,1) 0%, rgba(94,59,87,1) 100%); 
+}
 
 .theme--light.v-divider {
     border-color:white;

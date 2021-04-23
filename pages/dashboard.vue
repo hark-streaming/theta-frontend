@@ -12,15 +12,16 @@
                 <v-row no-gutters>
                     <v-sheet class="flex-grow-1 mb-n6">
                         <h1 class="pl-3 my-3" style="font-weight:500;color:black;font-size:1em;">Stream Preview</h1>
-                        <v-divider class="pb-6"></v-divider>
+                        <v-divider></v-divider>
                     </v-sheet>
                 </v-row>
-                <v-row no-gutters class="ml-3 pb-3">
+                <v-row no-gutters class="barground pl-3 pb-3 pt-6">
                     <!-- Stream Preview? -->
                     <v-col
-                        :style="{height: mobile ? '500px' : '640px',
+                        :style="{height: mobile ? '500px' : '555px',
                             display: block,
                         }"
+                        class="barground"
                     >
                         <v-responsive height="100%">
                             <iframe
@@ -38,9 +39,9 @@
                     <v-col cols=4> 
                         <v-sheet
                             v-if="displayChat"
-                            class="d-flex flex-shrink-1"
+                            class="d-flex barground flex-shrink-1"
                             :style="{
-                                height: mobile ? '500px' : '640px',
+                                height: mobile ? '500px' : '555px',
                                 display:block
                             }"
                             light

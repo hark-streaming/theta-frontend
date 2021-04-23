@@ -1,7 +1,8 @@
 <template>
-    <v-container color="neutral" fluid class="pa-4">
+    <v-container class="pa-4">
         <!-- <v-card color="secondary" class="px-4 pt-6"> -->
             <v-text-field
+                class="pt-4"
                 label="Search"
                 background-color="neutral"
                 clearable

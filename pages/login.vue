@@ -1,28 +1,27 @@
 <template>
-  <v-container
-    grid-list-md
-  >
-    <div
-      class="mb-4 d-flex justify-space-around"
+  <v-sheet style="height:100%;" color="transparent">
+    <v-container
+      grid-list-md
+      class="d-flex justify-center"
+      style="flex-direction:column;"
     >
-      <img
-        style="max-width: 90%"
-        src="/images/hark-logo.png"
-        alt="bitwave live streaming platform"
-        crossorigin
-        class="my-8"
-      />
-    </div>
+      <div
+        class="mb-4 d-flex"
+        style="flex-direction:column;"
+      >
+        <h2 class="mb-0 pb-0" style="font-size:8.5em;color:white;align-self:center;">HARK</h2>
+      </div>
 
-    <!-- Add Pre-built Login Form  -->
-    <v-layout
-      row
-      justify-space-around
-    >
-      <lazy-login-dialog style="max-width: 450px;" />
-    </v-layout>
+      <!-- Add Pre-built Login Form  -->
+      <v-layout
+        row
+        justify-space-around
+      >
+        <lazy-login-dialog />
+      </v-layout>
 
-  </v-container>
+    </v-container>
+  </v-sheet>
 </template>
 
 <script>

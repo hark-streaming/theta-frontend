@@ -1,5 +1,5 @@
 <template>
-    <v-card tile flat color="accentwave" style="height:100vh;">
+    <v-card tile flat color="accentwave" style="height:100%;">
         <v-layout justify-center class="text-xs-center">
             <v-flex class="my-3" xs14 sm12 md10 lg8>
                 <h1 class="ml-2 text-center secondary--text">Your Account</h1>
