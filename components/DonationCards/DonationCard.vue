@@ -101,3 +101,11 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+    h3 {
+        color: black;
+        font-size: 1.3em;
+        font-weight: 500;
+    }
+</style>
