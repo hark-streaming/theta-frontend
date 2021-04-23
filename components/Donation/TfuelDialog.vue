@@ -89,7 +89,7 @@
 
         <!-- governance token info -->
         <!-- will not show if tokenname is null or not provided -->
-        <v-layout v-show="tokenName != null" justify-center class="my-5">
+        <v-layout v-show="tokenExists()" justify-center class="my-5">
             <span> You will receive </span>
             <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
@@ -230,6 +230,10 @@ export default {
                 this.customAmount = parseFloat(value);
             }
             this.donateAmount = this.customAmount;
+        },
+
+        tokenExists() {
+            return this.tokenName != null && this.tokenName != "";
         },
 
         // reset field of custom amount to 0
