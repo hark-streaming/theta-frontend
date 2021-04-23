@@ -59,14 +59,15 @@
                         <!-- Stream Key -->
                         <v-layout justify-center>
                             <v-flex v-if="showStreamInfo">
-                                <v-card class="mb-4 pa-3">
+                                <v-card class="mb-4">
                                     <v-layout column>
                                         <v-flex class="mb-3">
-                                            <h2>Stream Server Configuration</h2>
+                                            <h2 class="pa-3">Stream Server Configuration</h2>
+                                            <v-divider></v-divider>
 
-                                            <div class="my-3">
+                                            <div class="my-3 mx-3">
                                                 <v-btn
-                                                    color="accent"
+                                                    color="primary"
                                                     outlined
                                                     small
                                                     @click="

@@ -1,13 +1,15 @@
 <template>
   <!-- xs14 sm12 md10 lg8 -->
   <v-flex>
-    <v-card class="mb-4 pa-3">
+    <v-card>
       <!-- title -->
-      <v-flex class="mb-3">
+      <v-flex class="pa-3">
         <h2>TFuel Cash Out</h2>
       </v-flex>
 
-      <div class="d-flex">
+      <v-divider></v-divider>
+
+      <div class="d-flex pt-4 px-3 pb-4">
         <img
           class="custom-token-image mr-4"
           src="https://cdn.discordapp.com/attachments/814278920168931382/827006562585149460/tfuel_to_money.png"

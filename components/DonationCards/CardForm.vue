@@ -1,7 +1,7 @@
 <template>
     <!-- xs14 sm12 md10 lg8 -->
     <v-flex>
-        <v-card tile class="pb-4" :loading="cardDataLoading || saveLoading">
+        <v-card tile :loading="cardDataLoading || saveLoading">
             <!-- add like a preview here of what the card looks like or soemthing -->
 
             <!-- title -->
@@ -9,9 +9,9 @@
                 <h2 class="px-3">Donation Card</h2>
             </v-flex>
 
-            <v-divider class="mb-4"></v-divider>
+            <v-divider></v-divider>
 
-            <div class="px-3" v-if="!noCard">
+            <div style="background:#F8F8F8;" class="pt-4 px-3 pb-4" v-if="!noCard">
                 <!-- main image form -->
                 <div class="d-flex align-center">
                     <v-file-input
