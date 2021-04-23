@@ -18,8 +18,8 @@
             </v-row> -->
             <v-sheet tile class="background9">
                 <v-container class="d-flex py-8">
-                    <v-row class="d-flex justify-center" style="max-height:600px;">
-                        <v-col xl="6" lg="9" md="12" sm="12" class="d-flex">
+                    <v-row no-gutters class="d-flex justify-center" style="max-height:600px;">
+                        <v-col xl="6" lg="9" md="10" sm="10" class="d-flex elevation-5">
                             <v-responsive :aspect-ratio="16 / 9" max-width="calc(100vh - 98px)" style="max-height:550px;">
                                 <theta-banner
                                     v-if="mostViewed"
@@ -32,14 +32,14 @@
                                 />
                             </v-responsive>
                         </v-col>
-                        <v-col xl="2" lg="3" md="12" sm="12" class="d-flex" style="flex-direction:column;flex-wrap:wrap;">
-                        <v-sheet tile class="pb-3" height="100%">
-                            <h2 class="px-3 pt-2">{{ mostViewed.name }}</h2>
-                            <h4 class="pl-3 pb-4">{{ mostViewed.viewCount }} Watching</h4>
-                            <v-divider class="mb-6"></v-divider>
-                            <TempTags :tags="mostViewed.tags" class="my-3 px-3"/>
-                            <p class="d-flex px-3">{{ mostViewed.description }}</p>
-                        </v-sheet>
+                        <v-col xl="2" lg="3" md="10" sm="10" class="d-flex elevation-5" style="flex-direction:column;flex-wrap:wrap;">
+                            <v-sheet class="background9 pb-3" tile height="100%">
+                                <h2 class="px-3 pt-2">{{ mostViewed.name }}</h2>
+                                <h4 class="pl-3 pt-2 pb-1">{{ mostViewed.viewCount }} WATCHING</h4>
+                                <v-divider class="my-2 mb-4" style="border-color:white;"></v-divider>
+                                <TempTags :tags="mostViewed.tags" class="my-3 px-3"/>
+                                <p class="d-flex px-3">{{ mostViewed.description }}</p>
+                            </v-sheet>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -47,8 +47,8 @@
 
             <!-- Live Now Header -->
             <!-- Livestream Grid -->
-            <v-card tile class="pa-3 mb-3" color="white">
-                <h2 style="font-size:1em;" class="black--text">Currently Live</h2>
+            <v-card tile class="pa-3 mb-3" color="#f0f0f0">
+                <h3 style="font-size:0.9em;font-weight:500;" class="black--text">CURRENTLY LIVE</h3>
             </v-card>
             <stream-grid
                 v-if="streamers.length > 0"
@@ -64,7 +64,7 @@
                 class="ml-3"
             />
             <v-card tile class="pa-3 mt-5" color="white">
-                <h2 style="font-size:1em;" class="black--text">Trending</h2>
+                <h2 style="font-size:0.9em;font-weight:500;" class="black--text">TRENDING</h2>
             </v-card>
 
             <!-- fuckin index.vue.txt -->
@@ -320,17 +320,18 @@ export default {
 <style scoped>
 h2 {
     font-size:1.5em;
-    color: secondary;
+    color: white;
 }
 
 h4 {
-    font-size:0.8em;
-    font-weight:400;
-    color: secondary;
+    font-size:0.85em;
+    font-weight:500;
+    color: whitesmoke;
 }
 p {
-    font-size:0.9em;
-    color: secondary;
+    font-weight:400;
+    font-size:0.8em;
+    color: white;
 }
 
 .background9 {
