@@ -48,7 +48,7 @@
               <v-divider light></v-divider>
               <br>
               <v-img
-                src="https://cdn.discordapp.com/attachments/814278920168931382/819051556384276531/viewer.png"
+                src="https://cdn.discordapp.com/attachments/778040889359466546/834964837922635796/defaultviewer.jpg"
                 class="center-img"
               />
               <v-divider light></v-divider>

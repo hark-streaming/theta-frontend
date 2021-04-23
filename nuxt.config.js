@@ -209,7 +209,7 @@ module.exports = {
                 '/sounds/tweet.mp3',
                 '/images/icon-2.png',
                 'https://cdn.discordapp.com/attachments/814278920168931382/823092021753413633/hark-title.png',
-                'https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png',
+                'https://cdn.discordapp.com/attachments/778040889359466546/834964837922635796/defaultviewer.jpg',
                 'https://fonts.googleapis.com/css?family=Material+Icons'
             ],
 

@@ -74,6 +74,7 @@
                         >
                             <!-- Avatar with webp support -->
                             <picture
+                                v-if="avatar"
                                 class="v-avatar"
                                 style="
                                     height: 40px;
@@ -89,6 +90,18 @@
                                 />
                                 <img :src="avatar" :alt="username" />
                             </picture>
+                            <v-avatar
+                                v-else
+                                class="mr-4"
+                                size="40"
+                                color="grey darken-4"
+                                >
+                                <img
+                                    src="https://cdn.discordapp.com/attachments/778040889359466546/834964837922635796/defaultviewer.jpg"
+                                    alt="hark user"
+                                >
+                                <!--<v-icon v-else>person</v-icon>-->
+                            </v-avatar>
                         </v-btn>
                     </template>
 
@@ -139,7 +152,7 @@ export default {
             showLogin: false,
             registerTo: "/register",
             defaultProfilePic:
-                "https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png",
+                "https://cdn.discordapp.com/attachments/778040889359466546/834964837922635796/defaultviewer.jpg",
 
             balance: 0,
             balanceLoading: false,

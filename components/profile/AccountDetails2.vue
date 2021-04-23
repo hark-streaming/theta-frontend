@@ -9,7 +9,7 @@
               <div class="d-flex justify-space-around align-center">
                 <v-avatar color="grey darken-4" size="200" class="justify-space-around ma-3">
                   <img
-                    :src="imageUrl || `https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png`"
+                    :src="imageUrl || `https://cdn.discordapp.com/attachments/778040889359466546/834964837922635796/defaultviewer.jpg`"
                     alt="avatar"
                   />
                 </v-avatar>

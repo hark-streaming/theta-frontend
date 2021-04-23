@@ -20,7 +20,7 @@ export default {
   methods: {},
 
   async mounted() {
-    let defaultAvatar = `https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png`; 
+    let defaultAvatar = `https://cdn.discordapp.com/attachments/778040889359466546/834964837922635796/defaultviewer.jpg`; 
     // theta web widget
     if (process.browser) {
       console.log("connecting the theta widget");

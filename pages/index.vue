@@ -33,7 +33,7 @@
                             </v-responsive>
                         </v-col>
                         <v-col xl="2" lg="3" md="10" sm="10" class="d-flex elevation-5" style="flex-direction:column;flex-wrap:wrap;">
-                            <v-sheet class="background9 pb-3" tile height="100%">
+                            <v-sheet class="background9 pb-3" height="100%">
                                 <h2 class="px-3 pt-2">{{ mostViewed.name }}</h2>
                                 <h4 class="pl-3 pt-2 pb-1">{{ mostViewed.viewCount }} WATCHING</h4>
                                 <v-divider class="my-2 mb-4" style="border-color:white;"></v-divider>

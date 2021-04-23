@@ -12,7 +12,7 @@
         >
         <img
           v-else
-          src="https://cdn.discordapp.com/attachments/814278920168931382/821993879842062366/viewer.png"
+          src="https://cdn.discordapp.com/attachments/778040889359466546/834964837922635796/defaultviewer.jpg"
           alt="hark user"
           crossorigin
         >
