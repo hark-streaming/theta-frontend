@@ -20,7 +20,7 @@
                 <v-container class="d-flex pt-8 pb-7">
                     <v-row no-gutters class="d-flex justify-center" style="max-height:600px;">
                         <v-col xl="6" lg="9" md="10" sm="10" class="d-flex">
-                            <v-responsive :aspect-ratio="16 / 9" min-width="45vh" max-width="calc(100vh - 98px)" style="max-height:550px;">
+                            <v-responsive :aspect-ratio="16 / 9" min-width="413px" max-width="calc(100vh - 98px)" style="max-height:550px;">
                                 <theta-banner
                                     v-if="mostViewed"
                                     :src="mostViewed.url"
