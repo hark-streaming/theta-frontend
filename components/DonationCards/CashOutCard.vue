@@ -24,7 +24,7 @@
           <div class="my-4">
             <b>PLEASE NOTE:</b> Hark.tv is currently in the start of its
             grassroots phase, which will affect the worth of TFuel and its
-            permanence.<a href="/grassroots">Click here</a> to learn more.
+            permanence.<a href="/grassroots"> Click here</a> to learn more.
           </div>
 
           <v-progress-linear

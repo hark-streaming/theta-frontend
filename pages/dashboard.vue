@@ -15,13 +15,14 @@
                         <v-divider></v-divider>
                     </v-sheet>
                 </v-row>
-                <v-row no-gutters class="barground pl-3 pb-3 pt-6">
+                <v-row no-gutters class="barground pl-3 pb-3 pt-6 justify-center">
                     <!-- Stream Preview? -->
                     <v-col
-                        :style="{height: mobile ? '500px' : '555px',
+                        :style="{height: mobile ? '500px' : '600px',
                             display: block,
                         }"
-                        class="barground"
+                        xl="5" lg="7" md="8" sm="5"
+                        color="transparent"
                     >
                         <v-responsive height="100%">
                             <iframe
@@ -36,12 +37,13 @@
                     </v-col>
 
                     <!-- Chat -->
-                    <v-col cols=4> 
+                    <v-col xl="2" lg="3" md="3" sm="2"> 
                         <v-sheet
                             v-if="displayChat"
-                            class="d-flex barground flex-shrink-1"
+                            color="transparent"
+                            class="d-flex flex-shrink-1 ml-3"
                             :style="{
-                                height: mobile ? '500px' : '555px',
+                                height: mobile ? '500px' : '500px',
                                 display:block
                             }"
                             light

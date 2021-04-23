@@ -63,6 +63,7 @@
                                 dense
                                 inset
                                 @change="enableSave"
+                                class="pb-3"
                             />
                             <v-text-field 
                                 v-model="streamData.donateMsg"

@@ -1,6 +1,7 @@
 <template>
     <v-flex>
         <v-card tile flat>
+            <v-divider></v-divider>
             <!-- title -->
             <v-flex class="pa-3">
                 <h2>TFuel Donation Redistribution</h2>
@@ -119,6 +120,7 @@
                     </div>
                 </div>
             </div>
+            <v-divider></v-divider>
         </v-card>
     </v-flex>
 </template>

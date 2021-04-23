@@ -86,7 +86,7 @@
                                                     >
                                                         <div class="mb-4">
                                                             <div
-                                                                class="title secondary--text"
+                                                                class="title primary--text"
                                                             >
                                                                 Getting Started
                                                             </div>
@@ -114,7 +114,7 @@
 
                                                         <div class="mb-2">
                                                             <div
-                                                                class="title secondary--text"
+                                                                class="title primary--text"
                                                             >
                                                                 Choose a Bitrate
                                                             </div>
@@ -137,7 +137,7 @@
 
                                                         <div class="mb-2">
                                                             <div
-                                                                class="title secondary--text"
+                                                                class="title primary--text"
                                                             >
                                                                 Set Your Keyframes
                                                             </div>
