@@ -1,73 +1,77 @@
 <template>
     <v-card class="mb-4 pa-3">
-        <!-- title -->
-        <v-flex class="mb-3">
-            <h2>Custom Token Stats</h2>
-        </v-flex>
-        <v-flex class="d-flex">
-            <img
-                class="custom-token-image mr-4"
-                src="https://cdn.discordapp.com/attachments/814278920168931382/827009394113642496/custom_token.png"
-            />
-            <div>
-                <div class="mb-4">
-                    <h3>{{ contractData.symbol }}</h3>
-                    <div>
-                        Contract: {{ contractData.address }}
-                        <a
-                            :href="`https://beta-explorer.thetatoken.org/account/${contractData.address}`"
-                            target="_blank"
-                        >
-                            <v-icon small> mdi-link </v-icon>
-                        </a>
+        <div v-if="hasCustom">
+            <!-- title -->
+            <v-flex class="mb-3">
+                <h2>Custom Token Stats</h2>
+            </v-flex>
+            <v-flex class="d-flex">
+                <img
+                    class="custom-token-image mr-4"
+                    src="https://cdn.discordapp.com/attachments/814278920168931382/827009394113642496/custom_token.png"
+                />
+                <div>
+                    <div class="mb-4">
+                        <h3>{{ contractData.symbol }}</h3>
+                        <div>
+                            Contract: {{ contractData.address }}
+                            <a
+                                :href="`https://beta-explorer.thetatoken.org/account/${contractData.address}`"
+                                target="_blank"
+                            >
+                                <v-icon small> mdi-link </v-icon>
+                            </a>
+                        </div>
+                        <div>
+                            Owner: {{ contractData.owner }}
+                            <a
+                                :href="`https://beta-explorer.thetatoken.org/account/${contractData.owner}`"
+                                target="_blank"
+                            >
+                                <v-icon small> mdi-link </v-icon>
+                            </a>
+                        </div>
+                        <div>
+                            TFUEL Redistributed:
+                            {{ contractData.tfuelReleased }}
+                        </div>
+                        <div></div>
+                        <div></div>
                     </div>
-                    <div>
-                        Owner: {{ contractData.owner }}
-                        <a
-                            :href="`https://beta-explorer.thetatoken.org/account/${contractData.owner}`"
-                            target="_blank"
-                        >
-                            <v-icon small> mdi-link </v-icon>
-                        </a>
-                    </div>
-                    <div>
-                        TFUEL Redistributed: {{ contractData.tfuelReleased }}
-                    </div>
-                    <div></div>
-                    <div></div>
                 </div>
+            </v-flex>
+            <div class="space">
+                <v-card class="d-flex flex-column mb-4 pa-3">
+                    <h3>SUPPORTERS</h3>
+                    <div class="d-flex">
+                        <div class="container">
+                            <DoughnutChart
+                                v-if="holderChartLoaded"
+                                :chartdata="holderChartData"
+                                :options="options"
+                                class="small-graph"
+                            />
+                        </div>
+                    </div>
+                </v-card>
             </div>
-        </v-flex>
-        <div class="space">
-            <v-card class="d-flex flex-column mb-4 pa-3">
-                <h3>SUPPORTERS</h3>
-                <div class="d-flex">
-                    <div class="container">
-                        <DoughnutChart
-                            v-if="holderChartLoaded"
-                            :chartdata="holderChartData"
-                            :options="options"
-                            class="small-graph"
-                        />
+            <div class="space">
+                <v-card class="d-flex flex-column mb-4 pa-3">
+                    <h3>SHAREHOLDERS</h3>
+                    <div class="d-flex">
+                        <div class="container">
+                            <DoughnutChart
+                                v-if="payeeChartLoaded"
+                                :chartdata="payeeChartData"
+                                :options="options"
+                                class="small-graph"
+                            />
+                        </div>
                     </div>
-                </div>
-            </v-card>
+                </v-card>
+            </div>
         </div>
-        <div class="space">
-            <v-card class="d-flex flex-column mb-4 pa-3">
-                <h3>SHAREHOLDERS</h3>
-                <div class="d-flex">
-                    <div class="container">
-                        <DoughnutChart
-                            v-if="payeeChartLoaded"
-                            :chartdata="payeeChartData"
-                            :options="options"
-                            class="small-graph"
-                        />
-                    </div>
-                </div>
-            </v-card>
-        </div>
+        <h3 v-else>No Custom Token Yet</h3>
     </v-card>
 </template>
 
@@ -75,13 +79,18 @@
 import { mapGetters, mapState } from "vuex";
 import { VStore } from "@/store";
 export default {
+    props: {
+      uid: { type: String }
+    },
     data() {
         return {
             holderChartLoaded: false,
             holderChartData: null,
             payeeChartLoaded: false,
             payeeChartData: null,
-
+            
+            hasCustom: false,
+            
             contractData: {
                 address: "",
                 owner: "",
@@ -100,11 +109,14 @@ export default {
                 `${process.env.API_URL}/theta/gov-contract/${this.uid}`
                 //`http://localhost:5001/hark-e2efe/us-central1/api/theta/gov-contract/testuid2`
             );
-            console.log("GAHH",this.uid);
             if (data.success) {
+                this.hasCustom = true;
                 this.contractData = data.data;
 
                 await this.genChartData();
+            }
+            else {
+                this.hasCustom = false;
             }
         },
         async genChartData() {
@@ -156,9 +168,9 @@ export default {
         },
     },
     computed: {
-        ...mapGetters({
-            uid: VStore.$getters.getUID,
-        }),
+        // ...mapGetters({
+        //     uid: VStore.$getters.getUID,
+        // }),
     },
     async mounted() {
         await this.getContractData();
