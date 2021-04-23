@@ -45,7 +45,7 @@
                         <v-layout justify-center>
                             <v-flex v-if="!showStreamInfo">
                                 <v-card class="mb-4 pa-3">
-                                    <h2>Upgrade To Streaming Account</h2>
+                                    <h2>Upgrade to a Streaming Account</h2>
                                     <div class="mb-2">
                                         We get it. You want to stream on Hark! I mean,
                                         who doesn't? You're going to have to fill out

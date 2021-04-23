@@ -1,15 +1,17 @@
 <template>
     <!-- xs14 sm12 md10 lg8 -->
     <v-flex>
-        <v-card class="mb-4 pa-3" :loading="cardDataLoading || saveLoading">
+        <v-card tile class="pb-4" :loading="cardDataLoading || saveLoading">
             <!-- add like a preview here of what the card looks like or soemthing -->
 
             <!-- title -->
-            <v-flex class="mb-3">
-                <h2 class="pl-3">Donation Card</h2>
+            <v-flex class="py-3">
+                <h2 class="px-3">Donation Card</h2>
             </v-flex>
 
-            <div v-if="!noCard">
+            <v-divider class="mb-4"></v-divider>
+
+            <div class="px-3" v-if="!noCard">
                 <!-- main image form -->
                 <div class="d-flex align-center">
                     <v-file-input
@@ -103,7 +105,7 @@
                 <v-layout>
                     <v-spacer />
                     <v-btn
-                        color="cyan"
+                        color="primary"
                         outlined
                         class="mr-2"
                         :disabled="!showSave"
@@ -114,8 +116,7 @@
                     <v-btn
                         :disabled="!showSave"
                         :loading="saveLoading"
-                        color="primary"
-                        outlined
+                        color="primary white--text"
                         @click="updateCardData"
                         >save</v-btn
                     >

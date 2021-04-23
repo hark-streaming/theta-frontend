@@ -15,7 +15,7 @@
                         src="https://cdn.discordapp.com/attachments/814278920168931382/827009394113642496/custom_token.png"
                     />
                     <div>
-                        <h3>{{ contractData.symbol }}</h3>
+                        <h3 style="font-size:1.2em;font-weight:500;color:white;">{{ contractData.symbol }}</h3>
                         <v-divider class="mt-3 mb-2" style="border-color:white;"></v-divider>
                         <div class="pb-2 white--text">
                             CONTRACT: {{ contractData.address }}
@@ -44,7 +44,7 @@
                 <v-divider class="my-2" style="border-color:white"></v-divider>
                 <v-flex class="d-flex justify-space-around flex-warp wrap pa-3">
                     <v-sheet color="transparent" class="d-flex flex-column mb-4 pa-3">
-                        <h3>SUPPORTERS</h3>
+                        <h3 style="font-size:1.2em;font-weight:500;color:white;">SUPPORTERS</h3>
                         <v-divider class="mt-1" style="border-color:white"></v-divider>
                         <div class="d-flex" style="max-width:700px;">
                             <div class="container">
@@ -59,7 +59,7 @@
                         </div>
                     </v-sheet>
                     <v-sheet color="transparent" class="d-flex flex-column mb-4 pa-3">
-                        <h3>SHAREHOLDERS</h3>
+                        <h3 style="font-size:1.2em;font-weight:500;color:white;">SHAREHOLDERS</h3>
                         <v-divider class="mt-1" style="border-color:white"></v-divider>
                         <div class="d-flex" style="max-width:700px;">
                             <div class="container">
@@ -75,7 +75,7 @@
                 </v-flex>
             </v-sheet>
         </div>
-        <h3 v-else>No Custom Token Yet</h3>
+        <h3 v-else style="font-size:1.2em;font-weight:500;color:white;">No Custom Token Yet</h3>
     </v-sheet>
 </template>
 

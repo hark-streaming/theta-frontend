@@ -364,6 +364,7 @@ export default {
 <style scoped>
 h2 {
     font-size: 1.5em;
+    font-weight:500;
     color: white;
 }
 
