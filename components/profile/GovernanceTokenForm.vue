@@ -8,7 +8,9 @@
             </v-flex>
 
             <div v-if="tokenExists">
-                <governance-token-stats/>
+                <governance-token-stats
+                    :uid="uid"
+                />
             </div>
             <div v-else-if="!tokenExists" class="d-flex">
                 <img
