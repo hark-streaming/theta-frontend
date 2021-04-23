@@ -75,7 +75,11 @@
                 </v-flex>
             </v-sheet>
         </div>
-        <h3 v-else style="font-size:1.2em;font-weight:500;color:white;">No Custom Token Yet</h3>
+        <v-banner v-else class="barground">
+            <v-flex>
+                <h2 style="font-size:1.5em;font-weight:400;color:white;">No Custom Token Yet</h2>
+            </v-flex>
+        </v-banner>
     </v-sheet>
 </template>
 
@@ -210,5 +214,5 @@ export default {
         background: rgb(40,38,80);
         background: linear-gradient(60deg, rgba(40,38,80,1) 0%, rgba(94,59,87,1) 100%); 
     }
-    
+
 </style>
