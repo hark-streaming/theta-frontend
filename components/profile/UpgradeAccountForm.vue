@@ -310,13 +310,11 @@ export default {
     async getAllTags() {
       // get snapshot of all the tags
       const tgsSnapshot = await db.collection("tags").get();
-      console.log("brogermy begins");
       console.log(tgsSnapshot);
 
       // shit dude now we're getting all their data
       let tagRef = tgsSnapshot.docs.map((doc) => doc.data());
 
-      console.log("brogermy rises");
       console.log(tagRef);
       this.allTags = tagRef;
       return;

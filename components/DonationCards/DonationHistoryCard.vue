@@ -1,5 +1,5 @@
 <template>
-    <v-card class="d-flex flex-column outside mb-4">
+    <v-card style="width:100%;" class="d-flex flex-column outside mb-4">
         <v-card tile>
             <v-card-actions>
                 <h2 class="pl-3">Donation History</h2>

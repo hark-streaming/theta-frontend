@@ -1,258 +1,259 @@
 <template>
-    <v-card tile flat color="accentwave" style="height:100%;">
-        <v-layout justify-center class="text-xs-center">
-            <v-flex class="my-3" xs14 sm12 md10 lg8>
-                <h1 class="ml-2 text-center secondary--text">Your Account</h1>
-            </v-flex>
-        </v-layout>
+    <v-container class="d-flex" style="height:100%;">
+        <v-row class="d-flex justify-center" style="height:100%;" no-gutters>
+            <v-col class="d-flex" style="flex-direction:column;" xl="2" lg="3" md="10" sm="10">
+                <h1 class="mr-3 mt-12 white--text">YOUR ACCOUNT</h1>
+                <v-divider class="mt-1 mr-13 mb-n5" style="border-color:white;"></v-divider>
+            </v-col>
+            <v-col d-flex class="mt-5" style="background-color:white;flex-direction:column;justify-content:flex-start;" xl="6" lg="9" md="10" sm="10">
+                <v-tabs
+                    v-model="currentTab"
+                    background-color="transparent"
+                    class="no-focus"
+                    color="secondary"
+                    style="min-height:100vh"
+                >
+                    <v-tab>Account</v-tab>
+                    <v-tab>Donations</v-tab>
+                    <v-tab>Streaming</v-tab>
+                    <v-tab :disabled="!showStreamInfo">Token</v-tab>
 
-        <v-tabs
-            v-model="currentTab"
-            background-color="transparent"
-            class="no-focus"
-            centered
-        >
-            <v-tab>Account</v-tab>
-            <v-tab>Donations</v-tab>
-            <v-tab>Streaming</v-tab>
-            <v-tab :disabled="!showStreamInfo">Token</v-tab>
+                    <!-- ACCOUNT TAB -->
+                    <v-tab-item eager>
+                        <account-details-2 />
+                    </v-tab-item>
 
-            <!-- ACCOUNT TAB -->
-            <v-tab-item eager>
-                <account-details-2 />
-            </v-tab-item>
+                    <!-- DONATIONS TAB -->
+                    <v-tab-item eager>
+                        <v-layout justify-center>
+                            <donation-history-card/>
+                        </v-layout>
+                        <v-layout v-show="showStreamInfo" justify-center>
+                            <card-form :v-show="false" />
+                        </v-layout>
+                        <v-layout v-show="showStreamInfo" justify-center>
+                            <relay-card />
+                        </v-layout>
+                        <v-layout v-show="showStreamInfo" justify-center>
+                            <cash-out-card />
+                        </v-layout>
+                    </v-tab-item>
 
-            <!-- DONATIONS TAB -->
-            <v-tab-item eager>
-                <v-layout justify-center>
-                    <v-flex xs14 sm12 md10 lg8>
-                        <donation-history-card/>
-                    </v-flex>
-                </v-layout>
-                <v-layout v-show="showStreamInfo" justify-center>
-                    <card-form :v-show="false" />
-                </v-layout>
-                <v-layout v-show="showStreamInfo" justify-center>
-                    <relay-card />
-                </v-layout>
-                <v-layout v-show="showStreamInfo" justify-center>
-                    <cash-out-card />
-                </v-layout>
-            </v-tab-item>
-
-            <!-- STREAM TAB -->
-            <v-tab-item eager>
-                <!-- Upgrade Account -->
-                <v-layout justify-center>
-                    <v-flex v-if="!showStreamInfo" xs14 sm12 md10 lg8>
-                        <v-card class="mb-4 pa-3">
-                            <h2>Upgrade To Streaming Account</h2>
-                            <div class="mb-2">
-                                We get it. You want to stream on Hark! I mean,
-                                who doesn't? You're going to have to fill out
-                                the form below to get a streamkey.
-                            </div>
-                            <upgrade-account-form />
-                        </v-card>
-                    </v-flex>
-                </v-layout>
-
-                <!-- Stream Key -->
-                <v-layout justify-center>
-                    <v-flex v-if="showStreamInfo" xs14 sm12 md10 lg8>
-                        <v-card class="mb-4 pa-3">
-                            <v-layout column>
-                                <v-flex class="mb-3">
-                                    <h2>Stream Server Configuration</h2>
-
-                                    <div class="my-3">
-                                        <v-btn
-                                            color="accent"
-                                            outlined
-                                            small
-                                            @click="
-                                                showStreamkeyHelp = !showStreamkeyHelp
-                                            "
-                                        >
-                                            {{
-                                                showStreamkeyHelp
-                                                    ? "Hide"
-                                                    : "Show"
-                                            }}
-                                            Help
-                                        </v-btn>
-
-                                        <v-expand-transition>
-                                            <div
-                                                v-show="showStreamkeyHelp"
-                                                class="my-2 body-2"
-                                            >
-                                                <div class="mb-4">
-                                                    <div
-                                                        class="title secondary--text"
-                                                    >
-                                                        Getting Started
-                                                    </div>
-                                                    Copy and paste a
-                                                    <strong>Server URL</strong>
-                                                    and your
-                                                    <strong>Stream Key</strong>
-                                                    from below into your
-                                                    livestreaming software (such
-                                                    as OBS).*
-
-                                                    <p class="extraInfo">
-                                                        *You may need to choose
-                                                        "Custom RTMP Server" in
-                                                        your software in order
-                                                        to do this.
-                                                    </p>
-                                                </div>
-                                                <!-- To get started, first copy and paste a <strong>Server URL</strong> and your <strong>Stream Key</strong> from below into your livestreaming software (such as OBS).<br>
-                      You may need to choose "Custom RTMP Server" in your software in order to do this.<br>
-                      We currently offer 2 stream ingestion servers that you may connect to: <br>
-                      US West ( Primary ), and US East ( Backup / Auxillary capacity ).<br>
-                      A European server is planned dependant on finances & demand.<br>
-                      It is suggested you try connecting to both servers in order to determine which server provides a more stable connection. -->
-
-                                                <div class="mb-2">
-                                                    <div
-                                                        class="title secondary--text"
-                                                    >
-                                                        Choose a Bitrate
-                                                    </div>
-                                                    We recommend a bitrate of
-                                                    2,500kb/s (2.5mb/s) CBR for
-                                                    most streamsers (if their
-                                                    net supports it). Do not
-                                                    exceed 8,000kb/s (8.0mb/s).*
-
-                                                    <p class="extraInfo">
-                                                        *It is unlikely that all
-                                                        viewers will be able to
-                                                        smoothly watch a stream
-                                                        at rates above 8.0mb/s.
-                                                    </p>
-                                                </div>
-                                                <!-- We recommend a bitrate of 2,500kb/s (2.5mb/s) CBR for most streamsers (if their net supports it).<br>
-                      Please do not exceed 8,000kb/s (8.0mb/s). While our servers <i>are</i> capable of managing numerous high bitrate
-                      streams with ease, it is unlikely that all viewers will be able to smoothly watch a stream at rates above 8.0mb/s. -->
-
-                                                <div class="mb-2">
-                                                    <div
-                                                        class="title secondary--text"
-                                                    >
-                                                        Set Your Keyframes
-                                                    </div>
-                                                    <strong
-                                                        >Ensure that your
-                                                        keyframes are set to
-                                                        either 1 or 2 in your
-                                                        streaming
-                                                        software.*</strong
-                                                    >
-
-                                                    <p class="extraInfo">
-                                                        *Using other rates may
-                                                        result in unstable
-                                                        streams, loss of
-                                                        connection, increased
-                                                        stream delays, frequent
-                                                        buffering, and can even
-                                                        cause your stream's
-                                                        video to freeze
-                                                        entirely.
-                                                    </p>
-                                                </div>
-                                                <!-- Lastly, ensure your keyframes are set to either 1 or 2 in your streaming software.<br>
-                      <strong>DO NOT FORGET THIS.</strong><br>
-                      Using other rates may result in unstable streams, loss of connection, increased stream delays, frequent buffering, and can even cause your stream's video to freeze entirely. -->
-
-                                                <!-- <div class="mb-2">
-                      <div class="title secondary--text">Asking For Help</div>
-                      If you are having issues setting up or connecting your stream, try asking for help in chat. There are many knowledgeable users with streaming experience who will likely
-                      offer to help resolve any issues. There are also links on the homepage in case you need to get in touch with a developer.
-                    </div> -->
-                                            </div>
-                                        </v-expand-transition>
+                    <!-- STREAM TAB -->
+                    <v-tab-item eager>
+                        <!-- Upgrade Account -->
+                        <v-layout justify-center>
+                            <v-flex v-if="!showStreamInfo">
+                                <v-card class="mb-4 pa-3">
+                                    <h2>Upgrade To Streaming Account</h2>
+                                    <div class="mb-2">
+                                        We get it. You want to stream on Hark! I mean,
+                                        who doesn't? You're going to have to fill out
+                                        the form below to get a streamkey.
                                     </div>
-                                </v-flex>
-                                <v-flex>
-                                    <v-text-field
-                                        class="mb-3"
-                                        value="rtmp://13.59.151.129:1935/live"
-                                        label="Server URL"
-                                        color="secondary"
-                                        readonly
-                                        outlined
-                                        hide-details
-                                        :loading="streamDataLoading"
-                                    />
-                                </v-flex>
-                                <v-flex>
-                                    <v-text-field
-                                        v-model="streamData.key"
-                                        ref="streamkeyinput"
-                                        label="Stream Key"
-                                        color="secondary"
-                                        readonly
-                                        outlined
-                                        :messages="keyMessage"
-                                        :loading="
-                                            streamDataLoading || keyLoading
-                                        "
-                                        :type="showKey ? 'text' : 'password'"
-                                        :append-icon="
-                                            showKey
-                                                ? 'visibility'
-                                                : 'visibility_off'
-                                        "
-                                        @click:append="showKey = !showKey"
-                                        @click="showKey = !showKey"
-                                        @focus="showKey = !showKey"
-                                    />
-                                </v-flex>
-                                <v-layout>
-                                    <v-spacer />
-                                    <v-btn
-                                        color="primary"
-                                        outlined
-                                        :loading="keyLoading"
-                                        @click="resetStreamKey"
-                                        class="mr-2"
-                                        >Reset</v-btn
-                                    >
-                                    <v-btn
-                                        color="primary"
-                                        class="black--text"
-                                        :loading="keyLoading"
-                                        @click="copyToClipboard"
-                                        >Copy</v-btn
-                                    >
-                                </v-layout>
-                            </v-layout>
-                        </v-card>
-                    </v-flex>
-                </v-layout>
+                                    <upgrade-account-form />
+                                </v-card>
+                            </v-flex>
+                        </v-layout>
 
-                <!-- Stream Info -->
-                <v-layout justify-center>
-                    <v-flex v-if="showStreamInfo" xs14 sm12 md10 lg8>
-                        <stream-info-dashboard
-                            :username="username.toLowerCase()"
-                        />
-                    </v-flex>
-                </v-layout>
-            </v-tab-item>
+                        <!-- Stream Key -->
+                        <v-layout justify-center>
+                            <v-flex v-if="showStreamInfo">
+                                <v-card class="mb-4 pa-3">
+                                    <v-layout column>
+                                        <v-flex class="mb-3">
+                                            <h2>Stream Server Configuration</h2>
 
-            <!-- TOKEN TAB -->
-            <v-tab-item eager>
-                <v-layout justify-center>
-                    <governance-token-form />
-                </v-layout>
-            </v-tab-item>
-        </v-tabs>
-    </v-card>
+                                            <div class="my-3">
+                                                <v-btn
+                                                    color="accent"
+                                                    outlined
+                                                    small
+                                                    @click="
+                                                        showStreamkeyHelp = !showStreamkeyHelp
+                                                    "
+                                                >
+                                                    {{
+                                                        showStreamkeyHelp
+                                                            ? "Hide"
+                                                            : "Show"
+                                                    }}
+                                                    Help
+                                                </v-btn>
+
+                                                <v-expand-transition>
+                                                    <div
+                                                        v-show="showStreamkeyHelp"
+                                                        class="my-2 body-2"
+                                                    >
+                                                        <div class="mb-4">
+                                                            <div
+                                                                class="title secondary--text"
+                                                            >
+                                                                Getting Started
+                                                            </div>
+                                                            Copy and paste a
+                                                            <strong>Server URL</strong>
+                                                            and your
+                                                            <strong>Stream Key</strong>
+                                                            from below into your
+                                                            livestreaming software (such
+                                                            as OBS).*
+
+                                                            <p class="extraInfo">
+                                                                *You may need to choose
+                                                                "Custom RTMP Server" in
+                                                                your software in order
+                                                                to do this.
+                                                            </p>
+                                                        </div>
+                                                        <!-- To get started, first copy and paste a <strong>Server URL</strong> and your <strong>Stream Key</strong> from below into your livestreaming software (such as OBS).<br>
+                            You may need to choose "Custom RTMP Server" in your software in order to do this.<br>
+                            We currently offer 2 stream ingestion servers that you may connect to: <br>
+                            US West ( Primary ), and US East ( Backup / Auxillary capacity ).<br>
+                            A European server is planned dependant on finances & demand.<br>
+                            It is suggested you try connecting to both servers in order to determine which server provides a more stable connection. -->
+
+                                                        <div class="mb-2">
+                                                            <div
+                                                                class="title secondary--text"
+                                                            >
+                                                                Choose a Bitrate
+                                                            </div>
+                                                            We recommend a bitrate of
+                                                            2,500kb/s (2.5mb/s) CBR for
+                                                            most streamsers (if their
+                                                            net supports it). Do not
+                                                            exceed 8,000kb/s (8.0mb/s).*
+
+                                                            <p class="extraInfo">
+                                                                *It is unlikely that all
+                                                                viewers will be able to
+                                                                smoothly watch a stream
+                                                                at rates above 8.0mb/s.
+                                                            </p>
+                                                        </div>
+                                                        <!-- We recommend a bitrate of 2,500kb/s (2.5mb/s) CBR for most streamsers (if their net supports it).<br>
+                            Please do not exceed 8,000kb/s (8.0mb/s). While our servers <i>are</i> capable of managing numerous high bitrate
+                            streams with ease, it is unlikely that all viewers will be able to smoothly watch a stream at rates above 8.0mb/s. -->
+
+                                                        <div class="mb-2">
+                                                            <div
+                                                                class="title secondary--text"
+                                                            >
+                                                                Set Your Keyframes
+                                                            </div>
+                                                            <strong
+                                                                >Ensure that your
+                                                                keyframes are set to
+                                                                either 1 or 2 in your
+                                                                streaming
+                                                                software.*</strong
+                                                            >
+
+                                                            <p class="extraInfo">
+                                                                *Using other rates may
+                                                                result in unstable
+                                                                streams, loss of
+                                                                connection, increased
+                                                                stream delays, frequent
+                                                                buffering, and can even
+                                                                cause your stream's
+                                                                video to freeze
+                                                                entirely.
+                                                            </p>
+                                                        </div>
+                                                        <!-- Lastly, ensure your keyframes are set to either 1 or 2 in your streaming software.<br>
+                            <strong>DO NOT FORGET THIS.</strong><br>
+                            Using other rates may result in unstable streams, loss of connection, increased stream delays, frequent buffering, and can even cause your stream's video to freeze entirely. -->
+
+                                                        <!-- <div class="mb-2">
+                            <div class="title secondary--text">Asking For Help</div>
+                            If you are having issues setting up or connecting your stream, try asking for help in chat. There are many knowledgeable users with streaming experience who will likely
+                            offer to help resolve any issues. There are also links on the homepage in case you need to get in touch with a developer.
+                            </div> -->
+                                                    </div>
+                                                </v-expand-transition>
+                                            </div>
+                                        </v-flex>
+                                        <v-flex>
+                                            <v-text-field
+                                                class="mb-3"
+                                                value="rtmp://13.59.151.129:1935/live"
+                                                label="Server URL"
+                                                color="secondary"
+                                                readonly
+                                                outlined
+                                                hide-details
+                                                :loading="streamDataLoading"
+                                            />
+                                        </v-flex>
+                                        <v-flex>
+                                            <v-text-field
+                                                v-model="streamData.key"
+                                                ref="streamkeyinput"
+                                                label="Stream Key"
+                                                color="secondary"
+                                                readonly
+                                                outlined
+                                                :messages="keyMessage"
+                                                :loading="
+                                                    streamDataLoading || keyLoading
+                                                "
+                                                :type="showKey ? 'text' : 'password'"
+                                                :append-icon="
+                                                    showKey
+                                                        ? 'visibility'
+                                                        : 'visibility_off'
+                                                "
+                                                @click:append="showKey = !showKey"
+                                                @click="showKey = !showKey"
+                                                @focus="showKey = !showKey"
+                                            />
+                                        </v-flex>
+                                        <v-layout>
+                                            <v-spacer />
+                                            <v-btn
+                                                color="primary"
+                                                outlined
+                                                :loading="keyLoading"
+                                                @click="resetStreamKey"
+                                                class="mr-2"
+                                                >Reset</v-btn
+                                            >
+                                            <v-btn
+                                                color="primary"
+                                                class="black--text"
+                                                :loading="keyLoading"
+                                                @click="copyToClipboard"
+                                                >Copy</v-btn
+                                            >
+                                        </v-layout>
+                                    </v-layout>
+                                </v-card>
+                            </v-flex>
+                        </v-layout>
+
+                        <!-- Stream Info -->
+                        <v-layout justify-center>
+                            <v-flex v-if="showStreamInfo">
+                                <stream-info-dashboard
+                                    :username="username.toLowerCase()"
+                                />
+                            </v-flex>
+                        </v-layout>
+                    </v-tab-item>
+
+                    <!-- TOKEN TAB -->
+                    <v-tab-item eager>
+                        <v-layout justify-center>
+                            <governance-token-form />
+                        </v-layout>
+                    </v-tab-item>
+                </v-tabs>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
@@ -484,14 +485,18 @@ export default {
 </script>
 
 <style>
-.extraInfo {
-    font-size: 12px;
-    margin-top: 8px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
+    h1 {
+        font-weight:500;
+        font-size:3em;
+    }
+    .extraInfo {
+        font-size: 12px;
+        margin-top: 8px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 
-.theme--light.v-tabs-items {
-    background: transparent !important;
-}
+    .theme--light.v-tabs-items {
+        background: transparent !important;
+    }
 </style>

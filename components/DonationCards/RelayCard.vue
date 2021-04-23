@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs14 sm12 md10 lg8>
+  <v-flex>
     <v-card class="mb-4 pa-3">
       <!-- title -->
       <v-flex class="mb-3">
