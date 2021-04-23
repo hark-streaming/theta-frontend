@@ -2,7 +2,7 @@
   <div class="text-center">
       <v-btn
         v-on="on"
-        class="mr-3"
+        class="mr-1"
         small
         color="#F9F9F9 secondary--text"
         @click="editStreamData = true"

@@ -1,7 +1,7 @@
 <template>
     <v-card flat tile color="#F5F5F5">
         <!-- Chat Header -->
-        <v-card tile color="secondary">
+        <v-card tile class="barground">
             <h1 class="pl-4 pt-4 pb-3 accentwave--text" style="font-weight:500;font-size:1.7em;">YOUR DASHBOARD</h1>
         </v-card>
 
@@ -446,4 +446,9 @@ export default {
 /* .tags__shadow--tag-list-active{
     z-index: 5 !important;
 } */
+
+    .barground {
+        background: rgb(40,38,80);
+        background: linear-gradient(60deg, rgba(40,38,80,1) 0%, rgba(94,59,87,1) 100%); 
+    }
 </style>

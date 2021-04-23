@@ -90,7 +90,7 @@
 
     </v-toolbar>
 
-    <v-sheet color="#F2F2F2">
+    <v-sheet style="height:100vh" color="#F2F2F2">
 
       <!-- Stream Actions -->
       <div class="d-flex flex-shrink-0 align-center flex-wrap px-3 py-2">
@@ -149,16 +149,16 @@
       <!-- Stream Data -->
       <v-tabs-items
         v-model="tabData"
-        style="background: transparent"
+        style="background:transparent;height:100%;"
         touchless
       >
         <!-- Description -->
-        <v-tab-item color="#DCDCDC">
+        <v-tab-item style="height:100%;" color="#DCDCDC">
           <div
             id="description"
             ref="description"
             class="pa-3"
-            style="min-height: 300px"
+            style="height:100%;"
           >
             <!-- Stream Description -->
             <vue-markdown
