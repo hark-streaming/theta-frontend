@@ -1,11 +1,13 @@
 <template>
     <v-flex>
         <!-- Token Info -->
-        <v-card class="mb-4 pa-3">
+        <v-card class="mb-4">
             <!-- title -->
-            <v-flex class="mb-3">
+            <v-flex class="pa-3">
                 <h2>Custom Token Management</h2>
             </v-flex>
+
+            <v-divider></v-divider>
 
             <div v-if="tokenExists">
                 <governance-token-stats

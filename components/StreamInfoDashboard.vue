@@ -1,6 +1,6 @@
 <template>
     <v-flex v-if="showStreamInfo" xs14 sm12 md10 lg12>
-        <v-card class="mb-4">
+        <v-card>
             <v-container class="ma-0 pa-0">
                 <v-row no-gutters>
                     <v-flex class="my-3 ml-3">
