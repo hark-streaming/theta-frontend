@@ -1,5 +1,4 @@
 <template>
-  <v-sheet style="height:100%;" color="transparent">
     <v-container
       grid-list-md
       class="d-flex justify-center"
@@ -9,7 +8,7 @@
         class="mb-4 d-flex"
         style="flex-direction:column;"
       >
-        <h2 class="mb-0 pb-0" style="font-size:8.5em;color:white;align-self:center;">HARK</h2>
+        <h2 class="mb-0 pb-0" style="font-size:8.5em;color:white;align-self:center;font-weight:500;">HARK</h2>
       </div>
 
       <!-- Add Pre-built Login Form  -->
@@ -21,7 +20,6 @@
       </v-layout>
 
     </v-container>
-  </v-sheet>
 </template>
 
 <script>

@@ -181,7 +181,8 @@ export default {
 }
 
 h1 {
-  font-size:3em;
+  font-size:3.1em;
+  font-weight:500;
 
 }
 .center-img {

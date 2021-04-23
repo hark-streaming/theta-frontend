@@ -7,7 +7,7 @@
             class="d-flex align-center pa-2 secondary--text"
         >
             <v-icon class="mr-2" color="secondary">person</v-icon>
-            <h2>
+            <h2 style="font-weight:500;font-size:1em;">
                 {{ signUp ? "Create an Account" : "Log in to Hark.tv" }}
             </h2>
         </v-sheet>
@@ -528,10 +528,6 @@ export default {
 
     .v-input--checkbox .v-label {
         font-size: 14px;
-    }
-    h2 {
-        font-weight:500;
-        font-size: 1em;
     }
     /*font-family: helvetica, arial, sans-serif;*/
 </style>

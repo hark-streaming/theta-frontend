@@ -131,7 +131,7 @@
                 Login
             </v-btn>
 
-            <v-dialog v-model="showLogin" width="420">
+            <v-dialog v-model="showLogin" width="420" transition="fade-transition">
                 <lazy-login-dialog @close="showLogin = false" />
             </v-dialog>
         </div>

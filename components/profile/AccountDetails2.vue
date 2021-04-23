@@ -1,10 +1,6 @@
 <template>
-  <div>
-    <v-layout justify-center>
-      <v-flex xs14 sm12 md10 lg8>
-        <v-card class="mb-4 pa-3">
-
-          <v-card color="primary" outlined>
+        <v-sheet style="width:100%;" class="mb-4 pa-3">
+          <v-card color="secondary" outlined>
             <div class="container">
               <div class="d-flex justify-space-around align-center">
                 <v-avatar color="grey darken-4" size="200" class="justify-space-around ma-3">
@@ -176,10 +172,7 @@
             </div>
 
           </div>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </div>
+        </v-sheet>
 </template>
 
 <script>
@@ -383,6 +376,10 @@
 </script>
 
 <style scoped lang='scss'>
+
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+}
 
 .container {
   justify-content: center;
