@@ -30,31 +30,50 @@
                   <h4>1%</h4>
                 </v-col>
               </v-row>
-              <v-row no-gutters>
-                <v-col cols="8">
-                  <h4>You:</h4>
-                </v-col>
-                <v-col cols="4">
-                  <h4>99%</h4>
-                </v-col>
-              </v-row>
-              <v-row
-                v-for="(username, index) in destUsernames"
-                :key="index"
-                no-gutters
-              >
-                <v-col cols="8">
-                  <h4>{{ username }}:</h4>
-                </v-col>
-                <v-col cols="4">
-                  <v-text-field
-                    label="Relay %"
-                    v-model="destPercentages[index]"
-                    small
-                    solo
-                  ></v-text-field>
-                </v-col>
-              </v-row>
+              
+              <!-- Display all relay targets -->
+              <template v-for="(username, index) in destUsernames">
+
+                <!-- User (self) -->
+                <v-row 
+                  :key="index" 
+                  v-if="index == 0"
+                  no-gutters
+                >
+                  <v-col cols="8">
+                    <h4>{{ username }} (You):</h4>
+                  </v-col>
+
+                  <v-col cols="4">
+                    <h4>{{ dispPercents[0] }}%</h4>
+                  </v-col>
+                </v-row>
+
+                <!-- All other targets -->
+                <v-row
+                  :key="index"
+                  v-if="index != 0"
+                  no-gutters
+                >
+                  <v-col cols="8">
+                    <h4>{{ username }}:</h4>
+                  </v-col>
+
+                  <v-col cols="4">
+                    <!-- Text field for entering percentage -->
+                    <v-text-field
+                      label="Relay %"
+                      small
+                      solo
+                      v-model="dispPercents[index]"
+                      class="mb-n4"
+                      @input="addPercentage(index)"
+                    ></v-text-field>
+
+                    <p v-if="dispErrMsg" class="red--text">{{ errMsg }}</p>
+                  </v-col>
+                </v-row>
+              </template>
 
               <v-row v-if="showDialog" no-gutters>
                 <RelaySelectDialog @userFound="addRelay($event)" />
@@ -109,11 +128,18 @@ export default {
 
       // destination usernames and uids for donation relay
       destUsernames: [],
-      destUids: [], 
-      destPercentages: []
+      destUids: [],         // contains uids of relay targets (self at 0)
+      destPercents: [],     // contains relay percentages for targerts (self at 0)
+
+      dispPercents: [],     // percentages as strings to be displayed
+
+      dispErrMsg: false, 
+      errMsg: "", 
+
     };
   },
   methods: {
+    // retrieve user from Firebase with uid as key
     getUserData() {
       const userRef = db.collection("users").doc(this.uid);
 
@@ -128,10 +154,10 @@ export default {
       );
     },
 
-    // copy uid from data object
+    // copy uids from data object
     async userDataChanged(data) {
-      this.destUids = [];
-      data.payees.forEach(x => this.destUids.push(x));
+      data.governanceShares.payeeUids.forEach(x => this.destUids.push(x));
+      data.governanceShares.shares.forEach(x => this.destPercents.push(x / 9900));
     },
 
     async requestPayout() {
@@ -164,11 +190,78 @@ export default {
     addRelay(eventObj) {
       this.destUsernames.push(eventObj.username);
       this.destUids.push(eventObj.uid);
-      this.destPercentages.push("");
+      this.destPercents.push(0);
+
+      this.dispPercents.push("");
 
       this.showDialog = false;    // disable dialog
+    },
+
+    // convert user's input string into a number
+    addPercentage(index) {
+      this.destPercents[index] = 0;
+
+      // no err msg for empty str
+      if (this.dispPercents[index] == "") {             
+        this.dispErrMsg = false;
+        this.calcSelfPercent();
+        return;
+      }
+
+      var input = parseFloat(this.dispPercents[index]);
+
+      // check that str can be converted into int
+      if (isNaN(input)) {                             
+        this.errMsg = "Must be a number";
+        this.dispErrMsg = true;
+        return;
+      } 
+
+      input = this.convertTo9900(input / 100);   
+      this.destPercents[index] = input;
+      this.calcSelfPercent();
+      var sum = 0;
+      this.destPercents.forEach(x => sum += x);
+
+      // total percents must be <= 100
+      if (sum > 1){                              
+        this.errMsg = "Total must not exceed 100%";
+        this.dispErrMsg = true;
+
+        return;
+      }
+
+      this.dispErrMsg = false;
+      
+    },
+
+    // calculate leftover relay % for user after adjusting for other relays
+    calcSelfPercent() {
+      var temp = this.convertTo9900(0.99);
+      for (var i = 1; i < this.destPercents.length; i++) {
+        temp -= this.destPercents[i];
+      }
+
+      this.destPercents[0] = temp;
+
+      temp = this.convertTo10000(temp) * 100;
+      this.dispPercents[0] = Math.round(temp * 100) / 100;    // round display % to nearest 0.01
+    }, 
+
+    // converts percentage from 10000 scale to 9900 scale
+    // (client interacts using 10000 scale, need 9900 scale for backend)
+    convertTo9900(oldPercent) {
+      var shares = oldPercent * 10000;
+      return shares / 9900;
+    }, 
+
+    // converts percentage from 9900 scale to 10000 scale
+    convertTo10000(oldPercent) {
+      var shares = oldPercent * 9900;
+      return shares / 10000;
     }
   },
+
   computed: {
     ...mapGetters({
       uid: VStore.$getters.getUID,
@@ -177,7 +270,14 @@ export default {
       isStreamer: VStore.$getters.isStreamer,
     }),
   },
+
   async mounted() {
+    // add self to arrays
+    this.destUsernames.push(this.username);
+    this.destUids.push(this.uid);
+    this.destPercents.push(this.convertTo9900(0.99));
+    this.dispPercents.push("99");
+
     const endpoint = `${process.env.API_URL}/theta/address/${this.uid}`;
     const result = await this.$axios.$get(endpoint);
     console.log(result);
