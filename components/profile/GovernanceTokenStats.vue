@@ -72,6 +72,8 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from "vuex";
+import { VStore } from "@/store";
 export default {
     data() {
         return {
@@ -98,6 +100,7 @@ export default {
                 `${process.env.API_URL}/theta/gov-contract/${this.uid}`
                 //`http://localhost:5001/hark-e2efe/us-central1/api/theta/gov-contract/testuid2`
             );
+            console.log("GAHH",this.uid);
             if (data.success) {
                 this.contractData = data.data;
 
@@ -151,6 +154,11 @@ export default {
 
             this.payeeChartLoaded = true;
         },
+    },
+    computed: {
+        ...mapGetters({
+            uid: VStore.$getters.getUID,
+        }),
     },
     async mounted() {
         await this.getContractData();
