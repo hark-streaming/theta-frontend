@@ -38,12 +38,11 @@
                     :size="20"
                     :width="1.5"
                     v-show="balanceLoading"
-                ></v-progress-circular>
+                ></v-progress-circular>                    
                 <v-row
                     class="mt-3 mr-4"
-                    style="flex-wrap: nowrap"
-                    v-bind="attrs"
-                    v-on="on"
+                    style="flex-wrap: nowrap; cursor: pointer;"
+                    @click="setTfuelBalance(true)"
                     v-show="!balanceLoading"
                 >
                     <img
@@ -148,13 +147,13 @@ export default {
     },
 
     methods: {
-        async setTfuelBalance() {
+        async setTfuelBalance(force) {
             // call api for the vault wallet balance
+            this.balanceLoading = true;
             try {
                 let result = await this.$axios.$get(
-                    `${process.env.API_URL}/theta/address/${this.uid}`
+                    `${process.env.API_URL}/theta/address/${this.uid}?force=${force}`
                 );
-
                 this.balance =
                     result.vaultBalance == null
                         ? 0
@@ -162,6 +161,7 @@ export default {
             } catch (err) {
                 this.balance = 0;
             }
+            this.balanceLoading = false;
         },
     },
 
@@ -181,7 +181,7 @@ export default {
                 // if logged in show tfuel
                 setTimeout(async () => {
                     this.balanceLoading = true;
-                    await this.setTfuelBalance();
+                    await this.setTfuelBalance(false);
                     this.balanceLoading = false;
                 }, 1000);
             } else {
