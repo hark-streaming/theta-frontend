@@ -174,6 +174,7 @@ export default {
             } catch (err) {
                 this.balance = 0;
             }
+            this.$store.commit("setTfuelBalance", this.balance);
             this.balanceLoading = false;
         },
     },
