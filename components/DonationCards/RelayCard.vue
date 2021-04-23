@@ -16,7 +16,7 @@
                         Relay a portion of the TFuel donations that you get to a
                         different nonprofit or streamer. This is good if you
                         want to support a cause, and let your fanbase know that
-                        you are!
+                        you are! (Feature requires a custom token contract)
                     </div>
 
                     <!-- List destinations and percentages -->
@@ -93,12 +93,9 @@
                     </div>
 
                     <!-- submission buttons -->
-                    <div class="red--text" style="font-size: 13px">
-                        (Your wallet must hold at least 10 TFUEL to edit shares or payout)
-                    </div>
-                    <v-row class="mt-2 pa-3">
+                    <v-row class="my-2 pa-3">
                         <v-btn
-                            :disabled="tfuelAmount < 10"
+                            :disabled="tfuelAmount < 10 || releaseClicked"
                             color="secondary"
                             outlined
                             @click="releaseTfuel"
@@ -106,13 +103,20 @@
                         >
                         <v-spacer />
                         <v-btn
-                            :disabled="!editSharesEnabled || tfuelAmount < 10"
+                            :disabled="!editSharesEnabled || tfuelAmount < 10 || saveClicked"
                             color="primary"
+                            :loading="editSharesLoading"
                             outlined
                             @click="saveEditShares"
                             >Save Changes</v-btn
                         >
                     </v-row>
+                    <div class="red--text" style="font-size: 13px">
+                        (Your wallet must hold at least 10 TFUEL to edit shares or payout.)
+                    </div>
+                    <div class="red--text" style="font-size: 13px">
+                        (These actions will consume TFUEL for gas fees, be wary of clicking multiple times.)
+                    </div>
                 </div>
             </div>
         </v-card>
@@ -139,6 +143,8 @@ export default {
 
             showDialog: true,
             tfuelAmount: 0,
+            saveClicked: false,
+            releaseClicked: false,
 
             editSharesEnabled: false,
             editSharesLoading: false,
@@ -192,10 +198,12 @@ export default {
                 }
             );
             console.log(this.balance);
+            this.saveClicked = true;
             this.editSharesLoading = false;
         },
 
         async releaseTfuel() {
+            this.releaseClicked = true;
             const userDoc = await db.collection("users").doc(this.uid).get();
             const userData = userDoc.data();
             const payeesAdds = userData.governanceShares.payees;
@@ -207,6 +215,7 @@ export default {
                     payeeAddresses: payeesAdds,
                 }
             );
+            
         },
 
         // add relay destination; eventObj contains username and uid
@@ -309,6 +318,7 @@ export default {
         this.destUids.push(this.uid);
         this.destPercents.push(this.convertTo9900(0.99));
         this.dispPercents.push("99");
+        this.getUserData();
     },
 };
 </script>

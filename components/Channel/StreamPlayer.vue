@@ -219,24 +219,24 @@
         if ( this.player ) this.player.dispose();
       },
 
-      async getRandomBump ( attempt ) {
-        // Force override offline bump video for odysee
-        if ( this.odysee ) {
-          return ODYSEE_VID;
-        }
+    //   async getRandomBump ( attempt ) {
+    //     // Force override offline bump video for odysee
+    //     if ( this.odysee ) {
+    //       return ODYSEE_VID;
+    //     }
 
-        const { data } = await this.$axios.get( `https://api.bitwave.tv/api/bump${ attempt ? `?${attempt}` : ''}` );
-        // limit to checking 5 most recent bumps
-        if ( this.recentBumps.length >= 20 ) this.recentBumps = this.recentBumps.splice( -20 );
-        // Recurse until we get a fresh bump
-        if ( this.recentBumps.includes( data.url ) ){
-          console.log(`Recently seen ${data.url}, getting a new bump`);
-          const nextAttempt = attempt ? attempt + 1 : 1;
-          return this.getRandomBump( nextAttempt );
-        }
-        this.recentBumps.push( data.url );
-        return data.url;
-      },
+    //     const { data } = await this.$axios.get( `https://api.bitwave.tv/api/bump${ attempt ? `?${attempt}` : ''}` );
+    //     // limit to checking 5 most recent bumps
+    //     if ( this.recentBumps.length >= 20 ) this.recentBumps = this.recentBumps.splice( -20 );
+    //     // Recurse until we get a fresh bump
+    //     if ( this.recentBumps.includes( data.url ) ){
+    //       console.log(`Recently seen ${data.url}, getting a new bump`);
+    //       const nextAttempt = attempt ? attempt + 1 : 1;
+    //       return this.getRandomBump( nextAttempt );
+    //     }
+    //     this.recentBumps.push( data.url );
+    //     return data.url;
+    //   },
     },
 
     computed: {

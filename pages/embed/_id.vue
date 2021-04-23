@@ -268,17 +268,17 @@
         const thumb  = data.thumbnail;
         if ( data.thumbnail ) poster = live ? thumb : poster;
 
-        if ( !live ) {
-          // Force override offline bump video for odysee
-          if ( isOdysee ) {
-            url = ODYSEE_VID;
-            type = 'video/mp4';
-          } else {
-            const { data } = await $axios.getSSR( 'https://api.bitwave.tv/api/bump', { timeout } );
-            url = data.url;
-            type = 'video/mp4';
-          }
-        }
+        // if ( !live ) {
+        //   // Force override offline bump video for odysee
+        //   if ( isOdysee ) {
+        //     url = ODYSEE_VID;
+        //     type = 'video/mp4';
+        //   } else {
+        //     const { data } = await $axios.getSSR( 'https://api.bitwave.tv/api/bump', { timeout } );
+        //     url = data.url;
+        //     type = 'video/mp4';
+        //   }
+        // }
 
         return { name, avatar, title, description: desc, poster, live, nsfw, owner, url, type, scheduled };
 
