@@ -220,6 +220,21 @@ export default {
                     active: false                           // if true, poll displayed to public 
             */
 
+           /* (in doc)
+                0: {
+                    question: "", 
+                    answers: {
+                        {
+                            value: 0
+                            text: ""
+                            votes: 0
+                        }
+                    }
+                    ...
+                }
+           
+           */
+
             pollDataLoading: true,
             showPollInfo: true,
             showSave: false,

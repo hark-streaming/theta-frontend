@@ -2,7 +2,7 @@
     <div>
         <!-- Goal Progress -->
         <!-- <goal-progress v-if="false" /> -->
-        <div v-if="(streamers.length > 0)">
+        <div v-if="streamers.length > 0">
             <!-- Site Banner -->
             <!-- <message-of-the-day /> -->
 
@@ -18,9 +18,18 @@
             </v-row> -->
             <v-sheet tile class="background9">
                 <v-container class="d-flex pt-8 pb-7">
-                    <v-row no-gutters class="d-flex justify-center" style="max-height:600px;">
+                    <v-row
+                        no-gutters
+                        class="d-flex justify-center"
+                        style="max-height: 600px"
+                    >
                         <v-col xl="6" lg="9" md="10" sm="10" class="d-flex">
-                            <v-responsive :aspect-ratio="16 / 9" min-width="413px" max-width="calc(100vh - 98px)" style="max-height:550px;">
+                            <v-responsive
+                                :aspect-ratio="16 / 9"
+                                min-width="413px"
+                                max-width="calc(100vh - 98px)"
+                                style="max-height: 550px"
+                            >
                                 <theta-banner
                                     v-if="mostViewed"
                                     :src="mostViewed.url"
@@ -32,38 +41,65 @@
                                 />
                             </v-responsive>
                         </v-col>
-                        <v-col xl="2" lg="3" md="10" sm="10" class="d-flex elevation-5" style="flex-direction:column;flex-wrap:wrap;">
+                        <v-col
+                            xl="2"
+                            lg="3"
+                            md="10"
+                            sm="10"
+                            class="d-flex elevation-5"
+                            style="flex-direction: column; flex-wrap: wrap"
+                        >
                             <v-sheet class="background9 pb-3" height="100%">
                                 <h2 class="px-3 pt-2">{{ mostViewed.name }}</h2>
-                                <h4 class="pl-3 pt-2 pb-1">{{ mostViewed.viewCount }} WATCHING</h4>
-                                <v-divider class="my-2 mb-4" style="border-color:white;"></v-divider>
-                                <TempTags :tags="mostViewed.tags" class="my-3 px-3"/>
-                                <p class="d-flex px-3">{{ mostViewed.description }}</p>
+                                <h4 class="pl-3 pt-2 pb-1">
+                                    {{ mostViewed.viewCount }} WATCHING
+                                </h4>
+                                <v-divider
+                                    class="my-2 mb-4"
+                                    style="border-color: white"
+                                ></v-divider>
+                                <TempTags
+                                    :tags="mostViewed.tags"
+                                    class="my-3 px-3"
+                                />
+                                <p class="d-flex px-3">
+                                    {{ mostViewed.description }}
+                                </p>
                             </v-sheet>
                         </v-col>
                     </v-row>
                 </v-container>
-                <h3 style="font-size:0.9em;font-weight:500;" class="white--text pl-3 pb-1">CURRENTLY LIVE</h3>
-                    <v-divider class="pb-3" style="border-color:white;"></v-divider>
-                    <stream-grid
-                        v-if="streamers.length > 0"
-                        :streamers="streamers"
-                        :blur-nsfw="blurNSFW"
-                        :cols="12"
-                        :sm="6"
-                        :md="4"
-                        :lg="3"
-                        :xl="2"
-                        @getHighestViews="mostViewedStream($event)"
-                        @getHighestViewCount="highestViewCount($event)"
-                        class="ml-3"
-                    />
+                <h3
+                    style="font-size: 0.9em; font-weight: 500"
+                    class="white--text pl-3 pb-1"
+                >
+                    CURRENTLY LIVE
+                </h3>
+                <v-divider class="pb-3" style="border-color: white"></v-divider>
+                <stream-grid
+                    v-if="streamers.length > 0"
+                    :streamers="streamers"
+                    :blur-nsfw="blurNSFW"
+                    :cols="12"
+                    :sm="6"
+                    :md="4"
+                    :lg="3"
+                    :xl="2"
+                    @getHighestViews="mostViewedStream($event)"
+                    @getHighestViewCount="highestViewCount($event)"
+                    class="ml-3"
+                />
             </v-sheet>
 
             <!-- Live Now Header -->
             <!-- Livestream Grid -->
             <v-card tile class="pa-3 mt-5" color="white">
-                <h2 style="font-size:0.9em;font-weight:500;" class="black--text">TRENDING</h2>
+                <h2
+                    style="font-size: 0.9em; font-weight: 500"
+                    class="black--text"
+                >
+                    TRENDING
+                </h2>
             </v-card>
             <v-sheet class="py-3" color="#F0F0F0">
                 <stream-grid
@@ -83,9 +119,7 @@
 
             <!-- fuckin index.vue.txt -->
         </div>
-        <div v-else>
-            no streams here :(
-        </div>
+        <div v-else>no streams here :(</div>
 
         <!-- Footer -->
         <!-- <simple-footer :version="version" /> -->
@@ -151,9 +185,9 @@ export default {
     async asyncData({ $axios }) {
         const defaultLive = [
             {
-                src: "https://cdn.bitwave.tv/static/bumps/2a3un.mp4",
-                name: "offline",
-                type: "video/mp4",
+                //src: "https://cdn.bitwave.tv/static/bumps/2a3un.mp4",
+                //name: "offline",
+                //type: "video/mp4",
             },
         ];
 
@@ -215,15 +249,7 @@ export default {
     */
         const getStreams = async () => {
             try {
-                /*const { data } = await $axios.getSSR(
-          "https://api.bitwave.tv/v1/channels/live",
-          {
-            timeout,
-          }
-        );*/
-
                 const { data } = await $axios.getSSR(
-                    //"https://us-central1-hark-e2efe.cloudfunctions.net/api/utils/live",
                     `${process.env.API_URL}/utils/live`,
                     {
                         timeout,
@@ -298,6 +324,10 @@ export default {
             getBlurNsfw: VStore.$states.blurNsfw,
         }),
 
+        ...mapActions({
+            updateViewers: VStore.$actions.updateViewers,
+        }),
+
         blurNSFW: {
             get() {
                 return this.getBlurNsfw;
@@ -333,34 +363,38 @@ export default {
 
 <style scoped>
 h2 {
-    font-size:1.5em;
+    font-size: 1.5em;
     color: white;
 }
 
 h4 {
-    font-size:0.85em;
-    font-weight:500;
+    font-size: 0.85em;
+    font-weight: 500;
     color: whitesmoke;
 }
 p {
-    font-weight:400;
-    font-size:0.8em;
+    font-weight: 400;
+    font-size: 0.8em;
     color: white;
 }
 
 .background9 {
-    background: rgb(40,40,87);
-    background: linear-gradient(45deg, rgba(40,40,87,1) 0%, rgba(177,87,87,1) 100%); 
+    background: rgb(40, 40, 87);
+    background: linear-gradient(
+        45deg,
+        rgba(40, 40, 87, 1) 0%,
+        rgba(177, 87, 87, 1) 100%
+    );
 }
 
 .videoback {
     color: linear-gradient(
-    to top right,
-    rgb(109, 109, 126) 0%,
-    rgba(235, 232, 232, 1) 15%,
-    rgba(235, 232, 232, 1) 85%,
-    rgb(207, 169, 169) 100%
-  );
+        to top right,
+        rgb(109, 109, 126) 0%,
+        rgba(235, 232, 232, 1) 15%,
+        rgba(235, 232, 232, 1) 85%,
+        rgb(207, 169, 169) 100%
+    );
 }
 banner-video {
     max-width: 200px;

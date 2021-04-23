@@ -3,63 +3,14 @@
         <!-- Token Info -->
         <v-card class="mb-4 pa-3">
             <!-- title -->
-            <v-flex class="mb-3"><h2>Custom Token Management</h2></v-flex>
+            <v-flex class="mb-3">
+                <h2>Custom Token Management</h2>
+            </v-flex>
 
             <div v-if="tokenExists">
-                <v-flex class="d-flex">
-                    <img
-                        class="custom-token-image mr-4"
-                        src="https://cdn.discordapp.com/attachments/814278920168931382/827009394113642496/custom_token.png"
-                    />
-                    <div>
-                        <div class="mb-4">
-                            There are about {{ tokenHolders }} registered donors
-                            holding
-                            <v-tooltip top>
-                                <template v-slot:activator="{ on, attrs }">
-                                    <a
-                                        href="tokens"
-                                        v-bind="attrs"
-                                        v-on="on"
-                                        class="mx-1"
-                                    >
-                                        {{ tokenData.symbol }} tokens.
-                                    </a>
-                                </template>
-                                <span>
-                                    Custom tokens represent loyalty to your
-                                    organization. For every 1 TFuel donated,
-                                    they gain 100 of your custom tokens.</span
-                                >
-                            </v-tooltip>
-                        </div>
-                        <v-text-field
-                            v-model="formData.topDonors"
-                            outlined
-                            label="Your top donors should be called:"
-                            @input="enableSave"
-                        />
-                        <v-text-field
-                            v-model="formData.loyalDonors"
-                            outlined
-                            label="Donors of over 100 TFuel should be called:"
-                            @input="enableSave"
-                        />
-                    </div>
-                </v-flex>
-
-                <!-- submission buttons -->
-                <v-layout>
-                    <v-spacer />
-                    <v-btn
-                        :disabled="!showSave"
-                        :loading="saveLoading"
-                        color="primary"
-                        outlined
-                        @click="updateCardData"
-                        >save</v-btn
-                    >
-                </v-layout>
+                <governance-token-stats
+                    :uid="uid"
+                />
             </div>
             <div v-else-if="!tokenExists" class="d-flex">
                 <img
@@ -76,7 +27,7 @@
                                 v-on="on"
                                 class="mx-1"
                             >
-                                custom token,
+                                custom token
                             </a>
                         </template>
                         <span>
@@ -131,7 +82,7 @@
         </v-card>
 
         <!-- Polls -->
-        <GovPollForm v-if="tokenExists" />
+        <!-- <GovPollForm v-if="tokenExists" /> -->
     </v-flex>
 </template>
 
@@ -139,17 +90,19 @@
 import { auth, db, storage } from "@/plugins/firebase";
 import { mapGetters, mapState } from "vuex";
 import { VStore } from "@/store";
-import GovPollForm from "../DonationCards/GovPollForm.vue";
+//import GovPollForm from "../DonationCards/GovPollForm.vue";
+import DoughnutChart from "../Chart/DoughnutChart.vue";
+import GovernanceTokenStats from './GovernanceTokenStats.vue';
 
 export default {
-    components: { GovPollForm },
+    components: { DoughnutChart, GovernanceTokenStats },
     data() {
         return {
             // token generation
             tokenExists: false,
             tokenRequested: false,
             requestButtonLoading: true,
-            //requestButtonMsg: "Request Custom Token",
+            chartLoaded: false,   
 
             dataLoading: true,
 
@@ -181,50 +134,80 @@ export default {
             this.$emit("saveDisabled");
         },
 
-        async getCardData() {
-            this.dataLoading = true;
+        // async getCardData() {
+        //     this.dataLoading = true;
 
-            let cardDoc = await db.collection("chats").doc(this.uid).get();
-            let data = cardDoc.data();
+        //     let cardDoc = await db.collection("chats").doc(this.uid).get();
+        //     let data = cardDoc.data();
 
-            // if they have previous data load it
-            if (data != null) {
-                this.formData.topDonors = data.topDonors;
-                this.formData.loyalDonors = data.loyalDonors;
-            }
+        //     // if they have previous data load it
+        //     if (data != null) {
+        //         this.formData.topDonors = data.topDonors;
+        //         this.formData.loyalDonors = data.loyalDonors;
+        //     }
 
-            this.dataLoading = false;
-        },
-        async updateCardData() {
-            this.saveLoading = true;
-            await db.collection("chats").doc(this.uid).update({
-                topDonors: this.formData.topDonors,
-                loyalDonors: this.formData.loyalDonors,
-            });
+        //     this.dataLoading = false;
+        // },
 
-            this.saveLoading = false;
-        },
+        // async updateCardData() {
+        //     this.dataLoading = true;
+        //     await db.collection("stream").doc(this.uid).update({
+        //         topDonors: this.formData.topDonors,
+        //         loyalDonors: this.formData.loyalDonors,
+        //     });
+
+        //     this.dataLoading = false;
+        // },
 
         async getTokenData() {
             this.requestButtonLoading = true;
 
             // check if the token has been requested
-            const reqRef = await db.collection("requests").doc(this.uid);
-            if (reqRef.exists) {
-                this.tokenRequested = true;
+            const reqDoc = await db.collection("requests").doc(this.uid).get();
+            if (reqDoc.exists) {
+                const reqData = reqDoc.data();
+                if (reqData.governance == "requested") {
+                    this.tokenRequested = true;
+                } else {
+                    // check if the token exists and save the name
+                    const userDoc = await db
+                        .collection("users")
+                        .doc(this.uid)
+                        .get();
+                    const userData = await userDoc.data();
+                    const tokenName = userData?.tokenName;
+                    if (tokenName) {
+                        this.tokenData.name = "Governance Token";
+                        this.tokenData.symbol = tokenName + "-HARK";
+                        this.tokenExists = true;
+                    }
+
+                    // get the holder data and save in chart     
+                    this.chartdata = {
+                        labels: ["help"],
+                        datasets: [
+                            {
+                                label: "Tokens",
+                                backgroundColor: [
+                                    "#DAF7A6",
+                                    "#FFC300",
+                                    "#FF5733",
+                                    "#C70039",
+                                    "#900C3F",
+                                    "#581845",
+                                    "#33b5ff",
+                                    "#ff3399",
+                                ],
+                                data: [100],
+                            },
+                        ],
+                    };
+                    this.chartLoaded = true;
+                }
             } else {
                 this.tokenRequested = false;
                 this.requestButtonLoading = false;
                 return;
-            }
-
-            // check if the token exists and save the name
-            const userDoc = await db.collection("users").doc(this.uid).get();
-            const userData = await userDoc.data();
-            const tokenName = userData?.tokenName;
-            if (tokenName) {
-                this.tokenData.name = "Governance Token";
-                this.tokenData.symbol = tokenName;
             }
 
             // TODO: get the token holders
@@ -247,19 +230,20 @@ export default {
             this.requestButtonLoading = false;
 
             // call api to generate the token
-            // this call requires admin approval
-            // res = await this.$axios.$post(
-            //     `${process.env.API_URL}/deploy-governance-contract/${this.uid}`,
-            //     {
-            //         headers: {
-            //             auth: process.env.HARK_ADMIN_KEY,
-            //         },
-            //     }
-            // );
-            // if (res.success) {
-            //     this.tokenRequested = false;
-            //     this.tokenExists = true;
-            // }
+            // autodeploy will be disabled in future builds
+            const autoDeploy = true; // false
+            if (autoDeploy) {
+                const { data } = await this.$axios.post(
+                    `${process.env.API_URL}/theta/deploy-governance-contract/${this.uid}`,
+                    {
+                        idToken: token,
+                    }
+                );
+                if (data.success) {
+                    this.tokenRequested = false;
+                    this.tokenExists = true;
+                }
+            }
         },
     },
     computed: {
