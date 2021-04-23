@@ -1,20 +1,24 @@
 <template>
-    <v-card class="mb-4 pa-3">
+    <v-sheet style="height:100%;">
         <div v-if="hasCustom">
             <!-- title -->
-            <v-flex class="mb-3">
-                <h2>Custom Token Stats</h2>
-            </v-flex>
-            <v-flex class="d-flex">
-                <img
-                    class="custom-token-image mr-4"
-                    src="https://cdn.discordapp.com/attachments/814278920168931382/827009394113642496/custom_token.png"
-                />
-                <div>
-                    <div class="mb-4">
+            <v-sheet class="background1">
+                <v-banner color="transparent">
+                    <v-flex>
+                        <h2 style="font-size:1.5em;font-weight:400;color:white;">Custom Token Statistics</h2>
+                    </v-flex>
+                </v-banner>
+                <v-divider class="mb-3" style="border-color:white;"></v-divider>
+                <v-flex class="d-flex pa-2 pb-5">
+                    <img
+                        class="custom-token-image mx-4"
+                        src="https://cdn.discordapp.com/attachments/814278920168931382/827009394113642496/custom_token.png"
+                    />
+                    <div>
                         <h3>{{ contractData.symbol }}</h3>
-                        <div>
-                            Contract: {{ contractData.address }}
+                        <v-divider class="mt-3 mb-2" style="border-color:white;"></v-divider>
+                        <div class="pb-2 white--text">
+                            CONTRACT: {{ contractData.address }}
                             <a
                                 :href="`https://beta-explorer.thetatoken.org/account/${contractData.address}`"
                                 target="_blank"
@@ -22,8 +26,8 @@
                                 <v-icon small> mdi-link </v-icon>
                             </a>
                         </div>
-                        <div>
-                            Owner: {{ contractData.owner }}
+                        <div class="mb-7 white--text">
+                            OWNER: {{ contractData.owner }}
                             <a
                                 :href="`https://beta-explorer.thetatoken.org/account/${contractData.owner}`"
                                 target="_blank"
@@ -31,44 +35,48 @@
                                 <v-icon small> mdi-link </v-icon>
                             </a>
                         </div>
-                        <div>
-                            TFUEL Redistributed:
+                        <div class="white--text">
+                            TFUEL REDISTRIBUTED:
                             {{ contractData.tfuelReleased }}
                         </div>
                     </div>
-                </div>
-            </v-flex>
-            <v-flex class="d-flex flex-warp wrap pa-3">
-                <v-card class="d-flex flex-column mb-4 pa-3">
-                    <h3>SUPPORTERS</h3>
-                    <div class="d-flex" style="max-width:300px;">
-                        <div class="container">
-                            <DoughnutChart
-                                v-if="holderChartLoaded"
-                                :chartdata="holderChartData"
-                                :options="options"
-                                class="small-graph"
-                            />
+                </v-flex>
+                <v-divider class="my-2" style="border-color:white"></v-divider>
+                <v-flex class="d-flex justify-space-around flex-warp wrap pa-3">
+                    <v-sheet color="transparent" class="d-flex flex-column mb-4 pa-3">
+                        <h3>SUPPORTERS</h3>
+                        <v-divider class="mt-1" style="border-color:white"></v-divider>
+                        <div class="d-flex" style="max-width:700px;">
+                            <div class="container">
+                                <DoughnutChart
+                                    v-if="holderChartLoaded"
+                                    :chartdata="holderChartData"
+                                    :options="options"
+                                    class="small-graph"
+                                    style="color:white;"
+                                />
+                            </div>
                         </div>
-                    </div>
-                </v-card>
-                <v-card class="d-flex flex-column mb-4 pa-3 ml-15">
-                    <h3>SHAREHOLDERS</h3>
-                    <div class="d-flex" style="max-width:300px;">
-                        <div class="container">
-                            <DoughnutChart
-                                v-if="payeeChartLoaded"
-                                :chartdata="payeeChartData"
-                                :options="options"
-                                class="small-graph"
-                            />
+                    </v-sheet>
+                    <v-sheet color="transparent" class="d-flex flex-column mb-4 pa-3">
+                        <h3>SHAREHOLDERS</h3>
+                        <v-divider class="mt-1" style="border-color:white"></v-divider>
+                        <div class="d-flex" style="max-width:700px;">
+                            <div class="container">
+                                <DoughnutChart
+                                    v-if="payeeChartLoaded"
+                                    :chartdata="payeeChartData"
+                                    :options="options"
+                                    class="small-graph"
+                                />
+                            </div>
                         </div>
-                    </div>
-                </v-card>
-            </v-flex>
+                    </v-sheet>
+                </v-flex>
+            </v-sheet>
         </div>
         <h3 v-else>No Custom Token Yet</h3>
-    </v-card>
+    </v-sheet>
 </template>
 
 <script>
@@ -98,6 +106,13 @@ export default {
                 shares: [],
                 payees: [],
                 tfuelReleased: 0,
+            },
+            options: {
+                legend: {
+                    labels: {
+                        fontColor: "white"
+                    }
+                }
             },
         };
     },
@@ -181,4 +196,24 @@ export default {
 </script>
 
 <style>
+
+    .background1 {
+        background: rgb(40, 40, 87);
+        background: linear-gradient(
+            45deg,
+            rgba(40, 40, 87, 1) 0%,
+            rgba(177, 87, 87, 1) 100%
+        );
+    }
+
+    .barground {
+        background: rgb(40,38,80);
+        background: linear-gradient(60deg, rgba(40,38,80,1) 0%, rgba(94,59,87,1) 100%); 
+    }
+
+    h3 {
+        font-size:1.2em;
+        font-weight:500;
+        color:white;
+    }
 </style>

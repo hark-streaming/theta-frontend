@@ -268,6 +268,7 @@ export default {
 </script>
 
 <style>
+
 .custom-token-image {
     width: 275px;
     height: 200px;

@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- Theta Web Widget -->
-        <v-banner color="secondary"><h2>Theta Network Statistics</h2></v-banner>
+        <v-banner class="barground"><h2>Theta Network Statistics</h2></v-banner>
         <div
             id="theta-section"
             ref="theta-section"
@@ -44,9 +44,13 @@ export default {
 };
 </script>
 <style scoped>
+  .barground {
+    background: rgb(40,38,80);
+    background: linear-gradient(60deg, rgba(40,38,80,1) 0%, rgba(94,59,87,1) 100%); 
+  }
     h2 {
-        font-size:1.1em;
+        font-size:1.5em;
         color:white;
-        font-weight:300;
+        font-weight:400;
     }
 </style>

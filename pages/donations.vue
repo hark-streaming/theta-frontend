@@ -2,13 +2,12 @@
 
 <template>
     <v-container class="pt-5">
-        <h2 style="font-size:2em;color:white;">NONPROFITS</h2>
+        <h2 style="font-size:2em;color:white;font-weight:500;">NONPROFITS</h2>
         <v-divider class="pb-4" style="border-color:white;"></v-divider>
         <v-row :justify="start" :align="start">
             <template v-for="(card, index) in dcards">
                 <v-col :key="index" cols="4">
                     <donation-card
-                        class="mt-2"
                         :bgimage="card.bgimage"
                         :mainimage="card.mainimage"
                         :title="card.title"

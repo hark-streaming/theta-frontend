@@ -23,7 +23,7 @@
                   >COMPLAINTS</v-btn> -->
                 <!-- </div> -->
               </div>
-              <div class="d-flex align-center">
+              <!-- <div class="d-flex align-center">
                 <v-file-input
                   ref="image"
                   accept="image/png, image/jpeg, image/bmp"
@@ -50,7 +50,7 @@
                   :disabled="!imageFile"
                   @click="uploadFile"
                 >UPDATE</v-btn>
-              </div>
+              </div> -->
             </div>
           </v-card>
 
