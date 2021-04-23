@@ -165,7 +165,7 @@ export default {
             this.balanceLoading = true;
             try {
                 let result = await this.$axios.$get(
-                    `${process.env.API_URL}/theta/address/${this.uid}?force=${force}`
+                    `${process.env.API_URL}/theta/address/${this.uid}/?force_update=${force}`
                 );
                 this.balance =
                     result.vaultBalance == null

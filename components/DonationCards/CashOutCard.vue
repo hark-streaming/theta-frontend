@@ -35,7 +35,7 @@
             <template :default="{ tfuelAmount }">
               <div>
                 {{ tfuelAmount }} TFuel (~ ${{
-                  (tfuelAmount * 0.3).toPrecision(3)
+                  (tfuelAmount * 0.25).toPrecision(3)
                 }})
               </div>
             </template>

@@ -131,7 +131,7 @@
               <v-text-field
                 v-model="username"
                 :counter="100"
-                :rules="nameRules"
+                :rules="usernameRules"
                 :disabled="loading"
                 label="Account Username"
                 required
@@ -239,6 +239,7 @@ export default {
 
       // rules
       nameRules: [(v) => !!v || "Name is required"],
+      usernameRules: [(v) => !/([ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])+/.test(v) || "No whitespace or special characters allowed!"],
       einRules: [(v) => /(^[1-9]\d?-\d{7}$)|^$/.test(v) || "EIN must be valid"],
       phoneRules: [
         (v) =>
@@ -444,7 +445,7 @@ export default {
 
       // Don't check unless we have a username
       if (!username) {
-        this.usernameError = "Name is required";
+        this.usernameError = "Username is required";
         return false;
       }
 
