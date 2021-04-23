@@ -32,9 +32,6 @@
                             <card-form :v-show="false" />
                         </v-layout>
                         <v-layout v-show="showStreamInfo" justify-center>
-                            <relay-card />
-                        </v-layout>
-                        <v-layout v-show="showStreamInfo" justify-center>
                             <cash-out-card />
                         </v-layout>
                     </v-tab-item>
@@ -248,6 +245,9 @@
                     <v-tab-item eager>
                         <v-layout justify-center>
                             <governance-token-form />
+                        </v-layout>
+                        <v-layout v-show="showStreamInfo" justify-center>
+                            <relay-card />
                         </v-layout>
                     </v-tab-item>
                 </v-tabs>

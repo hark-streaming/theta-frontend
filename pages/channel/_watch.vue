@@ -655,22 +655,22 @@ export default {
                 const poster = live ? data.thumbnail : data.poster;
 
                 // Fallback to bump if offline
-                if (live === false) {
-                    try {
-                        const { data } = await $axios.getSSR(
-                            "https://api.bitwave.tv/api/bump",
-                            {
-                                timeout,
-                            }
-                        );
-                        url = data.url;
-                        type = "video/mp4";
-                    } catch (error) {
-                        console.error(error.message);
-                        url = "https://cdn.bitwave.tv/static/bumps/2a3un.mp4";
-                        type = "video/mp4";
-                    }
-                }
+                // if (live === false) {
+                //     try {
+                //         const { data } = await $axios.getSSR(
+                //             "https://api.bitwave.tv/api/bump",
+                //             {
+                //                 timeout,
+                //             }
+                //         );
+                //         url = data.url;
+                //         type = "video/mp4";
+                //     } catch (error) {
+                //         console.error(error.message);
+                //         url = "https://cdn.bitwave.tv/static/bumps/2a3un.mp4";
+                //         type = "video/mp4";
+                //     }
+                // }
 
                 return {
                     success: true,
