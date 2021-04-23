@@ -116,30 +116,47 @@ export default {
         async getChartData() {
             this.loaded = false;
             const { data } = await this.$axios.get(
-                //`${process.env.API_URL}/theta/tokens/${this.uid}`
-                `${process.env.API_URL}/theta/tokens/WbQpVz9J6FYSUFgtvn8XPQvyeD03`
+                `${process.env.API_URL}/theta/tokens/${this.uid}`
+                //`${process.env.API_URL}/theta/tokens/WbQpVz9J6FYSUFgtvn8XPQvyeD03`
             );
-            const tokens = Object.keys(data.tokens);
-            const amounts = Object.values(data.tokens);
-            this.chartdata = {
-                labels: tokens,
-                datasets: [
-                    {
-                        label: "Tokens",
-                        backgroundColor: [
-                            "#DAF7A6",
-                            "#FFC300",
-                            "#FF5733",
-                            "#C70039",
-                            "#900C3F",
-                            "#581845",
-                            "#33b5ff",
-                            "#ff3399",
-                        ],
-                        data: amounts,
-                    },
-                ],
-            };
+            if (data.success) {
+                const tokens = Object.keys(data.tokens);
+                const amounts = Object.values(data.tokens);
+                this.chartdata = {
+                    labels: tokens,
+                    datasets: [
+                        {
+                            label: "Tokens",
+                            backgroundColor: [
+                                "#DAF7A6",
+                                "#FFC300",
+                                "#FF5733",
+                                "#C70039",
+                                "#900C3F",
+                                "#581845",
+                                "#33b5ff",
+                                "#ff3399",
+                            ],
+                            data: amounts,
+                        },
+                    ],
+                };
+                this.hasTokens = true;
+            }
+            else {
+                this.hasTokens = false;
+                this.chartdata = {
+                    labels: ["No custom tokens owned :("],
+                    datasets: [
+                        {
+                            label: "Tokens",
+                            backgroundColor: [],
+                            data: [1],
+                        },
+                    ],
+                };
+            }
+
             this.loaded = true;
         },
     },

@@ -130,7 +130,7 @@ export default {
   async mounted() {
     const endpoint = `${process.env.API_URL}/theta/address/${this.uid}`;
     const result = await this.$axios.$get(endpoint);
-    console.log(result);
+    //console.log(result);
 
     this.tfuelAmount = result.vaultBalance == null ? 0 : result.vaultBalance;
 
