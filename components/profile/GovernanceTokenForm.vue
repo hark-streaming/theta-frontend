@@ -236,7 +236,7 @@ export default {
 
             // call api to drop a request for a token
             const token = await auth.currentUser.getIdToken(true);
-            let res = await this.$axios.$put(
+            let res = await this.$axios.$post(
                 `${process.env.API_URL}/theta/request-governance-contract`,
                 {
                     idToken: token,
