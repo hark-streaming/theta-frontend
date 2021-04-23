@@ -35,15 +35,13 @@
                             TFUEL Redistributed:
                             {{ contractData.tfuelReleased }}
                         </div>
-                        <div></div>
-                        <div></div>
                     </div>
                 </div>
             </v-flex>
-            <div class="space">
+            <v-flex class="d-flex flex-warp wrap pa-3">
                 <v-card class="d-flex flex-column mb-4 pa-3">
                     <h3>SUPPORTERS</h3>
-                    <div class="d-flex">
+                    <div class="d-flex" style="max-width:300px;">
                         <div class="container">
                             <DoughnutChart
                                 v-if="holderChartLoaded"
@@ -54,11 +52,9 @@
                         </div>
                     </div>
                 </v-card>
-            </div>
-            <div class="space">
-                <v-card class="d-flex flex-column mb-4 pa-3">
+                <v-card class="d-flex flex-column mb-4 pa-3 ml-15">
                     <h3>SHAREHOLDERS</h3>
-                    <div class="d-flex">
+                    <div class="d-flex" style="max-width:300px;">
                         <div class="container">
                             <DoughnutChart
                                 v-if="payeeChartLoaded"
@@ -69,7 +65,7 @@
                         </div>
                     </div>
                 </v-card>
-            </div>
+            </v-flex>
         </div>
         <h3 v-else>No Custom Token Yet</h3>
     </v-card>
@@ -78,7 +74,9 @@
 <script>
 import { mapGetters, mapState } from "vuex";
 import { VStore } from "@/store";
+import DoughnutChart from "../Chart/DoughnutChart.vue";
 export default {
+    components: { DoughnutChart },
     props: {
       uid: { type: String }
     },

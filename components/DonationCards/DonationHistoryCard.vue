@@ -57,7 +57,7 @@
             <div class="space">
                 <v-card class="d-flex flex-column mb-4 pa-3">
                     <h3>RECENT TFUEL DONATED</h3>
-                    <div v-if="!hasDonations"> No recent donations :(</div>
+                    <div v-if="!hasDonations"> No recent donations.</div>
                     <div
                         class="d-flex"
                         v-for="(transaction, index) in transactions"

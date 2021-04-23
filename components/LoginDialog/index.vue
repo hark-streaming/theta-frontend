@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card max-width="420px">
         <!-- Header Bar -->
         <v-sheet
             tile

@@ -54,7 +54,7 @@
                 {{ donateMsg }}
             </v-btn>
 
-            <v-divider v-if="showPolls" vertical></v-divider>
+            <!-- <v-divider v-if="showPolls" vertical></v-divider> -->
 
             <!-- Poll voting dialog; display only if there is at least one active poll -->
             <!-- <VoteDialog 

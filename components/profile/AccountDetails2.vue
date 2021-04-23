@@ -1,8 +1,12 @@
 <template>
+
+<!-- <v-layout justify-center>
+      <v-flex xs14 sm12 md10 lg8>
+        <v-card class="mb-4 pa-3"> -->
         <v-sheet style="width:100%;" class="mb-4 pa-3">
-          <v-card color="secondary" outlined>
+          <v-card class="bigbackground">
             <div class="container">
-              <div class="d-flex justify-space-around align-center">
+              <div class="d-flex justify-space-around align-center mb-5">
                 <v-avatar color="grey darken-4" size="200" class="justify-space-around ma-3">
                   <img
                     :src="imageUrl || `https://cdn.discordapp.com/attachments/778040889359466546/834964837922635796/defaultviewer.jpg`"
@@ -19,10 +23,40 @@
                   >COMPLAINTS</v-btn> -->
                 <!-- </div> -->
               </div>
+              <div class="d-flex align-center">
+                <v-file-input
+                  ref="image"
+                  accept="image/png, image/jpeg, image/bmp"
+                  show-size
+                  :rules="sizeRules"
+                  color="primary"
+                  label="Upload a new profile photo."
+                  solo
+                  light
+                  filled
+                  prepend-icon=""
+                  prepend-inner-icon="$file"
+                  background-color="white"
+                  truncate-length="30"
+                  @change="onFilePicked"
+                  dense
+                />
+                <v-btn
+                  medium
+                  class="flex-shrink-1 ml-2 mb-7"
+                  :loading="uploadingAvatar"
+                  color="white white--text"
+                  outlined
+                  :disabled="!imageFile"
+                  @click="uploadFile"
+                >UPDATE</v-btn>
+              </div>
             </div>
           </v-card>
 
-          <h2 style="padding-top:10px;font-weight:500;" class="container2 secondary--text">Profile Information</h2>
+          <!-- <h2 style="padding-top:10px;font-weight:500;" class="container2">Profile Information</h2>
+
+          <v-divider class="mt-2 mb-7"></v-divider> -->
 
           <div v-if="user" class="my-4">
 
@@ -376,6 +410,15 @@
 </script>
 
 <style scoped lang='scss'>
+
+.bigbackground {
+  background: rgb(40, 40, 87);
+  background: linear-gradient(
+      45deg,
+      rgba(40, 40, 87, 1) 0%,
+      rgba(177, 87, 87, 1) 100%
+  );
+}
 
 .glass {
   background: rgba(255, 255, 255, 0.8);
