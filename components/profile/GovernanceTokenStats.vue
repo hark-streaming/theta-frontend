@@ -210,10 +210,5 @@ export default {
         background: rgb(40,38,80);
         background: linear-gradient(60deg, rgba(40,38,80,1) 0%, rgba(94,59,87,1) 100%); 
     }
-
-    h3 {
-        font-size:1.2em;
-        font-weight:500;
-        color:white;
-    }
+    
 </style>

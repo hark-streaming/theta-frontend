@@ -262,6 +262,11 @@ export default {
 </script>
 
 <style scoped>
+h3 {
+    color:black;
+    font-weight:400;
+    font-size:1em;
+}
 .v-text-field {
     max-width: 50%;
 }
