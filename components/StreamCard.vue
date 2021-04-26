@@ -4,7 +4,8 @@
       class="stream-card"
       :to="to"
       no-prefetch
-      color="#F0F0F0"
+      color="transparent"
+      flat
     >
       <!-- Thumbnail -->
       <v-img
@@ -37,12 +38,12 @@
       <!-- Card Data -->
       <div class="pa-2">
         <!-- Stream Data -->
-        <div class="body-1 text-truncate text-no-wrap mb-0 black--text">
+        <div class="body-1 text-truncate text-no-wrap mb-0 white--text">
           {{ title }}
         </div>
         <div class="caption d-flex align-center">
 
-          <div class="d-block text-truncate black--text">{{ name }}</div>
+          <div class="d-block text-truncate white--text">{{ name }}</div>
 
           <!-- NSFW Indicator -->
           <template v-if="nsfw">
