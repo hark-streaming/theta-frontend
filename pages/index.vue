@@ -101,7 +101,7 @@
                     TRENDING
                 </h2>
             </v-card>
-            <v-sheet class="py-3" color="#F0F0F0">
+            <v-sheet color="transparent" class="py-3">
                 <stream-grid
                     v-if="streamers.length > 0"
                     :streamers="streamers"
@@ -386,6 +386,11 @@ p {
         rgba(40, 40, 87, 1) 0%,
         rgba(177, 87, 87, 1) 100%
     );
+}
+
+.barground {
+    background: rgb(40,38,80);
+    background: linear-gradient(60deg, rgba(40,38,80,1) 0%, rgba(94,59,87,1) 100%); 
 }
 
 .videoback {
