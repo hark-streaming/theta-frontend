@@ -163,7 +163,6 @@ import { db } from "@/plugins/firebase.js";
 //import Chat from "@/components/Chat/Chat";
 import StreamTopBar from "@/components/Channel/StreamTopBar";
 import StreamInfo from "@/components/Channel/StreamInfo";
-import BitwaveVideoPlayer from "@/components/BitPlayer/BitwaveVideoPlayer";
 import ThetaVideoPlayer from "@/components/ThetaPlayer/ThetaVideoPlayer";
 
 const Stickers = async () => await import("@/components/effects/Stickers");
@@ -228,7 +227,6 @@ export default {
         StreamTopBar,
         StreamInfo,
         //Chat,
-        //BitwaveVideoPlayer,
         ThetaVideoPlayer,
     },
 

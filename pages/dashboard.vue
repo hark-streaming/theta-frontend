@@ -37,7 +37,7 @@
                     </v-col>
 
                     <!-- Chat -->
-                    <v-col xl="2" lg="3" md="3" sm="2"> 
+                    <v-col xl="4" lg="3" md="3" sm="2"> 
                         <v-sheet
                             v-if="displayChat"
                             color="transparent"
@@ -53,6 +53,7 @@
                     </v-col>
                 </v-row>
             </v-card>
+
             <!-- Configuration -->
 
             <v-row>
@@ -164,13 +165,14 @@
                         </v-card>
                     </v-flex> -->
 
-                    <v-col cols="5">
+                    <!-- <v-col cols="5"> -->
+                    <v-col class="d-flex justify-center">
                         <StreamInfoDashboard :username="username" />
                     </v-col>
-                    <v-col cols="7">
+                    <!-- <v-col cols="7"> -->
                         <!-- <DashboardPolls :username="username" /> -->
                         <!-- <DashboardPolls :uid="uid" /> -->
-                    </v-col>
+                    <!-- </v-col> -->
                 </v-layout>
             </v-row>
         </v-container>
