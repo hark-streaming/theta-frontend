@@ -1,4 +1,7 @@
 <template>
+
+    <!-- Section to edit stream title, description, tags, and donation button -->
+
     <v-flex v-if="showStreamInfo" xs14 sm12 md10 lg12>
         <v-card>
             <v-container class="ma-0 pa-0">

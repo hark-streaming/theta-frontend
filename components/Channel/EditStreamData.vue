@@ -275,7 +275,7 @@
   import { mapGetters } from 'vuex'
   import { VStore } from '@/store';
   import { auth } from '@/plugins/firebase';
-  import StreamInfoDashboard from "@/components/StreamInfoDashboard";
+  import StreamInfoDashboard from "@/components/StreamEditors/StreamInfoDashboard";
 
   export default {
     name: 'EditStreamData',

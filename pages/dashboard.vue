@@ -184,8 +184,8 @@ import { auth, db } from "@/plugins/firebase.js";
 import { mapGetters, mapState } from "vuex";
 import { Chat as ChatStore } from "@/store/chat";
 import { VStore } from "@/store";
-import StreamInfoDashboard from "@/components/StreamInfoDashboard";
-import DashboardPolls from "@/components/Dashboard/DashboardPolls";
+import StreamInfoDashboard from "@/components/StreamEditors/StreamInfoDashboard";
+import DashboardPolls from "@/components/StreamEditors/DashboardPolls";
 
 export default {
     name: "dashboard",
