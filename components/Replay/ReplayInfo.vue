@@ -183,7 +183,7 @@
   const ShareStream    = async () => await import ( '@/components/Channel/ShareStream' );
   const EditReplayButton = async () => await import ( '@/components/Replay/EditReplayButton' );
   const StreamArchives = async () => await import ( '@/components/Channel/StreamArchives' );
-  const RestreamDialog = async () => await import ( '@/components/Restream/RestreamDialog' );
+  const RestreamDialog = async () => await import ( '@/components/Replay/Restream/RestreamDialog' );
 
   const DebugStream = async () => await import ( '@/components/Analytics/DebugStream' );
 
