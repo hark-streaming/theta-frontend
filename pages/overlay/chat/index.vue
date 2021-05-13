@@ -58,9 +58,9 @@
   import { auth, db } from '@/plugins/firebase.js';
   import { mapGetters } from 'vuex';
 
-  import ChatOverlayInfoCards from '@/components/Overlay/ChatOverlayInfoCards';
+  import ChatOverlayInfoCards from '@/components/Chat/ChatOverlay/ChatOverlayInfoCards';
   import { VStore } from '@/store';
-  const ChatOverlayDialog = () => import ( '@/components/Overlay/ChatOverlayDialog' );
+  const ChatOverlayDialog = () => import ( '@/components/Chat/ChatOverlay/ChatOverlayDialog' );
 
   export default {
     name: 'chat',
