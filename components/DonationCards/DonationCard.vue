@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import TempTags from "@/components/TempTags";
+import TempTags from "@/components/Tags/TempTags";
 import { mapGetters } from "vuex";
 import { VStore } from "@/store";
 

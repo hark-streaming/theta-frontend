@@ -213,7 +213,7 @@
 <script>
   import { mapGetters } from 'vuex';
   import { VStore } from '@/store';
-  import TempTags from '@/components/TempTags';
+  import TempTags from '@/components/Tags/TempTags';
 
   import { timeAgo } from '@/assets/js/time-ago';
 

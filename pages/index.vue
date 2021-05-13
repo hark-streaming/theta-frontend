@@ -129,7 +129,7 @@
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 import { VStore } from "@/store";
-import TempTags from "../components/TempTags";
+import TempTags from "../components/Tags/TempTags";
 
 export default {
     scrollToTop: true,
