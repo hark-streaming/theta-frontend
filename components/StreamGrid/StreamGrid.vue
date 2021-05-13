@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import StreamCard from "@/components/StreamCard";
+import StreamCard from "@/components/StreamGrid/StreamCard";
 import { db } from "@/plugins/firebase";
 import { mapGetters } from "vuex";
 import { VStore } from "@/store";
