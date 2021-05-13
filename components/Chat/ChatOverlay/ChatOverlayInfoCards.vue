@@ -149,7 +149,7 @@
   import { db } from '@/plugins/firebase.js';
   import moment from 'moment';
 
-  const ChatOverlayDialog = () => import ( '@/components/Overlay/ChatOverlayDialog' );
+  const ChatOverlayDialog = () => import ( '@/components/Chat/ChatOverlay/ChatOverlayDialog' );
 
   export default {
     name: 'ChatOverlayInfoCard',
