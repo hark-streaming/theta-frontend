@@ -144,8 +144,8 @@ import sidebar from "@/components/SubLayout/sidebar";
 import Notifications from "@/components/Notifications";
 import StreamHereBtn from "@/components/SubLayout/StreamHereBtn";
 import SystemAlert from "@/components/Alerts/SystemAlert";
-import PagesDropDown from "@/components/RoutingBar/PagesDropDown";
-import LocationDropDown from "@/components/RoutingBar/LocationDropDown";
+import PagesDropDown from "@/components/SubLayout/RoutingBar/PagesDropDown";
+import LocationDropDown from "@/components/SubLayout/RoutingBar/LocationDropDown";
 
 const Fireworks = async () => await import("@/components/effects/fireworks");
 
