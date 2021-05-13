@@ -298,7 +298,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~assets/style/bitwave-toast";
+// @import "~assets/style/bitwave-toast";
 
 .custom.v-text-field input {
     font-size: 0.9em;
