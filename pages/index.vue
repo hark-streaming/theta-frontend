@@ -144,7 +144,7 @@ export default {
         return {
             mounted: false,
             player: null,
-            poster: "/bitwave_cover.png",
+            poster: "/hark_cover.png",
             chatMessages: null,
             offline: true,
 
